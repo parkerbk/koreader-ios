@@ -112,7 +112,7 @@ case "${KO_AHEAD}" in
     ''|*[!0-9]*) KO_AHEAD=0 ;;
 esac
 SHORT_VERSION="${KO_TAG}.${KO_AHEAD}"
-BUNDLE_ID="${IOS_BUNDLE_ID:-rocks.koreader.ios}"
+BUNDLE_ID="${IOS_BUNDLE_ID:-com.bparker2003.koreader}"
 sed -e "s|@BUNDLE_ID@|${BUNDLE_ID}|g" \
     -e "s|@SHORT_VERSION@|${SHORT_VERSION}|g" \
     -e "s|@BUNDLE_VERSION@|${KO_AHEAD}|g" \

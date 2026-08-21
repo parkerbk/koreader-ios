@@ -19,7 +19,7 @@ update: ios-check-prereqs all
 
 # Bundle identifier baked into Info.plist. Must match
 # PRODUCT_BUNDLE_IDENTIFIER in platform/ios/project.yml.
-IOS_BUNDLE_ID ?= rocks.koreader.ios
+IOS_BUNDLE_ID ?= com.bparker2003.koreader
 
 # CFBundleShortVersionString has to be a dotted numeric string; the raw
 # `git describe` output (v2026.03-70-gabc123_2026-04-27) is not, and iOS

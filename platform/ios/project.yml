@@ -1,6 +1,6 @@
 name: KOReader
 options:
-  bundleIdPrefix: rocks.koreader
+  bundleIdPrefix: com.bparker2003
   deploymentTarget:
     iOS: "15.0"
   createIntermediateGroups: true
@@ -38,7 +38,7 @@ targets:
       - path: platform/ios/Assets.xcassets
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: rocks.koreader.ios
+        PRODUCT_BUNDLE_IDENTIFIER: com.bparker2003.koreader
         INFOPLIST_FILE: platform/ios/Info.plist
         CODE_SIGN_ENTITLEMENTS: platform/ios/KOReader.entitlements
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
