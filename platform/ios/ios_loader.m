@@ -78,6 +78,24 @@ int main(int argc, char *argv[]) {
             NSDocumentDirectory, NSUserDomainMask, YES);
         if (docs.count > 0) {
             setenv("KO_HOME", [docs[0] fileSystemRepresentation], 1);
+
+            /* PluginLoader auto-registers <data dir>/plugins as an extra
+             * plugin path without checking that it exists, then calls
+             * lfs.dir() on it -- which raises if the directory is missing.
+             * The Documents dir starts out empty on a fresh install, so
+             * create it here. It doubles as the drop point for user-added
+             * plugins: UIFileSharingEnabled exposes Documents in the Files
+             * app, so this folder shows up under On My iPhone -> KOReader. */
+            NSString *pluginsDir = [docs[0] stringByAppendingPathComponent:@"plugins"];
+            NSError *mkdirErr = nil;
+            if (![[NSFileManager defaultManager] createDirectoryAtPath:pluginsDir
+                                           withIntermediateDirectories:YES
+                                                            attributes:nil
+                                                                 error:&mkdirErr]) {
+                fprintf(stderr, "[%s]: could not create %s: %s\n", LOGNAME,
+                        [pluginsDir fileSystemRepresentation],
+                        [[mkdirErr localizedDescription] UTF8String]);
+            }
         }
 
         lua_State *L = luaL_newstate();
