@@ -1,0 +1,2290 @@
+msgid ""
+msgstr ""
+"Language-Team: Russian\n"
+"Language: ru\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "\"My dear Mr. Bennet,\" said his lady to him one day, \"have you heard that Netherfield Park is let at last?\" Mr. Bennet replied that he had not. \"But it is,\" returned she; \"for Mrs. Long has just been here, and she told me all about it.\" Mr. Bennet made no answer."
+msgstr "\"Дорогой мой мистер Беннет, — сказала ему как-то его супруга, — слышали вы, что Незерфилд-парк наконец сдан?\" Мистер Беннет ответил, что не слышал. \"Но это так, — возразила она, — миссис Лонг только что была здесь и всё мне рассказала\". Мистер Беннет ничего не ответил."
+
+msgid "%d Categories"
+msgstr "%d категорий"
+
+msgid "%d items"
+msgstr "%d элементов"
+
+msgid "%d patches"
+msgstr "%d патчей"
+
+msgid "%d plugins"
+msgstr "%d плагинов"
+
+msgid "%d wallpapers"
+msgstr "%d обоев"
+
+msgid "%d wallpapers stored on device"
+msgstr "%d обоев сохранено на устройстве"
+
+msgid "%d wallpapers · Folder Shuffle (all in rotation)"
+msgstr "%d обоев · Случайно из папки (все в ротации)"
+
+msgid "%d wallpapers · Mode: Book Cover"
+msgstr "%d обоев · Режим: Обложка книги"
+
+msgid "%d wallpapers · Single mode active"
+msgstr "%d обоев · Активен одиночный режим"
+
+msgid "%s and %s"
+msgstr "%s и %s"
+
+msgid "%s is up to date (version %s)."
+msgstr "%s имеет актуальную версию (версия %s)."
+
+msgid "%s is up to date."
+msgstr "%s имеет актуальную версию."
+
+msgid "%s needs an update."
+msgstr "%s требует обновления."
+
+msgid "%s · %d files"
+msgstr "%s · %d файлов"
+
+msgid "%s · 1 file"
+msgstr "%s · 1 файл"
+
+msgid "(fork)"
+msgstr "(форк)"
+
+msgid "(showing %d of %d commits)"
+msgstr "(показано %d из %d коммитов)"
+
+msgid "+ Add to Shuffle Pool"
+msgstr "+ Добавить в случайный показ"
+
+msgid "1 / 1"
+msgstr "1 / 1"
+
+msgid "1 patch"
+msgstr "1 патч"
+
+msgid "1 plugin"
+msgstr "1 плагин"
+
+msgid "< Back"
+msgstr "< Назад"
+
+msgid "< Prev"
+msgstr "< Пред"
+
+msgid "?"
+msgstr "?"
+
+msgid "A -> Z"
+msgstr "А -> Я"
+
+msgid "A → Z"
+msgstr "А → Я"
+
+msgid "About"
+msgstr "О программе"
+
+msgid "About Storefront"
+msgstr "О Storefront"
+
+msgid "Active Single"
+msgstr "Активный одиночный"
+
+msgid "Active Wallpaper ✓"
+msgstr "Активные обои ✓"
+
+msgid "Active: %s"
+msgstr "Активно: %s"
+
+msgid "Add to Shuffle"
+msgstr "Добавить в ротацию"
+
+msgid "Add to Shuffle Pool (Enable Shuffle)"
+msgstr "Добавить в ротацию (включить ротацию)"
+
+msgid "Added to shuffle pool & Folder Shuffle enabled!"
+msgstr "Добавлено в показ и включена случайная смена!"
+
+msgid "All"
+msgstr "Все"
+
+msgid "All Caches"
+msgstr "Все кэши"
+
+msgid "All Categories"
+msgstr "Все категории"
+
+msgid "All Types"
+msgstr "Все типы"
+
+msgid "All items are up to date."
+msgstr "Все элементы обновлены."
+
+msgid "All of your custom plugin folders are currently hidden (see Manage plugin paths). Install to the default plugin folder anyway?"
+msgstr "Все ваши пользовательские папки плагинов скрыты (см. Управление путями плагинов). Все равно установить в папку по умолчанию?"
+
+msgid "All patches"
+msgstr "Все патчи"
+
+msgid "All plugins"
+msgstr "Все плагины"
+
+msgid "All plugins are already matched."
+msgstr "Все плагины уже привязаны."
+
+msgid "Allow pre-release updates"
+msgstr "Разрешить обновления предрелизов"
+
+msgid "Alphabet & Numbers"
+msgstr "Алфавит и цифры"
+
+msgid "Also delete plugin settings"
+msgstr "Также удалить настройки плагина"
+
+msgid "Always install here (don"
+msgstr "Всегда устанавливать сюда (не"
+
+msgid "Always install here (don't ask again)"
+msgstr "Всегда устанавливать сюда (больше не спрашивать)"
+
+msgid "Any"
+msgstr "Любой"
+
+msgid "App Store · Installed patches"
+msgstr "Магазин · Установленные патчи"
+
+msgid "App Store · Installed plugins"
+msgstr "Магазин приложений · Установленные плагины"
+
+msgid "Apply"
+msgstr "Применить"
+
+msgid "Assets — %s"
+msgstr "Ресурсы — %s"
+
+msgid "Author"
+msgstr "Автор"
+
+msgid "Back"
+msgstr "Назад"
+
+msgid "Beta"
+msgstr "Бета"
+
+msgid "Black Fill"
+msgstr "Черная заливка"
+
+msgid "Blank"
+msgstr "Пустой"
+
+msgid "Book Cover"
+msgstr "Обложка книги"
+
+msgid "Border Fill / Background"
+msgstr "Заливка полей / Фон"
+
+msgid "Both owner and repository name are required."
+msgstr "Требуется указать и владельца, и имя репозитория."
+
+msgid "Branch: %s"
+msgstr "Ветка: %s"
+
+msgid "Browse Wallpapers in Storefront"
+msgstr "Искать обои в Storefront"
+
+msgid "By "
+msgstr "By"
+
+msgid "By: %s"
+msgstr "Автор: %s"
+
+msgid "Cache empty. Refresh to retrieve repositories."
+msgstr "Кэш пуст. Обновите для получения репозиториев."
+
+msgid "Cache is older than a week, consider refreshing."
+msgstr "Кэш старше недели, рекомендуется обновить."
+
+msgid "Cached %s patch repositories."
+msgstr "Закэшировано репозиториев патчей: %s."
+
+msgid "Cached %s plugins."
+msgstr "Закэшировано плагинов: %s."
+
+msgid "Can"
+msgstr "Может"
+
+msgid "Can't load readme...."
+msgstr "Не удалось загрузить readme...."
+
+msgid "Cancel"
+msgstr "Отмена"
+
+msgid "Cancel matching"
+msgstr "Отменить связывание"
+
+msgid "Cannot read source file."
+msgstr "Невозможно прочитать исходный файл."
+
+msgid "Cannot write destination file."
+msgstr "Невозможно записать целевой файл."
+
+msgid "Catalog & Cache"
+msgstr "Каталог и кэш"
+
+msgid "Catalog refresh failed: "
+msgstr "Сбой обновления каталога: "
+
+msgid "Catalog refresh is already in progress in the background."
+msgstr "Обновление каталога уже выполняется в фоновом режиме."
+
+msgid "Catalog refreshed successfully."
+msgstr "Каталог успешно обновлен."
+
+msgid "Catalog source"
+msgstr "Источник каталога"
+
+msgid "Catalog updated: %d plugins, %d patches, %d fonts."
+msgstr "Каталог обновлен: плагинов — %d, патчей — %d, шрифтов — %d."
+
+msgid "Categories"
+msgstr "Категории"
+
+msgid "Category: "
+msgstr "Категория: "
+
+msgid "Category: %s"
+msgstr "Категория: %s"
+
+msgid "Change..."
+msgstr "Изменить..."
+
+msgid "Changelog for %s\n%s \\\\xE2\\\\x86\\\\x92 %s"
+msgstr "Changelog for %s\n%s \\\\xE2\\\\x86\\\\x92 %s"
+
+msgid "Changelog for %s\n%s → %s"
+msgstr "Список изменений для %s\n%s → %s"
+
+msgid "Changelog for %s\\\n%s \\\\xE2\\\\x86\\\\x92 %s"
+msgstr "Changelog for %s\\\n%s \\\\xE2\\\\x86\\\\x92 %s"
+
+msgid "Changelog: %s"
+msgstr "Список изменений: %s"
+
+msgid "Check Updates"
+msgstr "Проверить"
+
+msgid "Check all updates"
+msgstr "Проверить все обновления"
+
+msgid "Check for updates"
+msgstr "Проверить обновления"
+
+msgid "Check this patch"
+msgstr "Проверить этот патч"
+
+msgid "Check this plugin"
+msgstr "Проверить этот плагин"
+
+msgid "Checked %d patches: %d need updates, %d up to date."
+msgstr "Проверено патчей: %d (%d требуют обновления, %d актуальны)."
+
+msgid "Checked %d plugin updates"
+msgstr "Проверено обновлений плагинов: %d"
+
+msgid "Checked %d plugin(s) for updates."
+msgstr "Проверено обновлений плагинов: %d."
+
+msgid "Checking %s…"
+msgstr "Проверка %s…"
+
+msgid "Checking for Storefront updates..."
+msgstr "Проверка обновлений Storefront..."
+
+msgid "Checking for Storefront updates…"
+msgstr "Проверка обновлений Storefront…"
+
+msgid "Checking patch updates…"
+msgstr "Проверка обновлений патчей…"
+
+msgid "Checking plugin updates"
+msgstr "Проверка обновлений плагинов"
+
+msgid "Checking plugin updates…"
+msgstr "Проверка обновлений плагинов…"
+
+msgid "Choose Build — %s"
+msgstr "Выберите сборку — %s"
+
+msgid "Clean"
+msgstr "Очистить"
+
+msgid "Clear"
+msgstr "Очистить"
+
+msgid "Clear All"
+msgstr "Очистить все"
+
+msgid "Clear All Caches?"
+msgstr "Очистить все кэши?"
+
+msgid "Clear Cache"
+msgstr "Очистить кэш"
+
+msgid "Clear README Cache?"
+msgstr "Очистить кэш README?"
+
+msgid "Clear README cache"
+msgstr "Очистить кэш README"
+
+msgid "Clear README cache (%s)?\nCached README files and images will be deleted."
+msgstr "Clear README cache (%s)?\nCached README files and images will be deleted."
+
+msgid "Clear Thumbnail Cache?"
+msgstr "Очистить кэш миниатюр?"
+
+msgid "Clear Wiki Cache?"
+msgstr "Очистить кэш Wiki?"
+
+msgid "Clear Wiki cache (%s)?\nCached wiki articles and images will be deleted."
+msgstr "Clear Wiki cache (%s)?\nCached wiki articles and images will be deleted."
+
+msgid "Clear all cached data (%s)?\nAll README files, wiki articles, and thumbnails will be deleted."
+msgstr "Clear all cached data (%s)?\nAll README files, wiki articles, and thumbnails will be deleted."
+
+msgid "Clear cache…"
+msgstr "Очистить кэш"
+
+msgid "Clear screensaver thumbnail cache (%s)?\nThumbnails will be re-downloaded when viewing wallpapers."
+msgstr "Clear screensaver thumbnail cache (%s)?\nThumbnails will be re-downloaded when viewing wallpapers."
+
+msgid "Clear search & filters"
+msgstr "Сбросить поиск и фильтры"
+
+msgid "Clear search/filters"
+msgstr "Сбросить поиск/фильтры"
+
+msgid "Cleared README cache (%s freed)."
+msgstr "Cleared README cache (%s freed)."
+
+msgid "Cleared Wiki cache (%s freed)."
+msgstr "Cleared Wiki cache (%s freed)."
+
+msgid "Cleared all caches (%s freed, %d files)."
+msgstr "Cleared all caches (%s freed, %d files)."
+
+msgid "Cleared screensaver thumbnails (%s freed)."
+msgstr "Cleared screensaver thumbnails (%s freed)."
+
+msgid "Close"
+msgstr "Закрыть"
+
+msgid "Collection"
+msgstr "Коллекция"
+
+msgid "Commit diff: %s → %s"
+msgstr "Разница коммитов: %s → %s"
+
+msgid "Commits: %s \\\\xE2\\\\x86\\\\x92 %s"
+msgstr "Commits: %s \\\\xE2\\\\x86\\\\x92 %s"
+
+msgid "Commits: %s → %s"
+msgstr "Коммиты: %s → %s"
+
+msgid "Community"
+msgstr "Сообщество"
+
+msgid "Config files only"
+msgstr "Только файлы конфигурации"
+
+msgid "Configured ✓"
+msgstr "Настроено ✓"
+
+msgid "Confirm"
+msgstr "Подтвердить"
+
+msgid "Confirm Update"
+msgstr "Подтвердить обновление"
+
+msgid "Confirm Update All"
+msgstr "Подтвердить обновление всех"
+
+msgid "Connecting to GitHub…\n\nPlease wait."
+msgstr "Подключение к GitHub…\n\nПожалуйста, подождите."
+
+msgid "Connecting to GitHub…\\\n\\\nPlease wait."
+msgstr "Connecting to GitHub…\\\n\\\nPlease wait."
+
+msgid "Continue"
+msgstr "Продолжить"
+
+msgid "Copied to "
+msgstr "Скопировано в "
+
+msgid "Copied to '%s'."
+msgstr "Скопировано в '%s'."
+
+msgid "Copy"
+msgstr "Копировать"
+
+msgid "Copy file as"
+msgstr "Копировать файл как"
+
+msgid "Could not detect .koplugin folder in archive"
+msgstr "Не удалось найти папку .koplugin в архиве"
+
+msgid "Could not detect plugin inside archive."
+msgstr "Не удалось обнаружить плагин внутри архива."
+
+msgid "Could not fetch commit comparison."
+msgstr "Не удалось получить сравнение коммитов."
+
+msgid "Could not fetch releases for changelog."
+msgstr "Не удалось получить релизы для списка изменений."
+
+msgid "Could not fetch releases for this repository."
+msgstr "Не удалось получить релизы для этого репозитория."
+
+msgid "Could not locate plugin folder (_meta.lua) in archive."
+msgstr "Не удалось найти папку плагина (_meta.lua) в архиве."
+
+msgid "Could not open target file for writing"
+msgstr "Не удалось открыть целевой файл для записи"
+
+msgid "Default"
+msgstr "По умолчанию"
+
+msgid "Default only"
+msgstr "Только по умолчанию"
+
+msgid "Delete"
+msgstr "Удалить"
+
+msgid "Delete "
+msgstr "Удалить"
+
+msgid "Delete '%s' from your device?"
+msgstr "Удалить '%s' с устройства?"
+
+msgid "Delete File?"
+msgstr "Удалить файл?"
+
+msgid "Delete Wallpaper?"
+msgstr "Удалить обои?"
+
+msgid "Delete all cached README files? They will be re-downloaded on demand."
+msgstr "Удалить все закэшированные файлы README? Они будут загружены снова при необходимости."
+
+msgid "Delete file "
+msgstr "Удалить файл "
+
+msgid "Delete file '%s'?\n\nThis cannot be undone."
+msgstr "Удалить файл '%s'?\n\nЭто действие нельзя отменить."
+
+msgid "Delete font "
+msgstr "Удалить шрифт "
+
+msgid "Delete font '%s'?"
+msgstr "Удалить шрифт '%s'?"
+
+msgid "Delete from Device"
+msgstr "Удалить с устройства"
+
+msgid "Delete patch"
+msgstr "Удалить патч"
+
+msgid "Delete patch "
+msgstr "Удалить патч "
+
+msgid "Delete patch '%s'?"
+msgstr "Удалить патч '%s'?"
+
+msgid "Delete plugin"
+msgstr "Удалить плагин"
+
+msgid "Delete plugin "
+msgstr "Удалить плагин "
+
+msgid "Delete plugin '%s'?"
+msgstr "Удалить плагин '%s'?"
+
+msgid "Deleted "
+msgstr "Удалено "
+
+msgid "Deleted %d cached README file(s)."
+msgstr "Удалено кэшированных файлов README: %d."
+
+msgid "Deleted %d cached README file(s); %d failed."
+msgstr "Удалено кэшированных файлов README: %d; ошибок: %d."
+
+msgid "Deleted '%s'."
+msgstr "Удалено '%s'."
+
+msgid "Direct GitHub API"
+msgstr "Прямой API GitHub"
+
+msgid "Disable"
+msgstr "Отключить"
+
+msgid "Disable patch"
+msgstr "Отключить патч"
+
+msgid "Disable plugin"
+msgstr "Отключить плагин"
+
+msgid "Disabled"
+msgstr "Отключено"
+
+msgid "Display Options"
+msgstr "Параметры отображения"
+
+msgid "Displays a static wallpaper on sleep"
+msgstr "Показывает статичные обои в спящем режиме"
+
+msgid "Displays a static wallpaper on sleep.\nActive: %s"
+msgstr "Показывает статичные обои в спящем режиме.\nАктивно: %s"
+
+msgid "Done"
+msgstr "Готово"
+
+msgid "Download & Set Active"
+msgstr "Скачать и применить"
+
+msgid "Download Only"
+msgstr "Только скачивание"
+
+msgid "Download Only (Save to Device)"
+msgstr "Только скачать (сохранить на устройстве)"
+
+msgid "Download failed: "
+msgstr "Сбой загрузки: "
+
+msgid "Download options"
+msgstr "Параметры скачивания"
+
+msgid "Download options — %s"
+msgstr "Параметры скачивания — %s"
+
+msgid "Download options — %s (%s)"
+msgstr "Параметры скачивания — %s (%s)"
+
+msgid "Downloading "
+msgstr "Downloading..."
+
+msgid "Downloading %s%s…\nThis may take a moment."
+msgstr "Загрузка %s%s…\nЭто может занять некоторое время."
+
+msgid "Downloading %s%s…\\\nThis may take a moment."
+msgstr "Downloading %s%s…\\\nThis may take a moment."
+
+msgid "Downloading %s…"
+msgstr "Загрузка %s…"
+
+msgid "Downloading '%s'..."
+msgstr "Downloading '%s'..."
+
+msgid "Downloading patch \"%s\"…"
+msgstr "Загрузка патча \"%s\"…"
+
+msgid "Downloading patch %s…"
+msgstr "Загрузка патча %s…"
+
+msgid "Downloading patch \\\\\"%s\\\\\"…"
+msgstr "Downloading patch \\\\\"%s\\\\\"…"
+
+msgid "Downloading screensaver..."
+msgstr "Загрузка заставки..."
+
+msgid "Downloading to shuffle pool..."
+msgstr "Загрузка в ротацию..."
+
+msgid "Edit"
+msgstr "Редактировать"
+
+msgid "Empty (0 KB)"
+msgstr "Пусто (0 КБ)"
+
+msgid "Enable"
+msgstr "Включить"
+
+msgid "Enable patch"
+msgstr "Включить патч"
+
+msgid "Enable plugin"
+msgstr "Включить плагин"
+
+msgid "Enabled"
+msgstr "Включено"
+
+msgid "Enter item number"
+msgstr "Введите номер элемента"
+
+msgid "Enter plugin number"
+msgstr "Введите номер плагина"
+
+msgid "Extracting and installing plugin…\nPlease wait."
+msgstr "Распаковка и установка плагина…\nПожалуйста, подождите."
+
+msgid "Extracting and installing plugin…\\\nPlease wait."
+msgstr "Extracting and installing plugin…\\\nPlease wait."
+
+msgid "Failed to check %s: %s"
+msgstr "Не удалось проверить %s: %s"
+
+msgid "Failed to check for Storefront updates: %s"
+msgstr "Не удалось проверить обновления Storefront: %s"
+
+msgid "Failed to create patches directory: %s"
+msgstr "Не удалось создать каталог патчей: %s"
+
+msgid "Failed to delete patch: %s"
+msgstr "Не удалось удалить патч: %s"
+
+msgid "Failed to delete plugin: %s"
+msgstr "Не удалось удалить плагин: %s"
+
+msgid "Failed to delete: %s"
+msgstr "Не удалось удалить: %s"
+
+msgid "Failed to disable patch "
+msgstr "Не удалось отключить патч "
+
+msgid "Failed to disable patch '%s'."
+msgstr "Не удалось отключить патч '%s'."
+
+msgid "Failed to download patch: %s"
+msgstr "Не удалось скачать патч: %s"
+
+msgid "Failed to download screensaver."
+msgstr "Не удалось загрузить заставку."
+
+msgid "Failed to enable patch "
+msgstr "Не удалось включить патч "
+
+msgid "Failed to enable patch '%s'."
+msgstr "Не удалось включить патч '%s'."
+
+msgid "Failed to extract file: "
+msgstr "Не удалось извлечь файл: "
+
+msgid "Failed to fetch patch list."
+msgstr "Не удалось получить список патчей."
+
+msgid "Failed to fetch repository "
+msgstr "Не удалось получить репозиторий "
+
+msgid "Failed to fetch repository '%s/%s': %s"
+msgstr "Не удалось получить репозиторий '%s/%s': %s"
+
+msgid "Failed to install patch: "
+msgstr "Не удалось установить патч: "
+
+msgid "Failed to open downloaded archive."
+msgstr "Не удалось открыть скачанный архив."
+
+msgid "Failed to prepare patches directory."
+msgstr "Не удалось подготовить каталог патчей."
+
+msgid "Failed to toggle patch status."
+msgstr "Не удалось изменить статус патча."
+
+msgid "Fetching Release Info"
+msgstr "Получение информации о релизе"
+
+msgid "Fetching changelog…"
+msgstr "Получение журнала изменений…"
+
+msgid "Fetching commits…"
+msgstr "Загрузка коммитов…"
+
+msgid "Fetching patch file listings…"
+msgstr "Получение списка патчей…"
+
+msgid "Fetching patches via Direct GitHub API…"
+msgstr "Получение патчей через прямой API GitHub…"
+
+msgid "Fetching plugins via Direct GitHub API…"
+msgstr "Получение плагинов через прямой API GitHub…"
+
+msgid "Fetching release info…"
+msgstr "Получение информации о релизе…"
+
+msgid "Fetching releases…"
+msgstr "Получение релизов…"
+
+msgid "Fetching repository %s/%s..."
+msgstr "Загрузка репозитория %s/%s..."
+
+msgid "Filename cannot be empty."
+msgstr "Имя файла не может быть пустым."
+
+msgid "Filter & Sort Fonts"
+msgstr "Фильтр и сортировка шрифтов"
+
+msgid "Filter & Sort Installed"
+msgstr "Фильтр и сортировка установленного"
+
+msgid "Filter & Sort Patches"
+msgstr "Фильтр и сортировка патчей"
+
+msgid "Filter & Sort Plugins"
+msgstr "Фильтр и сортировка плагинов"
+
+msgid "Filter & Sort Screensavers"
+msgstr "Фильтр и сортировка заставок"
+
+msgid "Filter Installed Patches"
+msgstr "Фильтр установленных патчей"
+
+msgid "Filter Installed Plugins"
+msgstr "Фильтр установленных плагинов"
+
+msgid "Filter pre-releases"
+msgstr "Фильтр предрелизов"
+
+msgid "Filter..."
+msgstr "Фильтр..."
+
+msgid "Filter: "
+msgstr "Фильтр: "
+
+msgid "Filters"
+msgstr "Фильтры"
+
+msgid "Filters: "
+msgstr "Фильтры: "
+
+msgid "Filters: (none)"
+msgstr "Фильтры: (нет)"
+
+msgid "Folder Shuffle"
+msgstr "Случайные из папки"
+
+msgid "Folder Shuffle enabled with this wallpaper!"
+msgstr "Случайный выбор из папки включен с этими обоями!"
+
+msgid "Font"
+msgstr "Шрифт"
+
+msgid "Font "
+msgstr "Шрифт "
+
+msgid "Font '%s' deleted."
+msgstr "Шрифт '%s' удалён."
+
+msgid "Font files not found for %s."
+msgstr "Файлы шрифта не найдены для %s."
+
+msgid "Font style"
+msgstr "Стиль шрифта"
+
+msgid "Fonts"
+msgstr "Шрифты"
+
+msgid "Free up storage space on your device. Cached items are re-downloaded automatically when needed."
+msgstr "Освободите место на устройстве. Кэшированные файлы автоматически скачиваются заново при необходимости."
+
+msgid "GitHub API rate limit exceeded. Add a GitHub token in Storefront settings to increase the limit (10→30 req/min)."
+msgstr "Превышен лимит запросов GitHub API. Добавьте токен GitHub в настройках Storefront, чтобы увеличить лимит (10→30 запр/мин)."
+
+msgid "GitHub API rate limit exceeded. Please wait a few minutes and try again."
+msgstr "Превышен лимит запросов GitHub API. Пожалуйста, подождите несколько минут и повторите попытку."
+
+msgid "GitHub personal access token"
+msgstr "Персональный токен доступа GitHub"
+
+msgid "GitHub rejected this request: fine-grained personal access tokens are not supported for search. Please use a classic token instead (see the Storefront README)."
+msgstr "GitHub отклонил запрос: точечные токены (fine-grained) не поддерживаются для поиска. Используйте классический токен (см. README Storefront)."
+
+msgid "GitHub token"
+msgstr "Токен GitHub"
+
+msgid "GitHub token saved."
+msgstr "Токен GitHub сохранен."
+
+msgid "Go"
+msgstr "Перейти"
+
+msgid "Go to page"
+msgstr "Перейти к странице"
+
+msgid "HTTP error"
+msgstr "Ошибка HTTP"
+
+msgid "HTTP request failed"
+msgstr "Сбой HTTP-запроса"
+
+msgid "Ignore"
+msgstr "Игнорировать"
+
+msgid "Ignore All Updates"
+msgstr "Игнорировать все обновления"
+
+msgid "Ignore Updates"
+msgstr "Игнорировать обновления"
+
+msgid "Ignored"
+msgstr "Игнорируется"
+
+msgid "Image View"
+msgstr "Просмотр изображений"
+
+msgid "Include 0-star forks"
+msgstr "Включать форки без звезд"
+
+msgid "Install"
+msgstr "Установить"
+
+msgid "Install %s"
+msgstr "Установить %s"
+
+msgid "Install Font"
+msgstr "Установить шрифт"
+
+msgid "Install Patch"
+msgstr "Установить патч"
+
+msgid "Install a patch"
+msgstr "Установить патч"
+
+msgid "Install patch from GitHub"
+msgstr "Установить патч с GitHub"
+
+msgid "Install plugin from GitHub"
+msgstr "Установить плагин с GitHub"
+
+msgid "Install to Default?"
+msgstr "Установить по умолчанию?"
+
+msgid "Install to default"
+msgstr "Установить по умолчанию"
+
+msgid "Installation failed: "
+msgstr "Ошибка установки: "
+
+msgid "Installation is currently only supported for plugins."
+msgstr "Установка в настоящее время поддерживается только для плагинов."
+
+msgid "Installed"
+msgstr "Установлено"
+
+msgid "Installed Patches Settings"
+msgstr "Настройки установленных патчей"
+
+msgid "Installed Plugins Settings"
+msgstr "Настройки установленных плагинов"
+
+msgid "Installed Regular font style offline for \"%s\". Full font family queued for download when reconnected."
+msgstr "Офлайн установлен обычный стиль шрифта \"%s\". Полная гарнитура добавлена в очередь для загрузки при подключении."
+
+msgid "Installed Regular font style offline for \\\\\"%s\\\\\". Full font family queued for download when reconnected."
+msgstr "Installed Regular font style offline for \\\\\"%s\\\\\". Full font family queued for download when reconnected."
+
+msgid "Installed font \"%s\" (%d file(s))."
+msgstr "Установлен шрифт \"%s\" (файлов: %d)."
+
+msgid "Installed font \\\\\"%s\\\\\" (%d file(s))."
+msgstr "Installed font \\\\\"%s\\\\\" (%d file(s))."
+
+msgid "Installed full font family \"%s\" (%d file(s))."
+msgstr "Установлено полное семейство шрифтов \"%s\" (файлов: %d)."
+
+msgid "Installed full font family \\\\\"%s\\\\\" (%d file(s))."
+msgstr "Installed full font family \\\\\"%s\\\\\" (%d file(s))."
+
+msgid "Installed patch \"%s\"."
+msgstr "Установлен патч \"%s\"."
+
+msgid "Installed patch \\\\\"%s\\\\\"."
+msgstr "Installed patch \\\\\"%s\\\\\"."
+
+msgid "Installed plugin \"%s\" (version %s)."
+msgstr "Установлен плагин \"%s\" (версия %s)."
+
+msgid "Installed plugin \"%s\"."
+msgstr "Установлен плагин \"%s\"."
+
+msgid "Installed plugin Storefront version %s"
+msgstr "Установлен плагин Storefront версии %s"
+
+msgid "Installing %s…"
+msgstr "Установка %s…"
+
+msgid "Invalid archive reader"
+msgstr "Недействительный модуль чтения архива"
+
+msgid "Invalid extraction parameters"
+msgstr "Неверные параметры распаковки"
+
+msgid "Invalid patch target filename."
+msgstr "Неверное имя целевого файла патча."
+
+msgid "Invalid selection."
+msgstr "Неверный выбор."
+
+msgid "Invert colors (night mode / dark background)"
+msgstr "Инвертировать цвета (ночной режим / темный фон)"
+
+msgid "It is a truth universally acknowledged, that a single man in possession of a good fortune, must be in want of a wife. However little known the feelings or views of such a man may be on his first entering a neighbourhood, this truth is so well fixed in the minds of the surrounding families, that he is considered the rightful property of some one or other of their daughters."
+msgstr "Всеми признанная истина заключается в том, что холостяку, обладающему солидным состоянием, непременно нужна жена."
+
+msgid "Items per page"
+msgstr "Элементов на странице"
+
+msgid "Items per page: %d"
+msgstr "Элементов на странице: %d"
+
+msgid "Last Updated (Newest)"
+msgstr "Сначала новые"
+
+msgid "Last Updated (Oldest)"
+msgstr "Сначала старые"
+
+msgid "Last check: %s"
+msgstr "Последняя проверка: %s"
+
+msgid "Latest Release"
+msgstr "Последний релиз"
+
+msgid "Latest release"
+msgstr "Последний релиз"
+
+msgid "License: %s"
+msgstr "Лицензия: %s"
+
+msgid "Linked only"
+msgstr "Только связанные"
+
+msgid "Loading README..."
+msgstr "Загрузка README..."
+
+msgid "Loading Release Notes..."
+msgstr "Загрузка описания релиза..."
+
+msgid "Loading Versions..."
+msgstr "Загрузка версий..."
+
+msgid "Loading Wiki..."
+msgstr "Загрузка Вики..."
+
+msgid "Local SHA: %s"
+msgstr "Локальный SHA: %s"
+
+msgid "Local version: %s"
+msgstr "Локальная версия: %s"
+
+msgid "Local: %s"
+msgstr "Локальная: %s"
+
+msgid "Local: %s → Remote: %s"
+msgstr "Локальная: %s → Удаленная: %s"
+
+msgid "Manage plugin paths"
+msgstr "Управление путями плагинов"
+
+msgid "Manage plugin paths\n\nHiding a path only affects what Storefront shows/manages here. KOReader will still load plugins from it."
+msgstr "Управление путями плагинов\n\nСкрытие пути влияет только на то, что отображается в Витрине. KOReader всё равно будет загружать плагины оттуда."
+
+msgid "Manage plugin paths\\\n\\\nHiding a path only affects what Storefront shows/manages here. KOReader will still load plugins from it."
+msgstr "Manage plugin paths\\\n\\\nHiding a path only affects what Storefront shows/manages here. KOReader will still load plugins from it."
+
+msgid "Match"
+msgstr "Связать"
+
+msgid "Match from List"
+msgstr "Выбрать из списка"
+
+msgid "Match patch with GitHub repository"
+msgstr "Связать патч с репозиторием GitHub"
+
+msgid "Match plugin with GitHub repository"
+msgstr "Связать плагин с репозиторием GitHub"
+
+msgid "Match plugin: %s"
+msgstr "Связать плагин: %s"
+
+msgid "Match this remote patch"
+msgstr "Сопоставить с этим удаленным патчем"
+
+msgid "Match with URL"
+msgstr "Связать по URL"
+
+msgid "Match with repo"
+msgstr "Связать с репозиторием"
+
+msgid "Match with this repo"
+msgstr "Сопоставить с этим репозиторием"
+
+msgid "Matched %s with %s."
+msgstr "Сопоставлено %s с %s."
+
+msgid "Matched repo: %s/%s"
+msgstr "Связанный репозиторий: %s/%s"
+
+msgid "Matching entries: %s / %s"
+msgstr "Совпадающие элементы: %s / %s"
+
+msgid "Matching patch: %s — tap to cancel"
+msgstr "Связывание патча: %s — нажмите для отмены"
+
+msgid "Matching patches: %s (repos: %s / %s)"
+msgstr "Совпадающие патчи: %s (репозитории: %s / %s)"
+
+msgid "Matching plugin: %s — tap to cancel"
+msgstr "Связывание плагина: %s — нажмите для отмены"
+
+msgid "Minimum stars"
+msgstr "Минимум звезд"
+
+msgid "Missing README path"
+msgstr "Отсутствует путь к README"
+
+msgid "Missing URL"
+msgstr "Отсутствует URL"
+
+msgid "Missing asset download URL."
+msgstr "Отсутствует URL скачивания файла."
+
+msgid "Missing download URL for release asset."
+msgstr "Отсутствует URL скачивания файла релиза."
+
+msgid "Missing font metadata."
+msgstr "Отсутствуют метаданные шрифта."
+
+msgid "Missing meta path in record."
+msgstr "Отсутствует путь meta в записи."
+
+msgid "Missing repository info for patch update."
+msgstr "Отсутствует информация о репозитории для обновления патча."
+
+msgid "Missing repository info for update."
+msgstr "Отсутствует информация о репозитории для обновления."
+
+msgid "Missing repository metadata for README download."
+msgstr "Отсутствуют метаданные репозитория для скачивания README."
+
+msgid "Missing repository metadata for installation."
+msgstr "Отсутствуют метаданные репозитория для установки."
+
+msgid "Missing repository metadata for patch install."
+msgstr "Отсутствуют метаданные репозитория для установки патча."
+
+msgid "Missing repository metadata for patch."
+msgstr "Отсутствуют метаданные репозитория для патча."
+
+msgid "Missing repository metadata for releases."
+msgstr "Отсутствуют метаданные репозитория для релизов."
+
+msgid "Missing repository metadata for remote fetch."
+msgstr "Отсутствуют метаданные репозитория для загрузки."
+
+msgid "Modify Patch"
+msgstr "Изменить патч"
+
+msgid "Modify Plugin"
+msgstr "Изменить плагин"
+
+msgid "Modify Plugin: %s"
+msgstr "Изменить плагин: %s"
+
+msgid "Most Downloaded"
+msgstr "По скачиваниям"
+
+msgid "Most Popular"
+msgstr "По популярности"
+
+msgid "Multiple custom plugin folders are configured. Where should this plugin be installed?"
+msgstr "Настроено несколько пользовательских папок плагинов. Куда установить этот плагин?"
+
+msgid "My wallpaper collection"
+msgstr "Моя коллекция обоев"
+
+msgid "Name (A-Z)"
+msgstr "Имя (А-Я)"
+
+msgid "Name (Z-A)"
+msgstr "Имя (Я-А)"
+
+msgid "Name, description, topic"
+msgstr "Название, описание, тема"
+
+msgid "Needs update"
+msgstr "Требует обновления"
+
+msgid "Needs update: %d"
+msgstr "Требуют обновления: %d"
+
+msgid "Never"
+msgstr "Никогда"
+
+msgid "New filename"
+msgstr "Новое имя файла"
+
+msgid "Next"
+msgstr "Далее"
+
+msgid "Next >"
+msgstr "След >"
+
+msgid "No Fill (Transparent)"
+msgstr "Без заливки (прозрачно)"
+
+msgid "No Lua files found in plugin directory"
+msgstr "Файлы Lua не найдены в каталоге плагина"
+
+msgid "No README available."
+msgstr "README недоступен."
+
+msgid "No Release Notes available."
+msgstr "Описание релиза недоступно."
+
+msgid "No Wiki available."
+msgstr "Wiki недоступна."
+
+msgid "No cached README files to delete."
+msgstr "Нет кэшированных файлов README для удаления."
+
+msgid "No cached entries yet."
+msgstr "Записи в кэше отсутствуют."
+
+msgid "No cached entries yet. Refresh to fetch from GitHub."
+msgstr "Кэшированных записей пока нет. Обновите, чтобы загрузить с GitHub."
+
+msgid "No changelog entries found for this range."
+msgstr "В этом диапазоне нет записей журнала изменений."
+
+msgid "No commits found in this range."
+msgstr "В этом диапазоне коммиты не найдены."
+
+msgid "No config files found — uncheck filter to show all files"
+msgstr "Конфигурационные файлы не найдены — снимите фильтр для показа всех файлов"
+
+msgid "No date"
+msgstr "Без даты"
+
+msgid "No detailed release notes provided for this version."
+msgstr "Подробные примечания к релизу отсутствуют для этой версии."
+
+msgid "No entries match current filters."
+msgstr "Нет элементов, соответствующих фильтрам."
+
+msgid "No installed items found."
+msgstr "Установленные элементы не найдены."
+
+msgid "No items found."
+msgstr "Элементы не найдены."
+
+msgid "No matched patches to check."
+msgstr "Нет привязанных патчей для проверки."
+
+msgid "No matched plugins to check."
+msgstr "Нет сопоставленных плагинов для проверки."
+
+msgid "No patch files found in %s/%s."
+msgstr "Файлы патчей не найдены в %s/%s."
+
+msgid "No patch files found in repository %s."
+msgstr "Файлы патчей не найдены в репозитории %s."
+
+msgid "No patches found in matching repositories."
+msgstr "Патчи не найдены в совпадающих репозиториях."
+
+msgid "No patches need updates."
+msgstr "Все патчи актуальны."
+
+msgid "No patches to display."
+msgstr "Нет патчей для отображения."
+
+msgid "No plugin files were extracted"
+msgstr "Файлы плагина не были извлечены"
+
+msgid "No plugins need updates."
+msgstr "Все плагины актуальны."
+
+msgid "No plugins to display."
+msgstr "Нет плагинов для отображения."
+
+msgid "No plugins tracked yet."
+msgstr "Плагины пока не отслеживаются."
+
+msgid "No previous page in history"
+msgstr "В истории нет предыдущей страницы"
+
+msgid "No release notes provided for this version."
+msgstr "Примечания к релизу отсутствуют для этой версии."
+
+msgid "No release notes."
+msgstr "Нет описания релиза."
+
+msgid "No releases found for this repository."
+msgstr "Релизы для этого репозитория не найдены."
+
+msgid "No remote version info for %s."
+msgstr "Нет информации об удаленной версии для %s."
+
+msgid "No screensavers match this filter."
+msgstr "Нет заставок, соответствующих этому фильтру."
+
+msgid "No stable releases found — uncheck filter to show all releases"
+msgstr "Стабильные релизы не найдены — снимите фильтр, чтобы показать все"
+
+msgid "No tracked plugins to check."
+msgstr "Нет отслеживаемых плагинов для проверки."
+
+msgid "No wallpapers found in your screensavers folder.\n\nBrowse the Screensavers catalog in Storefront to download wallpapers!"
+msgstr "В папке заставок нет обоев.\n\nОткройте каталог Storefront для загрузки обоев!"
+
+msgid "No wallpapers found in your screensavers folder.\\\n\\\nBrowse the Screensavers catalog in Storefront to download wallpapers!"
+msgstr "No wallpapers found in your screensavers folder.\\\n\\\nBrowse the Screensavers catalog in Storefront to download wallpapers!"
+
+msgid "None selected"
+msgstr "Ничего не выбрано"
+
+msgid "Not matched with a repository."
+msgstr "Не сопоставлено с репозиторием."
+
+msgid "Not set"
+msgstr "Не задано"
+
+msgid "Notes"
+msgstr "Заметки"
+
+msgid "OK"
+msgstr "ОК"
+
+msgid "Offline Regular"
+msgstr "Локальный Regular"
+
+msgid "Open"
+msgstr "Открыть"
+
+msgid "Open Wallpaper Collection Gallery"
+msgstr "Открыть галерею обоев"
+
+msgid "Open details"
+msgstr "Подробнее"
+
+msgid "Optional. Raises the GitHub API rate limit. Generate one (classic, "
+msgstr "Необязательно. Увеличивает лимит API GitHub. Создайте (classic, "
+
+msgid "Optional. Raises the GitHub API rate limit. Generate one (classic, 'public_repo' scope is enough) at github.com/settings/tokens, then paste it here."
+msgstr "Необязательно. Увеличивает лимит запросов GitHub API. Сгенерируйте токен (classic, достаточно области 'public_repo') на github.com/settings/tokens и вставьте его сюда."
+
+msgid "Options ▾"
+msgstr "Опции ▾"
+
+msgid "Origin"
+msgstr "Источник"
+
+msgid "Owner"
+msgstr "Владелец"
+
+msgid "Owner %s"
+msgstr "Владелец %s"
+
+msgid "Owner: "
+msgstr "Владелец: "
+
+msgid "Pack my box with five dozen liquor jugs."
+msgstr "Съешь же ещё этих мягких французских булок, да выпей чаю."
+
+msgid "Page %d of %d"
+msgstr "Страница %d из %d"
+
+msgid "Page %d/%d"
+msgstr "Страница %d/%d"
+
+msgid "Pangram Preview"
+msgstr "Просмотр панграммы"
+
+msgid "Patch"
+msgstr "Патч"
+
+msgid "Patch "
+msgstr "Патч "
+
+msgid "Patch %s has been %s."
+msgstr "Патч %s был %s."
+
+msgid "Patch '%s' deleted."
+msgstr "Патч '%s' удален."
+
+msgid "Patch '%s' disabled."
+msgstr "Патч '%s' отключён."
+
+msgid "Patch '%s' enabled."
+msgstr "Патч '%s' включён."
+
+msgid "Patch cache is older than a week, consider refreshing."
+msgstr "Кэш патчей старше недели, рекомендуется обновить."
+
+msgid "Patch file not found in repository."
+msgstr "Файл патча не найден в репозитории."
+
+msgid "Patch file not found locally."
+msgstr "Файл патча не найден локально."
+
+msgid "Patch file not found."
+msgstr "Файл патча не найден."
+
+msgid "Patch matching cancelled."
+msgstr "Привязка патча отменена."
+
+msgid "Patch: %s"
+msgstr "Патч: %s"
+
+msgid "Patches"
+msgstr "Патчи"
+
+msgid "Patches cached: %s (last update: %s)"
+msgstr "Патчей в кэше: %s (обновлено: %s)"
+
+msgid "Patches found: %d"
+msgstr "Найдено патчей: %d"
+
+msgid "Path: %s"
+msgstr "Путь: %s"
+
+msgid "Plugin"
+msgstr "Плагин"
+
+msgid "Plugin "
+msgstr "Плагин "
+
+msgid "Plugin %s has been %s."
+msgstr "Плагин %s был %s."
+
+msgid "Plugin '%s' deleted."
+msgstr "Плагин '%s' удалён."
+
+msgid "Plugin '%s' disabled."
+msgstr "Плагин '%s' отключён."
+
+msgid "Plugin '%s' enabled."
+msgstr "Плагин '%s' включён."
+
+msgid "Plugin and patch browser for KOReader."
+msgstr "Каталог плагинов и патчей для KOReader."
+
+msgid "Plugin cache is older than a week, consider refreshing."
+msgstr "Кэш плагинов старше недели, рекомендуется обновить."
+
+msgid "Plugin directory not found."
+msgstr "Каталог плагина не найден."
+
+msgid "Plugin folder not found."
+msgstr "Папка плагина не найдена."
+
+msgid "Plugin is not currently loaded, so settings cannot be deleted."
+msgstr "Плагин не загружен, поэтому настройки не могут быть удалены."
+
+msgid "Plugins"
+msgstr "Плагины"
+
+msgid "Plugins cached: %s (last update: %s)"
+msgstr "Плагинов в кэше: %s (обновлено: %s)"
+
+msgid "Pool size: %d wallpapers in rotation"
+msgstr "Размер ротации: %d обоев"
+
+msgid "Pre-installed core KOReader plugin."
+msgstr "Предустановленный системный плагин KOReader."
+
+msgid "Prev"
+msgstr "Назад"
+
+msgid "Published: %s"
+msgstr "Опубликовано: %s"
+
+msgid "README"
+msgstr "README"
+
+msgid "README download failed: "
+msgstr "Сбой загрузки README: "
+
+msgid "README files & images"
+msgstr "Файлы README и изображения"
+
+msgid "Rate Wallpaper"
+msgstr "Оценить обои"
+
+msgid "Reading Passage Specimen"
+msgstr "Образец текста"
+
+msgid "Reading Progress"
+msgstr "Прогресс чтения"
+
+msgid "Reading Progress / Summary"
+msgstr "Прогресс чтения / Сводка"
+
+msgid "Recently Added"
+msgstr "Недавно добавленные"
+
+msgid "Refresh"
+msgstr "Обновить"
+
+msgid "Refresh cache"
+msgstr "Обновить кэш"
+
+msgid "Refresh catalog"
+msgstr "Обновить каталог"
+
+msgid "Refreshing catalog via Direct GitHub API…"
+msgstr "Обновление каталога через прямой API GitHub…"
+
+msgid "Refreshing catalog..."
+msgstr "Обновление каталога..."
+
+msgid "Refreshing catalog…"
+msgstr "Обновление каталога…"
+
+msgid "Refreshing…"
+msgstr "Обновление…"
+
+msgid "Reinstall"
+msgstr "Переустановить"
+
+msgid "Release"
+msgstr "Релиз"
+
+msgid "Release Notes"
+msgstr "Примечания к релизу"
+
+msgid "Release notes for %s"
+msgstr "Описание релиза %s"
+
+msgid "Release: %s"
+msgstr "Релиз: %s"
+
+msgid "Releases"
+msgstr "Релизы"
+
+msgid "Releases — %s"
+msgstr "Релизы — %s"
+
+msgid "Remote SHA: %s"
+msgstr "SHA на сервере: %s"
+
+msgid "Remote SHA: %s (checked %s)"
+msgstr "SHA на сервере: %s (проверено %s)"
+
+msgid "Remote check failed: "
+msgstr "Сбой проверки на сервере: "
+
+msgid "Remote version for %s: %s."
+msgstr "Удаленная версия %s: %s."
+
+msgid "Remote version not found."
+msgstr "Удаленная версия не найдена."
+
+msgid "Remote: %s"
+msgstr "Удаленный: %s"
+
+msgid "Remote: %s (checked %s)"
+msgstr "Удаленный: %s (проверено %s)"
+
+msgid "Remote: (not checked)"
+msgstr "Удаленный: (не проверялся)"
+
+msgid "Remove"
+msgstr "Удалить"
+
+msgid "Remove "
+msgstr "Удалить"
+
+msgid "Remove '%s' from your wallpaper collection?"
+msgstr "Удалить '%s' из коллекции обоев?"
+
+msgid "Remove Wallpaper?"
+msgstr "Удалить обои?"
+
+msgid "Rename"
+msgstr "Переименовать"
+
+msgid "Rename failed: %s"
+msgstr "Ошибка переименования: %s"
+
+msgid "Rename file"
+msgstr "Переименовать файл"
+
+msgid "Renamed to "
+msgstr "Переименовано в "
+
+msgid "Renamed to '%s'."
+msgstr "Переименовано в '%s'."
+
+msgid "Repo: %s/%s"
+msgstr "Репозиторий: %s/%s"
+
+msgid "Repo: (not matched)"
+msgstr "Репозиторий: (не сопоставлен)"
+
+msgid "Repository"
+msgstr "Репозиторий"
+
+msgid "Repository %s not found on GitHub."
+msgstr "Репозиторий %s не найден на GitHub."
+
+msgid "Repository name"
+msgstr "Имя репозитория"
+
+msgid "Repository owner"
+msgstr "Владелец репозитория"
+
+msgid "Repository: %s"
+msgstr "Репозиторий: %s"
+
+msgid "Reset filters"
+msgstr "Сбросить фильтры"
+
+msgid "Reset to defaults"
+msgstr "По умолчанию"
+
+msgid "Restart later"
+msgstr "Перезапустить позже"
+
+msgid "Restart now"
+msgstr "Перезапуск"
+
+msgid "Sample Text"
+msgstr "Пример текста"
+
+msgid "Save"
+msgstr "Сохранить"
+
+msgid "Screensaver"
+msgstr "Заставка"
+
+msgid "Screensaver & Wallpapers"
+msgstr "Заставки и обои"
+
+msgid "Screensaver Details"
+msgstr "Сведения о заставке"
+
+msgid "Screensaver Mode"
+msgstr "Режим заставки"
+
+msgid "Screensaver Settings"
+msgstr "Настройки заставки"
+
+msgid "Screensaver mode"
+msgstr "Режим заставки"
+
+msgid "Screensaver thumbnails"
+msgstr "Миниатюры заставок"
+
+msgid "Screensavers"
+msgstr "Заставки"
+
+msgid "Search"
+msgstr "Поиск"
+
+msgid "Search \"%s\""
+msgstr "Поиск \"%s\""
+
+msgid "Search & API"
+msgstr "Поиск и API"
+
+msgid "Search filter (\"%s\") is not applied to Updates."
+msgstr "Search filter (\"%s\") is not applied to Updates."
+
+msgid "Search filter (\\\\\"%s\\\\\") is not applied to Updates."
+msgstr "Search filter (\\\\\"%s\\\\\") is not applied to Updates."
+
+msgid "Search text"
+msgstr "Текст поиска"
+
+msgid "Search: "
+msgstr "Поиск: "
+
+msgid "Select All"
+msgstr "Выбрать все"
+
+msgid "Select Categories"
+msgstr "Выбрать категории"
+
+msgid "Select a repository patch entry to match with the chosen file."
+msgstr "Выберите патч из репозитория для связи с выбранным файлом."
+
+msgid "Select a repository to match with the chosen plugin."
+msgstr "Выберите репозиторий для сопоставления с выбранным плагином."
+
+msgid "Select installation directory"
+msgstr "Выберите каталог для установки"
+
+msgid "Select patch file from %s"
+msgstr "Выберите файл патча из %s"
+
+msgid "Select patch in %s"
+msgstr "Выберите патч в %s"
+
+msgid "Select plugin to match"
+msgstr "Выберите плагин для сопоставления"
+
+msgid "Select repository"
+msgstr "Выберите репозиторий"
+
+msgid "Set"
+msgstr "Задать"
+
+msgid "Set Active Single"
+msgstr "Установить как единственную заставку"
+
+msgid "Set Single"
+msgstr "Одиночный"
+
+msgid "Set as Active"
+msgstr "Сделать активным"
+
+msgid "Set as Active Single Wallpaper"
+msgstr "Установить как активные одиночные обои"
+
+msgid "Set as active single wallpaper!"
+msgstr "Установлено как активные одиночные обои!"
+
+msgid "Settings"
+msgstr "Настройки"
+
+msgid "Show needs update"
+msgstr "Показать требующие обновления"
+
+msgid "Show reading progress banner overlay"
+msgstr "Показывать баннер прогресса чтения"
+
+msgid "Shows reading stats, percentage, and chapter progress"
+msgstr "Показывает статистику чтения, процент и прогресс главы"
+
+msgid "Shows the cover of the book currently being read"
+msgstr "Показывает обложку читаемой книги"
+
+msgid "Shuffle (%d)"
+msgstr "Ротация (%d)"
+
+msgid "Shuffle Pool"
+msgstr "Пул ротации"
+
+msgid "Shuffles through all wallpapers in folder on sleep.\nPool size: %d wallpapers in rotation"
+msgstr "Случайно сменяет все обои из папки при спящем режиме.\nРазмер ротации: %d обоев"
+
+msgid "Single"
+msgstr "Одиночный"
+
+msgid "Single Wallpaper"
+msgstr "Одна заставка"
+
+msgid "Solid fill for screen margins & letterboxing"
+msgstr "Сплошная заливка полей экрана"
+
+msgid "Sort"
+msgstr "Сортировка"
+
+msgid "Sort mode"
+msgstr "Режим сортировки"
+
+msgid "Sort: A-Z"
+msgstr "Сорт: А-Я"
+
+msgid "Sort: Most Liked"
+msgstr "Сортировка: По лайкам"
+
+msgid "Sort: Name (A → Z)"
+msgstr "Сорт: Имя (А-Я)"
+
+msgid "Sort: Name (Z → A)"
+msgstr "Сорт: Имя (Я-А)"
+
+msgid "Sort: Oldest"
+msgstr "Сорт: Старые"
+
+msgid "Sort: Recently updated"
+msgstr "Сорт: Дата"
+
+msgid "Sort: Stars (high → low)"
+msgstr "Сорт: Звезды"
+
+msgid "Sort: Status"
+msgstr "Сорт: Статус"
+
+msgid "Sort: Type"
+msgstr "Сорт: Тип"
+
+msgid "Sort: Updated"
+msgstr "Сортировка: Обновлено"
+
+msgid "Sort: Z-A"
+msgstr "Сорт: Я-А"
+
+msgid "Sorting"
+msgstr "Сортировка"
+
+msgid "Stable"
+msgstr "Стабильная"
+
+msgid "Status"
+msgstr "Статус"
+
+msgid "Status: Needs matching"
+msgstr "Статус: Требуется сопоставление"
+
+msgid "Status: Up to date"
+msgstr "Статус: Актуален"
+
+msgid "Status: Update available"
+msgstr "Статус: Доступно обновление"
+
+msgid "Storefront"
+msgstr "Storefront"
+
+msgid "Storefront cache refreshed."
+msgstr "Кэш Storefront обновлен."
+
+msgid "Storefront is up to date (v%s)."
+msgstr "Storefront обновлен (v%s)."
+
+msgid "Storefront refresh failed: "
+msgstr "Ошибка обновления Storefront: "
+
+msgid "Storefront · Updates"
+msgstr "Storefront · Обновления"
+
+msgid "Storefront: Open"
+msgstr "Storefront: Открыть"
+
+msgid "Stretch image to fill entire screen"
+msgstr "Растянуть изображение на весь экран"
+
+msgid "Style: "
+msgstr "Стиль: "
+
+msgid "Successfully updated %d item(s)."
+msgstr "Успешно обновлено элементов: %d."
+
+msgid "Successfully updated %d items."
+msgstr "Успешно обновлено элементов: %d."
+
+msgid "Switch to installed patches"
+msgstr "Переключить на установленные патчи"
+
+msgid "Switch to installed plugins"
+msgstr "Переключить на установленные плагины"
+
+msgid "Switch to patch list"
+msgstr "Переключить на список патчей"
+
+msgid "Switch to patches"
+msgstr "Переключить на патчи"
+
+msgid "Switch to plugin list"
+msgstr "Перейти к списку плагинов"
+
+msgid "Tag not found on GitHub (%s or %s)."
+msgstr "Тег не найден на GitHub (%s или %s)."
+
+msgid "Text"
+msgstr "Текст"
+
+msgid "Text editor plugin is not available."
+msgstr "Плагин текстового редактора недоступен."
+
+msgid "The quick brown fox jumps over the lazy dog."
+msgstr "Съешь же ещё этих мягких французских булок, да выпей чаю."
+
+msgid "This action cannot be undone.\n\nChanges will take effect after restart."
+msgstr "Это действие нельзя отменить.\n\nИзменения вступят в силу после перезапуска."
+
+msgid "This action cannot be undone.\\\n\\\nChanges will take effect after restart."
+msgstr "This action cannot be undone.\\\n\\\nChanges will take effect after restart."
+
+msgid "This wallpaper is currently set as your active screensaver."
+msgstr "Эти обои в настоящее время установлены в качестве активной заставки."
+
+msgid "This will delete all cached README files, wiki articles, and screensaver thumbnails (%s)."
+msgstr "Это удалит все кэшированные файлы README, статьи вики и миниатюры заставок (%s)."
+
+msgid "This will delete cached README markdown files and downloaded images (%s)."
+msgstr "Это удалит кэшированные файлы README и загруженные изображения (%s)."
+
+msgid "This will delete cached screensaver thumbnail previews (%s)."
+msgstr "Это удалит кэшированные миниатюры заставок (%s)."
+
+msgid "This will delete cached wiki articles and downloaded images (%s)."
+msgstr "Это удалит кэшированные статьи вики и загруженные изображения (%s)."
+
+msgid "This will take effect on next restart."
+msgstr "Изменения вступят в силу при следующем перезапуске."
+
+msgid "Total commits: %d"
+msgstr "Всего коммитов: %d"
+
+msgid "Tracked: %d"
+msgstr "Отслеживается: %d"
+
+msgid "Transparent overlay (page content visible behind)"
+msgstr "Прозрачный слой (страница видна на фоне)"
+
+msgid "Type"
+msgstr "Тип"
+
+msgid "Unable to determine patch download URL."
+msgstr "Не удалось определить URL скачивания патча."
+
+msgid "Unable to load wiki page. Tap refresh to retry."
+msgstr "Не удалось загрузить страницу вики. Нажмите «Обновить»."
+
+msgid "Unable to read README file"
+msgstr "Не удалось прочитать файл README"
+
+msgid "Unable to read README. Tap refresh to retry."
+msgstr "Не удалось прочитать README. Нажмите «Обновить» для повторной попытки."
+
+msgid "Unable to store match for patch."
+msgstr "Не удалось сохранить привязку патча."
+
+msgid "Unable to store match for plugin."
+msgstr "Не удалось сохранить привязку плагина."
+
+msgid "Uninstall"
+msgstr "Удалить"
+
+msgid "Unknown"
+msgstr "Неизвестно"
+
+msgid "Unknown error"
+msgstr "Неизвестная ошибка"
+
+msgid "Unlink the repo"
+msgstr "Отвязать репозиторий"
+
+msgid "Unlinked %s from repository."
+msgstr "Репозиторий отвязан от %s."
+
+msgid "Unmatched: %d"
+msgstr "Не привязано: %d"
+
+msgid "Unnamed release"
+msgstr "Релиз без названия"
+
+msgid "Update"
+msgstr "Обновить"
+
+msgid "Update %d outdated item(s)?"
+msgstr "Обновить устаревшие элементы (%d шт.)?"
+
+msgid "Update %s?"
+msgstr "Обновить %s?"
+
+msgid "Update All"
+msgstr "Обновить все"
+
+msgid "Update all outdated items?"
+msgstr "Обновить все устаревшие элементы?"
+
+msgid "Update available for %s: remote %s, installed %s."
+msgstr "Доступно обновление для %s: на сервере %s, установлено %s."
+
+msgid "Update channel"
+msgstr "Канал обновлений"
+
+msgid "Update check was cancelled"
+msgstr "Проверка обновлений отменена"
+
+msgid "Update patch"
+msgstr "Обновить патч"
+
+msgid "Update plugin"
+msgstr "Обновить плагин"
+
+msgid "Updated %d of %d item(s) (%d failed)."
+msgstr "Обновлено %d из %d элементов (%d с ошибкой)."
+
+msgid "Updated patch \"%s\"."
+msgstr "Обновлён патч \"%s\"."
+
+msgid "Updated patch %s."
+msgstr "Патч %s обновлен."
+
+msgid "Updated patch \\\\\"%s\\\\\"."
+msgstr "Updated patch \\\\\"%s\\\\\"."
+
+msgid "Updated plugin \"%s\" to version %s."
+msgstr "Плагин \"%s\" обновлён до версии %s."
+
+msgid "Updated plugin \"%s\"."
+msgstr "Обновлён плагин \"%s\"."
+
+msgid "Updated plugin \\\\\"%s\\\\\" to version %s."
+msgstr "Updated plugin \\\\\"%s\\\\\" to version %s."
+
+msgid "Updated plugin \\\\\"%s\\\\\"."
+msgstr "Updated plugin \\\\\"%s\\\\\"."
+
+msgid "Updated: %s"
+msgstr "Обновлено: %s"
+
+msgid "Updates"
+msgstr "Обновления"
+
+msgid "Updates Ignored"
+msgstr "Обновления игнорируются"
+
+msgid "Updating [%d/%d]: %s…"
+msgstr "Обновление [%d/%d]: %s…"
+
+msgid "User Installed"
+msgstr "Пользовательские"
+
+msgid "Verifying repository %s/%s..."
+msgstr "Проверка репозитория %s/%s..."
+
+msgid "Version"
+msgstr "Версия"
+
+msgid "Versions"
+msgstr "Версии"
+
+msgid "View README"
+msgstr "Просмотр README"
+
+msgid "View commits (%s \\\\xE2\\\\x86\\\\x92 %s)"
+msgstr "View commits (%s \\\\xE2\\\\x86\\\\x92 %s)"
+
+msgid "View commits (%s → %s)"
+msgstr "Просмотр коммитов (%s → %s)"
+
+msgid "Wallpaper Collection"
+msgstr "Коллекция обоев"
+
+msgid "Wallpaper Options"
+msgstr "Параметры обоев"
+
+msgid "Wallpaper deleted from device."
+msgstr "Обои удалены с устройства."
+
+msgid "Wallpaper removed"
+msgstr "Обои удалены"
+
+msgid "Wallpaper saved to collection!"
+msgstr "Обои сохранены в коллекции!"
+
+msgid "Wallpaper set as active KOReader screensaver!"
+msgstr "Обои установлены в качестве заставки KOReader!"
+
+msgid "Wallpaper set as active screensaver!"
+msgstr "Обои установлены в качестве активной заставки!"
+
+msgid "Warning: the selected version is older than what is currently installed. You are downgrading."
+msgstr "Предупреждение: выбранная версия старше установленной. Вы выполняете откат."
+
+msgid "White Fill"
+msgstr "Белая заливка"
+
+msgid "Wiki"
+msgstr "Вики"
+
+msgid "Wiki Pages"
+msgstr "Страницы Wiki"
+
+msgid "Wiki pages & images"
+msgstr "Страницы вики и изображения"
+
+msgid "Z -> A"
+msgstr "Я -> А"
+
+msgid "Z → A"
+msgstr "Я → А"
+
+msgid "[ Loading preview... ]"
+msgstr "[ Загрузка предпросмотра... ]"
+
+msgid "[ Wallpaper Preview Loading... ]"
+msgstr "[ Загрузка предпросмотра обоев... ]"
+
+msgid "[Ignored]"
+msgstr "[Игнорируется]"
+
+msgid "[draft]"
+msgstr "[черновик]"
+
+msgid "[pre]"
+msgstr "[пре]"
+
+msgid "\\\\\"My dear Mr. Bennet,\\\\\" said his lady to him one day, \\\\\"have you heard that Netherfield Park is let at last?\\\\\" Mr. Bennet replied that he had not. \\\\\"But it is,\\\\\" returned she; \\\\\"for Mrs. Long has just been here, and she told me all about it.\\\\\" Mr. Bennet made no answer."
+msgstr "\\\\\"My dear Mr. Bennet,\\\\\" said his lady to him one day, \\\\\"have you heard that Netherfield Park is let at last?\\\\\" Mr. Bennet replied that he had not. \\\\\"But it is,\\\\\" returned she; \\\\\"for Mrs. Long has just been here, and she told me all about it.\\\\\" Mr. Bennet made no answer."
+
+msgid "\\\\xC2\\\\xB7"
+msgstr "\\\\xC2\\\\xB7"
+
+msgid "about_text"
+msgstr "Storefront — это менеджер пакетов в KOReader для плагинов, патчей и шрифтов."
+
+msgid "anyone"
+msgstr "любой"
+
+msgid "btn_apply"
+msgstr "Применить"
+
+msgid "btn_back"
+msgstr "Назад"
+
+msgid "btn_cancel"
+msgstr "Отмена"
+
+msgid "btn_close"
+msgstr "Закрыть"
+
+msgid "btn_install"
+msgstr "Установить"
+
+msgid "btn_ok"
+msgstr "ОК"
+
+msgid "btn_preview"
+msgstr "Просмотр"
+
+msgid "btn_refresh"
+msgstr "Обновить"
+
+msgid "btn_release_notes"
+msgstr "Заметки к релизу"
+
+msgid "btn_restart"
+msgstr "Перезапустить KOReader"
+
+msgid "btn_retry"
+msgstr "Повторить"
+
+msgid "btn_search"
+msgstr "Поиск"
+
+msgid "btn_uninstall"
+msgstr "Удалить"
+
+msgid "btn_update"
+msgstr "Обновить"
+
+msgid "btn_view_details"
+msgstr "Подробнее"
+
+msgid "confirm_install"
+msgstr "Установить '%s'?"
+
+msgid "confirm_uninstall"
+msgstr "Удалить '%s'? Это действие нельзя отменить."
+
+msgid "confirm_update"
+msgstr "Обновить '%s' с v%s до v%s?"
+
+msgid "disabled"
+msgstr "отключено"
+
+msgid "e.g., koreader"
+msgstr "например, koreader"
+
+msgid "enabled"
+msgstr "включено"
+
+msgid "err_install_failed"
+msgstr "Ошибка установки '%s'."
+
+msgid "err_network_failed"
+msgstr "Ошибка сети: Не удалось загрузить каталог."
+
+msgid "err_uninstall_failed"
+msgstr "Ошибка удаления '%s'."
+
+msgid "filter_all"
+msgstr "Все категории"
+
+msgid "filter_installed"
+msgstr "Установлено"
+
+msgid "filter_updates"
+msgstr "Обновления"
+
+msgid "font"
+msgstr "шрифт"
+
+msgid "ghp_..."
+msgstr "ghp_..."
+
+msgid "header_about"
+msgstr "header_about"
+
+msgid "header_updates"
+msgstr "header_updates"
+
+msgid "label_author"
+msgstr "Автор"
+
+msgid "label_description"
+msgstr "Описание"
+
+msgid "label_downloads"
+msgstr "Загрузки"
+
+msgid "label_license"
+msgstr "Лицензия"
+
+msgid "label_repository"
+msgstr "Репозиторий"
+
+msgid "label_size"
+msgstr "Размер"
+
+msgid "label_type"
+msgstr "Тип"
+
+msgid "label_version"
+msgstr "Версия"
+
+msgid "latest"
+msgstr "последний"
+
+msgid "menu_about"
+msgstr "О Storefront"
+
+msgid "menu_settings"
+msgstr "Настройки Storefront"
+
+msgid "menu_storefront"
+msgstr "Storefront"
+
+msgid "menu_storefront_desc"
+msgstr "Просмотр, установка и обновление плагинов, патчей и шрифтов."
+
+msgid "msg_catalog_updated"
+msgstr "Каталог успешно обновлен."
+
+msgid "msg_installed_plugin"
+msgstr "Установлен плагин \"%s\"."
+
+msgid "msg_installed_plugin_version"
+msgstr "Установлен плагин \"%s\" (версия %s)."
+
+msgid "msg_no_results"
+msgstr "Ничего не найдено."
+
+msgid "new"
+msgstr "новый"
+
+msgid "not found"
+msgstr "не найдено"
+
+msgid "patch"
+msgstr "патч"
+
+msgid "plugin"
+msgstr "плагин"
+
+msgid "progress_please_wait"
+msgstr "Подождите"
+
+msgid "prompt_restart_needed"
+msgstr "Установка завершена. Перезапустить KOReader сейчас для включения '%s'?"
+
+msgid "release asset"
+msgstr "ресурс релиза"
+
+msgid "release is newer by date"
+msgstr "релиз новее по дате"
+
+msgid "remote is newer by date"
+msgstr "удаленная версия новее по дате"
+
+msgid "repository"
+msgstr "репозиторий"
+
+msgid "search_hint"
+msgstr "Поиск в storefront..."
+
+msgid "status_builtin"
+msgstr "Встроенный"
+
+msgid "status_downloading"
+msgstr "Загрузка..."
+
+msgid "status_installed"
+msgstr "Установлено"
+
+msgid "status_installing"
+msgstr "Установка..."
+
+msgid "status_not_installed"
+msgstr "Не установлено"
+
+msgid "status_uninstalling"
+msgstr "Удаление..."
+
+msgid "status_update_available"
+msgstr "Доступно обновление"
+
+msgid "storefront_title"
+msgstr "Storefront"
+
+msgid "tab_all"
+msgstr "Все"
+
+msgid "tab_fonts"
+msgstr "Шрифты"
+
+msgid "tab_patches"
+msgstr "Патчи"
+
+msgid "tab_plugins"
+msgstr "Плагины"
+
+msgid "tab_readme"
+msgstr "README"
+
+msgid "tab_sample_text"
+msgstr "Пример текста"
+
+msgid "tab_screensavers"
+msgstr "Обои"
+
+msgid "tab_versions"
+msgstr "Версии"
+
+msgid "unknown"
+msgstr "неизвестно"
+
+msgid "updated %s"
+msgstr "обновлено %s"
+
+msgid "updated %s (%s)"
+msgstr "обновлено %s (%s)"
+
+msgid "·"
+msgstr "·"
+
+msgid "≥ %s ⭐"
+msgstr "≥ %s ⭐"
+
+msgid "★ ACTIVE"
+msgstr "★ АКТИВНО"
+
+msgid "⚙ Settings"
+msgstr "⚙ Настройки"
+
+msgid "⚙ Settings..."
+msgstr "⚙ Настройки..."
+
+msgid "✓ Current"
+msgstr "✓ Текущая"
+
+msgid "Downloading…"
+msgstr ""
+
+msgid "Download cancelled."
+msgstr ""
+
+msgid "Batch update cancelled."
+msgstr ""
+
+msgid "Connecting…"
+msgstr ""
+

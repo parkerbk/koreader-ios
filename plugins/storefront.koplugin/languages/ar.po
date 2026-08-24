@@ -1,0 +1,2290 @@
+msgid ""
+msgstr ""
+"Language-Team: Arabic\n"
+"Language: ar\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "\"My dear Mr. Bennet,\" said his lady to him one day, \"have you heard that Netherfield Park is let at last?\" Mr. Bennet replied that he had not. \"But it is,\" returned she; \"for Mrs. Long has just been here, and she told me all about it.\" Mr. Bennet made no answer."
+msgstr "\"عزيزي السيد بينيت،\" قالت له زوجته ذات يوم، \"هل سمعت أن نيثرفيلد بارك قد أُجّرت أخيراً؟\" فأجاب السيد بينيت بأنه لم يسمع. \"لكنها كذلك،\" أردفت قائلة؛ \"فقد كانت السيدة لونغ هنا للتو، وأخبرتني بكل شيء عنها.\" فلم يرد السيد بينيت."
+
+msgid "%d Categories"
+msgstr "%d فئات"
+
+msgid "%d items"
+msgstr "%d عناصر"
+
+msgid "%d patches"
+msgstr "%d رقع"
+
+msgid "%d plugins"
+msgstr "%d إضافات"
+
+msgid "%d wallpapers"
+msgstr "%d خلفيات"
+
+msgid "%d wallpapers stored on device"
+msgstr "%d خلفيات محفوظة على الجهاز"
+
+msgid "%d wallpapers · Folder Shuffle (all in rotation)"
+msgstr "%d خلفيات · تبديل المجلد (الكل بالتناوب)"
+
+msgid "%d wallpapers · Mode: Book Cover"
+msgstr "%d خلفيات · الوضع: غلاف الكتاب"
+
+msgid "%d wallpapers · Single mode active"
+msgstr "%d خلفيات · الوضع الفردي نشط"
+
+msgid "%s and %s"
+msgstr "%s و %s"
+
+msgid "%s is up to date (version %s)."
+msgstr "%s مُحدث (الإصدار %s)."
+
+msgid "%s is up to date."
+msgstr "%s محدث."
+
+msgid "%s needs an update."
+msgstr "%s يحتاج إلى تحديث."
+
+msgid "%s · %d files"
+msgstr "%s · %d ملفات"
+
+msgid "%s · 1 file"
+msgstr "%s · ملف واحد"
+
+msgid "(fork)"
+msgstr "(تفريع)"
+
+msgid "(showing %d of %d commits)"
+msgstr "(عرض %d من %d التزامات)"
+
+msgid "+ Add to Shuffle Pool"
+msgstr "+ إضافة إلى العرض العشوائي"
+
+msgid "1 / 1"
+msgstr "1 / 1"
+
+msgid "1 patch"
+msgstr "رقعة واحدة"
+
+msgid "1 plugin"
+msgstr "إضافة واحدة"
+
+msgid "< Back"
+msgstr "رجوع"
+
+msgid "< Prev"
+msgstr "السابق"
+
+msgid "?"
+msgstr "?"
+
+msgid "A -> Z"
+msgstr "أ -> ي"
+
+msgid "A → Z"
+msgstr "أ → ي"
+
+msgid "About"
+msgstr "حول"
+
+msgid "About Storefront"
+msgstr "حول Storefront"
+
+msgid "Active Single"
+msgstr "فردي نشط"
+
+msgid "Active Wallpaper ✓"
+msgstr "الخلفية النشطة ✓"
+
+msgid "Active: %s"
+msgstr "نشط: %s"
+
+msgid "Add to Shuffle"
+msgstr "إضافة للتبديل"
+
+msgid "Add to Shuffle Pool (Enable Shuffle)"
+msgstr "إضافة لمجموعة التبديل (تفعيل التبديل)"
+
+msgid "Added to shuffle pool & Folder Shuffle enabled!"
+msgstr "تمت الإضافة وتفعيل العرض العشوائي للمجلد!"
+
+msgid "All"
+msgstr "الكل"
+
+msgid "All Caches"
+msgstr "كل الذاكرة المؤقتة"
+
+msgid "All Categories"
+msgstr "جميع الفئات"
+
+msgid "All Types"
+msgstr "جميع الأنواع"
+
+msgid "All items are up to date."
+msgstr "جميع العناصر محدثة."
+
+msgid "All of your custom plugin folders are currently hidden (see Manage plugin paths). Install to the default plugin folder anyway?"
+msgstr "جميع مجلدات الإضافات المخصصة لديك مخفية حالياً (راجع إدارة مسارات الإضافات). هل تريد التثبيت في مجلد الإضافات الافتراضي على أي حال؟"
+
+msgid "All patches"
+msgstr "جميع الرقع"
+
+msgid "All plugins"
+msgstr "جميع الإضافات"
+
+msgid "All plugins are already matched."
+msgstr "جميع الإضافات تمت مطابقتها بالفعل."
+
+msgid "Allow pre-release updates"
+msgstr "السماح بتحديثات الإصدارات التمهيدية"
+
+msgid "Alphabet & Numbers"
+msgstr "الأبجدية والأرقام"
+
+msgid "Also delete plugin settings"
+msgstr "حذف إعدادات الإضافة أيضاً"
+
+msgid "Always install here (don"
+msgstr "التثبيت هنا دائماً (لا"
+
+msgid "Always install here (don't ask again)"
+msgstr "التثبيت هنا دائمًا (عدم السؤال مرة أخرى)"
+
+msgid "Any"
+msgstr "أي"
+
+msgid "App Store · Installed patches"
+msgstr "متجر التطبيقات · التصحيحات المثبتة"
+
+msgid "App Store · Installed plugins"
+msgstr "متجر التطبيقات · الملحقات المثبتة"
+
+msgid "Apply"
+msgstr "تطبيق"
+
+msgid "Assets — %s"
+msgstr "الأصول — %s"
+
+msgid "Author"
+msgstr "المؤلف"
+
+msgid "Back"
+msgstr "رجوع"
+
+msgid "Beta"
+msgstr "تجريبي"
+
+msgid "Black Fill"
+msgstr "تعبئة سوداء"
+
+msgid "Blank"
+msgstr "فارغ"
+
+msgid "Book Cover"
+msgstr "غلاف الكتاب"
+
+msgid "Border Fill / Background"
+msgstr "تعبئة الحدود / الخلفية"
+
+msgid "Both owner and repository name are required."
+msgstr "اسم المالك واسم المستودع مطلوبان معاً."
+
+msgid "Branch: %s"
+msgstr "الفرع: %s"
+
+msgid "Browse Wallpapers in Storefront"
+msgstr "تصفح الخلفيات في Storefront"
+
+msgid "By "
+msgstr "By"
+
+msgid "By: %s"
+msgstr "بواسطة: %s"
+
+msgid "Cache empty. Refresh to retrieve repositories."
+msgstr "الذاكرة المخبأة فارغة. قم بالتحديث لجلب المستودعات."
+
+msgid "Cache is older than a week, consider refreshing."
+msgstr "الذاكرة المخبأة أقدم من أسبوع، يرجى التحديث."
+
+msgid "Cached %s patch repositories."
+msgstr "تم تخزين %s مستودع تصحيحات مؤقتاً."
+
+msgid "Cached %s plugins."
+msgstr "تم تخزين %s من الملحقات مؤقتًا."
+
+msgid "Can"
+msgstr "يمكن"
+
+msgid "Can't load readme...."
+msgstr "تعذر تحميل ملف التوضيح (readme)...."
+
+msgid "Cancel"
+msgstr "إلغاء"
+
+msgid "Cancel matching"
+msgstr "إلغاء المطابقة"
+
+msgid "Cannot read source file."
+msgstr "تعذر قراءة ملف المصدر."
+
+msgid "Cannot write destination file."
+msgstr "لا يمكن كتابة الملف الوجهة."
+
+msgid "Catalog & Cache"
+msgstr "الكتالوج والتخزين المؤقت"
+
+msgid "Catalog refresh failed: "
+msgstr "فشل تحديث الفهرس: "
+
+msgid "Catalog refresh is already in progress in the background."
+msgstr "تحديث الكتالوج قيد التقدم بالفعل في الخلفية."
+
+msgid "Catalog refreshed successfully."
+msgstr "تم تحديث الفهرس بنجاح."
+
+msgid "Catalog source"
+msgstr "مصدر الكتالوج"
+
+msgid "Catalog updated: %d plugins, %d patches, %d fonts."
+msgstr "تم تحديث الكتالوج: %d إضافة، %d تصحيح، %d خطوط."
+
+msgid "Categories"
+msgstr "الفئات"
+
+msgid "Category: "
+msgstr "الفئة: "
+
+msgid "Category: %s"
+msgstr "الفئة: %s"
+
+msgid "Change..."
+msgstr "تغيير..."
+
+msgid "Changelog for %s\n%s \\\\xE2\\\\x86\\\\x92 %s"
+msgstr "Changelog for %s\n%s \\\\xE2\\\\x86\\\\x92 %s"
+
+msgid "Changelog for %s\n%s → %s"
+msgstr "سجل التغييرات لـ %s\n%s → %s"
+
+msgid "Changelog for %s\\\n%s \\\\xE2\\\\x86\\\\x92 %s"
+msgstr "Changelog for %s\\\n%s \\\\xE2\\\\x86\\\\x92 %s"
+
+msgid "Changelog: %s"
+msgstr "سجل التغييرات: %s"
+
+msgid "Check Updates"
+msgstr "التحقق"
+
+msgid "Check all updates"
+msgstr "التحقق من كافة التحديثات"
+
+msgid "Check for updates"
+msgstr "التحقق من التحديثات"
+
+msgid "Check this patch"
+msgstr "فحص هذا التصحيح"
+
+msgid "Check this plugin"
+msgstr "فحص هذه الإضافة"
+
+msgid "Checked %d patches: %d need updates, %d up to date."
+msgstr "تم فحص %d تصحيحاً: %d تتطلب التحديث، %d محدثة."
+
+msgid "Checked %d plugin updates"
+msgstr "تم التحقق من %d تحديثات للإضافات"
+
+msgid "Checked %d plugin(s) for updates."
+msgstr "تم فحص تحديثات %d من الإضافات."
+
+msgid "Checking %s…"
+msgstr "جاري فحص %s…"
+
+msgid "Checking for Storefront updates..."
+msgstr "جارٍ التحقق من تحديثات Storefront..."
+
+msgid "Checking for Storefront updates…"
+msgstr "جارٍ التحقق من تحديثات Storefront…"
+
+msgid "Checking patch updates…"
+msgstr "جاري فحص تحديثات التصحيحات…"
+
+msgid "Checking plugin updates"
+msgstr "جارٍ التحقق من تحديثات الإضافات"
+
+msgid "Checking plugin updates…"
+msgstr "التحقق من تحديثات الملحق…"
+
+msgid "Choose Build — %s"
+msgstr "اختر البناء — %s"
+
+msgid "Clean"
+msgstr "تنظيف"
+
+msgid "Clear"
+msgstr "مسح"
+
+msgid "Clear All"
+msgstr "مسح الكل"
+
+msgid "Clear All Caches?"
+msgstr "مسح كل الذاكرة المؤقتة؟"
+
+msgid "Clear Cache"
+msgstr "مسح الذاكرة المؤقتة"
+
+msgid "Clear README Cache?"
+msgstr "مسح ذاكرة README المؤقتة؟"
+
+msgid "Clear README cache"
+msgstr "مسح التخزين المؤقت"
+
+msgid "Clear README cache (%s)?\nCached README files and images will be deleted."
+msgstr "Clear README cache (%s)?\nCached README files and images will be deleted."
+
+msgid "Clear Thumbnail Cache?"
+msgstr "مسح ذاكرة الصور المصغرة المؤقتة؟"
+
+msgid "Clear Wiki Cache?"
+msgstr "مسح ذاكرة Wiki المؤقتة؟"
+
+msgid "Clear Wiki cache (%s)?\nCached wiki articles and images will be deleted."
+msgstr "Clear Wiki cache (%s)?\nCached wiki articles and images will be deleted."
+
+msgid "Clear all cached data (%s)?\nAll README files, wiki articles, and thumbnails will be deleted."
+msgstr "Clear all cached data (%s)?\nAll README files, wiki articles, and thumbnails will be deleted."
+
+msgid "Clear cache…"
+msgstr "مسح الذاكرة المؤقتة"
+
+msgid "Clear screensaver thumbnail cache (%s)?\nThumbnails will be re-downloaded when viewing wallpapers."
+msgstr "Clear screensaver thumbnail cache (%s)?\nThumbnails will be re-downloaded when viewing wallpapers."
+
+msgid "Clear search & filters"
+msgstr "مسح البحث والتصفيات"
+
+msgid "Clear search/filters"
+msgstr "مسح البحث/المصفيات"
+
+msgid "Cleared README cache (%s freed)."
+msgstr "Cleared README cache (%s freed)."
+
+msgid "Cleared Wiki cache (%s freed)."
+msgstr "Cleared Wiki cache (%s freed)."
+
+msgid "Cleared all caches (%s freed, %d files)."
+msgstr "Cleared all caches (%s freed, %d files)."
+
+msgid "Cleared screensaver thumbnails (%s freed)."
+msgstr "Cleared screensaver thumbnails (%s freed)."
+
+msgid "Close"
+msgstr "إغلاق"
+
+msgid "Collection"
+msgstr "المجموعة"
+
+msgid "Commit diff: %s → %s"
+msgstr "فروق التعديل: %s → %s"
+
+msgid "Commits: %s \\\\xE2\\\\x86\\\\x92 %s"
+msgstr "Commits: %s \\\\xE2\\\\x86\\\\x92 %s"
+
+msgid "Commits: %s → %s"
+msgstr "التغييرات: %s → %s"
+
+msgid "Community"
+msgstr "المجتمع"
+
+msgid "Config files only"
+msgstr "ملفات التكوين فقط"
+
+msgid "Configured ✓"
+msgstr "مُعد ✓"
+
+msgid "Confirm"
+msgstr "تأكيد"
+
+msgid "Confirm Update"
+msgstr "تأكيد التحديث"
+
+msgid "Confirm Update All"
+msgstr "تأكيد تحديث الكل"
+
+msgid "Connecting to GitHub…\n\nPlease wait."
+msgstr "جاري الاتصال بـ GitHub…\n\nيرجى الانتظار."
+
+msgid "Connecting to GitHub…\\\n\\\nPlease wait."
+msgstr "Connecting to GitHub…\\\n\\\nPlease wait."
+
+msgid "Continue"
+msgstr "متابعة"
+
+msgid "Copied to "
+msgstr "تم النسخ إلى "
+
+msgid "Copied to '%s'."
+msgstr "تم النسخ إلى '%s'."
+
+msgid "Copy"
+msgstr "نسخ"
+
+msgid "Copy file as"
+msgstr "نسخ الملف باسم"
+
+msgid "Could not detect .koplugin folder in archive"
+msgstr "تعذر اكتشاف مجلد .koplugin في الأرشيف"
+
+msgid "Could not detect plugin inside archive."
+msgstr "تعذر اكتشاف إضافة داخل الأرشيف."
+
+msgid "Could not fetch commit comparison."
+msgstr "تعذر جلب مقارنة التعديلات."
+
+msgid "Could not fetch releases for changelog."
+msgstr "تعذر جلب الإصدارات لسجل التغييرات."
+
+msgid "Could not fetch releases for this repository."
+msgstr "تعذر جلب الإصدارات لهذا المستودع."
+
+msgid "Could not locate plugin folder (_meta.lua) in archive."
+msgstr "تعذر العثور على مجلد الإضافة (_meta.lua) في الأرشيف."
+
+msgid "Could not open target file for writing"
+msgstr "تعذر فتح الملف الهدف للكتابة"
+
+msgid "Default"
+msgstr "الافتراضي"
+
+msgid "Default only"
+msgstr "الافتراضي فقط"
+
+msgid "Delete"
+msgstr "حذف"
+
+msgid "Delete "
+msgstr "حذف"
+
+msgid "Delete '%s' from your device?"
+msgstr "حذف '%s' من جهازك؟"
+
+msgid "Delete File?"
+msgstr "حذف الملف؟"
+
+msgid "Delete Wallpaper?"
+msgstr "حذف الخلفية؟"
+
+msgid "Delete all cached README files? They will be re-downloaded on demand."
+msgstr "حذف جميع ملفات README المخزنة مؤقتًا؟ سيتم إعادة تنزيلها عند الطلب."
+
+msgid "Delete file "
+msgstr "حذف الملف "
+
+msgid "Delete file '%s'?\n\nThis cannot be undone."
+msgstr "هل تريد حذف الملف '%s'؟\n\nلا يمكن التراجع عن هذا الإجراء."
+
+msgid "Delete font "
+msgstr "حذف الخط "
+
+msgid "Delete font '%s'?"
+msgstr "هل تريد حذف الخط '%s'؟"
+
+msgid "Delete from Device"
+msgstr "حذف من الجهاز"
+
+msgid "Delete patch"
+msgstr "حذف الرقعة"
+
+msgid "Delete patch "
+msgstr "حذف التصحيح "
+
+msgid "Delete patch '%s'?"
+msgstr "هل تريد حذف التصحيح '%s'؟"
+
+msgid "Delete plugin"
+msgstr "حذف الإضافة"
+
+msgid "Delete plugin "
+msgstr "حذف الإضافة "
+
+msgid "Delete plugin '%s'?"
+msgstr "هل تريد حذف الإضافة '%s'؟"
+
+msgid "Deleted "
+msgstr "تم حذف "
+
+msgid "Deleted %d cached README file(s)."
+msgstr "تم حذف %d ملف(ات) README مخبأة."
+
+msgid "Deleted %d cached README file(s); %d failed."
+msgstr "تم حذف %d ملف(ات) README مخبأة؛ فشل %d."
+
+msgid "Deleted '%s'."
+msgstr "تم حذف '%s'."
+
+msgid "Direct GitHub API"
+msgstr "Direct GitHub API"
+
+msgid "Disable"
+msgstr "تعطيل"
+
+msgid "Disable patch"
+msgstr "تعطيل التصحيح"
+
+msgid "Disable plugin"
+msgstr "تعطيل الملحق"
+
+msgid "Disabled"
+msgstr "معطل"
+
+msgid "Display Options"
+msgstr "خيارات العرض"
+
+msgid "Displays a static wallpaper on sleep"
+msgstr "يعرض خلفية ثابتة أثناء السكون"
+
+msgid "Displays a static wallpaper on sleep.\nActive: %s"
+msgstr "يعرض خلفية ثابتة أثناء السكون.\nالنشط: %s"
+
+msgid "Done"
+msgstr "تم"
+
+msgid "Download & Set Active"
+msgstr "تنزيل وتفعيل"
+
+msgid "Download Only"
+msgstr "تنزيل فقط"
+
+msgid "Download Only (Save to Device)"
+msgstr "تنزيل فقط (حفظ بالجهاز)"
+
+msgid "Download failed: "
+msgstr "فشل التنزيل: "
+
+msgid "Download options"
+msgstr "خيارات التنزيل"
+
+msgid "Download options — %s"
+msgstr "خيارات التنزيل — %s"
+
+msgid "Download options — %s (%s)"
+msgstr "خيارات التنزيل — %s (%s)"
+
+msgid "Downloading "
+msgstr "Downloading..."
+
+msgid "Downloading %s%s…\nThis may take a moment."
+msgstr "جاري تنزيل %s%s…\nقد يستغرق هذا لحظة."
+
+msgid "Downloading %s%s…\\\nThis may take a moment."
+msgstr "Downloading %s%s…\\\nThis may take a moment."
+
+msgid "Downloading %s…"
+msgstr "جاري تحميل %s…"
+
+msgid "Downloading '%s'..."
+msgstr "Downloading '%s'..."
+
+msgid "Downloading patch \"%s\"…"
+msgstr "جاري تنزيل التصحيح \"%s\"…"
+
+msgid "Downloading patch %s…"
+msgstr "جاري تنزيل التصحيح %s…"
+
+msgid "Downloading patch \\\\\"%s\\\\\"…"
+msgstr "Downloading patch \\\\\"%s\\\\\"…"
+
+msgid "Downloading screensaver..."
+msgstr "جارٍ تنزيل شاشة التوقف..."
+
+msgid "Downloading to shuffle pool..."
+msgstr "جارٍ التنزيل إلى مجموعة التبديل..."
+
+msgid "Edit"
+msgstr "تعديل"
+
+msgid "Empty (0 KB)"
+msgstr "فارغ (0 كيلوبايت)"
+
+msgid "Enable"
+msgstr "تمكين"
+
+msgid "Enable patch"
+msgstr "تمكين التصحيح"
+
+msgid "Enable plugin"
+msgstr "تمكين الإضافة"
+
+msgid "Enabled"
+msgstr "مفعل"
+
+msgid "Enter item number"
+msgstr "أدخل رقم العنصر"
+
+msgid "Enter plugin number"
+msgstr "أدخل رقم الإضافة"
+
+msgid "Extracting and installing plugin…\nPlease wait."
+msgstr "جاري استخراج الإضافة وتثبيتها…\nيرجى الانتظار."
+
+msgid "Extracting and installing plugin…\\\nPlease wait."
+msgstr "Extracting and installing plugin…\\\nPlease wait."
+
+msgid "Failed to check %s: %s"
+msgstr "فشل التحقق من %s: %s"
+
+msgid "Failed to check for Storefront updates: %s"
+msgstr "فشل فحص تحديثات المتجر: %s"
+
+msgid "Failed to create patches directory: %s"
+msgstr "فشل إنشاء دليل التصحيحات: %s"
+
+msgid "Failed to delete patch: %s"
+msgstr "فشل حذف التصحيح: %s"
+
+msgid "Failed to delete plugin: %s"
+msgstr "فشل حذف الإضافة: %s"
+
+msgid "Failed to delete: %s"
+msgstr "فشل الحذف: %s"
+
+msgid "Failed to disable patch "
+msgstr "فشل تعطيل التصحيح "
+
+msgid "Failed to disable patch '%s'."
+msgstr "فشل تعطيل التصحيح '%s'."
+
+msgid "Failed to download patch: %s"
+msgstr "فشل تنزيل الرقعة: %s"
+
+msgid "Failed to download screensaver."
+msgstr "فشل تنزيل شاشة التوقف."
+
+msgid "Failed to enable patch "
+msgstr "فشل تمكين التصحيح "
+
+msgid "Failed to enable patch '%s'."
+msgstr "فشل تمكين التصحيح '%s'."
+
+msgid "Failed to extract file: "
+msgstr "فشل استخراج الملف: "
+
+msgid "Failed to fetch patch list."
+msgstr "فشل جلب قائمة التصحيحات."
+
+msgid "Failed to fetch repository "
+msgstr "فشل جلب المستودع "
+
+msgid "Failed to fetch repository '%s/%s': %s"
+msgstr "فشل جلب المستودع '%s/%s': %s"
+
+msgid "Failed to install patch: "
+msgstr "فشل تثبيت التصحيح: "
+
+msgid "Failed to open downloaded archive."
+msgstr "فشل فتح الأرشيف المنزل."
+
+msgid "Failed to prepare patches directory."
+msgstr "فشل إعداد دليل الرقع."
+
+msgid "Failed to toggle patch status."
+msgstr "فشل تغيير حالة التصحيح."
+
+msgid "Fetching Release Info"
+msgstr "جلب معلومات الإصدار"
+
+msgid "Fetching changelog…"
+msgstr "جلب سجل التغييرات…"
+
+msgid "Fetching commits…"
+msgstr "جاري جلب التعديلات…"
+
+msgid "Fetching patch file listings…"
+msgstr "جلب قائمة ملفات التصحيح…"
+
+msgid "Fetching patches via Direct GitHub API…"
+msgstr "جلب التصحيحات عبر Direct GitHub API…"
+
+msgid "Fetching plugins via Direct GitHub API…"
+msgstr "جلب الإضافات عبر Direct GitHub API…"
+
+msgid "Fetching release info…"
+msgstr "جلب معلومات الإصدار…"
+
+msgid "Fetching releases…"
+msgstr "جلب الإصدارات…"
+
+msgid "Fetching repository %s/%s..."
+msgstr "جاري جلب المستودع %s/%s..."
+
+msgid "Filename cannot be empty."
+msgstr "لا يمكن أن يكون اسم الملف فارغاً."
+
+msgid "Filter & Sort Fonts"
+msgstr "تصفية وفرز الخطوط"
+
+msgid "Filter & Sort Installed"
+msgstr "تصفية وفرز المثبت"
+
+msgid "Filter & Sort Patches"
+msgstr "تصفية وفرز التصحيحات"
+
+msgid "Filter & Sort Plugins"
+msgstr "تصفية وفرز الإضافات"
+
+msgid "Filter & Sort Screensavers"
+msgstr "تصفية وفرز شاشات التوقف"
+
+msgid "Filter Installed Patches"
+msgstr "تصفية التصحيحات المثبتة"
+
+msgid "Filter Installed Plugins"
+msgstr "تصفية الإضافات المثبتة"
+
+msgid "Filter pre-releases"
+msgstr "تصفية الإصدارات التمهيدية"
+
+msgid "Filter..."
+msgstr "تصفية..."
+
+msgid "Filter: "
+msgstr "المصفاة: "
+
+msgid "Filters"
+msgstr "فلاتر"
+
+msgid "Filters: "
+msgstr "الفلاتر: "
+
+msgid "Filters: (none)"
+msgstr "الفلاتر: (لا يوجد)"
+
+msgid "Folder Shuffle"
+msgstr "عرض عشوائي للمجلد"
+
+msgid "Folder Shuffle enabled with this wallpaper!"
+msgstr "تم تفعيل تبديل المجلد مع هذه الخلفية!"
+
+msgid "Font"
+msgstr "الخط"
+
+msgid "Font "
+msgstr "الخط "
+
+msgid "Font '%s' deleted."
+msgstr "تم حذف الخط '%s'."
+
+msgid "Font files not found for %s."
+msgstr "لم يتم العثور على ملفات الخط لـ %s."
+
+msgid "Font style"
+msgstr "نمط الخط"
+
+msgid "Fonts"
+msgstr "الخطوط"
+
+msgid "Free up storage space on your device. Cached items are re-downloaded automatically when needed."
+msgstr "توفير مساحة التخزين على جهازك. يُعاد تنزيل العناصر المخزنة مؤقتًا تلقائيًا عند الحاجة."
+
+msgid "GitHub API rate limit exceeded. Add a GitHub token in Storefront settings to increase the limit (10→30 req/min)."
+msgstr "تم تجاوز حد استخدام API لـ GitHub. أضف رمز GitHub في إعدادات متجر الإضافات لزيادة الحد (10←30 طلب/دقيقة)."
+
+msgid "GitHub API rate limit exceeded. Please wait a few minutes and try again."
+msgstr "تم تجاوز حد استخدام API لـ GitHub. يرجى الانتظار بضع دقائق ثم المحاولة مجدداً."
+
+msgid "GitHub personal access token"
+msgstr "رمز الوصول الشخصي لـ GitHub"
+
+msgid "GitHub rejected this request: fine-grained personal access tokens are not supported for search. Please use a classic token instead (see the Storefront README)."
+msgstr "رفض GitHub هذا الطلب: رموز الوصول الشخصية دقيقة التحديد غير مدعومة للبحث. يرجى استخدام رمز كلاسيكي بدلاً من ذلك (راجع ملف README الخاص بالمتجر)."
+
+msgid "GitHub token"
+msgstr "رمز GitHub"
+
+msgid "GitHub token saved."
+msgstr "تم حفظ رمز GitHub."
+
+msgid "Go"
+msgstr "انتقال"
+
+msgid "Go to page"
+msgstr "الانتقال إلى صفحة"
+
+msgid "HTTP error"
+msgstr "خطأ HTTP"
+
+msgid "HTTP request failed"
+msgstr "فشل طلب HTTP"
+
+msgid "Ignore"
+msgstr "تجاهل"
+
+msgid "Ignore All Updates"
+msgstr "تجاهل جميع التحديثات"
+
+msgid "Ignore Updates"
+msgstr "تجاهل التحديثات"
+
+msgid "Ignored"
+msgstr "تجاهل"
+
+msgid "Image View"
+msgstr "عرض الصور"
+
+msgid "Include 0-star forks"
+msgstr "تضمين تفريعات بدون نجوم"
+
+msgid "Install"
+msgstr "تثبيت"
+
+msgid "Install %s"
+msgstr "تثبيت %s"
+
+msgid "Install Font"
+msgstr "تثبيت الخط"
+
+msgid "Install Patch"
+msgstr "تثبيت التصحيح"
+
+msgid "Install a patch"
+msgstr "تثبيت تصحيح"
+
+msgid "Install patch from GitHub"
+msgstr "تثبيت تصحيح من GitHub"
+
+msgid "Install plugin from GitHub"
+msgstr "تثبيت إضافة من GitHub"
+
+msgid "Install to Default?"
+msgstr "التثبيت في المجلد الافتراضي؟"
+
+msgid "Install to default"
+msgstr "التثبيت في الموقع الافتراضي"
+
+msgid "Installation failed: "
+msgstr "فشل التثبيت: "
+
+msgid "Installation is currently only supported for plugins."
+msgstr "التثبيت مدعوم حالياً للإضافات فقط."
+
+msgid "Installed"
+msgstr "مثبت"
+
+msgid "Installed Patches Settings"
+msgstr "إعدادات الرقع المثبتة"
+
+msgid "Installed Plugins Settings"
+msgstr "إعدادات الإضافات المثبتة"
+
+msgid "Installed Regular font style offline for \"%s\". Full font family queued for download when reconnected."
+msgstr "تم تثبيت نمط الخط العادي دون اتصال لـ \"%s\". تم إدراج عائلة الخط الكاملة في قائمة الانتظار للتنزيل عند إعادة الاتصال."
+
+msgid "Installed Regular font style offline for \\\\\"%s\\\\\". Full font family queued for download when reconnected."
+msgstr "Installed Regular font style offline for \\\\\"%s\\\\\". Full font family queued for download when reconnected."
+
+msgid "Installed font \"%s\" (%d file(s))."
+msgstr "تم تثبيت الخط \"%s\" (%d ملفات)."
+
+msgid "Installed font \\\\\"%s\\\\\" (%d file(s))."
+msgstr "Installed font \\\\\"%s\\\\\" (%d file(s))."
+
+msgid "Installed full font family \"%s\" (%d file(s))."
+msgstr "تم تثبيت عائلة الخط الكاملة \"%s\" (%d ملفات)."
+
+msgid "Installed full font family \\\\\"%s\\\\\" (%d file(s))."
+msgstr "Installed full font family \\\\\"%s\\\\\" (%d file(s))."
+
+msgid "Installed patch \"%s\"."
+msgstr "تم تثبيت التصحيح \"%s\"."
+
+msgid "Installed patch \\\\\"%s\\\\\"."
+msgstr "Installed patch \\\\\"%s\\\\\"."
+
+msgid "Installed plugin \"%s\" (version %s)."
+msgstr "تم تثبيت الإضافة \"%s\" (الإصدار %s)."
+
+msgid "Installed plugin \"%s\"."
+msgstr "تم تثبيت الإضافة \"%s\"."
+
+msgid "Installed plugin Storefront version %s"
+msgstr "تم تثبيت إضافة Storefront الإصدار %s"
+
+msgid "Installing %s…"
+msgstr "جاري تثبيت %s…"
+
+msgid "Invalid archive reader"
+msgstr "قارئ الأرشيف غير صالح"
+
+msgid "Invalid extraction parameters"
+msgstr "معلمات الاستخراج غير صالحة"
+
+msgid "Invalid patch target filename."
+msgstr "اسم ملف الهدف للرقعة غير صالحة."
+
+msgid "Invalid selection."
+msgstr "تحديد غير صالح."
+
+msgid "Invert colors (night mode / dark background)"
+msgstr "عكس الألوان (الوضع الليلي / خلفية داكنة)"
+
+msgid "It is a truth universally acknowledged, that a single man in possession of a good fortune, must be in want of a wife. However little known the feelings or views of such a man may be on his first entering a neighbourhood, this truth is so well fixed in the minds of the surrounding families, that he is considered the rightful property of some one or other of their daughters."
+msgstr "إنها حقيقة معترف بها عالمياً، أن الرجل الأعزب الذي يملك ثروة جيدة لا بد أنه يبحث عن زوجة."
+
+msgid "Items per page"
+msgstr "العناصر في الصفحة"
+
+msgid "Items per page: %d"
+msgstr "العناصر في الصفحة: %d"
+
+msgid "Last Updated (Newest)"
+msgstr "الأحدث"
+
+msgid "Last Updated (Oldest)"
+msgstr "الأقدم"
+
+msgid "Last check: %s"
+msgstr "آخر فحص: %s"
+
+msgid "Latest Release"
+msgstr "أحدث إصدار"
+
+msgid "Latest release"
+msgstr "أحدث إصدار"
+
+msgid "License: %s"
+msgstr "الترخيص: %s"
+
+msgid "Linked only"
+msgstr "المرتبطة فقط"
+
+msgid "Loading README..."
+msgstr "جاري تحميل README..."
+
+msgid "Loading Release Notes..."
+msgstr "جاري تحميل ملاحظات الإصدار..."
+
+msgid "Loading Versions..."
+msgstr "جاري تحميل الإصدارات..."
+
+msgid "Loading Wiki..."
+msgstr "جارٍ تحميل الويكي..."
+
+msgid "Local SHA: %s"
+msgstr "SHA المحلي: %s"
+
+msgid "Local version: %s"
+msgstr "الإصدار المحلي: %s"
+
+msgid "Local: %s"
+msgstr "محلي: %s"
+
+msgid "Local: %s → Remote: %s"
+msgstr "محلي: %s → بعيد: %s"
+
+msgid "Manage plugin paths"
+msgstr "إدارة مسارات الملحقات"
+
+msgid "Manage plugin paths\n\nHiding a path only affects what Storefront shows/manages here. KOReader will still load plugins from it."
+msgstr "إدارة مسارات الإضافات\n\nإخفاء مسار يؤثر فقط على ما يعرضه/يديره Storefront هنا. سيستمر KOReader في تحميل الإضافات منه."
+
+msgid "Manage plugin paths\\\n\\\nHiding a path only affects what Storefront shows/manages here. KOReader will still load plugins from it."
+msgstr "Manage plugin paths\\\n\\\nHiding a path only affects what Storefront shows/manages here. KOReader will still load plugins from it."
+
+msgid "Match"
+msgstr "مطابقة"
+
+msgid "Match from List"
+msgstr "مطابقة من القائمة"
+
+msgid "Match patch with GitHub repository"
+msgstr "مطابقة التصحيح مع مستودع GitHub"
+
+msgid "Match plugin with GitHub repository"
+msgstr "مطابقة الإضافة مع مستودع GitHub"
+
+msgid "Match plugin: %s"
+msgstr "مطابقة الإضافة: %s"
+
+msgid "Match this remote patch"
+msgstr "مطابقة هذه الرقعة البعيدة"
+
+msgid "Match with URL"
+msgstr "مطابقة باستخدام الرابط"
+
+msgid "Match with repo"
+msgstr "مطابقة مع المستودع"
+
+msgid "Match with this repo"
+msgstr "مطابقة مع هذا المستودع"
+
+msgid "Matched %s with %s."
+msgstr "تمت مطابقة %s مع %s."
+
+msgid "Matched repo: %s/%s"
+msgstr "المستودع المطابق: %s/%s"
+
+msgid "Matching entries: %s / %s"
+msgstr "المدخلات المطابقة: %s / %s"
+
+msgid "Matching patch: %s — tap to cancel"
+msgstr "مطابقة التصحيح: %s — اضغط للإلغاء"
+
+msgid "Matching patches: %s (repos: %s / %s)"
+msgstr "التصحيحات المطابقة: %s (المستودعات: %s / %s)"
+
+msgid "Matching plugin: %s — tap to cancel"
+msgstr "مطابقة الإضافة: %s — اضغط للإلغاء"
+
+msgid "Minimum stars"
+msgstr "الحد الأدنى للنجوم"
+
+msgid "Missing README path"
+msgstr "مسار README مفقود"
+
+msgid "Missing URL"
+msgstr "الرابط مفقود"
+
+msgid "Missing asset download URL."
+msgstr "رابط تنزيل الأصل مفقود."
+
+msgid "Missing download URL for release asset."
+msgstr "رابط التنزيل مفقود لأصل الإصدار."
+
+msgid "Missing font metadata."
+msgstr "البيانات الوصفية للخط مفقودة."
+
+msgid "Missing meta path in record."
+msgstr "مسار البيانات الوصفية مفقود في السجل."
+
+msgid "Missing repository info for patch update."
+msgstr "معلومات المستودع مفقودة لتحديث التصحيح."
+
+msgid "Missing repository info for update."
+msgstr "معلومات المستودع مفقودة للتحديث."
+
+msgid "Missing repository metadata for README download."
+msgstr "بيانات مستودع البيانات الميتا مفقودة لتنزيل README."
+
+msgid "Missing repository metadata for installation."
+msgstr "بيانات المستودع الوصفية مفقودة للتثبيت."
+
+msgid "Missing repository metadata for patch install."
+msgstr "بيانات المستودع الوصفية مفقودة لتثبيت التصحيح."
+
+msgid "Missing repository metadata for patch."
+msgstr "بيانات المستودع الوصفية مفقودة للتصحيح."
+
+msgid "Missing repository metadata for releases."
+msgstr "بيانات المستودع الوصفية مفقودة للإصدارات."
+
+msgid "Missing repository metadata for remote fetch."
+msgstr "بيانات المستودع الميتا مفقودة للجلب البعيد."
+
+msgid "Modify Patch"
+msgstr "تعديل الرقعة"
+
+msgid "Modify Plugin"
+msgstr "تعديل الإضافة"
+
+msgid "Modify Plugin: %s"
+msgstr "تعديل الملحق: %s"
+
+msgid "Most Downloaded"
+msgstr "الأكثر تنزيلاً"
+
+msgid "Most Popular"
+msgstr "الأكثر شعبية"
+
+msgid "Multiple custom plugin folders are configured. Where should this plugin be installed?"
+msgstr "تم تكوين مجلدات إضافات مخصصة متعددة. أين ينبغي تثبيت هذه الإضافة؟"
+
+msgid "My wallpaper collection"
+msgstr "مجموعة خلفياتي"
+
+msgid "Name (A-Z)"
+msgstr "الاسم (أ-ي)"
+
+msgid "Name (Z-A)"
+msgstr "الاسم (ي-أ)"
+
+msgid "Name, description, topic"
+msgstr "الاسم، الوصف، الموضوع"
+
+msgid "Needs update"
+msgstr "يحتاج إلى تحديث"
+
+msgid "Needs update: %d"
+msgstr "يحتاج تحديث: %d"
+
+msgid "Never"
+msgstr "أبداً"
+
+msgid "New filename"
+msgstr "اسم الملف الجديد"
+
+msgid "Next"
+msgstr "التالي"
+
+msgid "Next >"
+msgstr "التالي >"
+
+msgid "No Fill (Transparent)"
+msgstr "بدون تعبئة (شفاف)"
+
+msgid "No Lua files found in plugin directory"
+msgstr "لم يتم العثور على ملفات Lua في دليل الملحق"
+
+msgid "No README available."
+msgstr "لا يوجد ملف README متاح."
+
+msgid "No Release Notes available."
+msgstr "لا تتوفر ملاحظات إصدار."
+
+msgid "No Wiki available."
+msgstr "لا تتوفر ويكي."
+
+msgid "No cached README files to delete."
+msgstr "لا توجد ملفات README مخبأة للحذف."
+
+msgid "No cached entries yet."
+msgstr "لا توجد مدخلات مخزنة مؤقتًا بعد."
+
+msgid "No cached entries yet. Refresh to fetch from GitHub."
+msgstr "لا توجد إدخالات مخبأة بعد. قم بالتحديث للجلب من GitHub."
+
+msgid "No changelog entries found for this range."
+msgstr "لم يتم العثور على إدخالات في سجل التغييرات لهذا النطاق."
+
+msgid "No commits found in this range."
+msgstr "لم يتم العثور على تعديلات في هذا النطاق."
+
+msgid "No config files found — uncheck filter to show all files"
+msgstr "لم يتم العثور على ملفات تكوين — إلغاء تحديد التصفية لإظهار كافة الملفات"
+
+msgid "No date"
+msgstr "بدون تاريخ"
+
+msgid "No detailed release notes provided for this version."
+msgstr "لم يتم توفير ملاحظات تفصيلية للإصدار."
+
+msgid "No entries match current filters."
+msgstr "لا توجد إدخالات تطابق المصفيات الحالية."
+
+msgid "No installed items found."
+msgstr "لم يتم العثور على عناصر مثبتة."
+
+msgid "No items found."
+msgstr "لم يتم العثور على عناصر."
+
+msgid "No matched patches to check."
+msgstr "لا توجد تصحيحات مطابقة لفحصها."
+
+msgid "No matched plugins to check."
+msgstr "لا توجد إضافات مطابقة للفحص."
+
+msgid "No patch files found in %s/%s."
+msgstr "لم يتم العثور على ملفات تصحيح في %s/%s."
+
+msgid "No patch files found in repository %s."
+msgstr "لم يتم العثور على ملفات تصحيح في المستودع %s."
+
+msgid "No patches found in matching repositories."
+msgstr "لم يتم العثور على رقع في المستودعات المطابقة."
+
+msgid "No patches need updates."
+msgstr "لا توجد تصحيحات تتطلب التحديث."
+
+msgid "No patches to display."
+msgstr "لا توجد رقع للعرض."
+
+msgid "No plugin files were extracted"
+msgstr "لم يتم استخراج أي ملفات إضافة"
+
+msgid "No plugins need updates."
+msgstr "لا توجد إضافات تتطلب التحديث."
+
+msgid "No plugins to display."
+msgstr "لا توجد ملحقات للعرض."
+
+msgid "No plugins tracked yet."
+msgstr "لا توجد إضافات متتبعة بعد."
+
+msgid "No previous page in history"
+msgstr "لا توجد صفحة سابقة في السجل"
+
+msgid "No release notes provided for this version."
+msgstr "لا تتوفر ملاحظات إصدار لهذا الإصدار."
+
+msgid "No release notes."
+msgstr "لا تتوفر ملاحظات إصدار."
+
+msgid "No releases found for this repository."
+msgstr "لم يتم العثور على إصدارات لهذا المستودع."
+
+msgid "No remote version info for %s."
+msgstr "لا توجد معلومات إصدار بعيد لـ %s."
+
+msgid "No screensavers match this filter."
+msgstr "لا توجد شاشات توقف تطابق هذا الفلتر."
+
+msgid "No stable releases found — uncheck filter to show all releases"
+msgstr "لم يتم العثور على إصدارات مستقرة — ألغِ تحديد المصفاة لإظهار كافة الإصدارات"
+
+msgid "No tracked plugins to check."
+msgstr "لا توجد ملحقات متتبعة للتحقق منها."
+
+msgid "No wallpapers found in your screensavers folder.\n\nBrowse the Screensavers catalog in Storefront to download wallpapers!"
+msgstr "لم يتم العثور على خلفيات في مجلد شاشات التوقف.\n\nتصفح كتالوج شاشات التوقف في Storefront لتنزيل الخلفيات!"
+
+msgid "No wallpapers found in your screensavers folder.\\\n\\\nBrowse the Screensavers catalog in Storefront to download wallpapers!"
+msgstr "No wallpapers found in your screensavers folder.\\\n\\\nBrowse the Screensavers catalog in Storefront to download wallpapers!"
+
+msgid "None selected"
+msgstr "لم يتم تحديد أي شيء"
+
+msgid "Not matched with a repository."
+msgstr "غير مطابق مع أي مستودع."
+
+msgid "Not set"
+msgstr "غير محدد"
+
+msgid "Notes"
+msgstr "ملاحظات"
+
+msgid "OK"
+msgstr "حسناً"
+
+msgid "Offline Regular"
+msgstr "عادي بدون اتصال"
+
+msgid "Open"
+msgstr "فتح"
+
+msgid "Open Wallpaper Collection Gallery"
+msgstr "فتح معرض الخلفيات"
+
+msgid "Open details"
+msgstr "فتح التفاصيل"
+
+msgid "Optional. Raises the GitHub API rate limit. Generate one (classic, "
+msgstr "اختياري. يرفع حد استخدام API لـ GitHub. أنشئ واحداً (كلاسيكي، "
+
+msgid "Optional. Raises the GitHub API rate limit. Generate one (classic, 'public_repo' scope is enough) at github.com/settings/tokens, then paste it here."
+msgstr "اختياري. يرفع حد معدل طلبات API لـ GitHub. أنشئ رمزًا (كلاسيكي، نطاق 'public_repo' كافٍ) في github.com/settings/tokens، ثم ألصقه هنا."
+
+msgid "Options ▾"
+msgstr "خيارات ▾"
+
+msgid "Origin"
+msgstr "الأصل"
+
+msgid "Owner"
+msgstr "المالك"
+
+msgid "Owner %s"
+msgstr "المالك %s"
+
+msgid "Owner: "
+msgstr "المالك: "
+
+msgid "Pack my box with five dozen liquor jugs."
+msgstr "صوت صفير البلبل هيج قلبي الثمل."
+
+msgid "Page %d of %d"
+msgstr "صفحة %d من %d"
+
+msgid "Page %d/%d"
+msgstr "صفحة %d/%d"
+
+msgid "Pangram Preview"
+msgstr "معاينة النص"
+
+msgid "Patch"
+msgstr "تصحيح"
+
+msgid "Patch "
+msgstr "التصحيح "
+
+msgid "Patch %s has been %s."
+msgstr "التصحيح %s أصبح %s."
+
+msgid "Patch '%s' deleted."
+msgstr "تم حذف التصحيح '%s'."
+
+msgid "Patch '%s' disabled."
+msgstr "تم تعطيل التصحيح '%s'."
+
+msgid "Patch '%s' enabled."
+msgstr "تم تمكين التصحيح '%s'."
+
+msgid "Patch cache is older than a week, consider refreshing."
+msgstr "التخزين المؤقت للرقع أقدم من أسبوع، يرجى التحديث."
+
+msgid "Patch file not found in repository."
+msgstr "ملف التصحيح غير موجود في المستودع."
+
+msgid "Patch file not found locally."
+msgstr "ملف التصحيح غير موجود محلياً."
+
+msgid "Patch file not found."
+msgstr "ملف التصحيح غير موجود."
+
+msgid "Patch matching cancelled."
+msgstr "تم إلغاء مطابقة التصحيح."
+
+msgid "Patch: %s"
+msgstr "التصحيح: %s"
+
+msgid "Patches"
+msgstr "التصحيحات"
+
+msgid "Patches cached: %s (last update: %s)"
+msgstr "التصحيحات المخبأة: %s (آخر تحديث: %s)"
+
+msgid "Patches found: %d"
+msgstr "التصحيحات التي تم العثور عليها: %d"
+
+msgid "Path: %s"
+msgstr "المسار: %s"
+
+msgid "Plugin"
+msgstr "إضافة"
+
+msgid "Plugin "
+msgstr "الإضافة "
+
+msgid "Plugin %s has been %s."
+msgstr "الإضافة %s أصبحت %s."
+
+msgid "Plugin '%s' deleted."
+msgstr "تم حذف الإضافة '%s'."
+
+msgid "Plugin '%s' disabled."
+msgstr "تم تعطيل الإضافة '%s'."
+
+msgid "Plugin '%s' enabled."
+msgstr "تم تمكين الإضافة '%s'."
+
+msgid "Plugin and patch browser for KOReader."
+msgstr "متصفح الإضافات والتصحيحات لـ KOReader."
+
+msgid "Plugin cache is older than a week, consider refreshing."
+msgstr "الذاكرة المخبأة للإضافة أقدم من أسبوع، يرجى التحديث."
+
+msgid "Plugin directory not found."
+msgstr "دليل الملحق غير موجود."
+
+msgid "Plugin folder not found."
+msgstr "مجلد الإضافة غير موجود."
+
+msgid "Plugin is not currently loaded, so settings cannot be deleted."
+msgstr "الإضافة غير محملة حالياً، لذا لا يمكن حذف الإعدادات."
+
+msgid "Plugins"
+msgstr "الملحقات"
+
+msgid "Plugins cached: %s (last update: %s)"
+msgstr "الإضافات المخبأة: %s (آخر تحديث: %s)"
+
+msgid "Pool size: %d wallpapers in rotation"
+msgstr "حجم المجموعة: %d خلفيات بالتناوب"
+
+msgid "Pre-installed core KOReader plugin."
+msgstr "إضافة أساسية مثبتة مسبقاً في KOReader."
+
+msgid "Prev"
+msgstr "السابق"
+
+msgid "Published: %s"
+msgstr "تاريخ النشر: %s"
+
+msgid "README"
+msgstr "README"
+
+msgid "README download failed: "
+msgstr "فشل تنزيل README: "
+
+msgid "README files & images"
+msgstr "ملفات README والصور"
+
+msgid "Rate Wallpaper"
+msgstr "تقييم الخلفية"
+
+msgid "Reading Passage Specimen"
+msgstr "عينة القراءة"
+
+msgid "Reading Progress"
+msgstr "تقدم القراءة"
+
+msgid "Reading Progress / Summary"
+msgstr "تقدم القراءة / الملخص"
+
+msgid "Recently Added"
+msgstr "أضيف حديثاً"
+
+msgid "Refresh"
+msgstr "تحديث"
+
+msgid "Refresh cache"
+msgstr "تحديث التخزين المؤقت"
+
+msgid "Refresh catalog"
+msgstr "تحديث الكتالوج"
+
+msgid "Refreshing catalog via Direct GitHub API…"
+msgstr "تحديث الفهرس عبر Direct GitHub API…"
+
+msgid "Refreshing catalog..."
+msgstr "جاري تحديث الفهرس..."
+
+msgid "Refreshing catalog…"
+msgstr "جاري تحديث الفهرس…"
+
+msgid "Refreshing…"
+msgstr "جاري التحديث…"
+
+msgid "Reinstall"
+msgstr "إعادة التثبيت"
+
+msgid "Release"
+msgstr "الإصدار"
+
+msgid "Release Notes"
+msgstr "ملاحظات الإصدار"
+
+msgid "Release notes for %s"
+msgstr "ملاحظات الإصدار لـ %s"
+
+msgid "Release: %s"
+msgstr "الإصدار: %s"
+
+msgid "Releases"
+msgstr "الإصدارات"
+
+msgid "Releases — %s"
+msgstr "الإصدارات — %s"
+
+msgid "Remote SHA: %s"
+msgstr "SHA البعيد: %s"
+
+msgid "Remote SHA: %s (checked %s)"
+msgstr "SHA البعيد: %s (تم الفحص %s)"
+
+msgid "Remote check failed: "
+msgstr "فشل الفحص البعيد: "
+
+msgid "Remote version for %s: %s."
+msgstr "الإصدار البعيد لـ %s: %s."
+
+msgid "Remote version not found."
+msgstr "الإصدار البعيد غير موجود."
+
+msgid "Remote: %s"
+msgstr "بعيد: %s"
+
+msgid "Remote: %s (checked %s)"
+msgstr "بعيد: %s (تم الفحص %s)"
+
+msgid "Remote: (not checked)"
+msgstr "البعيد: (لم يتم التحقق)"
+
+msgid "Remove"
+msgstr "إزالة"
+
+msgid "Remove "
+msgstr "إزالة"
+
+msgid "Remove '%s' from your wallpaper collection?"
+msgstr "إزالة '%s' من مجموعة خلفياتك؟"
+
+msgid "Remove Wallpaper?"
+msgstr "إزالة الخلفية؟"
+
+msgid "Rename"
+msgstr "إعادة تسمية"
+
+msgid "Rename failed: %s"
+msgstr "فشل تغيير الاسم: %s"
+
+msgid "Rename file"
+msgstr "إعادة تسمية الملف"
+
+msgid "Renamed to "
+msgstr "تم تغيير الاسم إلى "
+
+msgid "Renamed to '%s'."
+msgstr "إعادة التسمية إلى '%s'."
+
+msgid "Repo: %s/%s"
+msgstr "المستودع: %s/%s"
+
+msgid "Repo: (not matched)"
+msgstr "المستودع: (غير متطابق)"
+
+msgid "Repository"
+msgstr "المستودع"
+
+msgid "Repository %s not found on GitHub."
+msgstr "المستودع %s غير موجود على GitHub."
+
+msgid "Repository name"
+msgstr "اسم المستودع"
+
+msgid "Repository owner"
+msgstr "مالك المستودع"
+
+msgid "Repository: %s"
+msgstr "المستودع: %s"
+
+msgid "Reset filters"
+msgstr "إعادة الضبط"
+
+msgid "Reset to defaults"
+msgstr "الافتراضي"
+
+msgid "Restart later"
+msgstr "إعادة التشغيل لاحقاً"
+
+msgid "Restart now"
+msgstr "أعد التشغيل"
+
+msgid "Sample Text"
+msgstr "نص تجريبي"
+
+msgid "Save"
+msgstr "حفظ"
+
+msgid "Screensaver"
+msgstr "شاشة التوقف"
+
+msgid "Screensaver & Wallpapers"
+msgstr "شاشات التوقف والخلفيات"
+
+msgid "Screensaver Details"
+msgstr "تفاصيل شاشة التوقف"
+
+msgid "Screensaver Mode"
+msgstr "وضع شاشة التوقف"
+
+msgid "Screensaver Settings"
+msgstr "إعدادات شاشة التوقف"
+
+msgid "Screensaver mode"
+msgstr "وضع شاشة التوقف"
+
+msgid "Screensaver thumbnails"
+msgstr "الصور المصغرة لشاشات التوقف"
+
+msgid "Screensavers"
+msgstr "شاشات التوقف"
+
+msgid "Search"
+msgstr "بحث"
+
+msgid "Search \"%s\""
+msgstr "البحث عن \"%s\""
+
+msgid "Search & API"
+msgstr "البحث والواجهة"
+
+msgid "Search filter (\"%s\") is not applied to Updates."
+msgstr "Search filter (\"%s\") is not applied to Updates."
+
+msgid "Search filter (\\\\\"%s\\\\\") is not applied to Updates."
+msgstr "Search filter (\\\\\"%s\\\\\") is not applied to Updates."
+
+msgid "Search text"
+msgstr "نص البحث"
+
+msgid "Search: "
+msgstr "بحث: "
+
+msgid "Select All"
+msgstr "تحديد الكل"
+
+msgid "Select Categories"
+msgstr "تحديد الفئات"
+
+msgid "Select a repository patch entry to match with the chosen file."
+msgstr "حدد إدخال تصحيح المستودع لمطابقته مع الملف المختار."
+
+msgid "Select a repository to match with the chosen plugin."
+msgstr "حدد مستودعًا لمطابقته مع الملحق المختار."
+
+msgid "Select installation directory"
+msgstr "حدد دليل التثبيت"
+
+msgid "Select patch file from %s"
+msgstr "حدد ملف التصحيح من %s"
+
+msgid "Select patch in %s"
+msgstr "حدد التصحيح في %s"
+
+msgid "Select plugin to match"
+msgstr "حدد إضافة لمطابقتها"
+
+msgid "Select repository"
+msgstr "حدد المستودع"
+
+msgid "Set"
+msgstr "تعيين"
+
+msgid "Set Active Single"
+msgstr "تعيين كخلفية مفردة نشطة"
+
+msgid "Set Single"
+msgstr "تعيين كفردي"
+
+msgid "Set as Active"
+msgstr "تعيين كنشط"
+
+msgid "Set as Active Single Wallpaper"
+msgstr "تعيين كخلفية فردية نشطة"
+
+msgid "Set as active single wallpaper!"
+msgstr "تم التعيين كخلفية فردية نشطة!"
+
+msgid "Settings"
+msgstr "الإعدادات"
+
+msgid "Show needs update"
+msgstr "إظهار ما يحتاج إلى تحديث"
+
+msgid "Show reading progress banner overlay"
+msgstr "إظهار شريط تقدم القراءة"
+
+msgid "Shows reading stats, percentage, and chapter progress"
+msgstr "يعرض إحصائيات القراءة والنسبة المئوية وتقدم الفصل"
+
+msgid "Shows the cover of the book currently being read"
+msgstr "يعرض غلاف الكتاب المقروء حالياً"
+
+msgid "Shuffle (%d)"
+msgstr "تبديل (%d)"
+
+msgid "Shuffle Pool"
+msgstr "مجموعة التبديل"
+
+msgid "Shuffles through all wallpapers in folder on sleep.\nPool size: %d wallpapers in rotation"
+msgstr "يبدل بين جميع الخلفيات في المجلد أثناء السكون.\nحجم المجموعة: %d خلفيات بالتناوب"
+
+msgid "Single"
+msgstr "فردي"
+
+msgid "Single Wallpaper"
+msgstr "خلفية مفردة"
+
+msgid "Solid fill for screen margins & letterboxing"
+msgstr "ملء مصمت لهوامش الشاشة"
+
+msgid "Sort"
+msgstr "فرز"
+
+msgid "Sort mode"
+msgstr "وضع الفرز"
+
+msgid "Sort: A-Z"
+msgstr "الفرز: أ-ي"
+
+msgid "Sort: Most Liked"
+msgstr "الترتيب: الأكثر إعجاباً"
+
+msgid "Sort: Name (A → Z)"
+msgstr "الفرز: الاسم (أ-ي)"
+
+msgid "Sort: Name (Z → A)"
+msgstr "الفرز: الاسم (ي-أ)"
+
+msgid "Sort: Oldest"
+msgstr "الفرز: الأقدم"
+
+msgid "Sort: Recently updated"
+msgstr "الفرز: التاريخ"
+
+msgid "Sort: Stars (high → low)"
+msgstr "الفرز: النجوم"
+
+msgid "Sort: Status"
+msgstr "الفرز: الحالة"
+
+msgid "Sort: Type"
+msgstr "الفرز: النوع"
+
+msgid "Sort: Updated"
+msgstr "الترتيب: تاريخ التحديث"
+
+msgid "Sort: Z-A"
+msgstr "الفرز: ي-أ"
+
+msgid "Sorting"
+msgstr "الفرز"
+
+msgid "Stable"
+msgstr "مستقر"
+
+msgid "Status"
+msgstr "الحالة"
+
+msgid "Status: Needs matching"
+msgstr "الحالة: يتطلب المطابقة"
+
+msgid "Status: Up to date"
+msgstr "الحالة: مُحدث"
+
+msgid "Status: Update available"
+msgstr "الحالة: يتوفر تحديث"
+
+msgid "Storefront"
+msgstr "متجر الإضافات"
+
+msgid "Storefront cache refreshed."
+msgstr "تم تحديث ذاكرة متجر الإضافات المخبأة."
+
+msgid "Storefront is up to date (v%s)."
+msgstr "Storefront محدث (v%s)."
+
+msgid "Storefront refresh failed: "
+msgstr "فشل تحديث متجر الإضافات: "
+
+msgid "Storefront · Updates"
+msgstr "المتجر · التحديثات"
+
+msgid "Storefront: Open"
+msgstr "متجر الإضافات: فتح"
+
+msgid "Stretch image to fill entire screen"
+msgstr "تمديد الصورة لملء الشاشة بالكامل"
+
+msgid "Style: "
+msgstr "النمط: "
+
+msgid "Successfully updated %d item(s)."
+msgstr "تم تحديث %d عنصر (عناصر) بنجاح."
+
+msgid "Successfully updated %d items."
+msgstr "تم تحديث %d عناصر بنجاح."
+
+msgid "Switch to installed patches"
+msgstr "التبديل إلى التصحيحات المثبتة"
+
+msgid "Switch to installed plugins"
+msgstr "التبديل إلى الملحقات المثبتة"
+
+msgid "Switch to patch list"
+msgstr "التبديل إلى قائمة التصحيحات"
+
+msgid "Switch to patches"
+msgstr "التبديل إلى التصحيحات"
+
+msgid "Switch to plugin list"
+msgstr "التبديل إلى قائمة الإضافات"
+
+msgid "Tag not found on GitHub (%s or %s)."
+msgstr "لم يتم العثور على الوسم في GitHub (%s أو %s)."
+
+msgid "Text"
+msgstr "النص"
+
+msgid "Text editor plugin is not available."
+msgstr "ملحق محرر النصوص غير متاح."
+
+msgid "The quick brown fox jumps over the lazy dog."
+msgstr "صوت صفير البلبل هيج قلبي الثمل."
+
+msgid "This action cannot be undone.\n\nChanges will take effect after restart."
+msgstr "لا يمكن التراجع عن هذا الإجراء.\n\nستسري التغييرات بعد إعادة التشغيل."
+
+msgid "This action cannot be undone.\\\n\\\nChanges will take effect after restart."
+msgstr "This action cannot be undone.\\\n\\\nChanges will take effect after restart."
+
+msgid "This wallpaper is currently set as your active screensaver."
+msgstr "تم تعيين هذه الخلفية حالياً كشاشة التوقف النشطة."
+
+msgid "This will delete all cached README files, wiki articles, and screensaver thumbnails (%s)."
+msgstr "سيؤدي هذا إلى حذف جميع ملفات README ومقالات Wiki والصور المصغرة المخزنة مؤقتًا (%s)."
+
+msgid "This will delete cached README markdown files and downloaded images (%s)."
+msgstr "سيؤدي هذا إلى حذف ملفات Markdown لـ README والصور المحملة المخزنة مؤقتًا (%s)."
+
+msgid "This will delete cached screensaver thumbnail previews (%s)."
+msgstr "سيؤدي هذا إلى حذف معاينات الصور المصغرة لشاشات التوقف المخزنة مؤقتًا (%s)."
+
+msgid "This will delete cached wiki articles and downloaded images (%s)."
+msgstr "سيؤدي هذا إلى حذف مقالات Wiki والصور المحملة المخزنة مؤقتًا (%s)."
+
+msgid "This will take effect on next restart."
+msgstr "سيدخل هذا التغيير حيز التنفيذ عند إعادة التشغيل القادمة."
+
+msgid "Total commits: %d"
+msgstr "إجمالي التعديلات: %d"
+
+msgid "Tracked: %d"
+msgstr "المتتبعة: %d"
+
+msgid "Transparent overlay (page content visible behind)"
+msgstr "طبقة شفافة (محتوى الصفحة مرئي في الخلف)"
+
+msgid "Type"
+msgstr "النوع"
+
+msgid "Unable to determine patch download URL."
+msgstr "تعذر تحديد رابط تنزيل التصحيح."
+
+msgid "Unable to load wiki page. Tap refresh to retry."
+msgstr "تعذر تحميل صفحة الويكي. اضغط تحديث للمحاولة مجدداً."
+
+msgid "Unable to read README file"
+msgstr "تعذر قراءة ملف README"
+
+msgid "Unable to read README. Tap refresh to retry."
+msgstr "تعذرت قراءة README. اضغط تحديث للمحاولة مجدداً."
+
+msgid "Unable to store match for patch."
+msgstr "تعذر حفظ مطابقة التصحيح."
+
+msgid "Unable to store match for plugin."
+msgstr "تعذر حفظ مطابقة الإضافة."
+
+msgid "Uninstall"
+msgstr "إلغاء التثبيت"
+
+msgid "Unknown"
+msgstr "غير معروف"
+
+msgid "Unknown error"
+msgstr "خطأ غير معروف"
+
+msgid "Unlink the repo"
+msgstr "إلغاء ربط المستودع"
+
+msgid "Unlinked %s from repository."
+msgstr "تم إلغاء ربط %s بالمستودع."
+
+msgid "Unmatched: %d"
+msgstr "غير مطابق: %d"
+
+msgid "Unnamed release"
+msgstr "إصدار بدون اسم"
+
+msgid "Update"
+msgstr "تحديث"
+
+msgid "Update %d outdated item(s)?"
+msgstr "تحديث %d عنصر (عناصر) قديمة؟"
+
+msgid "Update %s?"
+msgstr "تحديث %s؟"
+
+msgid "Update All"
+msgstr "تحديث الكل"
+
+msgid "Update all outdated items?"
+msgstr "تحديث جميع العناصر القديمة؟"
+
+msgid "Update available for %s: remote %s, installed %s."
+msgstr "يتوفر تحديث لـ %s: البعيد %s، المثبت %s."
+
+msgid "Update channel"
+msgstr "قناة التحديث"
+
+msgid "Update check was cancelled"
+msgstr "تم إلغاء فحص التحديثات"
+
+msgid "Update patch"
+msgstr "تحديث الرقعة"
+
+msgid "Update plugin"
+msgstr "تحديث الإضافة"
+
+msgid "Updated %d of %d item(s) (%d failed)."
+msgstr "تم تحديث %d من %d عنصرًا (فشل %d)."
+
+msgid "Updated patch \"%s\"."
+msgstr "تم تحديث التصحيح \"%s\"."
+
+msgid "Updated patch %s."
+msgstr "تم تحديث التصحيح %s."
+
+msgid "Updated patch \\\\\"%s\\\\\"."
+msgstr "Updated patch \\\\\"%s\\\\\"."
+
+msgid "Updated plugin \"%s\" to version %s."
+msgstr "تم تحديث الإضافة \"%s\" إلى الإصدار %s."
+
+msgid "Updated plugin \"%s\"."
+msgstr "تم تحديث الإضافة \"%s\"."
+
+msgid "Updated plugin \\\\\"%s\\\\\" to version %s."
+msgstr "Updated plugin \\\\\"%s\\\\\" to version %s."
+
+msgid "Updated plugin \\\\\"%s\\\\\"."
+msgstr "Updated plugin \\\\\"%s\\\\\"."
+
+msgid "Updated: %s"
+msgstr "تم التحديث: %s"
+
+msgid "Updates"
+msgstr "التحديثات"
+
+msgid "Updates Ignored"
+msgstr "تم تجاهل التحديثات"
+
+msgid "Updating [%d/%d]: %s…"
+msgstr "جاري التحديث [%d/%d]: %s…"
+
+msgid "User Installed"
+msgstr "المستخدم"
+
+msgid "Verifying repository %s/%s..."
+msgstr "جاري التحقق من المستودع %s/%s..."
+
+msgid "Version"
+msgstr "الإصدار"
+
+msgid "Versions"
+msgstr "الإصدارات"
+
+msgid "View README"
+msgstr "عرض README"
+
+msgid "View commits (%s \\\\xE2\\\\x86\\\\x92 %s)"
+msgstr "View commits (%s \\\\xE2\\\\x86\\\\x92 %s)"
+
+msgid "View commits (%s → %s)"
+msgstr "عرض التعديلات (%s → %s)"
+
+msgid "Wallpaper Collection"
+msgstr "مجموعة الخلفيات"
+
+msgid "Wallpaper Options"
+msgstr "خيارات الخلفية"
+
+msgid "Wallpaper deleted from device."
+msgstr "تم حذف الخلفية من الجهاز."
+
+msgid "Wallpaper removed"
+msgstr "تمت إزالة الخلفية"
+
+msgid "Wallpaper saved to collection!"
+msgstr "تم حفظ الخلفية في المجموعة!"
+
+msgid "Wallpaper set as active KOReader screensaver!"
+msgstr "تم تعيين الخلفية كشاشة توقف نشطة في KOReader!"
+
+msgid "Wallpaper set as active screensaver!"
+msgstr "تم تعيين الخلفية كشاشة توقف نشطة!"
+
+msgid "Warning: the selected version is older than what is currently installed. You are downgrading."
+msgstr "تحذير: الإصدار المحدد أقدم من الإصدار المثبت حالياً. أنت تقوم بالتراجع عن الإصدار."
+
+msgid "White Fill"
+msgstr "تعبئة بيضاء"
+
+msgid "Wiki"
+msgstr "الويكي"
+
+msgid "Wiki Pages"
+msgstr "صفحات الويكي"
+
+msgid "Wiki pages & images"
+msgstr "صفحات Wiki والصور"
+
+msgid "Z -> A"
+msgstr "ي -> أ"
+
+msgid "Z → A"
+msgstr "ي → أ"
+
+msgid "[ Loading preview... ]"
+msgstr "[ جارٍ تحميل المعاينة... ]"
+
+msgid "[ Wallpaper Preview Loading... ]"
+msgstr "[ جارٍ تحميل معاينة الخلفية... ]"
+
+msgid "[Ignored]"
+msgstr "[تم التجاهل]"
+
+msgid "[draft]"
+msgstr "[مسودة]"
+
+msgid "[pre]"
+msgstr "[تجريبي]"
+
+msgid "\\\\\"My dear Mr. Bennet,\\\\\" said his lady to him one day, \\\\\"have you heard that Netherfield Park is let at last?\\\\\" Mr. Bennet replied that he had not. \\\\\"But it is,\\\\\" returned she; \\\\\"for Mrs. Long has just been here, and she told me all about it.\\\\\" Mr. Bennet made no answer."
+msgstr "\\\\\"My dear Mr. Bennet,\\\\\" said his lady to him one day, \\\\\"have you heard that Netherfield Park is let at last?\\\\\" Mr. Bennet replied that he had not. \\\\\"But it is,\\\\\" returned she; \\\\\"for Mrs. Long has just been here, and she told me all about it.\\\\\" Mr. Bennet made no answer."
+
+msgid "\\\\xC2\\\\xB7"
+msgstr "\\\\xC2\\\\xB7"
+
+msgid "about_text"
+msgstr "Storefront هو مدير حزم مدمج في KOReader للإضافات والتصحيحات والخطوط."
+
+msgid "anyone"
+msgstr "أي شخص"
+
+msgid "btn_apply"
+msgstr "تطبيق"
+
+msgid "btn_back"
+msgstr "رجوع"
+
+msgid "btn_cancel"
+msgstr "إلغاء"
+
+msgid "btn_close"
+msgstr "إغلاق"
+
+msgid "btn_install"
+msgstr "تثبيت"
+
+msgid "btn_ok"
+msgstr "موافق"
+
+msgid "btn_preview"
+msgstr "معاينة"
+
+msgid "btn_refresh"
+msgstr "تحديث"
+
+msgid "btn_release_notes"
+msgstr "ملاحظات الإصدار"
+
+msgid "btn_restart"
+msgstr "إعادة تشغيل KOReader"
+
+msgid "btn_retry"
+msgstr "إعادة المحاولة"
+
+msgid "btn_search"
+msgstr "بحث"
+
+msgid "btn_uninstall"
+msgstr "إلغاء التثبيت"
+
+msgid "btn_update"
+msgstr "تحديث"
+
+msgid "btn_view_details"
+msgstr "عرض التفاصيل"
+
+msgid "confirm_install"
+msgstr "تثبيت '%s'؟"
+
+msgid "confirm_uninstall"
+msgstr "إلغاء تثبيت '%s'؟ لا يمكن التراجع عن هذا الإجراء."
+
+msgid "confirm_update"
+msgstr "تحديث '%s' من v%s إلى v%s؟"
+
+msgid "disabled"
+msgstr "معطل"
+
+msgid "e.g., koreader"
+msgstr "مثال: koreader"
+
+msgid "enabled"
+msgstr "مفعل"
+
+msgid "err_install_failed"
+msgstr "فشل تثبيت '%s'."
+
+msgid "err_network_failed"
+msgstr "خطأ في الشبكة: تعذر تنزيل الكتالوج."
+
+msgid "err_uninstall_failed"
+msgstr "فشل إلغاء تثبيت '%s'."
+
+msgid "filter_all"
+msgstr "جميع الفئات"
+
+msgid "filter_installed"
+msgstr "مثبت"
+
+msgid "filter_updates"
+msgstr "تحديثات"
+
+msgid "font"
+msgstr "خط"
+
+msgid "ghp_..."
+msgstr "ghp_..."
+
+msgid "header_about"
+msgstr "حول"
+
+msgid "header_updates"
+msgstr "التحديثات"
+
+msgid "label_author"
+msgstr "المؤلف"
+
+msgid "label_description"
+msgstr "الوصف"
+
+msgid "label_downloads"
+msgstr "التنزيلات"
+
+msgid "label_license"
+msgstr "الترخيص"
+
+msgid "label_repository"
+msgstr "المستودع"
+
+msgid "label_size"
+msgstr "الحجم"
+
+msgid "label_type"
+msgstr "النوع"
+
+msgid "label_version"
+msgstr "الإصدار"
+
+msgid "latest"
+msgstr "الأحدث"
+
+msgid "menu_about"
+msgstr "حول Storefront"
+
+msgid "menu_settings"
+msgstr "إعدادات Storefront"
+
+msgid "menu_storefront"
+msgstr "Storefront"
+
+msgid "menu_storefront_desc"
+msgstr "تصفح وتثبيت وتحديث الإضافات والتصحيحات والخطوط."
+
+msgid "msg_catalog_updated"
+msgstr "تم تحديث الكتالوج بنجاح."
+
+msgid "msg_installed_plugin"
+msgstr "تم تثبيت الإضافة \"%s\"."
+
+msgid "msg_installed_plugin_version"
+msgstr "تم تثبيت الإضافة \"%s\" (الإصدار %s)."
+
+msgid "msg_no_results"
+msgstr "لم يتم العثور على نتائج مطابقة."
+
+msgid "new"
+msgstr "جديد"
+
+msgid "not found"
+msgstr "غير موجود"
+
+msgid "patch"
+msgstr "تصحيح"
+
+msgid "plugin"
+msgstr "إضافة"
+
+msgid "progress_please_wait"
+msgstr "يرجى الانتظار"
+
+msgid "prompt_restart_needed"
+msgstr "اكتمل التثبيت. إعادة تشغيل KOReader الآن لتمكين '%s'؟"
+
+msgid "release asset"
+msgstr "أصل الإصدار"
+
+msgid "release is newer by date"
+msgstr "الإصدار أحدث حسب التاريخ"
+
+msgid "remote is newer by date"
+msgstr "النسخة البعيدة أحدث حسب التاريخ"
+
+msgid "repository"
+msgstr "مستودع"
+
+msgid "search_hint"
+msgstr "البحث في Storefront..."
+
+msgid "status_builtin"
+msgstr "مدمج"
+
+msgid "status_downloading"
+msgstr "جاري التنزيل..."
+
+msgid "status_installed"
+msgstr "مثبت"
+
+msgid "status_installing"
+msgstr "جاري التثبيت..."
+
+msgid "status_not_installed"
+msgstr "غير مثبت"
+
+msgid "status_uninstalling"
+msgstr "جاري إلغاء التثبيت..."
+
+msgid "status_update_available"
+msgstr "تحديث متاح"
+
+msgid "storefront_title"
+msgstr "Storefront"
+
+msgid "tab_all"
+msgstr "الكل"
+
+msgid "tab_fonts"
+msgstr "الخطوط"
+
+msgid "tab_patches"
+msgstr "التصحيحات"
+
+msgid "tab_plugins"
+msgstr "الإضافات"
+
+msgid "tab_readme"
+msgstr "اقرأني"
+
+msgid "tab_sample_text"
+msgstr "نص تجريبي"
+
+msgid "tab_screensavers"
+msgstr "الخلفيات"
+
+msgid "tab_versions"
+msgstr "الإصدارات"
+
+msgid "unknown"
+msgstr "غير معروف"
+
+msgid "updated %s"
+msgstr "تحديث %s"
+
+msgid "updated %s (%s)"
+msgstr "تحديث %s (%s)"
+
+msgid "·"
+msgstr "·"
+
+msgid "≥ %s ⭐"
+msgstr "≥ %s ⭐"
+
+msgid "★ ACTIVE"
+msgstr "★ نشط"
+
+msgid "⚙ Settings"
+msgstr "⚙ الإعدادات"
+
+msgid "⚙ Settings..."
+msgstr "⚙ الإعدادات..."
+
+msgid "✓ Current"
+msgstr "✓ الحالي"
+
+msgid "Downloading…"
+msgstr ""
+
+msgid "Download cancelled."
+msgstr ""
+
+msgid "Batch update cancelled."
+msgstr ""
+
+msgid "Connecting…"
+msgstr ""
+

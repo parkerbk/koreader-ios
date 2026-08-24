@@ -1,0 +1,2290 @@
+msgid ""
+msgstr ""
+"Language-Team: Hungarian\n"
+"Language: hu\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "\"My dear Mr. Bennet,\" said his lady to him one day, \"have you heard that Netherfield Park is let at last?\" Mr. Bennet replied that he had not. \"But it is,\" returned she; \"for Mrs. Long has just been here, and she told me all about it.\" Mr. Bennet made no answer."
+msgstr "\"Drága Bennet úr!\" – mondta egy nap a felesége –, \"hallotta, hogy végre kiadták Netherfield Parkot?\" Bennet úr azt felelte, hogy nem. \"Pedig így van\" – válaszolta az asszony –, \"mert Mrs. Long épp most járt itt, és mindent elmesélt róla.\" Bennet úr nem válaszolt."
+
+msgid "%d Categories"
+msgstr "%d kategória"
+
+msgid "%d items"
+msgstr "%d elem"
+
+msgid "%d patches"
+msgstr "%d javítás"
+
+msgid "%d plugins"
+msgstr "%d bővítmény"
+
+msgid "%d wallpapers"
+msgstr "%d háttérkép"
+
+msgid "%d wallpapers stored on device"
+msgstr "%d háttérkép tárolva az eszközön"
+
+msgid "%d wallpapers · Folder Shuffle (all in rotation)"
+msgstr "%d háttérkép · Mappa keverés (mind forog)"
+
+msgid "%d wallpapers · Mode: Book Cover"
+msgstr "%d háttérkép · Mód: Könyvborító"
+
+msgid "%d wallpapers · Single mode active"
+msgstr "%d háttérkép · Egyedi mód aktív"
+
+msgid "%s and %s"
+msgstr "%s és %s"
+
+msgid "%s is up to date (version %s)."
+msgstr "%s naprakész (%s verzió)."
+
+msgid "%s is up to date."
+msgstr "%s naprakész."
+
+msgid "%s needs an update."
+msgstr "%s frissítést igényel."
+
+msgid "%s · %d files"
+msgstr "%s · %d fájl"
+
+msgid "%s · 1 file"
+msgstr "%s · 1 fájl"
+
+msgid "(fork)"
+msgstr "(fork)"
+
+msgid "(showing %d of %d commits)"
+msgstr "(megjelenítve %d / %d commit)"
+
+msgid "+ Add to Shuffle Pool"
+msgstr "+ Hozzáadás a véletlenszerű listához"
+
+msgid "1 / 1"
+msgstr "1 / 1"
+
+msgid "1 patch"
+msgstr "1 javítás"
+
+msgid "1 plugin"
+msgstr "1 bővítmény"
+
+msgid "< Back"
+msgstr "< Vissza"
+
+msgid "< Prev"
+msgstr "< Előző"
+
+msgid "?"
+msgstr "?"
+
+msgid "A -> Z"
+msgstr "A -> Z"
+
+msgid "A → Z"
+msgstr "A → Z"
+
+msgid "About"
+msgstr "Névjegy"
+
+msgid "About Storefront"
+msgstr "Storefront névjegye"
+
+msgid "Active Single"
+msgstr "Aktív egyedi"
+
+msgid "Active Wallpaper ✓"
+msgstr "Aktív háttérkép ✓"
+
+msgid "Active: %s"
+msgstr "Aktív: %s"
+
+msgid "Add to Shuffle"
+msgstr "Hozzáadás keveréshez"
+
+msgid "Add to Shuffle Pool (Enable Shuffle)"
+msgstr "Hozzáadás a keveréshez (keverés bekapcsolása)"
+
+msgid "Added to shuffle pool & Folder Shuffle enabled!"
+msgstr "Hozzáadva a listához és véletlenszerű mód engedélyezve!"
+
+msgid "All"
+msgstr "Mind"
+
+msgid "All Caches"
+msgstr "Minden gyorsítótár"
+
+msgid "All Categories"
+msgstr "Minden kategória"
+
+msgid "All Types"
+msgstr "Minden típus"
+
+msgid "All items are up to date."
+msgstr "Minden elem naprakész."
+
+msgid "All of your custom plugin folders are currently hidden (see Manage plugin paths). Install to the default plugin folder anyway?"
+msgstr "Minden egyéni bővítménymappája rejtve van (lásd Bővítményútvonalak kezelése). Mégis az alapértelmezett bővítménymappába telepíti?"
+
+msgid "All patches"
+msgstr "Minden javítás"
+
+msgid "All plugins"
+msgstr "Minden bővítmény"
+
+msgid "All plugins are already matched."
+msgstr "Minden bővítmény már párosítva van."
+
+msgid "Allow pre-release updates"
+msgstr "Előzetes kiadások frissítésének engedélyezése"
+
+msgid "Alphabet & Numbers"
+msgstr "ABC és számok"
+
+msgid "Also delete plugin settings"
+msgstr "A bővítmény beállításainak törlése is"
+
+msgid "Always install here (don"
+msgstr "Mindig ide telepítse (ne"
+
+msgid "Always install here (don't ask again)"
+msgstr "Mindig ide telepítse (ne kérdezze újra)"
+
+msgid "Any"
+msgstr "Bármely"
+
+msgid "App Store · Installed patches"
+msgstr "App Store · Telepített javítások"
+
+msgid "App Store · Installed plugins"
+msgstr "App Store · Telepített bővítmények"
+
+msgid "Apply"
+msgstr "Alkalmaz"
+
+msgid "Assets — %s"
+msgstr "Fájlok — %s"
+
+msgid "Author"
+msgstr "Szerző"
+
+msgid "Back"
+msgstr "Vissza"
+
+msgid "Beta"
+msgstr "Béta"
+
+msgid "Black Fill"
+msgstr "Fekete kitöltés"
+
+msgid "Blank"
+msgstr "Üres"
+
+msgid "Book Cover"
+msgstr "Könyvborító"
+
+msgid "Border Fill / Background"
+msgstr "Szegély kitöltés / Háttér"
+
+msgid "Both owner and repository name are required."
+msgstr "A tulajdonos és a tárhely neve is kötelező."
+
+msgid "Branch: %s"
+msgstr "Ág: %s"
+
+msgid "Browse Wallpapers in Storefront"
+msgstr "Háttérképek böngészése a Storefrontban"
+
+msgid "By "
+msgstr "By"
+
+msgid "By: %s"
+msgstr "Szerző: %s"
+
+msgid "Cache empty. Refresh to retrieve repositories."
+msgstr "Gyorsítótár üres. Frissíts a repók lekéréséhez."
+
+msgid "Cache is older than a week, consider refreshing."
+msgstr "A gyorsítótár egy hétnél régebbi, érdemes frissíteni."
+
+msgid "Cached %s patch repositories."
+msgstr "%s javítási tárhely gyorsítótárazva."
+
+msgid "Cached %s plugins."
+msgstr "%s bővítmény gyorsítótárazva."
+
+msgid "Can"
+msgstr "Lehet"
+
+msgid "Can't load readme...."
+msgstr "A readme nem tölthető be...."
+
+msgid "Cancel"
+msgstr "Mégse"
+
+msgid "Cancel matching"
+msgstr "Párosítás megszakítása"
+
+msgid "Cannot read source file."
+msgstr "Forrásfájl nem olvasható."
+
+msgid "Cannot write destination file."
+msgstr "Célfájl nem írható."
+
+msgid "Catalog & Cache"
+msgstr "Katalógus és gyorsítótár"
+
+msgid "Catalog refresh failed: "
+msgstr "Katalógus frissítése sikertelen: "
+
+msgid "Catalog refresh is already in progress in the background."
+msgstr "A katalógus frissítése már folyamatban van a háttérben."
+
+msgid "Catalog refreshed successfully."
+msgstr "Katalógus sikeresen frissítve."
+
+msgid "Catalog source"
+msgstr "Katalógus forrása"
+
+msgid "Catalog updated: %d plugins, %d patches, %d fonts."
+msgstr "Katalógus frissítve: %d bővítmény, %d javítás, %d betűtípus."
+
+msgid "Categories"
+msgstr "Kategóriák"
+
+msgid "Category: "
+msgstr "Kategória: "
+
+msgid "Category: %s"
+msgstr "Kategória: %s"
+
+msgid "Change..."
+msgstr "Módosítás..."
+
+msgid "Changelog for %s\n%s \\\\xE2\\\\x86\\\\x92 %s"
+msgstr "Changelog for %s\n%s \\\\xE2\\\\x86\\\\x92 %s"
+
+msgid "Changelog for %s\n%s → %s"
+msgstr "%s változási naplója\n%s → %s"
+
+msgid "Changelog for %s\\\n%s \\\\xE2\\\\x86\\\\x92 %s"
+msgstr "Changelog for %s\\\n%s \\\\xE2\\\\x86\\\\x92 %s"
+
+msgid "Changelog: %s"
+msgstr "Változásnapló: %s"
+
+msgid "Check Updates"
+msgstr "Keresés"
+
+msgid "Check all updates"
+msgstr "Összes frissítés ellenőrzése"
+
+msgid "Check for updates"
+msgstr "Frissítések keresése"
+
+msgid "Check this patch"
+msgstr "Javítás ellenőrzése"
+
+msgid "Check this plugin"
+msgstr "Bővítmény ellenőrzése"
+
+msgid "Checked %d patches: %d need updates, %d up to date."
+msgstr "%d javítás ellenőrizve: %d frissítést igényel, %d naprakész."
+
+msgid "Checked %d plugin updates"
+msgstr "%d bővítményfrissítés ellenőrizve"
+
+msgid "Checked %d plugin(s) for updates."
+msgstr "%d bővítmény frissítése ellenőrizve."
+
+msgid "Checking %s…"
+msgstr "%s ellenőrzése…"
+
+msgid "Checking for Storefront updates..."
+msgstr "Storefront frissítések keresése..."
+
+msgid "Checking for Storefront updates…"
+msgstr "Storefront frissítések keresése…"
+
+msgid "Checking patch updates…"
+msgstr "Javításfrissítések ellenőrzése…"
+
+msgid "Checking plugin updates"
+msgstr "Bővítményfrissítések keresése"
+
+msgid "Checking plugin updates…"
+msgstr "Bővítményfrissítések ellenőrzése…"
+
+msgid "Choose Build — %s"
+msgstr "Build kiválasztása — %s"
+
+msgid "Clean"
+msgstr "Tisztítás"
+
+msgid "Clear"
+msgstr "Törlés"
+
+msgid "Clear All"
+msgstr "Mindent töröl"
+
+msgid "Clear All Caches?"
+msgstr "Minden gyorsítótár törlése?"
+
+msgid "Clear Cache"
+msgstr "Gyorsítótár törlése"
+
+msgid "Clear README Cache?"
+msgstr "README gyorsítótár törlése?"
+
+msgid "Clear README cache"
+msgstr "README törlése"
+
+msgid "Clear README cache (%s)?\nCached README files and images will be deleted."
+msgstr "Clear README cache (%s)?\nCached README files and images will be deleted."
+
+msgid "Clear Thumbnail Cache?"
+msgstr "Bélyegkép gyorsítótár törlése?"
+
+msgid "Clear Wiki Cache?"
+msgstr "Wiki gyorsítótár törlése?"
+
+msgid "Clear Wiki cache (%s)?\nCached wiki articles and images will be deleted."
+msgstr "Clear Wiki cache (%s)?\nCached wiki articles and images will be deleted."
+
+msgid "Clear all cached data (%s)?\nAll README files, wiki articles, and thumbnails will be deleted."
+msgstr "Clear all cached data (%s)?\nAll README files, wiki articles, and thumbnails will be deleted."
+
+msgid "Clear cache…"
+msgstr "Gyorsítótár törlése"
+
+msgid "Clear screensaver thumbnail cache (%s)?\nThumbnails will be re-downloaded when viewing wallpapers."
+msgstr "Clear screensaver thumbnail cache (%s)?\nThumbnails will be re-downloaded when viewing wallpapers."
+
+msgid "Clear search & filters"
+msgstr "Keresés és szűrők törlése"
+
+msgid "Clear search/filters"
+msgstr "Keresés/szűrők törlése"
+
+msgid "Cleared README cache (%s freed)."
+msgstr "Cleared README cache (%s freed)."
+
+msgid "Cleared Wiki cache (%s freed)."
+msgstr "Cleared Wiki cache (%s freed)."
+
+msgid "Cleared all caches (%s freed, %d files)."
+msgstr "Cleared all caches (%s freed, %d files)."
+
+msgid "Cleared screensaver thumbnails (%s freed)."
+msgstr "Cleared screensaver thumbnails (%s freed)."
+
+msgid "Close"
+msgstr "Bezárás"
+
+msgid "Collection"
+msgstr "Gyűjtemény"
+
+msgid "Commit diff: %s → %s"
+msgstr "Commit diff: %s → %s"
+
+msgid "Commits: %s \\\\xE2\\\\x86\\\\x92 %s"
+msgstr "Commits: %s \\\\xE2\\\\x86\\\\x92 %s"
+
+msgid "Commits: %s → %s"
+msgstr "Commitek: %s → %s"
+
+msgid "Community"
+msgstr "Közösség"
+
+msgid "Config files only"
+msgstr "Csak konfigurációs fájlok"
+
+msgid "Configured ✓"
+msgstr "Beállítva ✓"
+
+msgid "Confirm"
+msgstr "Megerősítés"
+
+msgid "Confirm Update"
+msgstr "Frissítés megerősítése"
+
+msgid "Confirm Update All"
+msgstr "Összes frissítésének megerősítése"
+
+msgid "Connecting to GitHub…\n\nPlease wait."
+msgstr "Kapcsolódás a GitHubhoz…\n\nKérjük, várjon."
+
+msgid "Connecting to GitHub…\\\n\\\nPlease wait."
+msgstr "Connecting to GitHub…\\\n\\\nPlease wait."
+
+msgid "Continue"
+msgstr "Folytatás"
+
+msgid "Copied to "
+msgstr "Másolva ide: "
+
+msgid "Copied to '%s'."
+msgstr "Másolva ide: '%s'."
+
+msgid "Copy"
+msgstr "Másolás"
+
+msgid "Copy file as"
+msgstr "Fájl másolása másként"
+
+msgid "Could not detect .koplugin folder in archive"
+msgstr "Nem található .koplugin mappa az archívumban"
+
+msgid "Could not detect plugin inside archive."
+msgstr "Nem sikerült bővítményt észlelni az archívumban."
+
+msgid "Could not fetch commit comparison."
+msgstr "Nem sikerült lekérni a commitek összehasonlítását."
+
+msgid "Could not fetch releases for changelog."
+msgstr "Nem sikerült lekérni a kiadásokat a változásnaplóhoz."
+
+msgid "Could not fetch releases for this repository."
+msgstr "Nem sikerült lekérni a kiadásokat ehhez a repóhoz."
+
+msgid "Could not locate plugin folder (_meta.lua) in archive."
+msgstr "Nem található a bővítménymappa (_meta.lua) az archívumban."
+
+msgid "Could not open target file for writing"
+msgstr "A célfájl nem nyitható meg írásra"
+
+msgid "Default"
+msgstr "Alapértelmezett"
+
+msgid "Default only"
+msgstr "Csak alapértelmezett"
+
+msgid "Delete"
+msgstr "Törlés"
+
+msgid "Delete "
+msgstr "Törlés"
+
+msgid "Delete '%s' from your device?"
+msgstr "Törli a(z) '%s' elemet az eszközről?"
+
+msgid "Delete File?"
+msgstr "Fájl törlése?"
+
+msgid "Delete Wallpaper?"
+msgstr "Háttérkép törlése?"
+
+msgid "Delete all cached README files? They will be re-downloaded on demand."
+msgstr "Törli az összes gyorsítótárazott README fájlt? Szükség esetén újból letöltődnek."
+
+msgid "Delete file "
+msgstr "Fájl törlése "
+
+msgid "Delete file '%s'?\n\nThis cannot be undone."
+msgstr "Törli a(z) '%s' fájlt?\n\nEz a művelet nem vonható vissza."
+
+msgid "Delete font "
+msgstr "Betűtípus törlése "
+
+msgid "Delete font '%s'?"
+msgstr "Törli a(z) '%s' betűtípust?"
+
+msgid "Delete from Device"
+msgstr "Törlés az eszközről"
+
+msgid "Delete patch"
+msgstr "Javítás törlése"
+
+msgid "Delete patch "
+msgstr "Javítás törlése "
+
+msgid "Delete patch '%s'?"
+msgstr "Törli a(z) '%s' javítást?"
+
+msgid "Delete plugin"
+msgstr "Bővítmény törlése"
+
+msgid "Delete plugin "
+msgstr "Bővítmény törlése "
+
+msgid "Delete plugin '%s'?"
+msgstr "Törli a(z) '%s' bővítményt?"
+
+msgid "Deleted "
+msgstr "Törölve: "
+
+msgid "Deleted %d cached README file(s)."
+msgstr "%d gyorsítótárazott README fájl törölve."
+
+msgid "Deleted %d cached README file(s); %d failed."
+msgstr "%d gyorsítótárazott README fájl törölve; %d sikertelen."
+
+msgid "Deleted '%s'."
+msgstr "'%s' törölve."
+
+msgid "Direct GitHub API"
+msgstr "Közvetlen GitHub API"
+
+msgid "Disable"
+msgstr "Letiltás"
+
+msgid "Disable patch"
+msgstr "Javítás letiltása"
+
+msgid "Disable plugin"
+msgstr "Bővítmény letiltása"
+
+msgid "Disabled"
+msgstr "Letiltva"
+
+msgid "Display Options"
+msgstr "Megjelenítési beállítások"
+
+msgid "Displays a static wallpaper on sleep"
+msgstr "Statikus háttérképet jelenít meg alvó állapotban"
+
+msgid "Displays a static wallpaper on sleep.\nActive: %s"
+msgstr "Statikus háttérképet jelenít meg alvó állapotban.\nAktív: %s"
+
+msgid "Done"
+msgstr "Kész"
+
+msgid "Download & Set Active"
+msgstr "Letöltés és aktiválás"
+
+msgid "Download Only"
+msgstr "Csak letöltés"
+
+msgid "Download Only (Save to Device)"
+msgstr "Csak letöltés (mentés az eszközre)"
+
+msgid "Download failed: "
+msgstr "Sikertelen letöltés: "
+
+msgid "Download options"
+msgstr "Letöltési lehetőségek"
+
+msgid "Download options — %s"
+msgstr "Letöltési lehetőségek — %s"
+
+msgid "Download options — %s (%s)"
+msgstr "Letöltési lehetőségek — %s (%s)"
+
+msgid "Downloading "
+msgstr "Downloading..."
+
+msgid "Downloading %s%s…\nThis may take a moment."
+msgstr "%s%s letöltése…\nEz eltarthat egy ideig."
+
+msgid "Downloading %s%s…\\\nThis may take a moment."
+msgstr "Downloading %s%s…\\\nThis may take a moment."
+
+msgid "Downloading %s…"
+msgstr "%s letöltése…"
+
+msgid "Downloading '%s'..."
+msgstr "Downloading '%s'..."
+
+msgid "Downloading patch \"%s\"…"
+msgstr "A(z) \"%s\" javítás letöltése…"
+
+msgid "Downloading patch %s…"
+msgstr "%s javítás letöltése…"
+
+msgid "Downloading patch \\\\\"%s\\\\\"…"
+msgstr "Downloading patch \\\\\"%s\\\\\"…"
+
+msgid "Downloading screensaver..."
+msgstr "Képernyőkímélő letöltése..."
+
+msgid "Downloading to shuffle pool..."
+msgstr "Letöltés a keverési készletbe..."
+
+msgid "Edit"
+msgstr "Szerkesztés"
+
+msgid "Empty (0 KB)"
+msgstr "Üres (0 KB)"
+
+msgid "Enable"
+msgstr "Engedélyezés"
+
+msgid "Enable patch"
+msgstr "Javítás engedélyezése"
+
+msgid "Enable plugin"
+msgstr "Bővítmény engedélyezése"
+
+msgid "Enabled"
+msgstr "Engedélyezve"
+
+msgid "Enter item number"
+msgstr "Adja meg az elem számát"
+
+msgid "Enter plugin number"
+msgstr "Adja meg a bővítmény számát"
+
+msgid "Extracting and installing plugin…\nPlease wait."
+msgstr "Bővítmény kibontása és telepítése…\nKérjük, várjon."
+
+msgid "Extracting and installing plugin…\\\nPlease wait."
+msgstr "Extracting and installing plugin…\\\nPlease wait."
+
+msgid "Failed to check %s: %s"
+msgstr "%s ellenőrzése sikertelen: %s"
+
+msgid "Failed to check for Storefront updates: %s"
+msgstr "Nem sikerült ellenőrizni a Storefront frissítéseit: %s"
+
+msgid "Failed to create patches directory: %s"
+msgstr "Nem sikerült létrehozni a javítások könyvtárát: %s"
+
+msgid "Failed to delete patch: %s"
+msgstr "A javítás törlése sikertelen: %s"
+
+msgid "Failed to delete plugin: %s"
+msgstr "A bővítmény törlése sikertelen: %s"
+
+msgid "Failed to delete: %s"
+msgstr "A törlés sikertelen: %s"
+
+msgid "Failed to disable patch "
+msgstr "A javítás letiltása sikertelen: "
+
+msgid "Failed to disable patch '%s'."
+msgstr "A(z) '%s' javítás letiltása sikertelen."
+
+msgid "Failed to download patch: %s"
+msgstr "Nem sikerült letölteni a javítást: %s"
+
+msgid "Failed to download screensaver."
+msgstr "Nem sikerült letölteni a képernyőkímélőt."
+
+msgid "Failed to enable patch "
+msgstr "A javítás engedélyezése sikertelen: "
+
+msgid "Failed to enable patch '%s'."
+msgstr "A(z) '%s' javítás engedélyezése sikertelen."
+
+msgid "Failed to extract file: "
+msgstr "Nem sikerült kibontani a fájlt: "
+
+msgid "Failed to fetch patch list."
+msgstr "Nem sikerült lekérni a javítások listáját."
+
+msgid "Failed to fetch repository "
+msgstr "Nem sikerült lekérni a repót: "
+
+msgid "Failed to fetch repository '%s/%s': %s"
+msgstr "Nem sikerült lekérni a(z) '%s/%s' tárolót: %s"
+
+msgid "Failed to install patch: "
+msgstr "A javítás telepítése sikertelen: "
+
+msgid "Failed to open downloaded archive."
+msgstr "Nem sikerült megnyitni a letöltött archívumot."
+
+msgid "Failed to prepare patches directory."
+msgstr "Nem sikerült előkészíteni a javítások könyvtárát."
+
+msgid "Failed to toggle patch status."
+msgstr "Nem sikerült módosítani a javítás állapotát."
+
+msgid "Fetching Release Info"
+msgstr "Kiadási infó lekérése"
+
+msgid "Fetching changelog…"
+msgstr "Változási napló lekérése…"
+
+msgid "Fetching commits…"
+msgstr "Commitek lekérése…"
+
+msgid "Fetching patch file listings…"
+msgstr "Javításfájlok listájának lekérése…"
+
+msgid "Fetching patches via Direct GitHub API…"
+msgstr "Javítások lekérése Direct GitHub API használatával…"
+
+msgid "Fetching plugins via Direct GitHub API…"
+msgstr "Bővítmények lekérése Direct GitHub API használatával…"
+
+msgid "Fetching release info…"
+msgstr "Kiadási infó lekérése…"
+
+msgid "Fetching releases…"
+msgstr "Kiadások lekérése…"
+
+msgid "Fetching repository %s/%s..."
+msgstr "%s/%s tárhely lekérése..."
+
+msgid "Filename cannot be empty."
+msgstr "A fájlnév nem lehet üres."
+
+msgid "Filter & Sort Fonts"
+msgstr "Betűtípusok szűrése és rendezése"
+
+msgid "Filter & Sort Installed"
+msgstr "Telepítettek szűrése és rendezése"
+
+msgid "Filter & Sort Patches"
+msgstr "Javítások szűrése és rendezése"
+
+msgid "Filter & Sort Plugins"
+msgstr "Bővítmények szűrése és rendezése"
+
+msgid "Filter & Sort Screensavers"
+msgstr "Képernyőkímélők szűrése és rendezése"
+
+msgid "Filter Installed Patches"
+msgstr "Telepített javítások szűrése"
+
+msgid "Filter Installed Plugins"
+msgstr "Telepített bővítmények szűrése"
+
+msgid "Filter pre-releases"
+msgstr "Előzetes kiadások szűrése"
+
+msgid "Filter..."
+msgstr "Szűrés..."
+
+msgid "Filter: "
+msgstr "Szűrő: "
+
+msgid "Filters"
+msgstr "Szűrők"
+
+msgid "Filters: "
+msgstr "Szűrők: "
+
+msgid "Filters: (none)"
+msgstr "Szűrők: (nincs)"
+
+msgid "Folder Shuffle"
+msgstr "Mappa véletlenszerű"
+
+msgid "Folder Shuffle enabled with this wallpaper!"
+msgstr "Mappa keverés bekapcsolva ezzel a háttérképpel!"
+
+msgid "Font"
+msgstr "Betűtípus"
+
+msgid "Font "
+msgstr "Betűtípus "
+
+msgid "Font '%s' deleted."
+msgstr "'%s' betűtípus törölve."
+
+msgid "Font files not found for %s."
+msgstr "Nem találhatók betűtípusfájlok ehhez: %s."
+
+msgid "Font style"
+msgstr "Betűstílus"
+
+msgid "Fonts"
+msgstr "Betűtípusok"
+
+msgid "Free up storage space on your device. Cached items are re-downloaded automatically when needed."
+msgstr "Tárhely felszabadítása az eszközön. A gyorsítótárazott elemek szükség esetén automatikusan újraletődnek."
+
+msgid "GitHub API rate limit exceeded. Add a GitHub token in Storefront settings to increase the limit (10→30 req/min)."
+msgstr "A GitHub API kéréskorlátja túllépve. Adjon meg egy GitHub tokent a Storefront beállításaiban a korlát növeléséhez (10→30 kérés/perc)."
+
+msgid "GitHub API rate limit exceeded. Please wait a few minutes and try again."
+msgstr "A GitHub API kéréskorlátja túllépve. Kérjük, várjon néhány percet, és próbálja újra."
+
+msgid "GitHub personal access token"
+msgstr "GitHub személyes hozzáférési token"
+
+msgid "GitHub rejected this request: fine-grained personal access tokens are not supported for search. Please use a classic token instead (see the Storefront README)."
+msgstr "A GitHub visszautasította ezt a kérést: a fine-grained személyes hozzáférési tokenek nem támogatottak a kereséshez. Kérjük, használjon classic tokent helyette (lásd a Storefront README-t)."
+
+msgid "GitHub token"
+msgstr "GitHub token"
+
+msgid "GitHub token saved."
+msgstr "GitHub token elmentve."
+
+msgid "Go"
+msgstr "Ugrás"
+
+msgid "Go to page"
+msgstr "Ugrás az oldalra"
+
+msgid "HTTP error"
+msgstr "HTTP-hiba"
+
+msgid "HTTP request failed"
+msgstr "HTTP-kérés sikertelen"
+
+msgid "Ignore"
+msgstr "Kihagyás"
+
+msgid "Ignore All Updates"
+msgstr "Összes frissítés figyelmen kívül hagyása"
+
+msgid "Ignore Updates"
+msgstr "Frissítések figyelmen kívül hagyása"
+
+msgid "Ignored"
+msgstr "Mellőzve"
+
+msgid "Image View"
+msgstr "Képnézet"
+
+msgid "Include 0-star forks"
+msgstr "0 csillagos forkok bevonása"
+
+msgid "Install"
+msgstr "Telepítés"
+
+msgid "Install %s"
+msgstr "%s telepítése"
+
+msgid "Install Font"
+msgstr "Betűtípus telepítése"
+
+msgid "Install Patch"
+msgstr "Javítás telepítése"
+
+msgid "Install a patch"
+msgstr "Javítás telepítése"
+
+msgid "Install patch from GitHub"
+msgstr "Javítás telepítése GitHubról"
+
+msgid "Install plugin from GitHub"
+msgstr "Bővítmény telepítése GitHubról"
+
+msgid "Install to Default?"
+msgstr "Telepítés az alapértelmezett helyre?"
+
+msgid "Install to default"
+msgstr "Telepítés az alapértelmezett helyre"
+
+msgid "Installation failed: "
+msgstr "A telepítés sikertelen: "
+
+msgid "Installation is currently only supported for plugins."
+msgstr "A telepítés jelenleg csak bővítményeknél támogatott."
+
+msgid "Installed"
+msgstr "Telepítve"
+
+msgid "Installed Patches Settings"
+msgstr "Telepített javítások beállításai"
+
+msgid "Installed Plugins Settings"
+msgstr "Telepített bővítmények beállításai"
+
+msgid "Installed Regular font style offline for \"%s\". Full font family queued for download when reconnected."
+msgstr "Offline telepítve a Normál betűstílus ehhez: \"%s\". A teljes betűcsalád letöltése sorba állítva az újracsatlakozáshoz."
+
+msgid "Installed Regular font style offline for \\\\\"%s\\\\\". Full font family queued for download when reconnected."
+msgstr "Installed Regular font style offline for \\\\\"%s\\\\\". Full font family queued for download when reconnected."
+
+msgid "Installed font \"%s\" (%d file(s))."
+msgstr "A(z) \"%s\" betűtípus telepítve (%d fájl)."
+
+msgid "Installed font \\\\\"%s\\\\\" (%d file(s))."
+msgstr "Installed font \\\\\"%s\\\\\" (%d file(s))."
+
+msgid "Installed full font family \"%s\" (%d file(s))."
+msgstr "A(z) \"%s\" teljes betűcsalád telepítve (%d fájl)."
+
+msgid "Installed full font family \\\\\"%s\\\\\" (%d file(s))."
+msgstr "Installed full font family \\\\\"%s\\\\\" (%d file(s))."
+
+msgid "Installed patch \"%s\"."
+msgstr "A(z) \"%s\" javítás telepítve."
+
+msgid "Installed patch \\\\\"%s\\\\\"."
+msgstr "Installed patch \\\\\"%s\\\\\"."
+
+msgid "Installed plugin \"%s\" (version %s)."
+msgstr "A(z) \"%s\" bővítmény telepítve (%s verzió)."
+
+msgid "Installed plugin \"%s\"."
+msgstr "A(z) \"%s\" bővítmény telepítve."
+
+msgid "Installed plugin Storefront version %s"
+msgstr "Storefront bővítmény %s verziója telepítve"
+
+msgid "Installing %s…"
+msgstr "%s telepítése…"
+
+msgid "Invalid archive reader"
+msgstr "Érvénytelen archívum-olvasó"
+
+msgid "Invalid extraction parameters"
+msgstr "Érvénytelen kibontási paraméterek"
+
+msgid "Invalid patch target filename."
+msgstr "Érvénytelen célfájlnév a javításhoz."
+
+msgid "Invalid selection."
+msgstr "Érvénytelen kijelölés."
+
+msgid "Invert colors (night mode / dark background)"
+msgstr "Színek megfordítása (éjszakai mód / sötét háttér)"
+
+msgid "It is a truth universally acknowledged, that a single man in possession of a good fortune, must be in want of a wife. However little known the feelings or views of such a man may be on his first entering a neighbourhood, this truth is so well fixed in the minds of the surrounding families, that he is considered the rightful property of some one or other of their daughters."
+msgstr "Általánosan elismert igazság, hogy a tehetős nőtlen embernek nyomban feleségre van szüksége."
+
+msgid "Items per page"
+msgstr "Elemek oldalanként"
+
+msgid "Items per page: %d"
+msgstr "Elemek száma oldalanként: %d"
+
+msgid "Last Updated (Newest)"
+msgstr "Legújabb"
+
+msgid "Last Updated (Oldest)"
+msgstr "Legrégebbi"
+
+msgid "Last check: %s"
+msgstr "Utolsó ellenőrzés: %s"
+
+msgid "Latest Release"
+msgstr "Legújabb kiadás"
+
+msgid "Latest release"
+msgstr "Legújabb kiadás"
+
+msgid "License: %s"
+msgstr "Licenc: %s"
+
+msgid "Linked only"
+msgstr "Csak összekapcsoltak"
+
+msgid "Loading README..."
+msgstr "A README betöltése…"
+
+msgid "Loading Release Notes..."
+msgstr "Kiadási megjegyzések betöltése..."
+
+msgid "Loading Versions..."
+msgstr "Verziók betöltése…"
+
+msgid "Loading Wiki..."
+msgstr "Wiki betöltése…"
+
+msgid "Local SHA: %s"
+msgstr "Helyi SHA: %s"
+
+msgid "Local version: %s"
+msgstr "Helyi verzió: %s"
+
+msgid "Local: %s"
+msgstr "Helyi: %s"
+
+msgid "Local: %s → Remote: %s"
+msgstr "Helyi: %s → Távoli: %s"
+
+msgid "Manage plugin paths"
+msgstr "Bővítményútvonalak kezelése"
+
+msgid "Manage plugin paths\n\nHiding a path only affects what Storefront shows/manages here. KOReader will still load plugins from it."
+msgstr "Bővítményútvonalak kezelése\n\nEgy útvonal elrejtése csak azt befolyásolja, amit a Storefront itt megjelenít/kezel. A KOReader továbbra is betölti belőle a bővítményeket."
+
+msgid "Manage plugin paths\\\n\\\nHiding a path only affects what Storefront shows/manages here. KOReader will still load plugins from it."
+msgstr "Manage plugin paths\\\n\\\nHiding a path only affects what Storefront shows/manages here. KOReader will still load plugins from it."
+
+msgid "Match"
+msgstr "Párosítás"
+
+msgid "Match from List"
+msgstr "Párosítás listából"
+
+msgid "Match patch with GitHub repository"
+msgstr "Javítás párosítása GitHub tárhellyel"
+
+msgid "Match plugin with GitHub repository"
+msgstr "Bővítmény párosítása GitHub tárhellyel"
+
+msgid "Match plugin: %s"
+msgstr "Bővítmény párosítása: %s"
+
+msgid "Match this remote patch"
+msgstr "Párosítás ezzel a távoli javítással"
+
+msgid "Match with URL"
+msgstr "Párosítás URL alapján"
+
+msgid "Match with repo"
+msgstr "Párosítás tárhellyel"
+
+msgid "Match with this repo"
+msgstr "Párosítás ezzel a repóval"
+
+msgid "Matched %s with %s."
+msgstr "%s összekapcsolva ezzel: %s."
+
+msgid "Matched repo: %s/%s"
+msgstr "Párosított tárhely: %s/%s"
+
+msgid "Matching entries: %s / %s"
+msgstr "Egyező bejegyzések: %s / %s"
+
+msgid "Matching patch: %s — tap to cancel"
+msgstr "Párosítandó javítás: %s — érintse meg a megszakításhoz"
+
+msgid "Matching patches: %s (repos: %s / %s)"
+msgstr "Egyező javítások: %s (repók: %s / %s)"
+
+msgid "Matching plugin: %s — tap to cancel"
+msgstr "Párosítandó bővítmény: %s — érintse meg a megszakításhoz"
+
+msgid "Minimum stars"
+msgstr "Minimális csillagszám"
+
+msgid "Missing README path"
+msgstr "Hiányzó README útvonal"
+
+msgid "Missing URL"
+msgstr "Hiányzó URL"
+
+msgid "Missing asset download URL."
+msgstr "Hiányzó objektumletöltési URL."
+
+msgid "Missing download URL for release asset."
+msgstr "Hiányzik a kiadási objektum letöltési URL-je."
+
+msgid "Missing font metadata."
+msgstr "Hiányzó betűtípus-metaadatok."
+
+msgid "Missing meta path in record."
+msgstr "Hiányzó meta útvonal a rekordban."
+
+msgid "Missing repository info for patch update."
+msgstr "Hiányzó repóinformáció a javítás frissítéséhez."
+
+msgid "Missing repository info for update."
+msgstr "Hiányzó tárhelyinformáció a frissítéshez."
+
+msgid "Missing repository metadata for README download."
+msgstr "Hiányzó repó-metaadatok a README letöltéséhez."
+
+msgid "Missing repository metadata for installation."
+msgstr "Hiányzó tárhely-metaadatok a telepítéshez."
+
+msgid "Missing repository metadata for patch install."
+msgstr "Hiányzó tárhely-metaadatok a javítás telepítéséhez."
+
+msgid "Missing repository metadata for patch."
+msgstr "Hiányzó tárhely-metaadatok a javításhoz."
+
+msgid "Missing repository metadata for releases."
+msgstr "Hiányzó tárhely-metaadatok a kiadásokhoz."
+
+msgid "Missing repository metadata for remote fetch."
+msgstr "Hiányzó repó-metaadatok a távoli lekéréshez."
+
+msgid "Modify Patch"
+msgstr "Javítás módosítása"
+
+msgid "Modify Plugin"
+msgstr "Bővítmény módosítása"
+
+msgid "Modify Plugin: %s"
+msgstr "Bővítmény módosítása: %s"
+
+msgid "Most Downloaded"
+msgstr "Legtöbbet letöltött"
+
+msgid "Most Popular"
+msgstr "Legnépszerűbb"
+
+msgid "Multiple custom plugin folders are configured. Where should this plugin be installed?"
+msgstr "Több egyéni bővítménymappa van beállítva. Hová legyen telepítve ez a bővítmény?"
+
+msgid "My wallpaper collection"
+msgstr "Háttérkép gyűjteményem"
+
+msgid "Name (A-Z)"
+msgstr "Név (A-Z)"
+
+msgid "Name (Z-A)"
+msgstr "Név (Z-A)"
+
+msgid "Name, description, topic"
+msgstr "Név, leírás, témakör"
+
+msgid "Needs update"
+msgstr "Frissítés szükséges"
+
+msgid "Needs update: %d"
+msgstr "Frissítést igényel: %d"
+
+msgid "Never"
+msgstr "Soha"
+
+msgid "New filename"
+msgstr "Új fájlnév"
+
+msgid "Next"
+msgstr "Következő"
+
+msgid "Next >"
+msgstr "Következő >"
+
+msgid "No Fill (Transparent)"
+msgstr "Nincs kitöltés (átlátszó)"
+
+msgid "No Lua files found in plugin directory"
+msgstr "Nem találhatók Lua fájlok a bővítmény könyvtárában"
+
+msgid "No README available."
+msgstr "Nem érhető el README."
+
+msgid "No Release Notes available."
+msgstr "Nem állnak rendelkezésre kiadási megjegyzések."
+
+msgid "No Wiki available."
+msgstr "Nem érhető el Wiki."
+
+msgid "No cached README files to delete."
+msgstr "Nincsenek törölhető gyorsítótárazott README fájlok."
+
+msgid "No cached entries yet."
+msgstr "Még nincsenek gyorsítótárazott bejegyzések."
+
+msgid "No cached entries yet. Refresh to fetch from GitHub."
+msgstr "Még nincsenek gyorsítótárazott elemek. Frissítsen a GitHubról való lekéréshez."
+
+msgid "No changelog entries found for this range."
+msgstr "Nem találhatók változásnapló-bejegyzések ebben a tartományban."
+
+msgid "No commits found in this range."
+msgstr "Ebben a tartományban nem találhatók commitek."
+
+msgid "No config files found — uncheck filter to show all files"
+msgstr "Nem találhatók konfigurációs fájlok — vedd ki a pipát a szűrőből az összes fájl megjelenítéséhez"
+
+msgid "No date"
+msgstr "Nincs dátum"
+
+msgid "No detailed release notes provided for this version."
+msgstr "Ehhez a verzióhoz nincsenek részletes kiadási megjegyzések."
+
+msgid "No entries match current filters."
+msgstr "Egyik elem sem felel meg a jelenlegi szűrőknek."
+
+msgid "No installed items found."
+msgstr "Nem találhatók telepített elemek."
+
+msgid "No items found."
+msgstr "Nem találhatók elemek."
+
+msgid "No matched patches to check."
+msgstr "Nincsenek ellenőrizendő párosított javítások."
+
+msgid "No matched plugins to check."
+msgstr "Nincs ellenőrizendő párosított bővítmény."
+
+msgid "No patch files found in %s/%s."
+msgstr "Nem találhatók javítási fájlok itt: %s/%s."
+
+msgid "No patch files found in repository %s."
+msgstr "Nem találhatók javítófájlok a(z) %s repóban."
+
+msgid "No patches found in matching repositories."
+msgstr "Nem találhatók javítások az egyező repókban."
+
+msgid "No patches need updates."
+msgstr "Egyetlen javítás sem igényel frissítést."
+
+msgid "No patches to display."
+msgstr "Nincsenek megjeleníthető javítások."
+
+msgid "No plugin files were extracted"
+msgstr "Nem kerültek kibontásra bővítményfájlok"
+
+msgid "No plugins need updates."
+msgstr "Egyetlen bővítmény sem igényel frissítést."
+
+msgid "No plugins to display."
+msgstr "Nincsenek megjeleníthető bővítmények."
+
+msgid "No plugins tracked yet."
+msgstr "Még nincsenek nyomon követett bővítmények."
+
+msgid "No previous page in history"
+msgstr "Nincs előző oldal az előzményekben"
+
+msgid "No release notes provided for this version."
+msgstr "Ehhez a verzióhoz nincsenek kiadási megjegyzések."
+
+msgid "No release notes."
+msgstr "Nincsenek kiadási megjegyzések."
+
+msgid "No releases found for this repository."
+msgstr "Nem találhatók kiadások ehhez a tárhelyhez."
+
+msgid "No remote version info for %s."
+msgstr "Nincs távoli verzióinformáció ehhez: %s."
+
+msgid "No screensavers match this filter."
+msgstr "Nincs a szűrőnek megfelelő képernyőkímélő."
+
+msgid "No stable releases found — uncheck filter to show all releases"
+msgstr "Nem találhatók stabil kiadások — törölje a szűrőt az összes kiadás megjelenítéséhez"
+
+msgid "No tracked plugins to check."
+msgstr "Nincsenek nyomon követett bővítmények az ellenőrzéshez."
+
+msgid "No wallpapers found in your screensavers folder.\n\nBrowse the Screensavers catalog in Storefront to download wallpapers!"
+msgstr "Nem találhatók háttérképek a képernyőkímélő mappában.\n\nBöngésszen a Storefront katalógusában háttérképek letöltéséhez!"
+
+msgid "No wallpapers found in your screensavers folder.\\\n\\\nBrowse the Screensavers catalog in Storefront to download wallpapers!"
+msgstr "No wallpapers found in your screensavers folder.\\\n\\\nBrowse the Screensavers catalog in Storefront to download wallpapers!"
+
+msgid "None selected"
+msgstr "Nincs kiválasztva"
+
+msgid "Not matched with a repository."
+msgstr "Nincs repóhoz párosítva."
+
+msgid "Not set"
+msgstr "Nincs megadva"
+
+msgid "Notes"
+msgstr "Megjegyzések"
+
+msgid "OK"
+msgstr "OK"
+
+msgid "Offline Regular"
+msgstr "Offline Regular"
+
+msgid "Open"
+msgstr "Megnyitás"
+
+msgid "Open Wallpaper Collection Gallery"
+msgstr "Háttérkép-galéria megnyitása"
+
+msgid "Open details"
+msgstr "Részletek megnyitása"
+
+msgid "Optional. Raises the GitHub API rate limit. Generate one (classic, "
+msgstr "Opcionális. Növeli a GitHub API kéréskorlátját. Hozzon létre egyet (classic, "
+
+msgid "Optional. Raises the GitHub API rate limit. Generate one (classic, 'public_repo' scope is enough) at github.com/settings/tokens, then paste it here."
+msgstr "Opcionális. Növeli a GitHub API kéréskorlátját. Hozzon létre egyet (a klasszikus, 'public_repo' hatókör elegendő) a github.com/settings/tokens címen, majd illessze be ide."
+
+msgid "Options ▾"
+msgstr "Opciók ▾"
+
+msgid "Origin"
+msgstr "Eredet"
+
+msgid "Owner"
+msgstr "Tulajdonos"
+
+msgid "Owner %s"
+msgstr "Tulajdonos: %s"
+
+msgid "Owner: "
+msgstr "Tulajdonos: "
+
+msgid "Pack my box with five dozen liquor jugs."
+msgstr "Jókedvű víg tengerész ivott édes bort."
+
+msgid "Page %d of %d"
+msgstr "%d. / %d oldal"
+
+msgid "Page %d/%d"
+msgstr "%d/%d. oldal"
+
+msgid "Pangram Preview"
+msgstr "Előnézet"
+
+msgid "Patch"
+msgstr "Javítás"
+
+msgid "Patch "
+msgstr "Javítás "
+
+msgid "Patch %s has been %s."
+msgstr "A(z) %s javítás %s lett."
+
+msgid "Patch '%s' deleted."
+msgstr "A(z) '%s' javítás törölve."
+
+msgid "Patch '%s' disabled."
+msgstr "'%s' javítás letiltva."
+
+msgid "Patch '%s' enabled."
+msgstr "'%s' javítás engedélyezve."
+
+msgid "Patch cache is older than a week, consider refreshing."
+msgstr "A javítások gyorsítótára több mint egy hetes, érdemes frissíteni."
+
+msgid "Patch file not found in repository."
+msgstr "A javítási fájl nem található a tárhelyen."
+
+msgid "Patch file not found locally."
+msgstr "A javítófájl nem található helyileg."
+
+msgid "Patch file not found."
+msgstr "A javítási fájl nem található."
+
+msgid "Patch matching cancelled."
+msgstr "Javítás-párosítás megszakítva."
+
+msgid "Patch: %s"
+msgstr "Javítás: %s"
+
+msgid "Patches"
+msgstr "Javítások"
+
+msgid "Patches cached: %s (last update: %s)"
+msgstr "Gyorsítótárazott javítások: %s (utolsó frissítés: %s)"
+
+msgid "Patches found: %d"
+msgstr "Talált javítások: %d"
+
+msgid "Path: %s"
+msgstr "Útvonal: %s"
+
+msgid "Plugin"
+msgstr "Bővítmény"
+
+msgid "Plugin "
+msgstr "Bővítmény "
+
+msgid "Plugin %s has been %s."
+msgstr "A(z) %s bővítmény %s lett."
+
+msgid "Plugin '%s' deleted."
+msgstr "'%s' bővítmény törölve."
+
+msgid "Plugin '%s' disabled."
+msgstr "'%s' bővítmény letiltva."
+
+msgid "Plugin '%s' enabled."
+msgstr "'%s' bővítmény engedélyezve."
+
+msgid "Plugin and patch browser for KOReader."
+msgstr "Bővítmény- és javításböngésző a KOReaderhez."
+
+msgid "Plugin cache is older than a week, consider refreshing."
+msgstr "A bővítmények gyorsítótára több mint egyhetes, érdemes frissíteni."
+
+msgid "Plugin directory not found."
+msgstr "A bővítmény könyvtára nem található."
+
+msgid "Plugin folder not found."
+msgstr "A bővítménymappa nem található."
+
+msgid "Plugin is not currently loaded, so settings cannot be deleted."
+msgstr "A bővítmény jelenleg nincs betöltve, így a beállítások nem törölhetők."
+
+msgid "Plugins"
+msgstr "Bővítmények"
+
+msgid "Plugins cached: %s (last update: %s)"
+msgstr "Gyorsítótárazott bővítmények: %s (utolsó frissítés: %s)"
+
+msgid "Pool size: %d wallpapers in rotation"
+msgstr "Készlet mérete: %d háttérkép forog"
+
+msgid "Pre-installed core KOReader plugin."
+msgstr "Előre telepített KOReader alapbővítmény."
+
+msgid "Prev"
+msgstr "Előző"
+
+msgid "Published: %s"
+msgstr "Közzétéve: %s"
+
+msgid "README"
+msgstr "README"
+
+msgid "README download failed: "
+msgstr "README letöltése sikertelen: "
+
+msgid "README files & images"
+msgstr "README fájlok és képek"
+
+msgid "Rate Wallpaper"
+msgstr "Háttérkép értékelése"
+
+msgid "Reading Passage Specimen"
+msgstr "Olvasási minta"
+
+msgid "Reading Progress"
+msgstr "Olvasási állapot"
+
+msgid "Reading Progress / Summary"
+msgstr "Olvasási folyamat / Összegzés"
+
+msgid "Recently Added"
+msgstr "Nemrég hozzáadva"
+
+msgid "Refresh"
+msgstr "Frissítés"
+
+msgid "Refresh cache"
+msgstr "Gyorsítótár frissítése"
+
+msgid "Refresh catalog"
+msgstr "Katalógus frissítése"
+
+msgid "Refreshing catalog via Direct GitHub API…"
+msgstr "Katalógus frissítése Direct GitHub API használatával…"
+
+msgid "Refreshing catalog..."
+msgstr "Katalógus frissítése..."
+
+msgid "Refreshing catalog…"
+msgstr "Katalógus frissítése…"
+
+msgid "Refreshing…"
+msgstr "Frissítés…"
+
+msgid "Reinstall"
+msgstr "Újratelepítés"
+
+msgid "Release"
+msgstr "Kiadás"
+
+msgid "Release Notes"
+msgstr "Kiadási megjegyzések"
+
+msgid "Release notes for %s"
+msgstr "%s kiadási megjegyzései"
+
+msgid "Release: %s"
+msgstr "Kiadás: %s"
+
+msgid "Releases"
+msgstr "Kiadások"
+
+msgid "Releases — %s"
+msgstr "Kiadások — %s"
+
+msgid "Remote SHA: %s"
+msgstr "Távoli SHA: %s"
+
+msgid "Remote SHA: %s (checked %s)"
+msgstr "Távoli SHA: %s (ellenőrizve: %s)"
+
+msgid "Remote check failed: "
+msgstr "A távoli ellenőrzés nem sikerült: "
+
+msgid "Remote version for %s: %s."
+msgstr "Távoli verzió ehhez (%s): %s."
+
+msgid "Remote version not found."
+msgstr "A távoli verzió nem található."
+
+msgid "Remote: %s"
+msgstr "Távoli: %s"
+
+msgid "Remote: %s (checked %s)"
+msgstr "Távoli: %s (ellenőrizve: %s)"
+
+msgid "Remote: (not checked)"
+msgstr "Távoli: (nincs ellenőrizve)"
+
+msgid "Remove"
+msgstr "Eltávolítás"
+
+msgid "Remove "
+msgstr "Eltávolítás"
+
+msgid "Remove '%s' from your wallpaper collection?"
+msgstr "Eltávolítja a(z) '%s' elemet a háttérkép gyűjteményből?"
+
+msgid "Remove Wallpaper?"
+msgstr "Háttérkép eltávolítása?"
+
+msgid "Rename"
+msgstr "Átnevezés"
+
+msgid "Rename failed: %s"
+msgstr "Sikertelen átnevezés: %s"
+
+msgid "Rename file"
+msgstr "Fájl átnevezése"
+
+msgid "Renamed to "
+msgstr "Átnevezve erre: "
+
+msgid "Renamed to '%s'."
+msgstr "Átnevezve erre: '%s'."
+
+msgid "Repo: %s/%s"
+msgstr "Repó: %s/%s"
+
+msgid "Repo: (not matched)"
+msgstr "Repó: (nincs párosítva)"
+
+msgid "Repository"
+msgstr "Repozitórium"
+
+msgid "Repository %s not found on GitHub."
+msgstr "A(z) %s tárhely nem található a GitHubon."
+
+msgid "Repository name"
+msgstr "Repó neve"
+
+msgid "Repository owner"
+msgstr "Repó tulajdonosa"
+
+msgid "Repository: %s"
+msgstr "Tárhely: %s"
+
+msgid "Reset filters"
+msgstr "Szűrők alaphelyzetbe"
+
+msgid "Reset to defaults"
+msgstr "Alapértelmezések"
+
+msgid "Restart later"
+msgstr "Újraindítás később"
+
+msgid "Restart now"
+msgstr "Újraindítás most"
+
+msgid "Sample Text"
+msgstr "Mintaszöveg"
+
+msgid "Save"
+msgstr "Mentés"
+
+msgid "Screensaver"
+msgstr "Képernyőkímélő"
+
+msgid "Screensaver & Wallpapers"
+msgstr "Képernyőkímélő és háttérképek"
+
+msgid "Screensaver Details"
+msgstr "Képernyőkímélő részletei"
+
+msgid "Screensaver Mode"
+msgstr "Képernyőkímélő mód"
+
+msgid "Screensaver Settings"
+msgstr "Képernyővédő beállításai"
+
+msgid "Screensaver mode"
+msgstr "Képernyőkímélő mód"
+
+msgid "Screensaver thumbnails"
+msgstr "Képernyőkímélő bélyegképek"
+
+msgid "Screensavers"
+msgstr "Képernyővédők"
+
+msgid "Search"
+msgstr "Keresés"
+
+msgid "Search \"%s\""
+msgstr "\"%s\" keresése"
+
+msgid "Search & API"
+msgstr "Keresés és API"
+
+msgid "Search filter (\"%s\") is not applied to Updates."
+msgstr "Search filter (\"%s\") is not applied to Updates."
+
+msgid "Search filter (\\\\\"%s\\\\\") is not applied to Updates."
+msgstr "Search filter (\\\\\"%s\\\\\") is not applied to Updates."
+
+msgid "Search text"
+msgstr "Keresendő szöveg"
+
+msgid "Search: "
+msgstr "Keresés: "
+
+msgid "Select All"
+msgstr "Mindet kijelöli"
+
+msgid "Select Categories"
+msgstr "Kategóriák kiválasztása"
+
+msgid "Select a repository patch entry to match with the chosen file."
+msgstr "Válasszon ki egy tárhely-javítási bejegyzést a kiválasztott fájllal való párosításhoz."
+
+msgid "Select a repository to match with the chosen plugin."
+msgstr "Válassz repót a kiválasztott bővítmény párosításához."
+
+msgid "Select installation directory"
+msgstr "Telepítési könyvtár kiválasztása"
+
+msgid "Select patch file from %s"
+msgstr "Javítófájl kiválasztása innen: %s"
+
+msgid "Select patch in %s"
+msgstr "Javítás kiválasztása ebben: %s"
+
+msgid "Select plugin to match"
+msgstr "Válassz bővítményt az összekapcsoláshoz"
+
+msgid "Select repository"
+msgstr "Repó kiválasztása"
+
+msgid "Set"
+msgstr "Beállítás"
+
+msgid "Set Active Single"
+msgstr "Beállítás aktív egyéni háttérképként"
+
+msgid "Set Single"
+msgstr "Egyediként beállít"
+
+msgid "Set as Active"
+msgstr "Beállítás aktívként"
+
+msgid "Set as Active Single Wallpaper"
+msgstr "Beállítás aktív egyedi háttérképként"
+
+msgid "Set as active single wallpaper!"
+msgstr "Beállítva aktív egyedi háttérképként!"
+
+msgid "Settings"
+msgstr "Beállítások"
+
+msgid "Show needs update"
+msgstr "Frissítendők megjelenítése"
+
+msgid "Show reading progress banner overlay"
+msgstr "Olvasási haladás sáv megjelenítése"
+
+msgid "Shows reading stats, percentage, and chapter progress"
+msgstr "Megjeleníti az olvasási statisztikát, a százalékot és a fejezet haladását"
+
+msgid "Shows the cover of the book currently being read"
+msgstr "Az éppen olvasott könyv borítóját jeleníti meg"
+
+msgid "Shuffle (%d)"
+msgstr "Keverés (%d)"
+
+msgid "Shuffle Pool"
+msgstr "Keverési készlet"
+
+msgid "Shuffles through all wallpapers in folder on sleep.\nPool size: %d wallpapers in rotation"
+msgstr "Minden háttérképet váltogat a mappában alvó állapotban.\nKészlet mérete: %d háttérkép forog"
+
+msgid "Single"
+msgstr "Egyedi"
+
+msgid "Single Wallpaper"
+msgstr "Egyedi háttérkép"
+
+msgid "Solid fill for screen margins & letterboxing"
+msgstr "Egyszínű kitöltés a képernyő margóihoz"
+
+msgid "Sort"
+msgstr "Rendezés"
+
+msgid "Sort mode"
+msgstr "Rendezési mód"
+
+msgid "Sort: A-Z"
+msgstr "Rendezés: A-Z"
+
+msgid "Sort: Most Liked"
+msgstr "Rendezés: Legkedveltebb"
+
+msgid "Sort: Name (A → Z)"
+msgstr "Rendezés: Név (A-Z)"
+
+msgid "Sort: Name (Z → A)"
+msgstr "Rendezés: Név (Z-A)"
+
+msgid "Sort: Oldest"
+msgstr "Rendezés: Legrégebbi"
+
+msgid "Sort: Recently updated"
+msgstr "Rendezés: Dátum"
+
+msgid "Sort: Stars (high → low)"
+msgstr "Rendezés: Csillagok"
+
+msgid "Sort: Status"
+msgstr "Rendezés: Állapot"
+
+msgid "Sort: Type"
+msgstr "Rendezés: Típus"
+
+msgid "Sort: Updated"
+msgstr "Rendezés: Frissítve"
+
+msgid "Sort: Z-A"
+msgstr "Rendezés: Z-A"
+
+msgid "Sorting"
+msgstr "Rendezés"
+
+msgid "Stable"
+msgstr "Stabil"
+
+msgid "Status"
+msgstr "Állapot"
+
+msgid "Status: Needs matching"
+msgstr "Állapot: Párosítást igényel"
+
+msgid "Status: Up to date"
+msgstr "Állapot: Naprakész"
+
+msgid "Status: Update available"
+msgstr "Állapot: Frissítés érhető el"
+
+msgid "Storefront"
+msgstr "Storefront"
+
+msgid "Storefront cache refreshed."
+msgstr "Storefront gyorsítótár frissítve."
+
+msgid "Storefront is up to date (v%s)."
+msgstr "A Storefront naprakész (v%s)."
+
+msgid "Storefront refresh failed: "
+msgstr "A Storefront frissítése sikertelen: "
+
+msgid "Storefront · Updates"
+msgstr "Storefront · Frissítések"
+
+msgid "Storefront: Open"
+msgstr "Storefront: Megnyitás"
+
+msgid "Stretch image to fill entire screen"
+msgstr "Kép nyújtása teljes képernyőre"
+
+msgid "Style: "
+msgstr "Stílus: "
+
+msgid "Successfully updated %d item(s)."
+msgstr "%d elem sikeresen frissítve."
+
+msgid "Successfully updated %d items."
+msgstr "%d elem sikeresen frissítve."
+
+msgid "Switch to installed patches"
+msgstr "Váltás a telepített javításokra"
+
+msgid "Switch to installed plugins"
+msgstr "Váltás a telepített bővítményekre"
+
+msgid "Switch to patch list"
+msgstr "Váltás a javítások listájára"
+
+msgid "Switch to patches"
+msgstr "Váltás a javításokra"
+
+msgid "Switch to plugin list"
+msgstr "Váltás a bővítménylistára"
+
+msgid "Tag not found on GitHub (%s or %s)."
+msgstr "A címke nem található a GitHubon (%s vagy %s)."
+
+msgid "Text"
+msgstr "Szöveg"
+
+msgid "Text editor plugin is not available."
+msgstr "A szövegszerkesztő bővítmény nem érhető el."
+
+msgid "The quick brown fox jumps over the lazy dog."
+msgstr "Jókedvű víg tengerész ivott édes bort."
+
+msgid "This action cannot be undone.\n\nChanges will take effect after restart."
+msgstr "Ez a művelet nem vonható vissza.\n\nA változtatások az újraindítás után lépnek életbe."
+
+msgid "This action cannot be undone.\\\n\\\nChanges will take effect after restart."
+msgstr "This action cannot be undone.\\\n\\\nChanges will take effect after restart."
+
+msgid "This wallpaper is currently set as your active screensaver."
+msgstr "Ez a háttérkép van jelenleg beállítva aktív képernyőkímélőként."
+
+msgid "This will delete all cached README files, wiki articles, and screensaver thumbnails (%s)."
+msgstr "Ez törli az összes gyorsítótárazott README fájlt, wiki cikket és képernyőkímélő bélyegképet (%s)."
+
+msgid "This will delete cached README markdown files and downloaded images (%s)."
+msgstr "Ez törli a gyorsítótárazott README markdown fájlokat és a letöltött képeket (%s)."
+
+msgid "This will delete cached screensaver thumbnail previews (%s)."
+msgstr "Ez törli a gyorsítótárazott képernyőkímélő bélyegkép előnézeteket (%s)."
+
+msgid "This will delete cached wiki articles and downloaded images (%s)."
+msgstr "Ez törli a gyorsítótárazott wiki cikkeket és a letöltött képeket (%s)."
+
+msgid "This will take effect on next restart."
+msgstr "Ez a következő újraindításkor lép életbe."
+
+msgid "Total commits: %d"
+msgstr "Összes commit: %d"
+
+msgid "Tracked: %d"
+msgstr "Követett: %d"
+
+msgid "Transparent overlay (page content visible behind)"
+msgstr "Átlátszó réteg (az oldal tartalma látható a háttérben)"
+
+msgid "Type"
+msgstr "Típus"
+
+msgid "Unable to determine patch download URL."
+msgstr "Nem határozható meg a javítás letöltési URL-je."
+
+msgid "Unable to load wiki page. Tap refresh to retry."
+msgstr "A wikioldal nem tölthető be. Érintse meg a frissítést az újrapróbálkozáshoz."
+
+msgid "Unable to read README file"
+msgstr "A README fájl nem olvasható"
+
+msgid "Unable to read README. Tap refresh to retry."
+msgstr "A README nem olvasható. Érintse meg a frissítést az újrapróbálkozáshoz."
+
+msgid "Unable to store match for patch."
+msgstr "Nem sikerült menteni a javítás párosítását."
+
+msgid "Unable to store match for plugin."
+msgstr "Nem sikerült menteni a bővítmény párosítását."
+
+msgid "Uninstall"
+msgstr "Eltávolítás"
+
+msgid "Unknown"
+msgstr "Ismeretlen"
+
+msgid "Unknown error"
+msgstr "Ismeretlen hiba"
+
+msgid "Unlink the repo"
+msgstr "Tárhely összekapcsolásának megszüntetése"
+
+msgid "Unlinked %s from repository."
+msgstr "%s összekapcsolása megszüntetve a tárhellyel."
+
+msgid "Unmatched: %d"
+msgstr "Nem párosított: %d"
+
+msgid "Unnamed release"
+msgstr "Névtelen kiadás"
+
+msgid "Update"
+msgstr "Frissítés"
+
+msgid "Update %d outdated item(s)?"
+msgstr "%d elavult elem frissítése?"
+
+msgid "Update %s?"
+msgstr "Frissíti a következőt: %s?"
+
+msgid "Update All"
+msgstr "Összes frissítése"
+
+msgid "Update all outdated items?"
+msgstr "Minden elavult elem frissítése?"
+
+msgid "Update available for %s: remote %s, installed %s."
+msgstr "Frissítés érhető el ehhez: %s (távoli: %s, telepített: %s)."
+
+msgid "Update channel"
+msgstr "Frissítési csatorna"
+
+msgid "Update check was cancelled"
+msgstr "Frissítésellenőrzés megszakítva"
+
+msgid "Update patch"
+msgstr "Javítás frissítése"
+
+msgid "Update plugin"
+msgstr "Bővítmény frissítése"
+
+msgid "Updated %d of %d item(s) (%d failed)."
+msgstr "%d / %d elem frissítve (%d sikertelen)."
+
+msgid "Updated patch \"%s\"."
+msgstr "A(z) \"%s\" javítás frissítve."
+
+msgid "Updated patch %s."
+msgstr "Frissített javítás: %s."
+
+msgid "Updated patch \\\\\"%s\\\\\"."
+msgstr "Updated patch \\\\\"%s\\\\\"."
+
+msgid "Updated plugin \"%s\" to version %s."
+msgstr "A(z) \"%s\" bővítmény frissítve a %s verzióra."
+
+msgid "Updated plugin \"%s\"."
+msgstr "A(z) \"%s\" bővítmény frissítve."
+
+msgid "Updated plugin \\\\\"%s\\\\\" to version %s."
+msgstr "Updated plugin \\\\\"%s\\\\\" to version %s."
+
+msgid "Updated plugin \\\\\"%s\\\\\"."
+msgstr "Updated plugin \\\\\"%s\\\\\"."
+
+msgid "Updated: %s"
+msgstr "Frissítve: %s"
+
+msgid "Updates"
+msgstr "Frissítések"
+
+msgid "Updates Ignored"
+msgstr "Frissítések figyelmen kívül hagyva"
+
+msgid "Updating [%d/%d]: %s…"
+msgstr "Frissítés [%d/%d]: %s…"
+
+msgid "User Installed"
+msgstr "Felhasználó"
+
+msgid "Verifying repository %s/%s..."
+msgstr "%s/%s tárhely ellenőrzése..."
+
+msgid "Version"
+msgstr "Verzió"
+
+msgid "Versions"
+msgstr "Verziók"
+
+msgid "View README"
+msgstr "README megtekintése"
+
+msgid "View commits (%s \\\\xE2\\\\x86\\\\x92 %s)"
+msgstr "View commits (%s \\\\xE2\\\\x86\\\\x92 %s)"
+
+msgid "View commits (%s → %s)"
+msgstr "Commitek megtekintése (%s → %s)"
+
+msgid "Wallpaper Collection"
+msgstr "Háttérkép-gyűjtemény"
+
+msgid "Wallpaper Options"
+msgstr "Háttérkép beállítások"
+
+msgid "Wallpaper deleted from device."
+msgstr "Háttérkép törölve az eszközről."
+
+msgid "Wallpaper removed"
+msgstr "Háttérkép eltávolítva"
+
+msgid "Wallpaper saved to collection!"
+msgstr "Háttérkép elmentve a gyűjteménybe!"
+
+msgid "Wallpaper set as active KOReader screensaver!"
+msgstr "Háttérkép beállítva aktív KOReader képernyővédőként!"
+
+msgid "Wallpaper set as active screensaver!"
+msgstr "Háttérkép beállítva aktív képernyőkímélőként!"
+
+msgid "Warning: the selected version is older than what is currently installed. You are downgrading."
+msgstr "Figyelem: a kiválasztott verzió régebbi a jelenleg telepítettnél. Visszalépést hajtanál végre."
+
+msgid "White Fill"
+msgstr "Fehér kitöltés"
+
+msgid "Wiki"
+msgstr "Wiki"
+
+msgid "Wiki Pages"
+msgstr "Wiki oldalak"
+
+msgid "Wiki pages & images"
+msgstr "Wiki oldalak és képek"
+
+msgid "Z -> A"
+msgstr "Z -> A"
+
+msgid "Z → A"
+msgstr "Z → A"
+
+msgid "[ Loading preview... ]"
+msgstr "[ Előnézet betöltése... ]"
+
+msgid "[ Wallpaper Preview Loading... ]"
+msgstr "[ Háttérkép előnézet betöltése... ]"
+
+msgid "[Ignored]"
+msgstr "[Mellőzve]"
+
+msgid "[draft]"
+msgstr "[piszkozat]"
+
+msgid "[pre]"
+msgstr "[előzetes]"
+
+msgid "\\\\\"My dear Mr. Bennet,\\\\\" said his lady to him one day, \\\\\"have you heard that Netherfield Park is let at last?\\\\\" Mr. Bennet replied that he had not. \\\\\"But it is,\\\\\" returned she; \\\\\"for Mrs. Long has just been here, and she told me all about it.\\\\\" Mr. Bennet made no answer."
+msgstr "\\\\\"My dear Mr. Bennet,\\\\\" said his lady to him one day, \\\\\"have you heard that Netherfield Park is let at last?\\\\\" Mr. Bennet replied that he had not. \\\\\"But it is,\\\\\" returned she; \\\\\"for Mrs. Long has just been here, and she told me all about it.\\\\\" Mr. Bennet made no answer."
+
+msgid "\\\\xC2\\\\xB7"
+msgstr "\\\\xC2\\\\xB7"
+
+msgid "about_text"
+msgstr "A Storefront egy KOReader-be épített csomagkezelő bővítményekhez, javításokhoz és betűtípusokhoz."
+
+msgid "anyone"
+msgstr "bárki"
+
+msgid "btn_apply"
+msgstr "Alkalmaz"
+
+msgid "btn_back"
+msgstr "Vissza"
+
+msgid "btn_cancel"
+msgstr "Mégse"
+
+msgid "btn_close"
+msgstr "Bezárás"
+
+msgid "btn_install"
+msgstr "Telepítés"
+
+msgid "btn_ok"
+msgstr "OK"
+
+msgid "btn_preview"
+msgstr "Előnézet"
+
+msgid "btn_refresh"
+msgstr "Frissítés"
+
+msgid "btn_release_notes"
+msgstr "Kiadási megjegyzések"
+
+msgid "btn_restart"
+msgstr "KOReader újraindítása"
+
+msgid "btn_retry"
+msgstr "Újra"
+
+msgid "btn_search"
+msgstr "Keresés"
+
+msgid "btn_uninstall"
+msgstr "Eltávolítás"
+
+msgid "btn_update"
+msgstr "Frissítés"
+
+msgid "btn_view_details"
+msgstr "Részletek"
+
+msgid "confirm_install"
+msgstr "Telepíti ezt: '%s'?"
+
+msgid "confirm_uninstall"
+msgstr "Eltávolítja ezt: '%s'? Ez a művelet nem vonható vissza."
+
+msgid "confirm_update"
+msgstr "Frissíti ezt: '%s' v%s verzióról v%s verzióra?"
+
+msgid "disabled"
+msgstr "letiltva"
+
+msgid "e.g., koreader"
+msgstr "pl. koreader"
+
+msgid "enabled"
+msgstr "engedélyezve"
+
+msgid "err_install_failed"
+msgstr "A(z) '%s' telepítése sikertelen."
+
+msgid "err_network_failed"
+msgstr "Hálózati hiba: A katalógus letöltése sikertelen."
+
+msgid "err_uninstall_failed"
+msgstr "A(z) '%s' eltávolítása sikertelen."
+
+msgid "filter_all"
+msgstr "Minden kategória"
+
+msgid "filter_installed"
+msgstr "Telepítve"
+
+msgid "filter_updates"
+msgstr "Frissítések"
+
+msgid "font"
+msgstr "betűtípus"
+
+msgid "ghp_..."
+msgstr "ghp_..."
+
+msgid "header_about"
+msgstr "header_about"
+
+msgid "header_updates"
+msgstr "header_updates"
+
+msgid "label_author"
+msgstr "Szerző"
+
+msgid "label_description"
+msgstr "Leírás"
+
+msgid "label_downloads"
+msgstr "Letöltések"
+
+msgid "label_license"
+msgstr "Licenc"
+
+msgid "label_repository"
+msgstr "Repó"
+
+msgid "label_size"
+msgstr "Méret"
+
+msgid "label_type"
+msgstr "Típus"
+
+msgid "label_version"
+msgstr "Verzió"
+
+msgid "latest"
+msgstr "legújabb"
+
+msgid "menu_about"
+msgstr "Storefront névjegye"
+
+msgid "menu_settings"
+msgstr "Storefront beállítások"
+
+msgid "menu_storefront"
+msgstr "Storefront"
+
+msgid "menu_storefront_desc"
+msgstr "Bővítmények, javítások és betűtípusok böngészése, telepítése és frissítése."
+
+msgid "msg_catalog_updated"
+msgstr "Katalógus sikeresen frissítve."
+
+msgid "msg_installed_plugin"
+msgstr "A(z) \"%s\" bővítmény telepítve."
+
+msgid "msg_installed_plugin_version"
+msgstr "A(z) \"%s\" bővítmény telepítve (%s verzió)."
+
+msgid "msg_no_results"
+msgstr "Nincs találat."
+
+msgid "new"
+msgstr "új"
+
+msgid "not found"
+msgstr "nem található"
+
+msgid "patch"
+msgstr "javítás"
+
+msgid "plugin"
+msgstr "bővítmény"
+
+msgid "progress_please_wait"
+msgstr "Kérjük, várjon"
+
+msgid "prompt_restart_needed"
+msgstr "Telepítés kész. Újraindítja a KOReadert a(z) '%s' engedélyezéséhez?"
+
+msgid "release asset"
+msgstr "kiadási elem"
+
+msgid "release is newer by date"
+msgstr "a kiadás dátum szerint újabb"
+
+msgid "remote is newer by date"
+msgstr "a távoli dátum szerint újabb"
+
+msgid "repository"
+msgstr "tárhely"
+
+msgid "search_hint"
+msgstr "Keresés a Storefrontban..."
+
+msgid "status_builtin"
+msgstr "Beépített"
+
+msgid "status_downloading"
+msgstr "Letöltés..."
+
+msgid "status_installed"
+msgstr "Telepítve"
+
+msgid "status_installing"
+msgstr "Telepítés..."
+
+msgid "status_not_installed"
+msgstr "Nincs telepítve"
+
+msgid "status_uninstalling"
+msgstr "Eltávolítás..."
+
+msgid "status_update_available"
+msgstr "Frissítés érhető el"
+
+msgid "storefront_title"
+msgstr "Storefront"
+
+msgid "tab_all"
+msgstr "Mind"
+
+msgid "tab_fonts"
+msgstr "Betűtípusok"
+
+msgid "tab_patches"
+msgstr "Javítások"
+
+msgid "tab_plugins"
+msgstr "Bővítmények"
+
+msgid "tab_readme"
+msgstr "Olvass el"
+
+msgid "tab_sample_text"
+msgstr "Mintaszöveg"
+
+msgid "tab_screensavers"
+msgstr "Hátterek"
+
+msgid "tab_versions"
+msgstr "Verziók"
+
+msgid "unknown"
+msgstr "ismeretlen"
+
+msgid "updated %s"
+msgstr "frissítve %s"
+
+msgid "updated %s (%s)"
+msgstr "frissítve %s (%s)"
+
+msgid "·"
+msgstr "·"
+
+msgid "≥ %s ⭐"
+msgstr "≥ %s ⭐"
+
+msgid "★ ACTIVE"
+msgstr "★ AKTÍV"
+
+msgid "⚙ Settings"
+msgstr "⚙ Beállítások"
+
+msgid "⚙ Settings..."
+msgstr "⚙ Beállítások..."
+
+msgid "✓ Current"
+msgstr "✓ Jelenlegi"
+
+msgid "Downloading…"
+msgstr ""
+
+msgid "Download cancelled."
+msgstr ""
+
+msgid "Batch update cancelled."
+msgstr ""
+
+msgid "Connecting…"
+msgstr ""
+

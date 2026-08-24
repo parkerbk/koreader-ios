@@ -28,7 +28,9 @@ settings:
     # can fill it in via the Xcode UI. Manual style avoids the
     # capabilities-spam Xcode does under Automatic.
     CODE_SIGN_STYLE: Automatic
-    DEVELOPMENT_TEAM: ""
+    # Set explicitly so regenerating the project doesn't wipe the team picked
+    # in Xcode's UI (xcodegen rewrites project.pbxproj from this file).
+    DEVELOPMENT_TEAM: VEU4669KPZ
     PRODUCT_NAME: KOReader
 
 targets:
