@@ -89,10 +89,22 @@ new device class, to keep the diff against upstream small.
 - **Touch**: real finger events only (`SDL_TOUCH_MOUSE_EVENTS=0`) to
   avoid double taps. `hasKeyboard` is false on iOS so menus don't draw
   per-item shortcut letters.
+- **Keyboard**: the iOS system keyboard, not KOReader's VirtualKeyboard
+  (`Device:hasSystemKeyboard()` → `Device:hidesVirtualKeyboard()`).
+  Focused `InputText`s report their rect through
+  `Device:setTextInputArea` (`SDL_SetTextInputArea`), so SDL slides the
+  view up only when the keyboard would cover the field.
+- **Clipboard**: SDL's clipboard, which is `UIPasteboard` on iOS, so
+  KOReader's copy and paste share the system clipboard.
+- **Rotation**: the SDL window is resizable, so SDL allows every
+  orientation in Info.plist and resizes the window on rotation;
+  `WINDOW_RESIZED` re-lays out KOReader (see §6 for the pixel/point
+  caveat). KOReader's own rotation setting rotates the content inside
+  the window and shouldn't be combined with device rotation.
 - **Night mode**: blitbuffer stays non-inverted; `_render` XOR-inverts the
   dirty region into a scratch buffer right before the texture upload.
 - **Orientation**: iPhone allows portrait + both landscapes; iPad allows
-  all four.
+  all four (Info.plist).
 - **Lifecycle**: SDL foreground/background/low-memory events are
   forwarded as `EV_SDL`; on `DID_ENTER_FOREGROUND` the device forces a
   full repaint.
