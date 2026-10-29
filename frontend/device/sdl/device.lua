@@ -85,8 +85,11 @@ local Device = Generic:extend{
     hasSystemFonts = yes,
     canSuspend = no,
     canStandby = no,
-    startTextInput = SDL.startTextInput,
-    stopTextInput = SDL.stopTextInput,
+    -- On iOS, SDL_StartTextInput pops up the system keyboard (and SDL shifts
+    -- the view to make room for it) on top of KOReader's own VirtualKeyboard.
+    -- Use only KOReader's keyboard there, as on Android.
+    startTextInput = not isIOS and SDL.startTextInput or nil,
+    stopTextInput = not isIOS and SDL.stopTextInput or nil,
     canOpenLink = getLinkOpener,
     openLink = function(self, link)
         local enabled, tool = getLinkOpener()
