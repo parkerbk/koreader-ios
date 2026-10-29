@@ -86,15 +86,43 @@ int main(int argc, char *argv[]) {
              * create it here. It doubles as the drop point for user-added
              * plugins: UIFileSharingEnabled exposes Documents in the Files
              * app, so this folder shows up under On My iPhone -> KOReader. */
+            NSFileManager *fm = [NSFileManager defaultManager];
             NSString *pluginsDir = [docs[0] stringByAppendingPathComponent:@"plugins"];
-            NSError *mkdirErr = nil;
-            if (![[NSFileManager defaultManager] createDirectoryAtPath:pluginsDir
-                                           withIntermediateDirectories:YES
-                                                            attributes:nil
-                                                                 error:&mkdirErr]) {
-                fprintf(stderr, "[%s]: could not create %s: %s\n", LOGNAME,
-                        [pluginsDir fileSystemRepresentation],
-                        [[mkdirErr localizedDescription] UTF8String]);
+            /* User fonts (Files app drops, Storefront installs). The iOS
+             * branch of ui/elements/font_settings.lua points KOReader at
+             * this folder. */
+            NSString *fontsDir = [docs[0] stringByAppendingPathComponent:@"fonts"];
+            for (NSString *dir in @[pluginsDir, fontsDir]) {
+                NSError *mkdirErr = nil;
+                if (![fm createDirectoryAtPath:dir
+                   withIntermediateDirectories:YES
+                                    attributes:nil
+                                         error:&mkdirErr]) {
+                    fprintf(stderr, "[%s]: could not create %s: %s\n", LOGNAME,
+                            [dir fileSystemRepresentation],
+                            [[mkdirErr localizedDescription] UTF8String]);
+                }
+            }
+
+            /* Seed plugins that must stay writable (Storefront updates
+             * itself, and installs into this same folder). They ship under
+             * app/seed/plugins rather than app/plugins and are copied over
+             * only when missing, so an installed copy -- possibly newer
+             * than the seed, or deliberately deleted and re-added by the
+             * user -- is never clobbered by an app update. */
+            NSString *seedDir = [koreaderDir stringByAppendingPathComponent:@"seed/plugins"];
+            for (NSString *entry in [fm contentsOfDirectoryAtPath:seedDir error:nil]) {
+                if (![entry hasSuffix:@".koplugin"]) continue;
+                NSString *dst = [pluginsDir stringByAppendingPathComponent:entry];
+                if ([fm fileExistsAtPath:dst]) continue;
+                NSError *copyErr = nil;
+                if (![fm copyItemAtPath:[seedDir stringByAppendingPathComponent:entry]
+                                 toPath:dst
+                                  error:&copyErr]) {
+                    fprintf(stderr, "[%s]: could not seed %s: %s\n", LOGNAME,
+                            [dst fileSystemRepresentation],
+                            [[copyErr localizedDescription] UTF8String]);
+                }
             }
         }
 

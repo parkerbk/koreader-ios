@@ -100,6 +100,10 @@ rsync -aL \
 # host luajit available — only a perf optimisation).
 "${PLATFORM_DIR}/precompile-lua.sh" "${APP_BUNDLE}/app" || true
 
+# 2.6) First-run seeds, copied into Documents/plugins by ios_loader.m (see
+# embed-bundle-payload.sh). After precompile so they stay plain source.
+rsync -a "${PLATFORM_DIR}/seed/" "${APP_BUNDLE}/app/seed/"
+
 # 3) Generate Info.plist with version filled in.
 echo "[*] Writing Info.plist"
 # CFBundleShortVersionString must be dotted-numeric: turn

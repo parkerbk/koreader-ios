@@ -25,6 +25,11 @@ local function getDir(isUser)
     elseif Device:isRemarkable() then
         return isUser and LINUX_FONT_PATH
                        or LINUX_SYS_FONT_PATH
+    elseif os.getenv("KO_IOS") == "1" then
+        -- iOS: only the sandbox's Documents dir (KO_HOME) is user-reachable,
+        -- via the Files app and Storefront's font installer; there are no
+        -- readable system font dirs.
+        return isUser and require("datastorage"):getDataDir() .. "/fonts" or nil
     elseif Device:isDesktop() or Device:isEmulator() then
         if jit.os == "OSX" then
             return isUser and home .. "/" .. MACOS_FONT_PATH

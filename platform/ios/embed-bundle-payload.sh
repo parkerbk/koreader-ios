@@ -57,6 +57,12 @@ rsync -aL --delete \
 # we don't have a host luajit available; only a perf optimisation.
 "${SRCROOT}/platform/ios/precompile-lua.sh" "${APP_DIR}/app" || true
 
+# --- 1.6) First-run seeds. ios_loader.m copies app/seed/plugins/* into the
+# writable Documents/plugins on first launch, so plugins that update
+# themselves (Storefront) are never loaded from the read-only bundle.
+# Copied after the precompile step so the seeds stay plain source.
+rsync -a --delete "${SRCROOT}/platform/ios/seed/" "${APP_DIR}/app/seed/"
+
 # --- 2) Re-sign every embedded dylib with the same identity as the app.
 # Pick the most-resolved identity Xcode passed us, falling back to ad-hoc
 # when signing is disabled or no real identity is wired up.

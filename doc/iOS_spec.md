@@ -18,8 +18,9 @@ Goals:
 - Feel native enough to use daily: full-screen, notch/home-indicator
   aware, correct touch input, survives backgrounding, opens files from
   the Files app and cloud providers.
-- Ship a curated set of plugins inside the bundle, with a way to add
-  more at runtime (Storefront, or by dropping files into Documents).
+- Ship a curated set of plugins inside the bundle, and let the user add
+  plugins, fonts, and patches at runtime through Storefront or by
+  dropping files into Documents with the Files app.
 - Support every current iPhone form factor, including the foldable
   **iPhone Duo** (see §6).
 
@@ -40,7 +41,8 @@ UIApplicationMain (SDL3)
        ├─ chdir(<bundle>/app)            # Lua tree, fonts, resources
        ├─ env: KO_IOS=1, KO_HOME=<Documents>, SDL_FULLSCREEN=1,
        │       SDL_TOUCH_MOUSE_EVENTS=0, LC_ALL
-       ├─ mkdir <Documents>/plugins
+       ├─ mkdir <Documents>/plugins, <Documents>/fonts
+       ├─ copy app/seed/plugins/* → <Documents>/plugins (only if missing)
        └─ luaL_dofile("reader.lua")      # upstream entry point
 ```
 
@@ -57,7 +59,8 @@ new device class, to keep the diff against upstream small.
 | Lua precompile | `platform/ios/precompile-lua.sh` | Converts bundled `.lua` to LuaJIT bytecode with the host LuaJIT, which cuts cold launch time by 30–50%. |
 | Prereq check | `platform/ios/check-prereqs.sh` | Fails early on missing Xcode/Homebrew tools. |
 | Base | `base/` → `hezi/koreader-base-ios` | iOS make target, monolibtic build, thirdparty patches, SDL3 safe area + lifecycle, night-mode invert, `runInSubProcess` inline fallback. |
-| Plugins | `plugins/iosfilepicker.koplugin` (+ `storefront.koplugin`, see §5) | |
+| Plugins | `plugins/iosfilepicker.koplugin` | Bundled, read-only. |
+| Seed plugins | `platform/ios/seed/plugins/` | Copied into the writable `Documents/plugins` on first launch (Storefront, see §5). |
 
 ### 2.1 Sandbox constraints and how they are handled
 
@@ -98,9 +101,15 @@ new device class, to keep the diff against upstream small.
 
 | Path | Contents |
 |---|---|
-| `KOReader.app/app/` | Read-only Lua tree, resources, bundled plugins, dylibs (`app/libs`). |
-| `Documents/` (`KO_HOME`) | `settings.reader.lua`, `settings/`, history, cache, books, user `plugins/`. |
+| `KOReader.app/app/` | Read-only Lua tree, resources, built-in fonts, bundled plugins, dylibs (`app/libs`), first-run seeds (`app/seed/`). |
+| `Documents/` (`KO_HOME`) | `settings.reader.lua`, `settings/`, history, cache, books. |
+| `Documents/plugins/` | User plugins: Storefront itself, anything it installs, and anything copied in through the Files app. Scanned by `PluginLoader` after the bundled `plugins/`. |
+| `Documents/fonts/` | User fonts: Storefront installs and `.ttf`/`.otf` dropped in through the Files app. On iOS, `ui/elements/font_settings.lua` returns this as the user font dir, so `fontlist` picks it up. There are no readable system font dirs. |
+| `Documents/patches/` | User patches (Storefront's Patches tab), loaded by upstream's patch loader. |
 | Security-scoped bookmarks | Saved by `iosfilepicker.koplugin`, resolved at launch. |
+
+Everything under `Documents/` shows up in Files → On My iPhone/iPad →
+KOReader.
 
 ## 5. Storefront plugin
 
@@ -108,63 +117,50 @@ new device class, to keep the diff against upstream small.
 user browse, install, and update KOReader plugins, user patches,
 screensavers, and fonts on the device.
 
-### 5.1 Current state
+### 5.1 How it ships
 
-- Vendored as `plugins/storefront.koplugin/` at **v26.8.23.1**
-  (upstream `3052a6cc`) on branch `fix/clean-clone-and-xcode27`
-  (commit `af535a3aa`). **That branch is not merged to `master` yet.**
-- Only the `storefront.koplugin/` subdirectory is vendored (~12 MB); the
-  upstream `assets/`, `fonts/`, `tests/`, and `tools/` trees are skipped.
-- It is bundled rather than installed at runtime because the bundle's
-  `plugins/` is read-only. Storefront writes to
-  `DataStorage:getDataDir()` (= `Documents/`), so its own installer can
-  still place further plugins in `Documents/plugins/`, which the
-  launcher creates on startup.
+- Vendored at **26.10.28** (upstream tag `26.10.28`, commit `d53bb266`)
+  in `platform/ios/seed/plugins/storefront.koplugin/`. Only the
+  `storefront.koplugin/` subdirectory of the upstream repo is vendored
+  (~13 MB); its `assets/`, `fonts/`, `tests/`, etc. trees are build-time
+  material.
+- It is **not** in `plugins/`, so it never loads from the read-only
+  bundle. The bundle scripts copy `platform/ios/seed/` to `app/seed/`
+  (after the Lua precompile step, so it stays plain source), and
+  `ios_loader.m` copies each `app/seed/plugins/*.koplugin` into
+  `Documents/plugins/` on launch **only if that folder doesn't exist yet**.
+- From then on, the only copy is the writable one in `Documents/plugins`.
+  Storefront updates itself in place there, and an app update never
+  overwrites it. Deleting `Documents/plugins/storefront.koplugin` in the
+  Files app restores the seed version on next launch.
+- Storefront installs plugins to `Documents/plugins`, fonts to
+  `Documents/fonts`, and patches to `Documents/patches`; all three are
+  writable and read by KOReader (§4).
 
-### 5.2 Update to latest (planned)
+### 5.2 Updating the vendored seed
 
-Target: the latest **stable** release, **26.10.28** (released
-2026-10-28). Beta tags (`*-beta`) are skipped. Upstream changes since
-v26.8.23.1 that matter on iOS:
+Bumping the seed only affects fresh installs (or a deleted copy), since
+existing installs update themselves. Stable tags only; skip `*-beta`.
 
-- Updates that include native libraries (`d6efebe5`). On iOS these
-  libraries cannot load (§2.1); see 5.3.
-- Catalog ETags persisted from the background subprocess (`4de7198a`,
-  `55100970`). On iOS this subprocess runs inline.
-- "Fix some duplicate processes, update gc logic" (`aaca96e7`) and the
-  new cache-limit setting (`8f4c1c5a`, beta only for now).
-- Nested plugin root detection (`eff42cf7`, `804dae8a`) and collections
-  (`2e084ebf`).
+1. Replace `platform/ios/seed/plugins/storefront.koplugin/` with the
+   `storefront.koplugin/` subdirectory of the upstream release tag.
+2. Commit as `local: update storefront.koplugin seed to <tag>`, with
+   the upstream tag and commit in the message.
+3. On device, verify: catalog loads; install, update, and uninstall a
+   pure-Lua plugin; install a font and select it in a book; installed
+   items survive an app restart; Storefront's self-update succeeds.
 
-Procedure (repeat for every future bump):
+### 5.3 Known iOS limitations
 
-1. Rebase/merge `fix/clean-clone-and-xcode27` onto `master` first, so
-   the vendored plugin and the launcher's `Documents/plugins` mkdir land
-   together.
-2. Replace `plugins/storefront.koplugin/` with the subdirectory from the
-   upstream release tag. Keep the same "subdirectory only" rule.
-3. Commit as `local: update storefront.koplugin to <tag>` and record the
-   upstream tag and commit in the message.
-4. On device, verify: catalog loads; install, update, and uninstall a
-   pure-Lua plugin; installed plugins survive an app restart; a
-   catalog refresh doesn't freeze the UI for more than a few seconds;
-   Storefront's own "update Storefront" path doesn't try to overwrite
-   the read-only bundled copy.
-
-### 5.3 iOS-specific requirements for Storefront
-
-- **Self-update**: an updated Storefront downloaded at runtime goes to
-  `Documents/plugins/storefront.koplugin`, next to the read-only bundled
-  copy. The plugin loader must prefer the newer one (or the bundled copy
-  must be the only one, with self-update disabled on iOS). Confirm which
-  one wins; if neither is acceptable, patch Storefront to hide its
-  self-update when `KO_IOS=1`.
-- **Native-library plugins**: entries that contain `.so`/`.dylib` must be
-  filtered out or shown as "unsupported on iOS", not installed and then
-  left to fail at load time.
-- **Subprocess work**: catalog fetches run inline on iOS. If they block
-  the UI noticeably, add a progress indicator or chunk the work (an
-  `iOS`-gated patch, sent upstream to Storefront if it's general enough).
+- **Native-library plugins**: entries containing `.so`/`.dylib` can be
+  installed but won't load, because iOS only loads signed code from the
+  bundle (§2.1). Upstream added support for updates with native
+  libraries in `d6efebe5`. Follow-up: filter these out or mark them
+  "unsupported on iOS".
+- **Subprocess work**: Storefront's background catalog work (ETag
+  persistence etc.) runs inline on iOS because `fork()` is unavailable.
+  If refreshes freeze the UI noticeably, add a progress indicator or
+  chunk the work behind a `KO_IOS` check.
 
 ## 6. iPhone Duo (foldable) support
 
@@ -234,9 +230,9 @@ with different sizes, aspect ratios, and safe areas while it is running.
 
 | Branch | State |
 |---|---|
-| `master` | Base iOS port plus build docs (PR #1). |
-| `fix/clean-clone-and-xcode27` | Clean-clone + Xcode 26/27 build fixes, GUI-launched Xcode builds, bundle ID `com.bparker2003.koreader`, pinned signing team, no menu shortcut letters, `Documents/plugins` mkdir, Storefront v26.8.23.1. **Not merged.** |
-| `pr/clean-clone-build` | Upstreamable subset of the above, without the `local:` commits. |
+| `master` | Base iOS port, build docs, and (merged 2026-10-28) the clean-clone/Xcode 26-27 build fixes, bundle ID `com.bparker2003.koreader`, pinned signing team, no menu shortcut letters, writable Storefront seed, `Documents/fonts`. |
+| `fix/clean-clone-and-xcode27` | Merged into `master`. |
+| `pr/clean-clone-build` | Upstreamable subset of the build fixes, without the `local:` commits. |
 
 Commits prefixed `local:` (bundle ID, signing team, vendored Storefront)
 are specific to this fork and should not be sent upstream to
@@ -244,9 +240,6 @@ are specific to this fork and should not be sent upstream to
 
 ## 8. Open questions
 
-- Does KOReader's plugin loader prefer `Documents/plugins/X` or the
-  bundled `app/plugins/X` when both exist? This decides how Storefront
-  self-update behaves (§5.3).
 - Does SDL3 on iOS emit `WINDOW_PIXEL_SIZE_CHANGED` reliably on fold /
   unfold, or does the scene get torn down and recreated? If the scene
   is recreated, the lifecycle path (§3) has to rebuild the
