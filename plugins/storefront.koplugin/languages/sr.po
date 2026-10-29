@@ -1,0 +1,2290 @@
+msgid ""
+msgstr ""
+"Language-Team: Serbian\n"
+"Language: sr\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "\"My dear Mr. Bennet,\" said his lady to him one day, \"have you heard that Netherfield Park is let at last?\" Mr. Bennet replied that he had not. \"But it is,\" returned she; \"for Mrs. Long has just been here, and she told me all about it.\" Mr. Bennet made no answer."
+msgstr "\"Dragi moj g. Benete,\" rekla mu je supruga jednog dana, \"jeste li čuli da je Nederfild Park konačno izdat?\" G. Benet je odgovorio da nije. \"Ali jeste,\" uzvratila je ona; \"jer je gđa Long upravo bila ovde i sve mi je ispričala.\" G. Benet nije odgovorio."
+
+msgid "%d Categories"
+msgstr "%d категорија"
+
+msgid "%d items"
+msgstr "%d ставки"
+
+msgid "%d patches"
+msgstr "%d закрпа"
+
+msgid "%d plugins"
+msgstr "%d плагина"
+
+msgid "%d wallpapers"
+msgstr "%d позадина"
+
+msgid "%d wallpapers stored on device"
+msgstr "%d позадина сачувано на уређају"
+
+msgid "%d wallpapers · Folder Shuffle (all in rotation)"
+msgstr "%d позадина · Насумично из фасцикле (све у ротацији)"
+
+msgid "%d wallpapers · Mode: Book Cover"
+msgstr "%d позадина · Режим: Корице књиге"
+
+msgid "%d wallpapers · Single mode active"
+msgstr "%d позадина · Активан један режим"
+
+msgid "%s and %s"
+msgstr "%s и %s"
+
+msgid "%s is up to date (version %s)."
+msgstr "%s је ажуран (верзија %s)."
+
+msgid "%s is up to date."
+msgstr "%s је ажуран."
+
+msgid "%s needs an update."
+msgstr "%s захтева ажурирање."
+
+msgid "%s · %d files"
+msgstr "%s · %d датотека"
+
+msgid "%s · 1 file"
+msgstr "%s · 1 датотека"
+
+msgid "(fork)"
+msgstr "(форк)"
+
+msgid "(showing %d of %d commits)"
+msgstr "(prikazano %d od %d izmena)"
+
+msgid "+ Add to Shuffle Pool"
+msgstr "+ Додај у насумични избор"
+
+msgid "1 / 1"
+msgstr "1 / 1"
+
+msgid "1 patch"
+msgstr "1 закрпа"
+
+msgid "1 plugin"
+msgstr "1 плагин"
+
+msgid "< Back"
+msgstr "< Назад"
+
+msgid "< Prev"
+msgstr "< Претх"
+
+msgid "?"
+msgstr "?"
+
+msgid "A -> Z"
+msgstr "А -> Ш"
+
+msgid "A → Z"
+msgstr "А → Ш"
+
+msgid "About"
+msgstr "О апликацији"
+
+msgid "About Storefront"
+msgstr "О Storefront-у"
+
+msgid "Active Single"
+msgstr "Активан један"
+
+msgid "Active Wallpaper ✓"
+msgstr "Активна позадина ✓"
+
+msgid "Active: %s"
+msgstr "Активан: %s"
+
+msgid "Add to Shuffle"
+msgstr "Додај у насумично"
+
+msgid "Add to Shuffle Pool (Enable Shuffle)"
+msgstr "Додај у насумични скуп (омогући насумично)"
+
+msgid "Added to shuffle pool & Folder Shuffle enabled!"
+msgstr "Додато у избор и омогућено насумично приказивање!"
+
+msgid "All"
+msgstr "Све"
+
+msgid "All Caches"
+msgstr "Све кеш меморије"
+
+msgid "All Categories"
+msgstr "Све категорије"
+
+msgid "All Types"
+msgstr "Сви типови"
+
+msgid "All items are up to date."
+msgstr "Све ставке су ажуриране."
+
+msgid "All of your custom plugin folders are currently hidden (see Manage plugin paths). Install to the default plugin folder anyway?"
+msgstr "Сви ваши прилагођени фолдери са додацима су тренутно скривени (погледајте Управљање путањама додатака). Желите ли ипак да инсталирате у подразумевани фолдер?"
+
+msgid "All patches"
+msgstr "Све закрпе"
+
+msgid "All plugins"
+msgstr "Сви додаци"
+
+msgid "All plugins are already matched."
+msgstr "Svi priključci su već povezani."
+
+msgid "Allow pre-release updates"
+msgstr "Дозволи ажурирања претходних издања"
+
+msgid "Alphabet & Numbers"
+msgstr "Абецеда и бројеви"
+
+msgid "Also delete plugin settings"
+msgstr "Такође обриши подешавања додатка"
+
+msgid "Always install here (don"
+msgstr "Увек инсталирај овде (не"
+
+msgid "Always install here (don't ask again)"
+msgstr "Увек инсталирај овде (не питај поново)"
+
+msgid "Any"
+msgstr "Било који"
+
+msgid "App Store · Installed patches"
+msgstr "Продавница · Инсталиране закрпе"
+
+msgid "App Store · Installed plugins"
+msgstr "Продавница · Инсталирани додаци"
+
+msgid "Apply"
+msgstr "Примени"
+
+msgid "Assets — %s"
+msgstr "Datoteke — %s"
+
+msgid "Author"
+msgstr "Аутор"
+
+msgid "Back"
+msgstr "Назад"
+
+msgid "Beta"
+msgstr "Бета"
+
+msgid "Black Fill"
+msgstr "Црна попуна"
+
+msgid "Blank"
+msgstr "Празно"
+
+msgid "Book Cover"
+msgstr "Корице књиге"
+
+msgid "Border Fill / Background"
+msgstr "Попуна ивица / Позадина"
+
+msgid "Both owner and repository name are required."
+msgstr "Потребни су и власник и назив спремишта."
+
+msgid "Branch: %s"
+msgstr "Грана: %s"
+
+msgid "Browse Wallpapers in Storefront"
+msgstr "Прегледај позадине у Storefront-у"
+
+msgid "By "
+msgstr "By"
+
+msgid "By: %s"
+msgstr "Аутор: %s"
+
+msgid "Cache empty. Refresh to retrieve repositories."
+msgstr "Кеш је празан. Освежите да бисте преузели спремишта."
+
+msgid "Cache is older than a week, consider refreshing."
+msgstr "Кеш је старији од недељу дана, размислите о освежавању."
+
+msgid "Cached %s patch repositories."
+msgstr "Keširano %s spremišta zakrpa."
+
+msgid "Cached %s plugins."
+msgstr "Кеширано %s додатака."
+
+msgid "Can"
+msgstr "Može"
+
+msgid "Can't load readme...."
+msgstr "Учитавање датотеке readme није успело...."
+
+msgid "Cancel"
+msgstr "Откажи"
+
+msgid "Cancel matching"
+msgstr "Откажи упаривање"
+
+msgid "Cannot read source file."
+msgstr "Није могуће прочитати изворну датотеку."
+
+msgid "Cannot write destination file."
+msgstr "Није могуће уписати одредишну датотеку."
+
+msgid "Catalog & Cache"
+msgstr "Каталог и кеш"
+
+msgid "Catalog refresh failed: "
+msgstr "Освежавање каталога није успело: "
+
+msgid "Catalog refresh is already in progress in the background."
+msgstr "Освежавање каталога је већ у току у позадини."
+
+msgid "Catalog refreshed successfully."
+msgstr "Каталог је успешно освежен."
+
+msgid "Catalog source"
+msgstr "Извор каталога"
+
+msgid "Catalog updated: %d plugins, %d patches, %d fonts."
+msgstr "Katalog ažuriran: %d priključaka, %d zakrpa, %d fontova."
+
+msgid "Categories"
+msgstr "Категорије"
+
+msgid "Category: "
+msgstr "Категорија: "
+
+msgid "Category: %s"
+msgstr "Категорија: %s"
+
+msgid "Change..."
+msgstr "Промени..."
+
+msgid "Changelog for %s\n%s \\\\xE2\\\\x86\\\\x92 %s"
+msgstr "Changelog for %s\n%s \\\\xE2\\\\x86\\\\x92 %s"
+
+msgid "Changelog for %s\n%s → %s"
+msgstr "Дневник промена за %s\n%s → %s"
+
+msgid "Changelog for %s\\\n%s \\\\xE2\\\\x86\\\\x92 %s"
+msgstr "Changelog for %s\\\n%s \\\\xE2\\\\x86\\\\x92 %s"
+
+msgid "Changelog: %s"
+msgstr "Дневник промена: %s"
+
+msgid "Check Updates"
+msgstr "Провери"
+
+msgid "Check all updates"
+msgstr "Провери сва ажурирања"
+
+msgid "Check for updates"
+msgstr "Провери ажурирања"
+
+msgid "Check this patch"
+msgstr "Proveri ovu zakrpu"
+
+msgid "Check this plugin"
+msgstr "Провери овај додатак"
+
+msgid "Checked %d patches: %d need updates, %d up to date."
+msgstr "Provereno %d zakrpa: %d zahteva ažuriranje, %d je ažurno."
+
+msgid "Checked %d plugin updates"
+msgstr "Проверено %d ажурирања прикључака"
+
+msgid "Checked %d plugin(s) for updates."
+msgstr "Проверено %d плагина за ажурирања."
+
+msgid "Checking %s…"
+msgstr "Proveravanje %s…"
+
+msgid "Checking for Storefront updates..."
+msgstr "Проверавам ажурирања за Storefront..."
+
+msgid "Checking for Storefront updates…"
+msgstr "Провера ажурирања за Storefront…"
+
+msgid "Checking patch updates…"
+msgstr "Провера ажурирања закрпи…"
+
+msgid "Checking plugin updates"
+msgstr "Проверавам ажурирања прикључака"
+
+msgid "Checking plugin updates…"
+msgstr "Provera ažuriranja dodataka…"
+
+msgid "Choose Build — %s"
+msgstr "Изаберите верзију — %s"
+
+msgid "Clean"
+msgstr "Очисти"
+
+msgid "Clear"
+msgstr "Очисти"
+
+msgid "Clear All"
+msgstr "Обриши све"
+
+msgid "Clear All Caches?"
+msgstr "Обрисати све кеш меморије?"
+
+msgid "Clear Cache"
+msgstr "Обриши кеш"
+
+msgid "Clear README Cache?"
+msgstr "Обрисати кеш за README?"
+
+msgid "Clear README cache"
+msgstr "Очисти кеш"
+
+msgid "Clear README cache (%s)?\nCached README files and images will be deleted."
+msgstr "Clear README cache (%s)?\nCached README files and images will be deleted."
+
+msgid "Clear Thumbnail Cache?"
+msgstr "Обрисати кеш за умањене приказе?"
+
+msgid "Clear Wiki Cache?"
+msgstr "Обрисати кеш за Вики?"
+
+msgid "Clear Wiki cache (%s)?\nCached wiki articles and images will be deleted."
+msgstr "Clear Wiki cache (%s)?\nCached wiki articles and images will be deleted."
+
+msgid "Clear all cached data (%s)?\nAll README files, wiki articles, and thumbnails will be deleted."
+msgstr "Clear all cached data (%s)?\nAll README files, wiki articles, and thumbnails will be deleted."
+
+msgid "Clear cache…"
+msgstr "Обриши кеш"
+
+msgid "Clear screensaver thumbnail cache (%s)?\nThumbnails will be re-downloaded when viewing wallpapers."
+msgstr "Clear screensaver thumbnail cache (%s)?\nThumbnails will be re-downloaded when viewing wallpapers."
+
+msgid "Clear search & filters"
+msgstr "Обриши претрагу и филтере"
+
+msgid "Clear search/filters"
+msgstr "Очисти претрагу/филтере"
+
+msgid "Cleared README cache (%s freed)."
+msgstr "Cleared README cache (%s freed)."
+
+msgid "Cleared Wiki cache (%s freed)."
+msgstr "Cleared Wiki cache (%s freed)."
+
+msgid "Cleared all caches (%s freed, %d files)."
+msgstr "Cleared all caches (%s freed, %d files)."
+
+msgid "Cleared screensaver thumbnails (%s freed)."
+msgstr "Cleared screensaver thumbnails (%s freed)."
+
+msgid "Close"
+msgstr "Затвори"
+
+msgid "Collection"
+msgstr "Колекција"
+
+msgid "Commit diff: %s → %s"
+msgstr "Разлика измена: %s → %s"
+
+msgid "Commits: %s \\\\xE2\\\\x86\\\\x92 %s"
+msgstr "Commits: %s \\\\xE2\\\\x86\\\\x92 %s"
+
+msgid "Commits: %s → %s"
+msgstr "Izmene: %s → %s"
+
+msgid "Community"
+msgstr "Заједница"
+
+msgid "Config files only"
+msgstr "Samo konfiguracione datoteke"
+
+msgid "Configured ✓"
+msgstr "Подешено ✓"
+
+msgid "Confirm"
+msgstr "Потврди"
+
+msgid "Confirm Update"
+msgstr "Потврди ажурирање"
+
+msgid "Confirm Update All"
+msgstr "Потврди ажурирање свега"
+
+msgid "Connecting to GitHub…\n\nPlease wait."
+msgstr "Повезивање са GitHub-ом…\n\nСачекајте."
+
+msgid "Connecting to GitHub…\\\n\\\nPlease wait."
+msgstr "Connecting to GitHub…\\\n\\\nPlease wait."
+
+msgid "Continue"
+msgstr "Настави"
+
+msgid "Copied to "
+msgstr "Копирано у "
+
+msgid "Copied to '%s'."
+msgstr "Копирано у '%s'."
+
+msgid "Copy"
+msgstr "Копирај"
+
+msgid "Copy file as"
+msgstr "Копирај датотеку као"
+
+msgid "Could not detect .koplugin folder in archive"
+msgstr "Није могуће пронаћи .koplugin фолдер у архиви"
+
+msgid "Could not detect plugin inside archive."
+msgstr "Nije moguće pronaći priključak u arhivi."
+
+msgid "Could not fetch commit comparison."
+msgstr "Није могуће преузети поређење измена."
+
+msgid "Could not fetch releases for changelog."
+msgstr "Није могуће преузети издања за дневник промена."
+
+msgid "Could not fetch releases for this repository."
+msgstr "Није могуће преузети издања за ово спремиште."
+
+msgid "Could not locate plugin folder (_meta.lua) in archive."
+msgstr "Nije moguće pronaći fasciklu priključka (_meta.lua) u arhivi."
+
+msgid "Could not open target file for writing"
+msgstr "Nije moguće otvoriti ciljnu datoteku za pisanje"
+
+msgid "Default"
+msgstr "Подразумевано"
+
+msgid "Default only"
+msgstr "Само подразумевано"
+
+msgid "Delete"
+msgstr "Обриши"
+
+msgid "Delete "
+msgstr "Обриши"
+
+msgid "Delete '%s' from your device?"
+msgstr "Обрисати '%s' са вашег уређаја?"
+
+msgid "Delete File?"
+msgstr "Обрисати датотеку?"
+
+msgid "Delete Wallpaper?"
+msgstr "Обрисати позадину?"
+
+msgid "Delete all cached README files? They will be re-downloaded on demand."
+msgstr "Обрисати све кеширане README датотеке? Биће поново преузете по потреби."
+
+msgid "Delete file "
+msgstr "Обриши датотеку "
+
+msgid "Delete file '%s'?\n\nThis cannot be undone."
+msgstr "Izbrisati datoteku '%s'?\n\nOvo se ne može poništiti."
+
+msgid "Delete font "
+msgstr "Обриши фонт "
+
+msgid "Delete font '%s'?"
+msgstr "Избрисати фонт '%s'?"
+
+msgid "Delete from Device"
+msgstr "Обриши са уређаја"
+
+msgid "Delete patch"
+msgstr "Обриши закрпу"
+
+msgid "Delete patch "
+msgstr "Obriši zakrpu "
+
+msgid "Delete patch '%s'?"
+msgstr "Избрисати закрпу '%s'?"
+
+msgid "Delete plugin"
+msgstr "Обриши додатак"
+
+msgid "Delete plugin "
+msgstr "Обриши додатак "
+
+msgid "Delete plugin '%s'?"
+msgstr "Избрисати прикључак '%s'?"
+
+msgid "Deleted "
+msgstr "Обрисано "
+
+msgid "Deleted %d cached README file(s)."
+msgstr "Обрисано %d кешираних README датотека."
+
+msgid "Deleted %d cached README file(s); %d failed."
+msgstr "Obrisano %d keširanih README datoteka; %d neuspešno."
+
+msgid "Deleted '%s'."
+msgstr "Избрисано '%s'."
+
+msgid "Direct GitHub API"
+msgstr "Директан GitHub API"
+
+msgid "Disable"
+msgstr "Онемогући"
+
+msgid "Disable patch"
+msgstr "Онемогући закрпу"
+
+msgid "Disable plugin"
+msgstr "Онемогући додатак"
+
+msgid "Disabled"
+msgstr "Онемогућено"
+
+msgid "Display Options"
+msgstr "Опције приказа"
+
+msgid "Displays a static wallpaper on sleep"
+msgstr "Приказује статичну позадину током спавања"
+
+msgid "Displays a static wallpaper on sleep.\nActive: %s"
+msgstr "Приказује статичну позадину током спавања.\nАктиван: %s"
+
+msgid "Done"
+msgstr "Готово"
+
+msgid "Download & Set Active"
+msgstr "Преузми и активирај"
+
+msgid "Download Only"
+msgstr "Само преузимање"
+
+msgid "Download Only (Save to Device)"
+msgstr "Само преузми (сачувај на уређају)"
+
+msgid "Download failed: "
+msgstr "Преузимање није успело: "
+
+msgid "Download options"
+msgstr "Опције преузимања"
+
+msgid "Download options — %s"
+msgstr "Опције преузимања — %s"
+
+msgid "Download options — %s (%s)"
+msgstr "Opcije preuzimanja — %s (%s)"
+
+msgid "Downloading "
+msgstr "Downloading..."
+
+msgid "Downloading %s%s…\nThis may take a moment."
+msgstr "Преузимање %s%s…\nОво може потрајати."
+
+msgid "Downloading %s%s…\\\nThis may take a moment."
+msgstr "Downloading %s%s…\\\nThis may take a moment."
+
+msgid "Downloading %s…"
+msgstr "Преузимање %s…"
+
+msgid "Downloading '%s'..."
+msgstr "Downloading '%s'..."
+
+msgid "Downloading patch \"%s\"…"
+msgstr "Preuzimanje zakrpe \"%s\"…"
+
+msgid "Downloading patch %s…"
+msgstr "Преузимање закрпе %s…"
+
+msgid "Downloading patch \\\\\"%s\\\\\"…"
+msgstr "Downloading patch \\\\\"%s\\\\\"…"
+
+msgid "Downloading screensaver..."
+msgstr "Преузимање чувара екрана..."
+
+msgid "Downloading to shuffle pool..."
+msgstr "Преузимање у скуп за насумично..."
+
+msgid "Edit"
+msgstr "Уреди"
+
+msgid "Empty (0 KB)"
+msgstr "Празно (0 KB)"
+
+msgid "Enable"
+msgstr "Омогући"
+
+msgid "Enable patch"
+msgstr "Омогући закрпу"
+
+msgid "Enable plugin"
+msgstr "Омогући додатак"
+
+msgid "Enabled"
+msgstr "Омогућено"
+
+msgid "Enter item number"
+msgstr "Unesite broj stavke"
+
+msgid "Enter plugin number"
+msgstr "Унесите број додатка"
+
+msgid "Extracting and installing plugin…\nPlease wait."
+msgstr "Распакивање и инсталирање додатка…\nСачекајте."
+
+msgid "Extracting and installing plugin…\\\nPlease wait."
+msgstr "Extracting and installing plugin…\\\nPlease wait."
+
+msgid "Failed to check %s: %s"
+msgstr "Провера %s није успела: %s"
+
+msgid "Failed to check for Storefront updates: %s"
+msgstr "Провера ажурирања за Storefront није успела: %s"
+
+msgid "Failed to create patches directory: %s"
+msgstr "Креирање директоријума за закрпе није успело: %s"
+
+msgid "Failed to delete patch: %s"
+msgstr "Брисање закрпе није успело: %s"
+
+msgid "Failed to delete plugin: %s"
+msgstr "Brisanje priključka nije uspelo: %s"
+
+msgid "Failed to delete: %s"
+msgstr "Брисање није успело: %s"
+
+msgid "Failed to disable patch "
+msgstr "Онемогућавање закрпе није успело "
+
+msgid "Failed to disable patch '%s'."
+msgstr "Онемогућавање закрпе '%s' није успело."
+
+msgid "Failed to download patch: %s"
+msgstr "Преузимање закрпе није успело: %s"
+
+msgid "Failed to download screensaver."
+msgstr "Неуспешно преузимање чувара екрана."
+
+msgid "Failed to enable patch "
+msgstr "Омогућавање закрпе није успело "
+
+msgid "Failed to enable patch '%s'."
+msgstr "Омогућавање закрпе '%s' није успело."
+
+msgid "Failed to extract file: "
+msgstr "Распакивање датотеке није успело: "
+
+msgid "Failed to fetch patch list."
+msgstr "Greška pri preuzimanju liste zakrpa."
+
+msgid "Failed to fetch repository "
+msgstr "Преузимање спремишта није успело "
+
+msgid "Failed to fetch repository '%s/%s': %s"
+msgstr "Преузимање спремишта '%s/%s' није успело: %s"
+
+msgid "Failed to install patch: "
+msgstr "Instalacija zakrpe nije uspela: "
+
+msgid "Failed to open downloaded archive."
+msgstr "Отварање преузете архиве није успело."
+
+msgid "Failed to prepare patches directory."
+msgstr "Припрема директоријума закрпи није успела."
+
+msgid "Failed to toggle patch status."
+msgstr "Промена статуса закрпе није успела."
+
+msgid "Fetching Release Info"
+msgstr "Preuzimanje informacija o izdanju"
+
+msgid "Fetching changelog…"
+msgstr "Преузимање дневника промена…"
+
+msgid "Fetching commits…"
+msgstr "Preuzimanje izmena…"
+
+msgid "Fetching patch file listings…"
+msgstr "Преузимање листе закрпа…"
+
+msgid "Fetching patches via Direct GitHub API…"
+msgstr "Преузимање закрпа преко Direct GitHub API…"
+
+msgid "Fetching plugins via Direct GitHub API…"
+msgstr "Преузимање плагина преко Direct GitHub API…"
+
+msgid "Fetching release info…"
+msgstr "Преузимање информација о издању…"
+
+msgid "Fetching releases…"
+msgstr "Преузимање издања…"
+
+msgid "Fetching repository %s/%s..."
+msgstr "Preuzimanje spremišta %s/%s..."
+
+msgid "Filename cannot be empty."
+msgstr "Назив датотеке не може бити празан."
+
+msgid "Filter & Sort Fonts"
+msgstr "Филтрирај и сортирај фонтове"
+
+msgid "Filter & Sort Installed"
+msgstr "Филтрирај и сортирај инсталирано"
+
+msgid "Filter & Sort Patches"
+msgstr "Филтрирај и сортирај закрпе"
+
+msgid "Filter & Sort Plugins"
+msgstr "Филтрирај и сортирај плагине"
+
+msgid "Filter & Sort Screensavers"
+msgstr "Филтрирај и сортирај чуваре екрана"
+
+msgid "Filter Installed Patches"
+msgstr "Филтрирај инсталиране закрпе"
+
+msgid "Filter Installed Plugins"
+msgstr "Филтрирај инсталиране додатке"
+
+msgid "Filter pre-releases"
+msgstr "Филтрирај претходна издања"
+
+msgid "Filter..."
+msgstr "Филтер..."
+
+msgid "Filter: "
+msgstr "Филтер: "
+
+msgid "Filters"
+msgstr "Филтери"
+
+msgid "Filters: "
+msgstr "Филтери: "
+
+msgid "Filters: (none)"
+msgstr "Филтери: (нема)"
+
+msgid "Folder Shuffle"
+msgstr "Насумично из фасцикле"
+
+msgid "Folder Shuffle enabled with this wallpaper!"
+msgstr "Насумично из фасцикле омогућено са овом позадином!"
+
+msgid "Font"
+msgstr "Font"
+
+msgid "Font "
+msgstr "Font "
+
+msgid "Font '%s' deleted."
+msgstr "Фонт '%s' је избрисан."
+
+msgid "Font files not found for %s."
+msgstr "Datoteke fonta nisu pronađene za %s."
+
+msgid "Font style"
+msgstr "Стил фонта"
+
+msgid "Fonts"
+msgstr "Фонтови"
+
+msgid "Free up storage space on your device. Cached items are re-downloaded automatically when needed."
+msgstr "Ослободите простор на уређају. Кеширане ставке се аутоматски поново преузимају када затребају."
+
+msgid "GitHub API rate limit exceeded. Add a GitHub token in Storefront settings to increase the limit (10→30 req/min)."
+msgstr "Prekoračeno GitHub API ograničenje. Dodajte GitHub token u podešavanjima Storefront-a za povećanje ograničenja (10→30 zahteva/min)."
+
+msgid "GitHub API rate limit exceeded. Please wait a few minutes and try again."
+msgstr "Прекорачено је ограничење GitHub API захтева. Сачекајте неколико минута и покушајте поново."
+
+msgid "GitHub personal access token"
+msgstr "GitHub lični pristupni token"
+
+msgid "GitHub rejected this request: fine-grained personal access tokens are not supported for search. Please use a classic token instead (see the Storefront README)."
+msgstr "GitHub је одбио овај захтев: прецизни лични токени за приступ нису подржани за претрагу. Уместо тога користите класични токен (погледајте README за Storefront)."
+
+msgid "GitHub token"
+msgstr "GitHub токен"
+
+msgid "GitHub token saved."
+msgstr "GitHub токен је сачуван."
+
+msgid "Go"
+msgstr "Иди"
+
+msgid "Go to page"
+msgstr "Иди на страницу"
+
+msgid "HTTP error"
+msgstr "HTTP грешка"
+
+msgid "HTTP request failed"
+msgstr "HTTP zahtev nije uspeo"
+
+msgid "Ignore"
+msgstr "Занемари"
+
+msgid "Ignore All Updates"
+msgstr "Игнориши сва ажурирања"
+
+msgid "Ignore Updates"
+msgstr "Игнориши ажурирања"
+
+msgid "Ignored"
+msgstr "Ignorisano"
+
+msgid "Image View"
+msgstr "Приказ слике"
+
+msgid "Include 0-star forks"
+msgstr "Укључи форкове без звездица"
+
+msgid "Install"
+msgstr "Инсталирај"
+
+msgid "Install %s"
+msgstr "Инсталирај %s"
+
+msgid "Install Font"
+msgstr "Инсталирај фонт"
+
+msgid "Install Patch"
+msgstr "Инсталирај закрпу"
+
+msgid "Install a patch"
+msgstr "Инсталирај закрпу"
+
+msgid "Install patch from GitHub"
+msgstr "Инсталирај закрпу са GitHub-а"
+
+msgid "Install plugin from GitHub"
+msgstr "Инсталирај додатак са GitHub-а"
+
+msgid "Install to Default?"
+msgstr "Инсталирати на подразумевану локацију?"
+
+msgid "Install to default"
+msgstr "Инсталирај на подразумевано место"
+
+msgid "Installation failed: "
+msgstr "Instalacija nije uspela: "
+
+msgid "Installation is currently only supported for plugins."
+msgstr "Instalacija je trenutno podržana samo za priključke."
+
+msgid "Installed"
+msgstr "Инсталирано"
+
+msgid "Installed Patches Settings"
+msgstr "Подешавања инсталираних закрпи"
+
+msgid "Installed Plugins Settings"
+msgstr "Подешавања инсталираних додатака"
+
+msgid "Installed Regular font style offline for \"%s\". Full font family queued for download when reconnected."
+msgstr "Instaliran običan stil fonta van mreže za \"%s\". Cela porodica fontova je na čekanju za preuzimanje po ponovnom povezivanju."
+
+msgid "Installed Regular font style offline for \\\\\"%s\\\\\". Full font family queued for download when reconnected."
+msgstr "Installed Regular font style offline for \\\\\"%s\\\\\". Full font family queued for download when reconnected."
+
+msgid "Installed font \"%s\" (%d file(s))."
+msgstr "Instaliran font \"%s\" (%d datoteka)."
+
+msgid "Installed font \\\\\"%s\\\\\" (%d file(s))."
+msgstr "Installed font \\\\\"%s\\\\\" (%d file(s))."
+
+msgid "Installed full font family \"%s\" (%d file(s))."
+msgstr "Instalirana cela porodica fontova \"%s\" (%d datoteka)."
+
+msgid "Installed full font family \\\\\"%s\\\\\" (%d file(s))."
+msgstr "Installed full font family \\\\\"%s\\\\\" (%d file(s))."
+
+msgid "Installed patch \"%s\"."
+msgstr "Instalirana zakrpa \"%s\"."
+
+msgid "Installed patch \\\\\"%s\\\\\"."
+msgstr "Installed patch \\\\\"%s\\\\\"."
+
+msgid "Installed plugin \"%s\" (version %s)."
+msgstr "Instaliran dodatak \"%s\" (verzija %s)."
+
+msgid "Installed plugin \"%s\"."
+msgstr "Instaliran dodatak \"%s\"."
+
+msgid "Installed plugin Storefront version %s"
+msgstr "Инсталиран прикључак Storefront верзија %s"
+
+msgid "Installing %s…"
+msgstr "Инсталирање %s…"
+
+msgid "Invalid archive reader"
+msgstr "Неважећи читач архиве"
+
+msgid "Invalid extraction parameters"
+msgstr "Неважећи параметри распакивања"
+
+msgid "Invalid patch target filename."
+msgstr "Неважеће циљно име датотеке закрпе."
+
+msgid "Invalid selection."
+msgstr "Neispravan izbor."
+
+msgid "Invert colors (night mode / dark background)"
+msgstr "Инвертуј боје (ноћни режим / тамна позадина)"
+
+msgid "It is a truth universally acknowledged, that a single man in possession of a good fortune, must be in want of a wife. However little known the feelings or views of such a man may be on his first entering a neighbourhood, this truth is so well fixed in the minds of the surrounding families, that he is considered the rightful property of some one or other of their daughters."
+msgstr "Општеприхваћена је истина да је неожењеном човеку са лепим имањем потребна жена."
+
+msgid "Items per page"
+msgstr "Ставки по страници"
+
+msgid "Items per page: %d"
+msgstr "Ставки по страници: %d"
+
+msgid "Last Updated (Newest)"
+msgstr "Најновије"
+
+msgid "Last Updated (Oldest)"
+msgstr "Најстарије"
+
+msgid "Last check: %s"
+msgstr "Последња провера: %s"
+
+msgid "Latest Release"
+msgstr "Најновије издање"
+
+msgid "Latest release"
+msgstr "Најновије издање"
+
+msgid "License: %s"
+msgstr "Лиценца: %s"
+
+msgid "Linked only"
+msgstr "Само повезани"
+
+msgid "Loading README..."
+msgstr "Учитавање README..."
+
+msgid "Loading Release Notes..."
+msgstr "Učitavanje zabeleški o izdanju..."
+
+msgid "Loading Versions..."
+msgstr "Учитавање верзија..."
+
+msgid "Loading Wiki..."
+msgstr "Учитавање Вики странице..."
+
+msgid "Local SHA: %s"
+msgstr "Локални SHA: %s"
+
+msgid "Local version: %s"
+msgstr "Локална верзија: %s"
+
+msgid "Local: %s"
+msgstr "Локално: %s"
+
+msgid "Local: %s → Remote: %s"
+msgstr "Локално: %s → Удаљено: %s"
+
+msgid "Manage plugin paths"
+msgstr "Управљање путањама додатака"
+
+msgid "Manage plugin paths\n\nHiding a path only affects what Storefront shows/manages here. KOReader will still load plugins from it."
+msgstr "Управљање путањама додатака\n\nСкривање путање утиче само на оно што Storefront овде приказује/управља. KOReader ће и даље учитавати додатке одатле."
+
+msgid "Manage plugin paths\\\n\\\nHiding a path only affects what Storefront shows/manages here. KOReader will still load plugins from it."
+msgstr "Manage plugin paths\\\n\\\nHiding a path only affects what Storefront shows/manages here. KOReader will still load plugins from it."
+
+msgid "Match"
+msgstr "Упари"
+
+msgid "Match from List"
+msgstr "Упари из листе"
+
+msgid "Match patch with GitHub repository"
+msgstr "Упари закрпу са GitHub спремиштем"
+
+msgid "Match plugin with GitHub repository"
+msgstr "Poveži priključak sa GitHub spremištem"
+
+msgid "Match plugin: %s"
+msgstr "Упари додатак: %s"
+
+msgid "Match this remote patch"
+msgstr "Упари ову удаљену закрпу"
+
+msgid "Match with URL"
+msgstr "Poveži sa URL-om"
+
+msgid "Match with repo"
+msgstr "Poveži sa spremištem"
+
+msgid "Match with this repo"
+msgstr "Упари са овим спремиштем"
+
+msgid "Matched %s with %s."
+msgstr "Упарено %s са %s."
+
+msgid "Matched repo: %s/%s"
+msgstr "Povezano spremište: %s/%s"
+
+msgid "Matching entries: %s / %s"
+msgstr "Упарене ставке: %s / %s"
+
+msgid "Matching patch: %s — tap to cancel"
+msgstr "Povezivanje zakrpe: %s — dodirnite da otkažete"
+
+msgid "Matching patches: %s (repos: %s / %s)"
+msgstr "Упарене закрпе: %s (спремишта: %s / %s)"
+
+msgid "Matching plugin: %s — tap to cancel"
+msgstr "Упаривање додатка: %s — додирните да откажете"
+
+msgid "Minimum stars"
+msgstr "Najmanje zvezdica"
+
+msgid "Missing README path"
+msgstr "Недостаје путања до README датотеке"
+
+msgid "Missing URL"
+msgstr "Недостаје URL"
+
+msgid "Missing asset download URL."
+msgstr "Недостаје URL за преузимање датотеке."
+
+msgid "Missing download URL for release asset."
+msgstr "Недостаје URL за преузимање датотеке издања."
+
+msgid "Missing font metadata."
+msgstr "Недостају метаподаци фонта."
+
+msgid "Missing meta path in record."
+msgstr "Недостаје путања метаподатака у запису."
+
+msgid "Missing repository info for patch update."
+msgstr "Недостају информације о спремишту за ажурирање закрпе."
+
+msgid "Missing repository info for update."
+msgstr "Недостају информације о спремишту за ажурирање."
+
+msgid "Missing repository metadata for README download."
+msgstr "Недостају метаподаци спремишта за преузимање README датотеке."
+
+msgid "Missing repository metadata for installation."
+msgstr "Недостају метаподаци спремишта за инсталацију."
+
+msgid "Missing repository metadata for patch install."
+msgstr "Nedostaju metapodaci spremišta za instalaciju zakrpe."
+
+msgid "Missing repository metadata for patch."
+msgstr "Недостају метаподаци спремишта за закрпу."
+
+msgid "Missing repository metadata for releases."
+msgstr "Недостају метаподаци спремишта за издања."
+
+msgid "Missing repository metadata for remote fetch."
+msgstr "Недостају метаподаци спремишта за удаљено преузимање."
+
+msgid "Modify Patch"
+msgstr "Измени закрпу"
+
+msgid "Modify Plugin"
+msgstr "Izmeni priključak"
+
+msgid "Modify Plugin: %s"
+msgstr "Izmeni dodatak: %s"
+
+msgid "Most Downloaded"
+msgstr "Највише преузимано"
+
+msgid "Most Popular"
+msgstr "Најпопуларније"
+
+msgid "Multiple custom plugin folders are configured. Where should this plugin be installed?"
+msgstr "Podešeno je više prilagođenih fascikli za priključke. Gde treba instalirati ovaj priključak?"
+
+msgid "My wallpaper collection"
+msgstr "Моја колекција позадина"
+
+msgid "Name (A-Z)"
+msgstr "Назив (А-Ш)"
+
+msgid "Name (Z-A)"
+msgstr "Назив (Ш-А)"
+
+msgid "Name, description, topic"
+msgstr "Назив, опис, тема"
+
+msgid "Needs update"
+msgstr "Потребно ажурирање"
+
+msgid "Needs update: %d"
+msgstr "Potrebno ažuriranje: %d"
+
+msgid "Never"
+msgstr "Никад"
+
+msgid "New filename"
+msgstr "Нови назив датотеке"
+
+msgid "Next"
+msgstr "Даље"
+
+msgid "Next >"
+msgstr "Следеће >"
+
+msgid "No Fill (Transparent)"
+msgstr "Без попуне (провидно)"
+
+msgid "No Lua files found in plugin directory"
+msgstr "Нису пронађене Lua датотеке у директоријуму додатка"
+
+msgid "No README available."
+msgstr "README није доступан."
+
+msgid "No Release Notes available."
+msgstr "Beleške o izdanju nisu dostupne."
+
+msgid "No Wiki available."
+msgstr "Wiki nije dostupan."
+
+msgid "No cached README files to delete."
+msgstr "Nema keširanih README datoteka za brisanje."
+
+msgid "No cached entries yet."
+msgstr "Још нема кешираних ставки."
+
+msgid "No cached entries yet. Refresh to fetch from GitHub."
+msgstr "Još nema keširanih stavki. Osvežite da preuzmete sa GitHub-a."
+
+msgid "No changelog entries found for this range."
+msgstr "Нису пронађене ставке у дневнику промена за овај опсег."
+
+msgid "No commits found in this range."
+msgstr "Nema izmena u ovom opsegu."
+
+msgid "No config files found — uncheck filter to show all files"
+msgstr "Нису пронађене конфигурационе датотеке — одштриклирајте филтер да прикажете све датотеке"
+
+msgid "No date"
+msgstr "Bez datuma"
+
+msgid "No detailed release notes provided for this version."
+msgstr "Нема детаљних белешки о издању за ову верзију."
+
+msgid "No entries match current filters."
+msgstr "Ниједна ставка не одговара тренутним филтерима."
+
+msgid "No installed items found."
+msgstr "Nema instaliranih stavki."
+
+msgid "No items found."
+msgstr "Ништа није пронађено."
+
+msgid "No matched patches to check."
+msgstr "Нема упарених закрпи за проверу."
+
+msgid "No matched plugins to check."
+msgstr "Нема упарених плагина за проверу."
+
+msgid "No patch files found in %s/%s."
+msgstr "Нису пронађене датотеке закрпи у %s/%s."
+
+msgid "No patch files found in repository %s."
+msgstr "У спремишту %s нису пронађене датотеке закрпи."
+
+msgid "No patches found in matching repositories."
+msgstr "Нису пронађене закрпе у одговарајућим спремиштима."
+
+msgid "No patches need updates."
+msgstr "Nijedna zakrpa ne zahteva ažuriranje."
+
+msgid "No patches to display."
+msgstr "Нема закрпи за приказ."
+
+msgid "No plugin files were extracted"
+msgstr "Ниједна датотека додатка није распакована"
+
+msgid "No plugins need updates."
+msgstr "Ниједан прикључак не захтева ажурирање."
+
+msgid "No plugins to display."
+msgstr "Нема додатака за приказ."
+
+msgid "No plugins tracked yet."
+msgstr "Још нема праћених додатака."
+
+msgid "No previous page in history"
+msgstr "Nema prethodne stranice u istoriji"
+
+msgid "No release notes provided for this version."
+msgstr "Nema napomena o izdanju za ovu verziju."
+
+msgid "No release notes."
+msgstr "Нема белешки о издању."
+
+msgid "No releases found for this repository."
+msgstr "Нису пронађена издања за ово спремиште."
+
+msgid "No remote version info for %s."
+msgstr "Nema informacija o udaljenoj verziji za %s."
+
+msgid "No screensavers match this filter."
+msgstr "Ниједан чувар екрана не одговара овом филтеру."
+
+msgid "No stable releases found — uncheck filter to show all releases"
+msgstr "Nisu pronađena stabilna izdanja — odčekirajte filter da prikažete sva izdanja"
+
+msgid "No tracked plugins to check."
+msgstr "Нема праћених додатака за проверу."
+
+msgid "No wallpapers found in your screensavers folder.\n\nBrowse the Screensavers catalog in Storefront to download wallpapers!"
+msgstr "Нема позадина у фасцикли чувара екрана.\n\nПрегледајте Storefront каталог да бисте преузели позадине!"
+
+msgid "No wallpapers found in your screensavers folder.\\\n\\\nBrowse the Screensavers catalog in Storefront to download wallpapers!"
+msgstr "No wallpapers found in your screensavers folder.\\\n\\\nBrowse the Screensavers catalog in Storefront to download wallpapers!"
+
+msgid "None selected"
+msgstr "Ништа није изабрано"
+
+msgid "Not matched with a repository."
+msgstr "Nije povezano sa repozitorijumom."
+
+msgid "Not set"
+msgstr "Није постављено"
+
+msgid "Notes"
+msgstr "Белешке"
+
+msgid "OK"
+msgstr "У реду"
+
+msgid "Offline Regular"
+msgstr "Офлајн Regular"
+
+msgid "Open"
+msgstr "Отвори"
+
+msgid "Open Wallpaper Collection Gallery"
+msgstr "Отвори галерију позадина"
+
+msgid "Open details"
+msgstr "Отвори детаље"
+
+msgid "Optional. Raises the GitHub API rate limit. Generate one (classic, "
+msgstr "Опционо. Повећава ограничавање GitHub API захтева. Генеришите га (класичан, "
+
+msgid "Optional. Raises the GitHub API rate limit. Generate one (classic, 'public_repo' scope is enough) at github.com/settings/tokens, then paste it here."
+msgstr "Опционо. Повећава ограничење GitHub API захтева. Генеришите токен (класичан, обим 'public_repo' је довољан) на github.com/settings/tokens и налепите га овде."
+
+msgid "Options ▾"
+msgstr "Опције ▾"
+
+msgid "Origin"
+msgstr "Порекло"
+
+msgid "Owner"
+msgstr "Власник"
+
+msgid "Owner %s"
+msgstr "Власник %s"
+
+msgid "Owner: "
+msgstr "Vlasnik: "
+
+msgid "Pack my box with five dozen liquor jugs."
+msgstr "Чешаљем са жутим зубима џунглом шета фини ђак."
+
+msgid "Page %d of %d"
+msgstr "Страница %d од %d"
+
+msgid "Page %d/%d"
+msgstr "Страница %d/%d"
+
+msgid "Pangram Preview"
+msgstr "Преглед панграма"
+
+msgid "Patch"
+msgstr "Закрпа"
+
+msgid "Patch "
+msgstr "Закрпа "
+
+msgid "Patch %s has been %s."
+msgstr "Закрпа %s је %s."
+
+msgid "Patch '%s' deleted."
+msgstr "Патцх '%s' је обрисан."
+
+msgid "Patch '%s' disabled."
+msgstr "Закрпа '%s' је онемогућена."
+
+msgid "Patch '%s' enabled."
+msgstr "Закрпа '%s' је омогућена."
+
+msgid "Patch cache is older than a week, consider refreshing."
+msgstr "Кеш закрпи је старији од недељу дана, размислите о освежавању."
+
+msgid "Patch file not found in repository."
+msgstr "Datoteka zakrpe nije pronađena u spremištu."
+
+msgid "Patch file not found locally."
+msgstr "Датотека закрпе није пронађена локално."
+
+msgid "Patch file not found."
+msgstr "Датотека закрпе није пронађена."
+
+msgid "Patch matching cancelled."
+msgstr "Povezivanje zakrpe je otkazano."
+
+msgid "Patch: %s"
+msgstr "Закрпа: %s"
+
+msgid "Patches"
+msgstr "Закрпе"
+
+msgid "Patches cached: %s (last update: %s)"
+msgstr "Кеширане закрпе: %s (последње ажурирање: %s)"
+
+msgid "Patches found: %d"
+msgstr "Pronađeno zakrpa: %d"
+
+msgid "Path: %s"
+msgstr "Putanja: %s"
+
+msgid "Plugin"
+msgstr "Priključak"
+
+msgid "Plugin "
+msgstr "Додатак "
+
+msgid "Plugin %s has been %s."
+msgstr "Priključak %s je %s."
+
+msgid "Plugin '%s' deleted."
+msgstr "Прикључак '%s' је избрисан."
+
+msgid "Plugin '%s' disabled."
+msgstr "Прикључак '%s' је онемогућен."
+
+msgid "Plugin '%s' enabled."
+msgstr "Прикључак '%s' је омогућен."
+
+msgid "Plugin and patch browser for KOReader."
+msgstr "Прегледач додатака и закрпи за KOReader."
+
+msgid "Plugin cache is older than a week, consider refreshing."
+msgstr "Кеш додатака је старији од недељу дана, размислите о освежавању."
+
+msgid "Plugin directory not found."
+msgstr "Директоријум додатка није пронађен."
+
+msgid "Plugin folder not found."
+msgstr "Фолдер додатка није пронађен."
+
+msgid "Plugin is not currently loaded, so settings cannot be deleted."
+msgstr "Додатак тренутно није учитан, па се подешавања не могу обрисати."
+
+msgid "Plugins"
+msgstr "Додаци"
+
+msgid "Plugins cached: %s (last update: %s)"
+msgstr "Кеширани додаци: %s (последње ажурирање: %s)"
+
+msgid "Pool size: %d wallpapers in rotation"
+msgstr "Величина скупа: %d позадина у ротацији"
+
+msgid "Pre-installed core KOReader plugin."
+msgstr "Преинсталирани основни KOReader прикључак."
+
+msgid "Prev"
+msgstr "Претходна"
+
+msgid "Published: %s"
+msgstr "Објављено: %s"
+
+msgid "README"
+msgstr "README"
+
+msgid "README download failed: "
+msgstr "Преузимање README датотеке није успело: "
+
+msgid "README files & images"
+msgstr "README датотеке и слике"
+
+msgid "Rate Wallpaper"
+msgstr "Оцени позадину"
+
+msgid "Reading Passage Specimen"
+msgstr "Узорак за читање"
+
+msgid "Reading Progress"
+msgstr "Напредак читања"
+
+msgid "Reading Progress / Summary"
+msgstr "Напредак читања / Резиме"
+
+msgid "Recently Added"
+msgstr "Недавно додато"
+
+msgid "Refresh"
+msgstr "Osveži"
+
+msgid "Refresh cache"
+msgstr "Освежи кеш"
+
+msgid "Refresh catalog"
+msgstr "Освежи каталог"
+
+msgid "Refreshing catalog via Direct GitHub API…"
+msgstr "Освежавање каталога преко Direct GitHub API…"
+
+msgid "Refreshing catalog..."
+msgstr "Освежавање каталога..."
+
+msgid "Refreshing catalog…"
+msgstr "Освежавање каталога…"
+
+msgid "Refreshing…"
+msgstr "Освежавање…"
+
+msgid "Reinstall"
+msgstr "Поново инсталирај"
+
+msgid "Release"
+msgstr "Издање"
+
+msgid "Release Notes"
+msgstr "Белешке о издању"
+
+msgid "Release notes for %s"
+msgstr "Белешке о издању за %s"
+
+msgid "Release: %s"
+msgstr "Издање: %s"
+
+msgid "Releases"
+msgstr "Izdanja"
+
+msgid "Releases — %s"
+msgstr "Издања — %s"
+
+msgid "Remote SHA: %s"
+msgstr "Удаљени SHA: %s"
+
+msgid "Remote SHA: %s (checked %s)"
+msgstr "Удаљени SHA: %s (проверено %s)"
+
+msgid "Remote check failed: "
+msgstr "Удаљена провера није успела: "
+
+msgid "Remote version for %s: %s."
+msgstr "Удаљена верзија за %s: %s."
+
+msgid "Remote version not found."
+msgstr "Udaljena verzija nije pronađena."
+
+msgid "Remote: %s"
+msgstr "Удаљено: %s"
+
+msgid "Remote: %s (checked %s)"
+msgstr "Удаљено: %s (проверено %s)"
+
+msgid "Remote: (not checked)"
+msgstr "Удаљено: (није проверено)"
+
+msgid "Remove"
+msgstr "Уклони"
+
+msgid "Remove "
+msgstr "Уклони"
+
+msgid "Remove '%s' from your wallpaper collection?"
+msgstr "Уклонити '%s' из ваше колекције позадина?"
+
+msgid "Remove Wallpaper?"
+msgstr "Уклонити позадину?"
+
+msgid "Rename"
+msgstr "Преименуј"
+
+msgid "Rename failed: %s"
+msgstr "Преименовање није успело: %s"
+
+msgid "Rename file"
+msgstr "Преименуј датотеку"
+
+msgid "Renamed to "
+msgstr "Преименовано у "
+
+msgid "Renamed to '%s'."
+msgstr "Преименовано у '%s'."
+
+msgid "Repo: %s/%s"
+msgstr "Repozitorijum: %s/%s"
+
+msgid "Repo: (not matched)"
+msgstr "Спремиште: (није упарено)"
+
+msgid "Repository"
+msgstr "Спремиште"
+
+msgid "Repository %s not found on GitHub."
+msgstr "Спремиште %s није пронађено на GitHub-у."
+
+msgid "Repository name"
+msgstr "Назив спремишта"
+
+msgid "Repository owner"
+msgstr "Власник спремишта"
+
+msgid "Repository: %s"
+msgstr "Spremište: %s"
+
+msgid "Reset filters"
+msgstr "Ресетуј филтере"
+
+msgid "Reset to defaults"
+msgstr "Подразумевано"
+
+msgid "Restart later"
+msgstr "Рестартуј касније"
+
+msgid "Restart now"
+msgstr "Поново покрени"
+
+msgid "Sample Text"
+msgstr "Пример текста"
+
+msgid "Save"
+msgstr "Сачувај"
+
+msgid "Screensaver"
+msgstr "Чувар екрана"
+
+msgid "Screensaver & Wallpapers"
+msgstr "Чувар екрана и позадине"
+
+msgid "Screensaver Details"
+msgstr "Детаљи чувара екрана"
+
+msgid "Screensaver Mode"
+msgstr "Режим чувара екрана"
+
+msgid "Screensaver Settings"
+msgstr "Подешавања чувара екрана"
+
+msgid "Screensaver mode"
+msgstr "Режим чувара екрана"
+
+msgid "Screensaver thumbnails"
+msgstr "Умањени прикази чувара екрана"
+
+msgid "Screensavers"
+msgstr "Чувари екрана"
+
+msgid "Search"
+msgstr "Претрага"
+
+msgid "Search \"%s\""
+msgstr "Pretraži \"%s\""
+
+msgid "Search & API"
+msgstr "Претрага и API"
+
+msgid "Search filter (\"%s\") is not applied to Updates."
+msgstr "Search filter (\"%s\") is not applied to Updates."
+
+msgid "Search filter (\\\\\"%s\\\\\") is not applied to Updates."
+msgstr "Search filter (\\\\\"%s\\\\\") is not applied to Updates."
+
+msgid "Search text"
+msgstr "Текст за претрагу"
+
+msgid "Search: "
+msgstr "Претрага: "
+
+msgid "Select All"
+msgstr "Изабери све"
+
+msgid "Select Categories"
+msgstr "Изабери категорије"
+
+msgid "Select a repository patch entry to match with the chosen file."
+msgstr "Изаберите ставку закрпе из спремишта за упаривање са изабраном датотеком."
+
+msgid "Select a repository to match with the chosen plugin."
+msgstr "Izaberite repozitorijum za povezivanje sa izabranim dodatkom."
+
+msgid "Select installation directory"
+msgstr "Изаберите фолдер за инсталацију"
+
+msgid "Select patch file from %s"
+msgstr "Изаберите датотеку закрпе из %s"
+
+msgid "Select patch in %s"
+msgstr "Изаберите закрпу у %s"
+
+msgid "Select plugin to match"
+msgstr "Изаберите додатак за упаривање"
+
+msgid "Select repository"
+msgstr "Изабери спремиште"
+
+msgid "Set"
+msgstr "Postavi"
+
+msgid "Set Active Single"
+msgstr "Постави као активну појединачну"
+
+msgid "Set Single"
+msgstr "Постави једно"
+
+msgid "Set as Active"
+msgstr "Постави као активно"
+
+msgid "Set as Active Single Wallpaper"
+msgstr "Постави као активну појединачну позадину"
+
+msgid "Set as active single wallpaper!"
+msgstr "Постављено као активна појединачна позадина!"
+
+msgid "Settings"
+msgstr "Подешавања"
+
+msgid "Show needs update"
+msgstr "Прикажи оне којима је потребно ажурирање"
+
+msgid "Show reading progress banner overlay"
+msgstr "Прикажи траку напретка читања"
+
+msgid "Shows reading stats, percentage, and chapter progress"
+msgstr "Приказује статистику читања, проценат и напредак поглавља"
+
+msgid "Shows the cover of the book currently being read"
+msgstr "Приказује корице књиге која се тренутно чита"
+
+msgid "Shuffle (%d)"
+msgstr "Насумично (%d)"
+
+msgid "Shuffle Pool"
+msgstr "Скуп за насумично"
+
+msgid "Shuffles through all wallpapers in folder on sleep.\nPool size: %d wallpapers in rotation"
+msgstr "Насумично мења све позадине из фасцикле током спавања.\nВеличина скупа: %d позадина у ротацији"
+
+msgid "Single"
+msgstr "Појединачно"
+
+msgid "Single Wallpaper"
+msgstr "Појединачна позадина"
+
+msgid "Solid fill for screen margins & letterboxing"
+msgstr "Пуна боја за маргине екрана"
+
+msgid "Sort"
+msgstr "Сортирање"
+
+msgid "Sort mode"
+msgstr "Режим сортирања"
+
+msgid "Sort: A-Z"
+msgstr "Сортирај: А-Ш"
+
+msgid "Sort: Most Liked"
+msgstr "Сортирај: Највише свиђања"
+
+msgid "Sort: Name (A → Z)"
+msgstr "Сортирај: Назив (А-Ш)"
+
+msgid "Sort: Name (Z → A)"
+msgstr "Сортирај: Назив (Ш-А)"
+
+msgid "Sort: Oldest"
+msgstr "Сортирај: Најстарије"
+
+msgid "Sort: Recently updated"
+msgstr "Сортирај: Датум"
+
+msgid "Sort: Stars (high → low)"
+msgstr "Сортирај: Звездице"
+
+msgid "Sort: Status"
+msgstr "Сортирај: Статус"
+
+msgid "Sort: Type"
+msgstr "Сортирај: Тип"
+
+msgid "Sort: Updated"
+msgstr "Сортирање: Ажурирано"
+
+msgid "Sort: Z-A"
+msgstr "Сортирај: Ш-А"
+
+msgid "Sorting"
+msgstr "Сортирање"
+
+msgid "Stable"
+msgstr "Стабилно"
+
+msgid "Status"
+msgstr "Статус"
+
+msgid "Status: Needs matching"
+msgstr "Статус: Потребно упаривање"
+
+msgid "Status: Up to date"
+msgstr "Статус: Ажурно"
+
+msgid "Status: Update available"
+msgstr "Статус: Доступно је ажурирање"
+
+msgid "Storefront"
+msgstr "Storefront"
+
+msgid "Storefront cache refreshed."
+msgstr "Кеш Storefront-а је освежен."
+
+msgid "Storefront is up to date (v%s)."
+msgstr "Storefront је ажуриран (v%s)."
+
+msgid "Storefront refresh failed: "
+msgstr "Osvežavanje Storefront-a nije uspelo: "
+
+msgid "Storefront · Updates"
+msgstr "Storefront · Ажурирања"
+
+msgid "Storefront: Open"
+msgstr "Продавница: Отвори"
+
+msgid "Stretch image to fill entire screen"
+msgstr "Развуци слику преко целог екрана"
+
+msgid "Style: "
+msgstr "Стил: "
+
+msgid "Successfully updated %d item(s)."
+msgstr "Успешно ажурирано %d ставки."
+
+msgid "Successfully updated %d items."
+msgstr "Успешно ажурирано %d ставки."
+
+msgid "Switch to installed patches"
+msgstr "Пређи на инсталиране закрпе"
+
+msgid "Switch to installed plugins"
+msgstr "Pređi na instalirane dodatke"
+
+msgid "Switch to patch list"
+msgstr "Пређи на листу закрпи"
+
+msgid "Switch to patches"
+msgstr "Пређи на закрпе"
+
+msgid "Switch to plugin list"
+msgstr "Pređi na listu priključaka"
+
+msgid "Tag not found on GitHub (%s or %s)."
+msgstr "Ознака није пронађена на GitHub-у (%s или %s)."
+
+msgid "Text"
+msgstr "Текст"
+
+msgid "Text editor plugin is not available."
+msgstr "Додатак уређивача текста није доступан."
+
+msgid "The quick brown fox jumps over the lazy dog."
+msgstr "Чешаљем са жутим зубима џунглом шета фини ђак."
+
+msgid "This action cannot be undone.\n\nChanges will take effect after restart."
+msgstr "Ова радња се не може опозвати.\n\nИзмене ће ступити на снагу након поновног покретања."
+
+msgid "This action cannot be undone.\\\n\\\nChanges will take effect after restart."
+msgstr "This action cannot be undone.\\\n\\\nChanges will take effect after restart."
+
+msgid "This wallpaper is currently set as your active screensaver."
+msgstr "Ова позадина је тренутно постављена као ваш активни чувар екрана."
+
+msgid "This will delete all cached README files, wiki articles, and screensaver thumbnails (%s)."
+msgstr "Ово ће обрисати све кеширане README датотеке, вики чланке и умањене приказе чувара екрана (%s)."
+
+msgid "This will delete cached README markdown files and downloaded images (%s)."
+msgstr "Ово ће обрисати кеширане README датотеке и преузете слике (%s)."
+
+msgid "This will delete cached screensaver thumbnail previews (%s)."
+msgstr "Ово ће обрисати кеширане умањене приказе чувара екрана (%s)."
+
+msgid "This will delete cached wiki articles and downloaded images (%s)."
+msgstr "Ово ће обрисати кеширане вики чланке и преузете слике (%s)."
+
+msgid "This will take effect on next restart."
+msgstr "Ovo će stupiti na snagu pri sledećem ponovnom pokretanju."
+
+msgid "Total commits: %d"
+msgstr "Укупно измена: %d"
+
+msgid "Tracked: %d"
+msgstr "Праћено: %d"
+
+msgid "Transparent overlay (page content visible behind)"
+msgstr "Провидна позадина (садржај странице видљив иза)"
+
+msgid "Type"
+msgstr "Тип"
+
+msgid "Unable to determine patch download URL."
+msgstr "Није могуће утврдити URL за преузимање закрпе."
+
+msgid "Unable to load wiki page. Tap refresh to retry."
+msgstr "Учитавање вики странице није успело. Додирните за освежавање."
+
+msgid "Unable to read README file"
+msgstr "Čitanje README datoteke nije uspelo"
+
+msgid "Unable to read README. Tap refresh to retry."
+msgstr "Nije moguće pročitati README. Dodirnite osveži za ponovni pokušaj."
+
+msgid "Unable to store match for patch."
+msgstr "Nije moguće sačuvati vezu za zakrpu."
+
+msgid "Unable to store match for plugin."
+msgstr "Nije moguće sačuvati vezu за priključak."
+
+msgid "Uninstall"
+msgstr "Ukloni"
+
+msgid "Unknown"
+msgstr "Непознато"
+
+msgid "Unknown error"
+msgstr "Непозната грешка"
+
+msgid "Unlink the repo"
+msgstr "Прекини везу са спремиштем"
+
+msgid "Unlinked %s from repository."
+msgstr "%s је одвојен од спремишта."
+
+msgid "Unmatched: %d"
+msgstr "Неупарено: %d"
+
+msgid "Unnamed release"
+msgstr "Неименовано издање"
+
+msgid "Update"
+msgstr "Ажурирај"
+
+msgid "Update %d outdated item(s)?"
+msgstr "Ажурирати %d застарелих ставки?"
+
+msgid "Update %s?"
+msgstr "Ажурирати %s?"
+
+msgid "Update All"
+msgstr "Ажурирај све"
+
+msgid "Update all outdated items?"
+msgstr "Ажурирати све застареле ставке?"
+
+msgid "Update available for %s: remote %s, installed %s."
+msgstr "Доступно је ажурирање за %s: удаљено %s, инсталирано %s."
+
+msgid "Update channel"
+msgstr "Канал ажурирања"
+
+msgid "Update check was cancelled"
+msgstr "Провера ажурирања је отказана"
+
+msgid "Update patch"
+msgstr "Ажурирај закрпу"
+
+msgid "Update plugin"
+msgstr "Ажурирај додатак"
+
+msgid "Updated %d of %d item(s) (%d failed)."
+msgstr "Ажурирано %d од %d ставки (%d неуспешно)."
+
+msgid "Updated patch \"%s\"."
+msgstr "Ažurirana zakrpa \"%s\"."
+
+msgid "Updated patch %s."
+msgstr "Ažurirana zakrpa %s."
+
+msgid "Updated patch \\\\\"%s\\\\\"."
+msgstr "Updated patch \\\\\"%s\\\\\"."
+
+msgid "Updated plugin \"%s\" to version %s."
+msgstr "Ažuriran dodatak \"%s\" na verziju %s."
+
+msgid "Updated plugin \"%s\"."
+msgstr "Ažuriran dodatak \"%s\"."
+
+msgid "Updated plugin \\\\\"%s\\\\\" to version %s."
+msgstr "Updated plugin \\\\\"%s\\\\\" to version %s."
+
+msgid "Updated plugin \\\\\"%s\\\\\"."
+msgstr "Updated plugin \\\\\"%s\\\\\"."
+
+msgid "Updated: %s"
+msgstr "Ажурирано: %s"
+
+msgid "Updates"
+msgstr "Ажурирања"
+
+msgid "Updates Ignored"
+msgstr "Ажурирања игнорисана"
+
+msgid "Updating [%d/%d]: %s…"
+msgstr "Ажурирање [%d/%d]: %s…"
+
+msgid "User Installed"
+msgstr "Кориснички"
+
+msgid "Verifying repository %s/%s..."
+msgstr "Провера спремишта %s/%s..."
+
+msgid "Version"
+msgstr "Верзија"
+
+msgid "Versions"
+msgstr "Верзије"
+
+msgid "View README"
+msgstr "Прикажи README"
+
+msgid "View commits (%s \\\\xE2\\\\x86\\\\x92 %s)"
+msgstr "View commits (%s \\\\xE2\\\\x86\\\\x92 %s)"
+
+msgid "View commits (%s → %s)"
+msgstr "Прикажи измене (%s → %s)"
+
+msgid "Wallpaper Collection"
+msgstr "Колекција позадина"
+
+msgid "Wallpaper Options"
+msgstr "Опције позадине"
+
+msgid "Wallpaper deleted from device."
+msgstr "Позадина је обрисана са уређаја."
+
+msgid "Wallpaper removed"
+msgstr "Позадина уклоњена"
+
+msgid "Wallpaper saved to collection!"
+msgstr "Позадина је сачувана у колекцији!"
+
+msgid "Wallpaper set as active KOReader screensaver!"
+msgstr "Позадина је постављена као активни чувар екрана!"
+
+msgid "Wallpaper set as active screensaver!"
+msgstr "Позадина постављена као активни чувар екрана!"
+
+msgid "Warning: the selected version is older than what is currently installed. You are downgrading."
+msgstr "Упозорење: изабрана верзија је старија од тренутно инсталиране. Вршите враћање на старију верзију."
+
+msgid "White Fill"
+msgstr "Бела попуна"
+
+msgid "Wiki"
+msgstr "Вики"
+
+msgid "Wiki Pages"
+msgstr "Вики странице"
+
+msgid "Wiki pages & images"
+msgstr "Вики странице и слике"
+
+msgid "Z -> A"
+msgstr "Ш -> А"
+
+msgid "Z → A"
+msgstr "Ш → А"
+
+msgid "[ Loading preview... ]"
+msgstr "[ Учитавање прегледа... ]"
+
+msgid "[ Wallpaper Preview Loading... ]"
+msgstr "[ Учитавање прегледа позадине... ]"
+
+msgid "[Ignored]"
+msgstr "[Занемарено]"
+
+msgid "[draft]"
+msgstr "[нацрт]"
+
+msgid "[pre]"
+msgstr "[pred]"
+
+msgid "\\\\\"My dear Mr. Bennet,\\\\\" said his lady to him one day, \\\\\"have you heard that Netherfield Park is let at last?\\\\\" Mr. Bennet replied that he had not. \\\\\"But it is,\\\\\" returned she; \\\\\"for Mrs. Long has just been here, and she told me all about it.\\\\\" Mr. Bennet made no answer."
+msgstr "\\\\\"My dear Mr. Bennet,\\\\\" said his lady to him one day, \\\\\"have you heard that Netherfield Park is let at last?\\\\\" Mr. Bennet replied that he had not. \\\\\"But it is,\\\\\" returned she; \\\\\"for Mrs. Long has just been here, and she told me all about it.\\\\\" Mr. Bennet made no answer."
+
+msgid "\\\\xC2\\\\xB7"
+msgstr "\\\\xC2\\\\xB7"
+
+msgid "about_text"
+msgstr "Storefront је менаџер пакета у KOReader-у за плагине, закрпе и фонтове."
+
+msgid "anyone"
+msgstr "bilo ko"
+
+msgid "btn_apply"
+msgstr "Примени"
+
+msgid "btn_back"
+msgstr "Назад"
+
+msgid "btn_cancel"
+msgstr "Откажи"
+
+msgid "btn_close"
+msgstr "Затвори"
+
+msgid "btn_install"
+msgstr "Инсталирај"
+
+msgid "btn_ok"
+msgstr "У реду"
+
+msgid "btn_preview"
+msgstr "Преглед"
+
+msgid "btn_refresh"
+msgstr "Освежи"
+
+msgid "btn_release_notes"
+msgstr "Белешке о издању"
+
+msgid "btn_restart"
+msgstr "Поново покрени KOReader"
+
+msgid "btn_retry"
+msgstr "Покушај поново"
+
+msgid "btn_search"
+msgstr "Претражи"
+
+msgid "btn_uninstall"
+msgstr "Деинсталирај"
+
+msgid "btn_update"
+msgstr "Ажурирај"
+
+msgid "btn_view_details"
+msgstr "Детаљи"
+
+msgid "confirm_install"
+msgstr "Инсталирати '%s'?"
+
+msgid "confirm_uninstall"
+msgstr "Деинсталирати '%s'? Ова радња се не може опозвати."
+
+msgid "confirm_update"
+msgstr "Ажурирати '%s' са v%s на v%s?"
+
+msgid "disabled"
+msgstr "онемогућено"
+
+msgid "e.g., koreader"
+msgstr "нпр. koreader"
+
+msgid "enabled"
+msgstr "омогућено"
+
+msgid "err_install_failed"
+msgstr "Инсталација није успела за '%s'."
+
+msgid "err_network_failed"
+msgstr "Мрежна грешка: Преузимање каталога није успело."
+
+msgid "err_uninstall_failed"
+msgstr "Деинсталација није успела за '%s'."
+
+msgid "filter_all"
+msgstr "Све категорије"
+
+msgid "filter_installed"
+msgstr "Инсталирано"
+
+msgid "filter_updates"
+msgstr "Ажурирања"
+
+msgid "font"
+msgstr "фонт"
+
+msgid "ghp_..."
+msgstr "ghp_..."
+
+msgid "header_about"
+msgstr "header_about"
+
+msgid "header_updates"
+msgstr "header_updates"
+
+msgid "label_author"
+msgstr "Аутор"
+
+msgid "label_description"
+msgstr "Опис"
+
+msgid "label_downloads"
+msgstr "Преузимања"
+
+msgid "label_license"
+msgstr "Лиценца"
+
+msgid "label_repository"
+msgstr "Репозиторијум"
+
+msgid "label_size"
+msgstr "Величина"
+
+msgid "label_type"
+msgstr "Тип"
+
+msgid "label_version"
+msgstr "Верзија"
+
+msgid "latest"
+msgstr "најновије"
+
+msgid "menu_about"
+msgstr "О Storefront-у"
+
+msgid "menu_settings"
+msgstr "Подешавања Storefront-а"
+
+msgid "menu_storefront"
+msgstr "Storefront"
+
+msgid "menu_storefront_desc"
+msgstr "Прегледајте, инсталирајте и ажурирајте плагине, закрпе и фонтове."
+
+msgid "msg_catalog_updated"
+msgstr "Каталог је успешно ажуриран."
+
+msgid "msg_installed_plugin"
+msgstr "Додатак „%s“ је инсталиран."
+
+msgid "msg_installed_plugin_version"
+msgstr "Додатак „%s“ (верзија %s) је инсталиран."
+
+msgid "msg_no_results"
+msgstr "Нема резултата претраге."
+
+msgid "new"
+msgstr "ново"
+
+msgid "not found"
+msgstr "није пронађено"
+
+msgid "patch"
+msgstr "закрпа"
+
+msgid "plugin"
+msgstr "додатак"
+
+msgid "progress_please_wait"
+msgstr "Сачекајте"
+
+msgid "prompt_restart_needed"
+msgstr "Инсталација је завршена. Поново покренути KOReader да бисте омогућили '%s'?"
+
+msgid "release asset"
+msgstr "datoteka izdanja"
+
+msgid "release is newer by date"
+msgstr "izdanje je novije po datumu"
+
+msgid "remote is newer by date"
+msgstr "udaljena verzija je novija po datumu"
+
+msgid "repository"
+msgstr "спремиште"
+
+msgid "search_hint"
+msgstr "Претражи у storefront-у..."
+
+msgid "status_builtin"
+msgstr "Уграђено"
+
+msgid "status_downloading"
+msgstr "Преузимање..."
+
+msgid "status_installed"
+msgstr "Инсталирано"
+
+msgid "status_installing"
+msgstr "Инсталирање..."
+
+msgid "status_not_installed"
+msgstr "Није инсталирано"
+
+msgid "status_uninstalling"
+msgstr "Деинсталирање..."
+
+msgid "status_update_available"
+msgstr "Доступно ажурирање"
+
+msgid "storefront_title"
+msgstr "Storefront"
+
+msgid "tab_all"
+msgstr "Све"
+
+msgid "tab_fonts"
+msgstr "Фонтови"
+
+msgid "tab_patches"
+msgstr "Закрпе"
+
+msgid "tab_plugins"
+msgstr "Плагини"
+
+msgid "tab_readme"
+msgstr "Pročitaj me"
+
+msgid "tab_sample_text"
+msgstr "Primer teksta"
+
+msgid "tab_screensavers"
+msgstr "Позадине"
+
+msgid "tab_versions"
+msgstr "Verzije"
+
+msgid "unknown"
+msgstr "непознато"
+
+msgid "updated %s"
+msgstr "ажурирано %s"
+
+msgid "updated %s (%s)"
+msgstr "ажурирано %s (%s)"
+
+msgid "·"
+msgstr "·"
+
+msgid "≥ %s ⭐"
+msgstr "≥ %s ⭐"
+
+msgid "★ ACTIVE"
+msgstr "★ АКТИВНО"
+
+msgid "⚙ Settings"
+msgstr "⚙ Подешавања"
+
+msgid "⚙ Settings..."
+msgstr "⚙ Подешавања..."
+
+msgid "✓ Current"
+msgstr "✓ Trenutno"
+
+msgid "Downloading…"
+msgstr ""
+
+msgid "Download cancelled."
+msgstr ""
+
+msgid "Batch update cancelled."
+msgstr ""
+
+msgid "Connecting…"
+msgstr ""
+

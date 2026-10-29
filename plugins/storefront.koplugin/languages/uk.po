@@ -1,0 +1,2290 @@
+msgid ""
+msgstr ""
+"Language-Team: Ukrainian\n"
+"Language: uk\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "\"My dear Mr. Bennet,\" said his lady to him one day, \"have you heard that Netherfield Park is let at last?\" Mr. Bennet replied that he had not. \"But it is,\" returned she; \"for Mrs. Long has just been here, and she told me all about it.\" Mr. Bennet made no answer."
+msgstr "\"Дорогий мій містере Беннет,\" — мовила якось його дружина, \"чи чули ви, що Незерфілд-парк нарешті здано?\" Містер Беннет відповів, що ні. \"Але це так,\" — вела далі вона, \"бо місіс Лонг тільки-но була тут і все мені розповіла.\" Містер Беннет нічого не відповів."
+
+msgid "%d Categories"
+msgstr "%d категорій"
+
+msgid "%d items"
+msgstr "%d елементів"
+
+msgid "%d patches"
+msgstr "%d патчів"
+
+msgid "%d plugins"
+msgstr "%d плагінів"
+
+msgid "%d wallpapers"
+msgstr "%d шпалер"
+
+msgid "%d wallpapers stored on device"
+msgstr "%d шпалер збережено на пристрої"
+
+msgid "%d wallpapers · Folder Shuffle (all in rotation)"
+msgstr "%d шпалер · Випадково з папки (усі в ротації)"
+
+msgid "%d wallpapers · Mode: Book Cover"
+msgstr "%d шпалер · Режим: Обкладинка книги"
+
+msgid "%d wallpapers · Single mode active"
+msgstr "%d шпалер · Одиночний режим активний"
+
+msgid "%s and %s"
+msgstr "%s та %s"
+
+msgid "%s is up to date (version %s)."
+msgstr "%s має найновішу версію (версія %s)."
+
+msgid "%s is up to date."
+msgstr "%s має найновішу версію."
+
+msgid "%s needs an update."
+msgstr "%s потребує оновлення."
+
+msgid "%s · %d files"
+msgstr "%s · %d файлів"
+
+msgid "%s · 1 file"
+msgstr "%s · 1 файл"
+
+msgid "(fork)"
+msgstr "(форк)"
+
+msgid "(showing %d of %d commits)"
+msgstr "(відображається %d з %d комітів)"
+
+msgid "+ Add to Shuffle Pool"
+msgstr "+ Додати до випадкового показу"
+
+msgid "1 / 1"
+msgstr "1 / 1"
+
+msgid "1 patch"
+msgstr "1 патч"
+
+msgid "1 plugin"
+msgstr "1 плагін"
+
+msgid "< Back"
+msgstr "< Назад"
+
+msgid "< Prev"
+msgstr "< Назад"
+
+msgid "?"
+msgstr "?"
+
+msgid "A -> Z"
+msgstr "А -> Я"
+
+msgid "A → Z"
+msgstr "А → Я"
+
+msgid "About"
+msgstr "Про програму"
+
+msgid "About Storefront"
+msgstr "Про Storefront"
+
+msgid "Active Single"
+msgstr "Активний одиночний"
+
+msgid "Active Wallpaper ✓"
+msgstr "Активні шпалери ✓"
+
+msgid "Active: %s"
+msgstr "Активно: %s"
+
+msgid "Add to Shuffle"
+msgstr "Додати до ротації"
+
+msgid "Add to Shuffle Pool (Enable Shuffle)"
+msgstr "Додати до ротації (увімкнути ротацію)"
+
+msgid "Added to shuffle pool & Folder Shuffle enabled!"
+msgstr "Додано до списку та увімкнено випадковий показ!"
+
+msgid "All"
+msgstr "Усі"
+
+msgid "All Caches"
+msgstr "Усі кеші"
+
+msgid "All Categories"
+msgstr "Усі категорії"
+
+msgid "All Types"
+msgstr "Усі типи"
+
+msgid "All items are up to date."
+msgstr "Усі елементи актуальні."
+
+msgid "All of your custom plugin folders are currently hidden (see Manage plugin paths). Install to the default plugin folder anyway?"
+msgstr "Усі ваші власні теки плагінів наразі приховані (див. Управління шляхами плагінів). Все одно встановити у теку плагінів за замовчуванням?"
+
+msgid "All patches"
+msgstr "Усі патчі"
+
+msgid "All plugins"
+msgstr "Усі плагіни"
+
+msgid "All plugins are already matched."
+msgstr "Усі плагіни вже зіставлено."
+
+msgid "Allow pre-release updates"
+msgstr "Дозволити попередні релізи"
+
+msgid "Alphabet & Numbers"
+msgstr "Алфавіт і цифри"
+
+msgid "Also delete plugin settings"
+msgstr "Також видалити налаштування плагіна"
+
+msgid "Always install here (don"
+msgstr "Завжди встановлювати сюди (не"
+
+msgid "Always install here (don't ask again)"
+msgstr "Завжди встановлювати сюди (більше не питати)"
+
+msgid "Any"
+msgstr "Будь-який"
+
+msgid "App Store · Installed patches"
+msgstr "Магазин · Встановлені патчі"
+
+msgid "App Store · Installed plugins"
+msgstr "Магазин додатків · Встановлені плагіни"
+
+msgid "Apply"
+msgstr "Застосувати"
+
+msgid "Assets — %s"
+msgstr "Файли — %s"
+
+msgid "Author"
+msgstr "Автор"
+
+msgid "Back"
+msgstr "Назад"
+
+msgid "Beta"
+msgstr "Бета"
+
+msgid "Black Fill"
+msgstr "Чорна заливка"
+
+msgid "Blank"
+msgstr "Порожній"
+
+msgid "Book Cover"
+msgstr "Обкладинка книги"
+
+msgid "Border Fill / Background"
+msgstr "Заливка меж / Фон"
+
+msgid "Both owner and repository name are required."
+msgstr "Потрібно вказати як власника, так і назву репозиторію."
+
+msgid "Branch: %s"
+msgstr "Гілка: %s"
+
+msgid "Browse Wallpapers in Storefront"
+msgstr "Переглянути шпалери у Storefront"
+
+msgid "By "
+msgstr "By"
+
+msgid "By: %s"
+msgstr "Автор: %s"
+
+msgid "Cache empty. Refresh to retrieve repositories."
+msgstr "Кеш порожній. Оновіть, щоб отримати репозиторії."
+
+msgid "Cache is older than a week, consider refreshing."
+msgstr "Кеш старіший за тиждень, рекомендується оновити."
+
+msgid "Cached %s patch repositories."
+msgstr "Збережено у кеші репозиторіїв патчів: %s."
+
+msgid "Cached %s plugins."
+msgstr "Закешовано плагінів: %s."
+
+msgid "Can"
+msgstr "Може"
+
+msgid "Can't load readme...."
+msgstr "Не вдалося завантажити readme...."
+
+msgid "Cancel"
+msgstr "Скасувати"
+
+msgid "Cancel matching"
+msgstr "Скасувати зіставлення"
+
+msgid "Cannot read source file."
+msgstr "Не вдалося прочитати вихідний файл."
+
+msgid "Cannot write destination file."
+msgstr "Не вдалося записати цільовий файл."
+
+msgid "Catalog & Cache"
+msgstr "Каталог і кеш"
+
+msgid "Catalog refresh failed: "
+msgstr "Помилка оновлення каталогу: "
+
+msgid "Catalog refresh is already in progress in the background."
+msgstr "Оновлення каталогу вже виконується у фоновому режимі."
+
+msgid "Catalog refreshed successfully."
+msgstr "Каталог успішно оновлено."
+
+msgid "Catalog source"
+msgstr "Джерело каталогу"
+
+msgid "Catalog updated: %d plugins, %d patches, %d fonts."
+msgstr "Каталог оновлено: плагінів — %d, патчів — %d, шрифтів — %d."
+
+msgid "Categories"
+msgstr "Категорії"
+
+msgid "Category: "
+msgstr "Категорія: "
+
+msgid "Category: %s"
+msgstr "Категорія: %s"
+
+msgid "Change..."
+msgstr "Змінити..."
+
+msgid "Changelog for %s\n%s \\\\xE2\\\\x86\\\\x92 %s"
+msgstr "Changelog for %s\n%s \\\\xE2\\\\x86\\\\x92 %s"
+
+msgid "Changelog for %s\n%s → %s"
+msgstr "Журнал змін для %s\n%s → %s"
+
+msgid "Changelog for %s\\\n%s \\\\xE2\\\\x86\\\\x92 %s"
+msgstr "Changelog for %s\\\n%s \\\\xE2\\\\x86\\\\x92 %s"
+
+msgid "Changelog: %s"
+msgstr "Журнал змін: %s"
+
+msgid "Check Updates"
+msgstr "Перевірити"
+
+msgid "Check all updates"
+msgstr "Перевірити всі оновлення"
+
+msgid "Check for updates"
+msgstr "Перевірити оновлення"
+
+msgid "Check this patch"
+msgstr "Перевірити цей патч"
+
+msgid "Check this plugin"
+msgstr "Перевірити цей плагін"
+
+msgid "Checked %d patches: %d need updates, %d up to date."
+msgstr "Перевірено патчів: %d (потребують оновлення: %d, актуальні: %d)."
+
+msgid "Checked %d plugin updates"
+msgstr "Перевірено %d оновлень плагінів"
+
+msgid "Checked %d plugin(s) for updates."
+msgstr "Перевірено оновлення для %d плагінів."
+
+msgid "Checking %s…"
+msgstr "Перевірка %s…"
+
+msgid "Checking for Storefront updates..."
+msgstr "Перевірка оновлень Storefront..."
+
+msgid "Checking for Storefront updates…"
+msgstr "Перевірка оновлень Storefront…"
+
+msgid "Checking patch updates…"
+msgstr "Перевірка оновлень патчів…"
+
+msgid "Checking plugin updates"
+msgstr "Перевірка оновлень плагінів"
+
+msgid "Checking plugin updates…"
+msgstr "Перевірка оновлень плагіна…"
+
+msgid "Choose Build — %s"
+msgstr "Вибрати збірку — %s"
+
+msgid "Clean"
+msgstr "Очистити"
+
+msgid "Clear"
+msgstr "Очистити"
+
+msgid "Clear All"
+msgstr "Очистити все"
+
+msgid "Clear All Caches?"
+msgstr "Очистити всі кеші?"
+
+msgid "Clear Cache"
+msgstr "Очистити кеш"
+
+msgid "Clear README Cache?"
+msgstr "Очистити кеш README?"
+
+msgid "Clear README cache"
+msgstr "Очистити кеш README"
+
+msgid "Clear README cache (%s)?\nCached README files and images will be deleted."
+msgstr "Clear README cache (%s)?\nCached README files and images will be deleted."
+
+msgid "Clear Thumbnail Cache?"
+msgstr "Очистити кеш мініатюр?"
+
+msgid "Clear Wiki Cache?"
+msgstr "Очистити кеш Wiki?"
+
+msgid "Clear Wiki cache (%s)?\nCached wiki articles and images will be deleted."
+msgstr "Clear Wiki cache (%s)?\nCached wiki articles and images will be deleted."
+
+msgid "Clear all cached data (%s)?\nAll README files, wiki articles, and thumbnails will be deleted."
+msgstr "Clear all cached data (%s)?\nAll README files, wiki articles, and thumbnails will be deleted."
+
+msgid "Clear cache…"
+msgstr "Очистити кеш"
+
+msgid "Clear screensaver thumbnail cache (%s)?\nThumbnails will be re-downloaded when viewing wallpapers."
+msgstr "Clear screensaver thumbnail cache (%s)?\nThumbnails will be re-downloaded when viewing wallpapers."
+
+msgid "Clear search & filters"
+msgstr "Скинути пошук і фільтри"
+
+msgid "Clear search/filters"
+msgstr "Очистити пошук/фільтри"
+
+msgid "Cleared README cache (%s freed)."
+msgstr "Cleared README cache (%s freed)."
+
+msgid "Cleared Wiki cache (%s freed)."
+msgstr "Cleared Wiki cache (%s freed)."
+
+msgid "Cleared all caches (%s freed, %d files)."
+msgstr "Cleared all caches (%s freed, %d files)."
+
+msgid "Cleared screensaver thumbnails (%s freed)."
+msgstr "Cleared screensaver thumbnails (%s freed)."
+
+msgid "Close"
+msgstr "Закрити"
+
+msgid "Collection"
+msgstr "Колекція"
+
+msgid "Commit diff: %s → %s"
+msgstr "Різниця комітів: %s → %s"
+
+msgid "Commits: %s \\\\xE2\\\\x86\\\\x92 %s"
+msgstr "Commits: %s \\\\xE2\\\\x86\\\\x92 %s"
+
+msgid "Commits: %s → %s"
+msgstr "Коміти: %s → %s"
+
+msgid "Community"
+msgstr "Спільнота"
+
+msgid "Config files only"
+msgstr "Лише файли конфігурації"
+
+msgid "Configured ✓"
+msgstr "Налаштовано ✓"
+
+msgid "Confirm"
+msgstr "Підтвердити"
+
+msgid "Confirm Update"
+msgstr "Підтвердити оновлення"
+
+msgid "Confirm Update All"
+msgstr "Підтвердити оновлення всього"
+
+msgid "Connecting to GitHub…\n\nPlease wait."
+msgstr "З'єднання з GitHub…\n\nБудь ласка, зачекайте."
+
+msgid "Connecting to GitHub…\\\n\\\nPlease wait."
+msgstr "Connecting to GitHub…\\\n\\\nPlease wait."
+
+msgid "Continue"
+msgstr "Продовжити"
+
+msgid "Copied to "
+msgstr "Скопійовано до "
+
+msgid "Copied to '%s'."
+msgstr "Скопійовано до '%s'."
+
+msgid "Copy"
+msgstr "Копіювати"
+
+msgid "Copy file as"
+msgstr "Скопіювати файл як"
+
+msgid "Could not detect .koplugin folder in archive"
+msgstr "Не вдалося виявити папку .koplugin в архіві"
+
+msgid "Could not detect plugin inside archive."
+msgstr "Не вдалося виявити плагін в архіві."
+
+msgid "Could not fetch commit comparison."
+msgstr "Не вдалося отримати порівняння комітів."
+
+msgid "Could not fetch releases for changelog."
+msgstr "Не вдалося отримати випуски для списку змін."
+
+msgid "Could not fetch releases for this repository."
+msgstr "Не вдалося отримати релізи для цього репозиторію."
+
+msgid "Could not locate plugin folder (_meta.lua) in archive."
+msgstr "Не вдалося знайти папку плагіна (_meta.lua) в архіві."
+
+msgid "Could not open target file for writing"
+msgstr "Не вдалося відкрити цільовий файл для запису"
+
+msgid "Default"
+msgstr "За замовчуванням"
+
+msgid "Default only"
+msgstr "Лише стандартні"
+
+msgid "Delete"
+msgstr "Видалити"
+
+msgid "Delete "
+msgstr "Видалити"
+
+msgid "Delete '%s' from your device?"
+msgstr "Видалити '%s' з пристрою?"
+
+msgid "Delete File?"
+msgstr "Видалити файл?"
+
+msgid "Delete Wallpaper?"
+msgstr "Видалити шпалеру?"
+
+msgid "Delete all cached README files? They will be re-downloaded on demand."
+msgstr "Видалити всі кешовані файли README? Вони будуть повторно завантажені за потреби."
+
+msgid "Delete file "
+msgstr "Видалити файл "
+
+msgid "Delete file '%s'?\n\nThis cannot be undone."
+msgstr "Видалити файл '%s'?\n\nЦю дію не можна скасувати."
+
+msgid "Delete font "
+msgstr "Видалити шрифт "
+
+msgid "Delete font '%s'?"
+msgstr "Видалити шрифт '%s'?"
+
+msgid "Delete from Device"
+msgstr "Видалити з пристрою"
+
+msgid "Delete patch"
+msgstr "Видалити патч"
+
+msgid "Delete patch "
+msgstr "Видалити патч "
+
+msgid "Delete patch '%s'?"
+msgstr "Видалити патч '%s'?"
+
+msgid "Delete plugin"
+msgstr "Видалити плагін"
+
+msgid "Delete plugin "
+msgstr "Видалити плагін "
+
+msgid "Delete plugin '%s'?"
+msgstr "Видалити плагін '%s'?"
+
+msgid "Deleted "
+msgstr "Видалено "
+
+msgid "Deleted %d cached README file(s)."
+msgstr "Видалено %d кэшованих файлів README."
+
+msgid "Deleted %d cached README file(s); %d failed."
+msgstr "Видалено %d кэшованих файлів README; %d не вдалося."
+
+msgid "Deleted '%s'."
+msgstr "Видалено '%s'."
+
+msgid "Direct GitHub API"
+msgstr "Прямий API GitHub"
+
+msgid "Disable"
+msgstr "Вимкнути"
+
+msgid "Disable patch"
+msgstr "Вимкнути патч"
+
+msgid "Disable plugin"
+msgstr "Вимкнути плагін"
+
+msgid "Disabled"
+msgstr "Вимкнено"
+
+msgid "Display Options"
+msgstr "Параметри відображення"
+
+msgid "Displays a static wallpaper on sleep"
+msgstr "Показує статичні шпалери в сплячому режимі"
+
+msgid "Displays a static wallpaper on sleep.\nActive: %s"
+msgstr "Показує статичні шпалери в сплячому режимі.\nАктивно: %s"
+
+msgid "Done"
+msgstr "Готово"
+
+msgid "Download & Set Active"
+msgstr "Завантажити та застосувати"
+
+msgid "Download Only"
+msgstr "Тільки завантаження"
+
+msgid "Download Only (Save to Device)"
+msgstr "Тільки завантажити (зберегти на пристрої)"
+
+msgid "Download failed: "
+msgstr "Помилка завантаження: "
+
+msgid "Download options"
+msgstr "Параметри завантаження"
+
+msgid "Download options — %s"
+msgstr "Параметри завантаження — %s"
+
+msgid "Download options — %s (%s)"
+msgstr "Параметри завантаження — %s (%s)"
+
+msgid "Downloading "
+msgstr "Downloading..."
+
+msgid "Downloading %s%s…\nThis may take a moment."
+msgstr "Завантаження %s%s…\nЦе може зайняти деякий час."
+
+msgid "Downloading %s%s…\\\nThis may take a moment."
+msgstr "Downloading %s%s…\\\nThis may take a moment."
+
+msgid "Downloading %s…"
+msgstr "Завантаження %s…"
+
+msgid "Downloading '%s'..."
+msgstr "Downloading '%s'..."
+
+msgid "Downloading patch \"%s\"…"
+msgstr "Завантаження патча \"%s\"…"
+
+msgid "Downloading patch %s…"
+msgstr "Завантаження патча %s…"
+
+msgid "Downloading patch \\\\\"%s\\\\\"…"
+msgstr "Downloading patch \\\\\"%s\\\\\"…"
+
+msgid "Downloading screensaver..."
+msgstr "Завантаження заставки..."
+
+msgid "Downloading to shuffle pool..."
+msgstr "Завантаження до ротації..."
+
+msgid "Edit"
+msgstr "Редагувати"
+
+msgid "Empty (0 KB)"
+msgstr "Порожньо (0 КБ)"
+
+msgid "Enable"
+msgstr "Увімкнути"
+
+msgid "Enable patch"
+msgstr "Увімкнути патч"
+
+msgid "Enable plugin"
+msgstr "Увімкнути плагін"
+
+msgid "Enabled"
+msgstr "Увімкнено"
+
+msgid "Enter item number"
+msgstr "Введіть номер елемента"
+
+msgid "Enter plugin number"
+msgstr "Введіть номер плагіна"
+
+msgid "Extracting and installing plugin…\nPlease wait."
+msgstr "Розпакування та встановлення плагіна…\nБудь ласка, зачекайте."
+
+msgid "Extracting and installing plugin…\\\nPlease wait."
+msgstr "Extracting and installing plugin…\\\nPlease wait."
+
+msgid "Failed to check %s: %s"
+msgstr "Не вдалося перевірити %s: %s"
+
+msgid "Failed to check for Storefront updates: %s"
+msgstr "Не вдалося перевірити оновлення Storefront: %s"
+
+msgid "Failed to create patches directory: %s"
+msgstr "Не вдалося створити каталог патчів: %s"
+
+msgid "Failed to delete patch: %s"
+msgstr "Не вдалося видалити патч: %s"
+
+msgid "Failed to delete plugin: %s"
+msgstr "Не вдалося видалити плагін: %s"
+
+msgid "Failed to delete: %s"
+msgstr "Не вдалося видалити: %s"
+
+msgid "Failed to disable patch "
+msgstr "Не вдалося вимкнути патч "
+
+msgid "Failed to disable patch '%s'."
+msgstr "Не вдалося вимкнути патч '%s'."
+
+msgid "Failed to download patch: %s"
+msgstr "Не вдалося завантажити патч: %s"
+
+msgid "Failed to download screensaver."
+msgstr "Не вдалося завантажити заставку."
+
+msgid "Failed to enable patch "
+msgstr "Не вдалося увімкнути патч "
+
+msgid "Failed to enable patch '%s'."
+msgstr "Не вдалося увімкнути патч '%s'."
+
+msgid "Failed to extract file: "
+msgstr "Не вдалося розпакувати файл: "
+
+msgid "Failed to fetch patch list."
+msgstr "Не вдалося отримати список патчів."
+
+msgid "Failed to fetch repository "
+msgstr "Не вдалося отримати репозиторій "
+
+msgid "Failed to fetch repository '%s/%s': %s"
+msgstr "Не вдалося отримати репозиторій '%s/%s': %s"
+
+msgid "Failed to install patch: "
+msgstr "Не вдалося встановити патч: "
+
+msgid "Failed to open downloaded archive."
+msgstr "Не вдалося відкрити завантажений архів."
+
+msgid "Failed to prepare patches directory."
+msgstr "Не вдалося підготувати каталог патчів."
+
+msgid "Failed to toggle patch status."
+msgstr "Не вдалося змінити стан патча."
+
+msgid "Fetching Release Info"
+msgstr "Отримання інформації про реліз"
+
+msgid "Fetching changelog…"
+msgstr "Отримання журналу змін…"
+
+msgid "Fetching commits…"
+msgstr "Отримання комітів…"
+
+msgid "Fetching patch file listings…"
+msgstr "Отримання списку патчів…"
+
+msgid "Fetching patches via Direct GitHub API…"
+msgstr "Отримання патчів через прямий API GitHub…"
+
+msgid "Fetching plugins via Direct GitHub API…"
+msgstr "Отримання плагінів через прямий API GitHub…"
+
+msgid "Fetching release info…"
+msgstr "Отримання інформації про реліз…"
+
+msgid "Fetching releases…"
+msgstr "Отримання релізів…"
+
+msgid "Fetching repository %s/%s..."
+msgstr "Отримання репозиторію %s/%s..."
+
+msgid "Filename cannot be empty."
+msgstr "Назва файлу не може бути порожньою."
+
+msgid "Filter & Sort Fonts"
+msgstr "Фільтр і сортування шрифтів"
+
+msgid "Filter & Sort Installed"
+msgstr "Фільтр і сортування встановленого"
+
+msgid "Filter & Sort Patches"
+msgstr "Фільтр і сортування патчів"
+
+msgid "Filter & Sort Plugins"
+msgstr "Фільтр і сортування плагінів"
+
+msgid "Filter & Sort Screensavers"
+msgstr "Фільтр та сортування заставок"
+
+msgid "Filter Installed Patches"
+msgstr "Фільтр встановлених патчів"
+
+msgid "Filter Installed Plugins"
+msgstr "Фільтр встановлених плагінів"
+
+msgid "Filter pre-releases"
+msgstr "Фільтрувати попередні випуски"
+
+msgid "Filter..."
+msgstr "Фільтр..."
+
+msgid "Filter: "
+msgstr "Фільтр: "
+
+msgid "Filters"
+msgstr "Фільтри"
+
+msgid "Filters: "
+msgstr "Фільтри: "
+
+msgid "Filters: (none)"
+msgstr "Фільтри: (немає)"
+
+msgid "Folder Shuffle"
+msgstr "Випадкові з папки"
+
+msgid "Folder Shuffle enabled with this wallpaper!"
+msgstr "Випадковий вибір з папки увімкнено з цими шпалерами!"
+
+msgid "Font"
+msgstr "Шрифт"
+
+msgid "Font "
+msgstr "Шрифт "
+
+msgid "Font '%s' deleted."
+msgstr "Шрифт '%s' видалено."
+
+msgid "Font files not found for %s."
+msgstr "Файли шрифтів для %s не знайдено."
+
+msgid "Font style"
+msgstr "Стиль шрифту"
+
+msgid "Fonts"
+msgstr "Шрифти"
+
+msgid "Free up storage space on your device. Cached items are re-downloaded automatically when needed."
+msgstr "Звільніть місце на пристрої. Кешовані елементи автоматично завантажуються заново за потреби."
+
+msgid "GitHub API rate limit exceeded. Add a GitHub token in Storefront settings to increase the limit (10→30 req/min)."
+msgstr "Перевищено ліміт запитів GitHub API. Додайте токен GitHub у налаштуваннях Storefront, щоб збільшити ліміт (10→30 зап/хв)."
+
+msgid "GitHub API rate limit exceeded. Please wait a few minutes and try again."
+msgstr "Перевищено ліміт запитів GitHub API. Зачекайте кілька хвилин і спробуйте знову."
+
+msgid "GitHub personal access token"
+msgstr "Персональний токен доступу GitHub"
+
+msgid "GitHub rejected this request: fine-grained personal access tokens are not supported for search. Please use a classic token instead (see the Storefront README)."
+msgstr "GitHub відхилив запит: токени з точним налаштуванням прав (fine-grained) не підтримуються для пошуку. Скористайтеся класичним токеном (див. README Storefront)."
+
+msgid "GitHub token"
+msgstr "Токен GitHub"
+
+msgid "GitHub token saved."
+msgstr "Токен GitHub збережено."
+
+msgid "Go"
+msgstr "Перейти"
+
+msgid "Go to page"
+msgstr "Перейти на сторінку"
+
+msgid "HTTP error"
+msgstr "Помилка HTTP"
+
+msgid "HTTP request failed"
+msgstr "Запит HTTP не вдався"
+
+msgid "Ignore"
+msgstr "Ігнорувати"
+
+msgid "Ignore All Updates"
+msgstr "Ігнорувати всі оновлення"
+
+msgid "Ignore Updates"
+msgstr "Ігнорувати оновлення"
+
+msgid "Ignored"
+msgstr "Ігнорується"
+
+msgid "Image View"
+msgstr "Перегляд зображень"
+
+msgid "Include 0-star forks"
+msgstr "Включати форки без зірок"
+
+msgid "Install"
+msgstr "Встановити"
+
+msgid "Install %s"
+msgstr "Встановити %s"
+
+msgid "Install Font"
+msgstr "Встановити шрифт"
+
+msgid "Install Patch"
+msgstr "Встановити патч"
+
+msgid "Install a patch"
+msgstr "Встановити патч"
+
+msgid "Install patch from GitHub"
+msgstr "Встановити патч з GitHub"
+
+msgid "Install plugin from GitHub"
+msgstr "Встановити плагін з GitHub"
+
+msgid "Install to Default?"
+msgstr "Встановити за замовчуванням?"
+
+msgid "Install to default"
+msgstr "Встановити за замовчуванням"
+
+msgid "Installation failed: "
+msgstr "Помилка встановлення: "
+
+msgid "Installation is currently only supported for plugins."
+msgstr "Встановлення наразі підтримується лише для плагінів."
+
+msgid "Installed"
+msgstr "Встановлено"
+
+msgid "Installed Patches Settings"
+msgstr "Налаштування встановлених патчів"
+
+msgid "Installed Plugins Settings"
+msgstr "Налаштування встановлених плагінів"
+
+msgid "Installed Regular font style offline for \"%s\". Full font family queued for download when reconnected."
+msgstr "Встановлено звичайне накреслення шрифту офлайн для \"%s\". Повну гарнітуру додано в чергу завантаження після відновлення підключення."
+
+msgid "Installed Regular font style offline for \\\\\"%s\\\\\". Full font family queued for download when reconnected."
+msgstr "Installed Regular font style offline for \\\\\"%s\\\\\". Full font family queued for download when reconnected."
+
+msgid "Installed font \"%s\" (%d file(s))."
+msgstr "Встановлено шрифт \"%s\" (%d файл(-ів))."
+
+msgid "Installed font \\\\\"%s\\\\\" (%d file(s))."
+msgstr "Installed font \\\\\"%s\\\\\" (%d file(s))."
+
+msgid "Installed full font family \"%s\" (%d file(s))."
+msgstr "Встановлено повну гарнітуру \"%s\" (%d файл(-ів))."
+
+msgid "Installed full font family \\\\\"%s\\\\\" (%d file(s))."
+msgstr "Installed full font family \\\\\"%s\\\\\" (%d file(s))."
+
+msgid "Installed patch \"%s\"."
+msgstr "Встановлено патч \"%s\"."
+
+msgid "Installed patch \\\\\"%s\\\\\"."
+msgstr "Installed patch \\\\\"%s\\\\\"."
+
+msgid "Installed plugin \"%s\" (version %s)."
+msgstr "Встановлено плагін \"%s\" (версія %s)."
+
+msgid "Installed plugin \"%s\"."
+msgstr "Встановлено плагін \"%s\"."
+
+msgid "Installed plugin Storefront version %s"
+msgstr "Встановлено плагін Storefront версії %s"
+
+msgid "Installing %s…"
+msgstr "Встановлення %s…"
+
+msgid "Invalid archive reader"
+msgstr "Недійсний зчитувач архіву"
+
+msgid "Invalid extraction parameters"
+msgstr "Недійсні параметри розархівування"
+
+msgid "Invalid patch target filename."
+msgstr "Недійсна назва цільового файлу патча."
+
+msgid "Invalid selection."
+msgstr "Недійсний вибір."
+
+msgid "Invert colors (night mode / dark background)"
+msgstr "Інвертувати кольори (нічний режим / темне тло)"
+
+msgid "It is a truth universally acknowledged, that a single man in possession of a good fortune, must be in want of a wife. However little known the feelings or views of such a man may be on his first entering a neighbourhood, this truth is so well fixed in the minds of the surrounding families, that he is considered the rightful property of some one or other of their daughters."
+msgstr "Загальновизнаною істиною є те, що неодруженому чоловіку з хорошим статком неодмінно потрібна дружина."
+
+msgid "Items per page"
+msgstr "Елементів на сторінку"
+
+msgid "Items per page: %d"
+msgstr "Елементів на сторінці: %d"
+
+msgid "Last Updated (Newest)"
+msgstr "Спочатку нові"
+
+msgid "Last Updated (Oldest)"
+msgstr "Спочатку старі"
+
+msgid "Last check: %s"
+msgstr "Остання перевірка: %s"
+
+msgid "Latest Release"
+msgstr "Останній реліз"
+
+msgid "Latest release"
+msgstr "Останній реліз"
+
+msgid "License: %s"
+msgstr "Ліцензія: %s"
+
+msgid "Linked only"
+msgstr "Лише пов'язані"
+
+msgid "Loading README..."
+msgstr "Завантаження README..."
+
+msgid "Loading Release Notes..."
+msgstr "Завантаження приміток до випуску..."
+
+msgid "Loading Versions..."
+msgstr "Завантаження версій..."
+
+msgid "Loading Wiki..."
+msgstr "Завантаження Wiki..."
+
+msgid "Local SHA: %s"
+msgstr "Локальний SHA: %s"
+
+msgid "Local version: %s"
+msgstr "Локальна версія: %s"
+
+msgid "Local: %s"
+msgstr "Локальний: %s"
+
+msgid "Local: %s → Remote: %s"
+msgstr "Локальна: %s → Віддалена: %s"
+
+msgid "Manage plugin paths"
+msgstr "Управління шляхами плагінів"
+
+msgid "Manage plugin paths\n\nHiding a path only affects what Storefront shows/manages here. KOReader will still load plugins from it."
+msgstr "Керування шляхами плагінів\n\nПриховування шляху впливає лише на те, що відображає/керує Storefront. KOReader все одно завантажуватиме з нього плагіни."
+
+msgid "Manage plugin paths\\\n\\\nHiding a path only affects what Storefront shows/manages here. KOReader will still load plugins from it."
+msgstr "Manage plugin paths\\\n\\\nHiding a path only affects what Storefront shows/manages here. KOReader will still load plugins from it."
+
+msgid "Match"
+msgstr "Зв'язати"
+
+msgid "Match from List"
+msgstr "Зв'язати зі списку"
+
+msgid "Match patch with GitHub repository"
+msgstr "Зв'язати патч з репозиторієм GitHub"
+
+msgid "Match plugin with GitHub repository"
+msgstr "Зв'язати плагін з репозиторієм GitHub"
+
+msgid "Match plugin: %s"
+msgstr "Зв'язати плагін: %s"
+
+msgid "Match this remote patch"
+msgstr "Зіставити цей віддалений патч"
+
+msgid "Match with URL"
+msgstr "Зв'язати за URL"
+
+msgid "Match with repo"
+msgstr "Зв'язати з репозиторієм"
+
+msgid "Match with this repo"
+msgstr "Зіставити з цим репозиторієм"
+
+msgid "Matched %s with %s."
+msgstr "%s зіставлено з %s."
+
+msgid "Matched repo: %s/%s"
+msgstr "Зв'язаний репозиторій: %s/%s"
+
+msgid "Matching entries: %s / %s"
+msgstr "Відповідні записи: %s / %s"
+
+msgid "Matching patch: %s — tap to cancel"
+msgstr "Зв'язування патча: %s — натисніть для скасування"
+
+msgid "Matching patches: %s (repos: %s / %s)"
+msgstr "Знайдені патчі: %s (репозиторії: %s / %s)"
+
+msgid "Matching plugin: %s — tap to cancel"
+msgstr "Зв'язування плагіна: %s — натисніть для скасування"
+
+msgid "Minimum stars"
+msgstr "Мінімум зірок"
+
+msgid "Missing README path"
+msgstr "Шлях до README відсутній"
+
+msgid "Missing URL"
+msgstr "Відсутній URL"
+
+msgid "Missing asset download URL."
+msgstr "Відсутній URL завантаження ресурсу."
+
+msgid "Missing download URL for release asset."
+msgstr "Відсутній URL завантаження ресурсу релізу."
+
+msgid "Missing font metadata."
+msgstr "Відсутні метадані шрифту."
+
+msgid "Missing meta path in record."
+msgstr "Відсутній шлях meta у записі."
+
+msgid "Missing repository info for patch update."
+msgstr "Відсутня інформація про репозиторій для оновлення патча."
+
+msgid "Missing repository info for update."
+msgstr "Відсутня інформація про репозиторій для оновлення."
+
+msgid "Missing repository metadata for README download."
+msgstr "Відсутні метадані репозиторію для завантаження README."
+
+msgid "Missing repository metadata for installation."
+msgstr "Відсутні метадані репозиторію для встановлення."
+
+msgid "Missing repository metadata for patch install."
+msgstr "Відсутні метадані репозиторію для встановлення патча."
+
+msgid "Missing repository metadata for patch."
+msgstr "Відсутні метадані репозиторію для патча."
+
+msgid "Missing repository metadata for releases."
+msgstr "Відсутні метадані репозиторію для випусків."
+
+msgid "Missing repository metadata for remote fetch."
+msgstr "Відсутні метадані репозиторію для віддаленого отримання."
+
+msgid "Modify Patch"
+msgstr "Змінити патч"
+
+msgid "Modify Plugin"
+msgstr "Змінити плагін"
+
+msgid "Modify Plugin: %s"
+msgstr "Змінити плагін: %s"
+
+msgid "Most Downloaded"
+msgstr "Найбільше завантажень"
+
+msgid "Most Popular"
+msgstr "Найпопулярніші"
+
+msgid "Multiple custom plugin folders are configured. Where should this plugin be installed?"
+msgstr "Налаштовано декілька власних папок для плагінів. Куди встановити цей плагін?"
+
+msgid "My wallpaper collection"
+msgstr "Моя колекція шпалер"
+
+msgid "Name (A-Z)"
+msgstr "Назва (А-Я)"
+
+msgid "Name (Z-A)"
+msgstr "Назва (Я-А)"
+
+msgid "Name, description, topic"
+msgstr "Назва, опис, тема"
+
+msgid "Needs update"
+msgstr "Потребує оновлення"
+
+msgid "Needs update: %d"
+msgstr "Потребують оновлення: %d"
+
+msgid "Never"
+msgstr "Ніколи"
+
+msgid "New filename"
+msgstr "Нова назва файлу"
+
+msgid "Next"
+msgstr "Далі"
+
+msgid "Next >"
+msgstr "Далі >"
+
+msgid "No Fill (Transparent)"
+msgstr "Без заливки (прозоро)"
+
+msgid "No Lua files found in plugin directory"
+msgstr "У каталозі плагіна не знайдено файлів Lua"
+
+msgid "No README available."
+msgstr "README недоступний."
+
+msgid "No Release Notes available."
+msgstr "Примітки до випуску відсутні."
+
+msgid "No Wiki available."
+msgstr "Wiki відсутня."
+
+msgid "No cached README files to delete."
+msgstr "Немає кешованих файлів README для видалення."
+
+msgid "No cached entries yet."
+msgstr "Ще немає кешованих записів."
+
+msgid "No cached entries yet. Refresh to fetch from GitHub."
+msgstr "Записів у кеші ще немає. Оновіть, щоб отримати з GitHub."
+
+msgid "No changelog entries found for this range."
+msgstr "Не знайдено записів журналу змін для цього діапазону."
+
+msgid "No commits found in this range."
+msgstr "У цьому діапазоні комітів не знайдено."
+
+msgid "No config files found — uncheck filter to show all files"
+msgstr "Конфігураційних файлів не знайдено — зніміть фільтр, щоб показати всі файли"
+
+msgid "No date"
+msgstr "Без дати"
+
+msgid "No detailed release notes provided for this version."
+msgstr "Для цієї версії немає докладних приміток до релізу."
+
+msgid "No entries match current filters."
+msgstr "Немає записів, що відповідають фільтрам."
+
+msgid "No installed items found."
+msgstr "Встановлених елементів не знайдено."
+
+msgid "No items found."
+msgstr "Елементів не знайдено."
+
+msgid "No matched patches to check."
+msgstr "Немає пов'язаних патчів для перевірки."
+
+msgid "No matched plugins to check."
+msgstr "Немає пов'язаних плагінів для перевірки."
+
+msgid "No patch files found in %s/%s."
+msgstr "Файлів патчів у %s/%s не знайдено."
+
+msgid "No patch files found in repository %s."
+msgstr "У репозиторії %s не знайдено файлів патчів."
+
+msgid "No patches found in matching repositories."
+msgstr "У відповідних репозиторіях не знайдено патчів."
+
+msgid "No patches need updates."
+msgstr "Жоден патч не потребує оновлення."
+
+msgid "No patches to display."
+msgstr "Немає патчів для відображення."
+
+msgid "No plugin files were extracted"
+msgstr "Файли плагіна не були вилучені"
+
+msgid "No plugins need updates."
+msgstr "Жоден плагін не потребує оновлення."
+
+msgid "No plugins to display."
+msgstr "Немає плагінів для відображення."
+
+msgid "No plugins tracked yet."
+msgstr "Ще немає відстежуваних плагінів."
+
+msgid "No previous page in history"
+msgstr "У історії немає попередньої сторінки"
+
+msgid "No release notes provided for this version."
+msgstr "Для цієї версії примітки до релізу відсутні."
+
+msgid "No release notes."
+msgstr "Немає приміток до випуску."
+
+msgid "No releases found for this repository."
+msgstr "Для цього репозиторію не знайдено випусків."
+
+msgid "No remote version info for %s."
+msgstr "Немає інформації про віддалену версію для %s."
+
+msgid "No screensavers match this filter."
+msgstr "Немає заставок, що відповідають цьому фільтру."
+
+msgid "No stable releases found — uncheck filter to show all releases"
+msgstr "Стабільних випусків не знайдено — зніміть фільтр, щоб показати всі випуски"
+
+msgid "No tracked plugins to check."
+msgstr "Немає відстежуваних плагінів для перевірки."
+
+msgid "No wallpapers found in your screensavers folder.\n\nBrowse the Screensavers catalog in Storefront to download wallpapers!"
+msgstr "У папці заставок не знайдено шпалер.\n\nПерегляньте каталог Storefront, щоб завантажити шпалери!"
+
+msgid "No wallpapers found in your screensavers folder.\\\n\\\nBrowse the Screensavers catalog in Storefront to download wallpapers!"
+msgstr "No wallpapers found in your screensavers folder.\\\n\\\nBrowse the Screensavers catalog in Storefront to download wallpapers!"
+
+msgid "None selected"
+msgstr "Нічого не вибрано"
+
+msgid "Not matched with a repository."
+msgstr "Не зіставлено з репозиторієм."
+
+msgid "Not set"
+msgstr "Не вказано"
+
+msgid "Notes"
+msgstr "Нотатки"
+
+msgid "OK"
+msgstr "ОК"
+
+msgid "Offline Regular"
+msgstr "Офлайн звичайний"
+
+msgid "Open"
+msgstr "Відкрити"
+
+msgid "Open Wallpaper Collection Gallery"
+msgstr "Відкрити галерею шпалер"
+
+msgid "Open details"
+msgstr "Деталі"
+
+msgid "Optional. Raises the GitHub API rate limit. Generate one (classic, "
+msgstr "Необов'язково. Збільшує ліміт запитів GitHub API. Створіть токен (класичний, "
+
+msgid "Optional. Raises the GitHub API rate limit. Generate one (classic, 'public_repo' scope is enough) at github.com/settings/tokens, then paste it here."
+msgstr "Необов'язково. Збільшує ліміт запитів GitHub API. Згенеруйте токен (classic, достатньо області 'public_repo') на github.com/settings/tokens, а потім вставте його сюди."
+
+msgid "Options ▾"
+msgstr "Опції ▾"
+
+msgid "Origin"
+msgstr "Походження"
+
+msgid "Owner"
+msgstr "Власник"
+
+msgid "Owner %s"
+msgstr "Власник %s"
+
+msgid "Owner: "
+msgstr "Власник: "
+
+msgid "Pack my box with five dozen liquor jugs."
+msgstr "Чуєш їх, доцю, гадюченят малюсіньких, що лізуть без упину?"
+
+msgid "Page %d of %d"
+msgstr "Сторінка %d з %d"
+
+msgid "Page %d/%d"
+msgstr "Сторінка %d/%d"
+
+msgid "Pangram Preview"
+msgstr "Перегляд панграми"
+
+msgid "Patch"
+msgstr "Патч"
+
+msgid "Patch "
+msgstr "Патч "
+
+msgid "Patch %s has been %s."
+msgstr "Патч %s було %s."
+
+msgid "Patch '%s' deleted."
+msgstr "Патч '%s' видалено."
+
+msgid "Patch '%s' disabled."
+msgstr "Патч '%s' вимкнено."
+
+msgid "Patch '%s' enabled."
+msgstr "Патч '%s' увімкнено."
+
+msgid "Patch cache is older than a week, consider refreshing."
+msgstr "Кеш патчів старіший за тиждень, рекомендується оновити."
+
+msgid "Patch file not found in repository."
+msgstr "Файл патча не знайдено в репозиторії."
+
+msgid "Patch file not found locally."
+msgstr "Файл патча не знайдено локально."
+
+msgid "Patch file not found."
+msgstr "Файл патча не знайдено."
+
+msgid "Patch matching cancelled."
+msgstr "Зв'язування патча скасовано."
+
+msgid "Patch: %s"
+msgstr "Патч: %s"
+
+msgid "Patches"
+msgstr "Патчі"
+
+msgid "Patches cached: %s (last update: %s)"
+msgstr "Патчів у кеші: %s (останнє оновлення: %s)"
+
+msgid "Patches found: %d"
+msgstr "Знайдено патчів: %d"
+
+msgid "Path: %s"
+msgstr "Шлях: %s"
+
+msgid "Plugin"
+msgstr "Плагін"
+
+msgid "Plugin "
+msgstr "Плагін "
+
+msgid "Plugin %s has been %s."
+msgstr "Плагін %s було %s."
+
+msgid "Plugin '%s' deleted."
+msgstr "Плагін '%s' видалено."
+
+msgid "Plugin '%s' disabled."
+msgstr "Плагін '%s' вимкнено."
+
+msgid "Plugin '%s' enabled."
+msgstr "Плагін '%s' увімкнено."
+
+msgid "Plugin and patch browser for KOReader."
+msgstr "Оглядач плагінів та патчів для KOReader."
+
+msgid "Plugin cache is older than a week, consider refreshing."
+msgstr "Кеш плагінів старіший за тиждень, спробуйте оновити."
+
+msgid "Plugin directory not found."
+msgstr "Каталог плагіна не знайдено."
+
+msgid "Plugin folder not found."
+msgstr "Папку плагіна не знайдено."
+
+msgid "Plugin is not currently loaded, so settings cannot be deleted."
+msgstr "Плагін наразі не завантажено, тому налаштування неможливо видалити."
+
+msgid "Plugins"
+msgstr "Плагіни"
+
+msgid "Plugins cached: %s (last update: %s)"
+msgstr "Плагінів у кеші: %s (останнє оновлення: %s)"
+
+msgid "Pool size: %d wallpapers in rotation"
+msgstr "Розмір ротації: %d шпалер"
+
+msgid "Pre-installed core KOReader plugin."
+msgstr "Попередньо встановлений базовий плагін KOReader."
+
+msgid "Prev"
+msgstr "Назад"
+
+msgid "Published: %s"
+msgstr "Опубліковано: %s"
+
+msgid "README"
+msgstr "README"
+
+msgid "README download failed: "
+msgstr "Помилка завантаження README: "
+
+msgid "README files & images"
+msgstr "Файли README та зображення"
+
+msgid "Rate Wallpaper"
+msgstr "Оцінити шпалери"
+
+msgid "Reading Passage Specimen"
+msgstr "Зразок тексту"
+
+msgid "Reading Progress"
+msgstr "Прогрес читання"
+
+msgid "Reading Progress / Summary"
+msgstr "Прогрес читання / Підсумок"
+
+msgid "Recently Added"
+msgstr "Нещодавно додані"
+
+msgid "Refresh"
+msgstr "Оновити"
+
+msgid "Refresh cache"
+msgstr "Оновити кеш"
+
+msgid "Refresh catalog"
+msgstr "Оновити каталог"
+
+msgid "Refreshing catalog via Direct GitHub API…"
+msgstr "Оновлення каталогу через прямий API GitHub…"
+
+msgid "Refreshing catalog..."
+msgstr "Оновлення каталогу..."
+
+msgid "Refreshing catalog…"
+msgstr "Оновлення каталогу…"
+
+msgid "Refreshing…"
+msgstr "Оновлення…"
+
+msgid "Reinstall"
+msgstr "Перевстановити"
+
+msgid "Release"
+msgstr "Реліз"
+
+msgid "Release Notes"
+msgstr "Примітки до релізу"
+
+msgid "Release notes for %s"
+msgstr "Примітки до випуску %s"
+
+msgid "Release: %s"
+msgstr "Реліз: %s"
+
+msgid "Releases"
+msgstr "Випуски"
+
+msgid "Releases — %s"
+msgstr "Релізи — %s"
+
+msgid "Remote SHA: %s"
+msgstr "SHA на сервері: %s"
+
+msgid "Remote SHA: %s (checked %s)"
+msgstr "SHA на сервері: %s (перевірено %s)"
+
+msgid "Remote check failed: "
+msgstr "Помилка віддаленої перевірки: "
+
+msgid "Remote version for %s: %s."
+msgstr "Версія на сервері для %s: %s."
+
+msgid "Remote version not found."
+msgstr "Віддалену версію не знайдено."
+
+msgid "Remote: %s"
+msgstr "Віддалений: %s"
+
+msgid "Remote: %s (checked %s)"
+msgstr "На сервері: %s (перевірено %s)"
+
+msgid "Remote: (not checked)"
+msgstr "На сервері: (не перевірялося)"
+
+msgid "Remove"
+msgstr "Видалити"
+
+msgid "Remove "
+msgstr "Видалити"
+
+msgid "Remove '%s' from your wallpaper collection?"
+msgstr "Видалити '%s' з вашої колекції шпалер?"
+
+msgid "Remove Wallpaper?"
+msgstr "Видалити шпалеру?"
+
+msgid "Rename"
+msgstr "Перейменувати"
+
+msgid "Rename failed: %s"
+msgstr "Помилка перейменування: %s"
+
+msgid "Rename file"
+msgstr "Перейменувати файл"
+
+msgid "Renamed to "
+msgstr "Перейменовано на "
+
+msgid "Renamed to '%s'."
+msgstr "Перейменовано на '%s'."
+
+msgid "Repo: %s/%s"
+msgstr "Репозиторій: %s/%s"
+
+msgid "Repo: (not matched)"
+msgstr "Репозиторій: (не зіставлено)"
+
+msgid "Repository"
+msgstr "Репозиторій"
+
+msgid "Repository %s not found on GitHub."
+msgstr "Репозиторій %s не знайдено на GitHub."
+
+msgid "Repository name"
+msgstr "Назва репозиторію"
+
+msgid "Repository owner"
+msgstr "Власник репозиторію"
+
+msgid "Repository: %s"
+msgstr "Репозиторій: %s"
+
+msgid "Reset filters"
+msgstr "Скинути фільтри"
+
+msgid "Reset to defaults"
+msgstr "За замовчуванням"
+
+msgid "Restart later"
+msgstr "Перезапустити пізніше"
+
+msgid "Restart now"
+msgstr "Перезапустити"
+
+msgid "Sample Text"
+msgstr "Зразок тексту"
+
+msgid "Save"
+msgstr "Зберегти"
+
+msgid "Screensaver"
+msgstr "Заставка"
+
+msgid "Screensaver & Wallpapers"
+msgstr "Заставки та шпалери"
+
+msgid "Screensaver Details"
+msgstr "Деталі заставки"
+
+msgid "Screensaver Mode"
+msgstr "Режим заставки"
+
+msgid "Screensaver Settings"
+msgstr "Налаштування заставки"
+
+msgid "Screensaver mode"
+msgstr "Режим заставки"
+
+msgid "Screensaver thumbnails"
+msgstr "Мініатюри заставок"
+
+msgid "Screensavers"
+msgstr "Заставки"
+
+msgid "Search"
+msgstr "Пошук"
+
+msgid "Search \"%s\""
+msgstr "Шукати \"%s\""
+
+msgid "Search & API"
+msgstr "Пошук та API"
+
+msgid "Search filter (\"%s\") is not applied to Updates."
+msgstr "Search filter (\"%s\") is not applied to Updates."
+
+msgid "Search filter (\\\\\"%s\\\\\") is not applied to Updates."
+msgstr "Search filter (\\\\\"%s\\\\\") is not applied to Updates."
+
+msgid "Search text"
+msgstr "Текст для пошуку"
+
+msgid "Search: "
+msgstr "Пошук: "
+
+msgid "Select All"
+msgstr "Вибрати все"
+
+msgid "Select Categories"
+msgstr "Вибрати категорії"
+
+msgid "Select a repository patch entry to match with the chosen file."
+msgstr "Виберіть патч з репозиторію для зв'язування з вибраним файлом."
+
+msgid "Select a repository to match with the chosen plugin."
+msgstr "Виберіть репозиторій для зіставлення з обраним плагіном."
+
+msgid "Select installation directory"
+msgstr "Виберіть каталог для встановлення"
+
+msgid "Select patch file from %s"
+msgstr "Виберіть файл патча з %s"
+
+msgid "Select patch in %s"
+msgstr "Виберіть патч у %s"
+
+msgid "Select plugin to match"
+msgstr "Виберіть плагін для зіставлення"
+
+msgid "Select repository"
+msgstr "Виберіть репозиторій"
+
+msgid "Set"
+msgstr "Встановити"
+
+msgid "Set Active Single"
+msgstr "Встановити як єдину заставку"
+
+msgid "Set Single"
+msgstr "Встановити одиночний"
+
+msgid "Set as Active"
+msgstr "Зробити активним"
+
+msgid "Set as Active Single Wallpaper"
+msgstr "Встановити як активні одиночні шпалери"
+
+msgid "Set as active single wallpaper!"
+msgstr "Встановлено як активні одиночні шпалери!"
+
+msgid "Settings"
+msgstr "Налаштування"
+
+msgid "Show needs update"
+msgstr "Показувати ті, що потребують оновлення"
+
+msgid "Show reading progress banner overlay"
+msgstr "Показувати банер прогресу читання"
+
+msgid "Shows reading stats, percentage, and chapter progress"
+msgstr "Показує статистику читання, відсоток та прогрес розділу"
+
+msgid "Shows the cover of the book currently being read"
+msgstr "Показує обкладинку книги, яку зараз читають"
+
+msgid "Shuffle (%d)"
+msgstr "Ротація (%d)"
+
+msgid "Shuffle Pool"
+msgstr "Пул ротації"
+
+msgid "Shuffles through all wallpapers in folder on sleep.\nPool size: %d wallpapers in rotation"
+msgstr "Випадково змінює всі шпалери з папки у сплячому режимі.\nРозмір ротації: %d шпалер"
+
+msgid "Single"
+msgstr "Одиночний"
+
+msgid "Single Wallpaper"
+msgstr "Окремі шпалери"
+
+msgid "Solid fill for screen margins & letterboxing"
+msgstr "Суцільне заповнення полів екрана"
+
+msgid "Sort"
+msgstr "Сортування"
+
+msgid "Sort mode"
+msgstr "Режим сортування"
+
+msgid "Sort: A-Z"
+msgstr "Сорт: А-Я"
+
+msgid "Sort: Most Liked"
+msgstr "Сортування: За лайками"
+
+msgid "Sort: Name (A → Z)"
+msgstr "Сорт: Назва (А-Я)"
+
+msgid "Sort: Name (Z → A)"
+msgstr "Сорт: Назва (Я-А)"
+
+msgid "Sort: Oldest"
+msgstr "Сорт: Старі"
+
+msgid "Sort: Recently updated"
+msgstr "Сорт: Дата"
+
+msgid "Sort: Stars (high → low)"
+msgstr "Сорт: Зірки"
+
+msgid "Sort: Status"
+msgstr "Сорт: Статус"
+
+msgid "Sort: Type"
+msgstr "Сорт: Тип"
+
+msgid "Sort: Updated"
+msgstr "Сортування: Оновлено"
+
+msgid "Sort: Z-A"
+msgstr "Сорт: Я-А"
+
+msgid "Sorting"
+msgstr "Сортування"
+
+msgid "Stable"
+msgstr "Стабільна"
+
+msgid "Status"
+msgstr "Статус"
+
+msgid "Status: Needs matching"
+msgstr "Статус: Потребує зв'язування"
+
+msgid "Status: Up to date"
+msgstr "Статус: Актуально"
+
+msgid "Status: Update available"
+msgstr "Статус: Доступне оновлення"
+
+msgid "Storefront"
+msgstr "Storefront"
+
+msgid "Storefront cache refreshed."
+msgstr "Кеш Storefront оновлено."
+
+msgid "Storefront is up to date (v%s)."
+msgstr "Storefront актуальний (v%s)."
+
+msgid "Storefront refresh failed: "
+msgstr "Помилка оновлення Storefront: "
+
+msgid "Storefront · Updates"
+msgstr "Storefront · Оновлення"
+
+msgid "Storefront: Open"
+msgstr "Магазин: Відкрити"
+
+msgid "Stretch image to fill entire screen"
+msgstr "Розтягнути зображення на весь екран"
+
+msgid "Style: "
+msgstr "Стиль: "
+
+msgid "Successfully updated %d item(s)."
+msgstr "Успішно оновлено елементів: %d."
+
+msgid "Successfully updated %d items."
+msgstr "Успішно оновлено %d елементів."
+
+msgid "Switch to installed patches"
+msgstr "Перейти до встановлених патчів"
+
+msgid "Switch to installed plugins"
+msgstr "Перейти до встановлених плагінів"
+
+msgid "Switch to patch list"
+msgstr "Перейти до списку патчів"
+
+msgid "Switch to patches"
+msgstr "Перейти до патчів"
+
+msgid "Switch to plugin list"
+msgstr "Перейти до списку плагінів"
+
+msgid "Tag not found on GitHub (%s or %s)."
+msgstr "Тег не знайдено на GitHub (%s або %s)."
+
+msgid "Text"
+msgstr "Текст"
+
+msgid "Text editor plugin is not available."
+msgstr "Плагін текстового редактора недоступний."
+
+msgid "The quick brown fox jumps over the lazy dog."
+msgstr "Чуєш їх, доцю, гадюченят малюсіньких, що лізуть без упину?"
+
+msgid "This action cannot be undone.\n\nChanges will take effect after restart."
+msgstr "Цю дію не можна скасувати.\n\nЗміни набудуть чинності після перезапуску."
+
+msgid "This action cannot be undone.\\\n\\\nChanges will take effect after restart."
+msgstr "This action cannot be undone.\\\n\\\nChanges will take effect after restart."
+
+msgid "This wallpaper is currently set as your active screensaver."
+msgstr "Ці шпалери наразі встановлені як активна заставка."
+
+msgid "This will delete all cached README files, wiki articles, and screensaver thumbnails (%s)."
+msgstr "Це видалить усі кешовані файли README, статті вікі та мініатюри заставок (%s)."
+
+msgid "This will delete cached README markdown files and downloaded images (%s)."
+msgstr "Це видалить кешовані файли README та завантажені зображення (%s)."
+
+msgid "This will delete cached screensaver thumbnail previews (%s)."
+msgstr "Це видалить кешовані мініатюри заставок (%s)."
+
+msgid "This will delete cached wiki articles and downloaded images (%s)."
+msgstr "Це видалить кешовані статті вікі та завантажені зображення (%s)."
+
+msgid "This will take effect on next restart."
+msgstr "Зміни набудуть чинності після наступного перезапуску."
+
+msgid "Total commits: %d"
+msgstr "Всього комітів: %d"
+
+msgid "Tracked: %d"
+msgstr "Відстежується: %d"
+
+msgid "Transparent overlay (page content visible behind)"
+msgstr "Прозорий шар (сторінку видно позаду)"
+
+msgid "Type"
+msgstr "Тип"
+
+msgid "Unable to determine patch download URL."
+msgstr "Не вдалося визначити URL завантаження патча."
+
+msgid "Unable to load wiki page. Tap refresh to retry."
+msgstr "Не вдалося завантажити сторінку wiki. Натисніть «Оновити», щоб спробувати знову."
+
+msgid "Unable to read README file"
+msgstr "Не вдалося прочитати файл README"
+
+msgid "Unable to read README. Tap refresh to retry."
+msgstr "Не вдалося прочитати README. Натисніть «Оновити», щоб спробувати знову."
+
+msgid "Unable to store match for patch."
+msgstr "Не вдалося зберегти зв'язок для патча."
+
+msgid "Unable to store match for plugin."
+msgstr "Не вдалося зберегти зв'язок для плагіна."
+
+msgid "Uninstall"
+msgstr "Видалити"
+
+msgid "Unknown"
+msgstr "Невідомо"
+
+msgid "Unknown error"
+msgstr "Невідома помилка"
+
+msgid "Unlink the repo"
+msgstr "Відв'язати репозиторій"
+
+msgid "Unlinked %s from repository."
+msgstr "%s відв'язано від репозиторію."
+
+msgid "Unmatched: %d"
+msgstr "Без зв'язку: %d"
+
+msgid "Unnamed release"
+msgstr "Реліз без назви"
+
+msgid "Update"
+msgstr "Оновити"
+
+msgid "Update %d outdated item(s)?"
+msgstr "Оновити %d застарілих елементів?"
+
+msgid "Update %s?"
+msgstr "Оновити %s?"
+
+msgid "Update All"
+msgstr "Оновити все"
+
+msgid "Update all outdated items?"
+msgstr "Оновити всі застарілі елементи?"
+
+msgid "Update available for %s: remote %s, installed %s."
+msgstr "Доступне оновлення для %s: на сервері %s, встановлено %s."
+
+msgid "Update channel"
+msgstr "Канал оновлень"
+
+msgid "Update check was cancelled"
+msgstr "Перевірку оновлень скасовано"
+
+msgid "Update patch"
+msgstr "Оновити патч"
+
+msgid "Update plugin"
+msgstr "Оновити плагін"
+
+msgid "Updated %d of %d item(s) (%d failed)."
+msgstr "Оновлено %d з %d елементів (%d помилок)."
+
+msgid "Updated patch \"%s\"."
+msgstr "Оновлено патч \"%s\"."
+
+msgid "Updated patch %s."
+msgstr "Оновлено патч %s."
+
+msgid "Updated patch \\\\\"%s\\\\\"."
+msgstr "Updated patch \\\\\"%s\\\\\"."
+
+msgid "Updated plugin \"%s\" to version %s."
+msgstr "Оновлено плагін \"%s\" до версії %s."
+
+msgid "Updated plugin \"%s\"."
+msgstr "Оновлено плагін \"%s\"."
+
+msgid "Updated plugin \\\\\"%s\\\\\" to version %s."
+msgstr "Updated plugin \\\\\"%s\\\\\" to version %s."
+
+msgid "Updated plugin \\\\\"%s\\\\\"."
+msgstr "Updated plugin \\\\\"%s\\\\\"."
+
+msgid "Updated: %s"
+msgstr "Оновлено: %s"
+
+msgid "Updates"
+msgstr "Оновлення"
+
+msgid "Updates Ignored"
+msgstr "Оновлення ігноруються"
+
+msgid "Updating [%d/%d]: %s…"
+msgstr "Оновлення [%d/%d]: %s…"
+
+msgid "User Installed"
+msgstr "Користувацькі"
+
+msgid "Verifying repository %s/%s..."
+msgstr "Перевірка репозиторію %s/%s..."
+
+msgid "Version"
+msgstr "Версія"
+
+msgid "Versions"
+msgstr "Версії"
+
+msgid "View README"
+msgstr "Переглянути README"
+
+msgid "View commits (%s \\\\xE2\\\\x86\\\\x92 %s)"
+msgstr "View commits (%s \\\\xE2\\\\x86\\\\x92 %s)"
+
+msgid "View commits (%s → %s)"
+msgstr "Переглянути коміти (%s → %s)"
+
+msgid "Wallpaper Collection"
+msgstr "Колекція шпалер"
+
+msgid "Wallpaper Options"
+msgstr "Параметри шпалер"
+
+msgid "Wallpaper deleted from device."
+msgstr "Шпалеру видалено з пристрою."
+
+msgid "Wallpaper removed"
+msgstr "Шпалеру видалено"
+
+msgid "Wallpaper saved to collection!"
+msgstr "Шпалери збережено в колекції!"
+
+msgid "Wallpaper set as active KOReader screensaver!"
+msgstr "Шпалери встановлено як заставку KOReader!"
+
+msgid "Wallpaper set as active screensaver!"
+msgstr "Шпалеру встановлено як активну заставку!"
+
+msgid "Warning: the selected version is older than what is currently installed. You are downgrading."
+msgstr "Увага: вибрана версія старіша за встановлену. Ви здійснюєте пониження версії."
+
+msgid "White Fill"
+msgstr "Біла заливка"
+
+msgid "Wiki"
+msgstr "Wiki"
+
+msgid "Wiki Pages"
+msgstr "Сторінки Wiki"
+
+msgid "Wiki pages & images"
+msgstr "Сторінки вікі та зображення"
+
+msgid "Z -> A"
+msgstr "Я -> А"
+
+msgid "Z → A"
+msgstr "Я → А"
+
+msgid "[ Loading preview... ]"
+msgstr "[ Завантаження перегляду... ]"
+
+msgid "[ Wallpaper Preview Loading... ]"
+msgstr "[ Завантаження перегляду шпалер... ]"
+
+msgid "[Ignored]"
+msgstr "[Ігноровано]"
+
+msgid "[draft]"
+msgstr "[чернетка]"
+
+msgid "[pre]"
+msgstr "[pre]"
+
+msgid "\\\\\"My dear Mr. Bennet,\\\\\" said his lady to him one day, \\\\\"have you heard that Netherfield Park is let at last?\\\\\" Mr. Bennet replied that he had not. \\\\\"But it is,\\\\\" returned she; \\\\\"for Mrs. Long has just been here, and she told me all about it.\\\\\" Mr. Bennet made no answer."
+msgstr "\\\\\"My dear Mr. Bennet,\\\\\" said his lady to him one day, \\\\\"have you heard that Netherfield Park is let at last?\\\\\" Mr. Bennet replied that he had not. \\\\\"But it is,\\\\\" returned she; \\\\\"for Mrs. Long has just been here, and she told me all about it.\\\\\" Mr. Bennet made no answer."
+
+msgid "\\\\xC2\\\\xB7"
+msgstr "\\\\xC2\\\\xB7"
+
+msgid "about_text"
+msgstr "Storefront — це менеджер пакетів у KOReader для плагінів, патчів та шрифтів."
+
+msgid "anyone"
+msgstr "будь-хто"
+
+msgid "btn_apply"
+msgstr "Застосувати"
+
+msgid "btn_back"
+msgstr "Назад"
+
+msgid "btn_cancel"
+msgstr "Скасувати"
+
+msgid "btn_close"
+msgstr "Закрити"
+
+msgid "btn_install"
+msgstr "Встановити"
+
+msgid "btn_ok"
+msgstr "ОК"
+
+msgid "btn_preview"
+msgstr "Перегляд"
+
+msgid "btn_refresh"
+msgstr "Оновити"
+
+msgid "btn_release_notes"
+msgstr "Нотатки до релізу"
+
+msgid "btn_restart"
+msgstr "Перезапустити KOReader"
+
+msgid "btn_retry"
+msgstr "Повторити"
+
+msgid "btn_search"
+msgstr "Пошук"
+
+msgid "btn_uninstall"
+msgstr "Видалити"
+
+msgid "btn_update"
+msgstr "Оновити"
+
+msgid "btn_view_details"
+msgstr "Детальніше"
+
+msgid "confirm_install"
+msgstr "Встановити '%s'?"
+
+msgid "confirm_uninstall"
+msgstr "Видалити '%s'? Цю дію неможливо скасувати."
+
+msgid "confirm_update"
+msgstr "Оновити '%s' з v%s до v%s?"
+
+msgid "disabled"
+msgstr "вимкнено"
+
+msgid "e.g., koreader"
+msgstr "напр., koreader"
+
+msgid "enabled"
+msgstr "увімкнено"
+
+msgid "err_install_failed"
+msgstr "Помилка встановлення '%s'."
+
+msgid "err_network_failed"
+msgstr "Помилка мережі: Не вдалося завантажити каталог."
+
+msgid "err_uninstall_failed"
+msgstr "Помилка видалення '%s'."
+
+msgid "filter_all"
+msgstr "Усі категорії"
+
+msgid "filter_installed"
+msgstr "Встановлено"
+
+msgid "filter_updates"
+msgstr "Оновлення"
+
+msgid "font"
+msgstr "шрифт"
+
+msgid "ghp_..."
+msgstr "ghp_..."
+
+msgid "header_about"
+msgstr "header_about"
+
+msgid "header_updates"
+msgstr "header_updates"
+
+msgid "label_author"
+msgstr "Автор"
+
+msgid "label_description"
+msgstr "Опис"
+
+msgid "label_downloads"
+msgstr "Завантаження"
+
+msgid "label_license"
+msgstr "Ліцензія"
+
+msgid "label_repository"
+msgstr "Репозиторій"
+
+msgid "label_size"
+msgstr "Розмір"
+
+msgid "label_type"
+msgstr "Тип"
+
+msgid "label_version"
+msgstr "Версія"
+
+msgid "latest"
+msgstr "останній"
+
+msgid "menu_about"
+msgstr "Про Storefront"
+
+msgid "menu_settings"
+msgstr "Налаштування Storefront"
+
+msgid "menu_storefront"
+msgstr "Storefront"
+
+msgid "menu_storefront_desc"
+msgstr "Перегляд, встановлення та оновлення плагінів, патчів та шрифтів."
+
+msgid "msg_catalog_updated"
+msgstr "Каталог успішно оновлено."
+
+msgid "msg_installed_plugin"
+msgstr "Встановлено плагін \"%s\"."
+
+msgid "msg_installed_plugin_version"
+msgstr "Встановлено плагін \"%s\" (версія %s)."
+
+msgid "msg_no_results"
+msgstr "Нічого не знайдено."
+
+msgid "new"
+msgstr "новий"
+
+msgid "not found"
+msgstr "не знайдено"
+
+msgid "patch"
+msgstr "патч"
+
+msgid "plugin"
+msgstr "плагін"
+
+msgid "progress_please_wait"
+msgstr "Зачекайте"
+
+msgid "prompt_restart_needed"
+msgstr "Встановлення завершено. Перезапустити KOReader зараз для увімкнення '%s'?"
+
+msgid "release asset"
+msgstr "файл випуску"
+
+msgid "release is newer by date"
+msgstr "випуск новіший за датою"
+
+msgid "remote is newer by date"
+msgstr "віддалена версія новіша за датою"
+
+msgid "repository"
+msgstr "репозиторій"
+
+msgid "search_hint"
+msgstr "Пошук у storefront..."
+
+msgid "status_builtin"
+msgstr "Вбудований"
+
+msgid "status_downloading"
+msgstr "Завантаження..."
+
+msgid "status_installed"
+msgstr "Встановлено"
+
+msgid "status_installing"
+msgstr "Встановлення..."
+
+msgid "status_not_installed"
+msgstr "Не встановлено"
+
+msgid "status_uninstalling"
+msgstr "Видалення..."
+
+msgid "status_update_available"
+msgstr "Доступне оновлення"
+
+msgid "storefront_title"
+msgstr "Storefront"
+
+msgid "tab_all"
+msgstr "Усі"
+
+msgid "tab_fonts"
+msgstr "Шрифт"
+
+msgid "tab_patches"
+msgstr "Патчі"
+
+msgid "tab_plugins"
+msgstr "Плагіни"
+
+msgid "tab_readme"
+msgstr "tab_readme"
+
+msgid "tab_sample_text"
+msgstr "tab_sample_text"
+
+msgid "tab_screensavers"
+msgstr "Шпалери"
+
+msgid "tab_versions"
+msgstr "tab_versions"
+
+msgid "unknown"
+msgstr "невідомо"
+
+msgid "updated %s"
+msgstr "оновлено %s"
+
+msgid "updated %s (%s)"
+msgstr "оновлено %s (%s)"
+
+msgid "·"
+msgstr "·"
+
+msgid "≥ %s ⭐"
+msgstr "≥ %s ⭐"
+
+msgid "★ ACTIVE"
+msgstr "★ АКТИВНО"
+
+msgid "⚙ Settings"
+msgstr "⚙ Налаштування"
+
+msgid "⚙ Settings..."
+msgstr "⚙ Налаштування..."
+
+msgid "✓ Current"
+msgstr "✓ Поточний"
+
+msgid "Downloading…"
+msgstr ""
+
+msgid "Download cancelled."
+msgstr ""
+
+msgid "Batch update cancelled."
+msgstr ""
+
+msgid "Connecting…"
+msgstr ""
+

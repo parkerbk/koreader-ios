@@ -1,0 +1,2290 @@
+msgid ""
+msgstr ""
+"Language-Team: Japanese\n"
+"Language: ja\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "\"My dear Mr. Bennet,\" said his lady to him one day, \"have you heard that Netherfield Park is let at last?\" Mr. Bennet replied that he had not. \"But it is,\" returned she; \"for Mrs. Long has just been here, and she told me all about it.\" Mr. Bennet made no answer."
+msgstr "「あなた、ネザーフィールド・パークがようやく貸し出されたのをご存じですか？」ある日、ベネット夫人が夫に尋ねました。ベネット氏は知らないと答えました。「でも本当ですよ」と夫人は続けました。「ロング夫人がさっき来て、一部始終を教えてくれたのですから。」ベネット氏は何も答えませんでした。"
+
+msgid "%d Categories"
+msgstr "%d カテゴリ"
+
+msgid "%d items"
+msgstr "%d 件"
+
+msgid "%d patches"
+msgstr "%d件のパッチ"
+
+msgid "%d plugins"
+msgstr "%d件のプラグイン"
+
+msgid "%d wallpapers"
+msgstr "%d 枚の壁紙"
+
+msgid "%d wallpapers stored on device"
+msgstr "%d 枚の壁紙がデバイスに保存されています"
+
+msgid "%d wallpapers · Folder Shuffle (all in rotation)"
+msgstr "%d 枚の壁紙 · フォルダシャッフル (すべてローテーション)"
+
+msgid "%d wallpapers · Mode: Book Cover"
+msgstr "%d 枚の壁紙 · モード: 表紙"
+
+msgid "%d wallpapers · Single mode active"
+msgstr "%d 枚の壁紙 · 単一モード有効"
+
+msgid "%s and %s"
+msgstr "%s と %s"
+
+msgid "%s is up to date (version %s)."
+msgstr "%s は最新です (バージョン %s)。"
+
+msgid "%s is up to date."
+msgstr "%s は最新です。"
+
+msgid "%s needs an update."
+msgstr "%s の更新が必要です。"
+
+msgid "%s · %d files"
+msgstr "%s · %d ファイル"
+
+msgid "%s · 1 file"
+msgstr "%s · 1 ファイル"
+
+msgid "(fork)"
+msgstr "(フォーク)"
+
+msgid "(showing %d of %d commits)"
+msgstr "(%d / %d 件のコミットを表示中)"
+
+msgid "+ Add to Shuffle Pool"
+msgstr "+ シャッフルに追加"
+
+msgid "1 / 1"
+msgstr "1 / 1"
+
+msgid "1 patch"
+msgstr "1件のパッチ"
+
+msgid "1 plugin"
+msgstr "1件のプラグイン"
+
+msgid "< Back"
+msgstr "< 戻る"
+
+msgid "< Prev"
+msgstr "< 前へ"
+
+msgid "?"
+msgstr "?"
+
+msgid "A -> Z"
+msgstr "A -> Z"
+
+msgid "A → Z"
+msgstr "A → Z"
+
+msgid "About"
+msgstr "情報"
+
+msgid "About Storefront"
+msgstr "Storefrontについて"
+
+msgid "Active Single"
+msgstr "個別有効"
+
+msgid "Active Wallpaper ✓"
+msgstr "適用中の壁紙 ✓"
+
+msgid "Active: %s"
+msgstr "アクティブ: %s"
+
+msgid "Add to Shuffle"
+msgstr "シャッフルに追加"
+
+msgid "Add to Shuffle Pool (Enable Shuffle)"
+msgstr "シャッフルプールに追加 (シャッフル有効化)"
+
+msgid "Added to shuffle pool & Folder Shuffle enabled!"
+msgstr "シャッフルに追加し、フォルダシャッフルを有効化しました！"
+
+msgid "All"
+msgstr "すべて"
+
+msgid "All Caches"
+msgstr "すべてのキャッシュ"
+
+msgid "All Categories"
+msgstr "すべてのカテゴリ"
+
+msgid "All Types"
+msgstr "すべての種類"
+
+msgid "All items are up to date."
+msgstr "すべての項目が最新です。"
+
+msgid "All of your custom plugin folders are currently hidden (see Manage plugin paths). Install to the default plugin folder anyway?"
+msgstr "すべてのカスタムプラグインフォルダが非表示になっています (「プラグインパスの管理」を参照)。それでもデフォルトのプラグインフォルダにインストールしますか？"
+
+msgid "All patches"
+msgstr "すべてのパッチ"
+
+msgid "All plugins"
+msgstr "すべてのプラグイン"
+
+msgid "All plugins are already matched."
+msgstr "すべてのプラグインはすでに照合済みです。"
+
+msgid "Allow pre-release updates"
+msgstr "プレリリース版の更新を許可"
+
+msgid "Alphabet & Numbers"
+msgstr "英数字"
+
+msgid "Also delete plugin settings"
+msgstr "プラグインの設定も削除する"
+
+msgid "Always install here (don"
+msgstr "常にここにインストール ("
+
+msgid "Always install here (don't ask again)"
+msgstr "常にここにインストール (次回から確認しない)"
+
+msgid "Any"
+msgstr "すべて"
+
+msgid "App Store · Installed patches"
+msgstr "App Store · インストール済みパッチ"
+
+msgid "App Store · Installed plugins"
+msgstr "アプリストア · インストール済みプラグイン"
+
+msgid "Apply"
+msgstr "適用"
+
+msgid "Assets — %s"
+msgstr "アセット — %s"
+
+msgid "Author"
+msgstr "作者"
+
+msgid "Back"
+msgstr "戻る"
+
+msgid "Beta"
+msgstr "ベータ"
+
+msgid "Black Fill"
+msgstr "黒塗りつぶし"
+
+msgid "Blank"
+msgstr "空白"
+
+msgid "Book Cover"
+msgstr "本の表紙"
+
+msgid "Border Fill / Background"
+msgstr "枠の塗りつぶし / 背景"
+
+msgid "Both owner and repository name are required."
+msgstr "所有者とリポジトリ名の両方が必要です。"
+
+msgid "Branch: %s"
+msgstr "ブランチ: %s"
+
+msgid "Browse Wallpapers in Storefront"
+msgstr "Storefrontで壁紙を探す"
+
+msgid "By "
+msgstr "By"
+
+msgid "By: %s"
+msgstr "作者: %s"
+
+msgid "Cache empty. Refresh to retrieve repositories."
+msgstr "キャッシュが空です。リポジトリを取得するには更新してください。"
+
+msgid "Cache is older than a week, consider refreshing."
+msgstr "キャッシュが1週間以上前のもので、更新をおすすめします。"
+
+msgid "Cached %s patch repositories."
+msgstr "%s 個のパッチリポジトリをキャッシュしました。"
+
+msgid "Cached %s plugins."
+msgstr "%s 件のプラグインをキャッシュしました。"
+
+msgid "Can"
+msgstr "可"
+
+msgid "Can't load readme...."
+msgstr "READMEを読み込めません...."
+
+msgid "Cancel"
+msgstr "キャンセル"
+
+msgid "Cancel matching"
+msgstr "照合をキャンセル"
+
+msgid "Cannot read source file."
+msgstr "ソースファイルを読み込めません。"
+
+msgid "Cannot write destination file."
+msgstr "保存先ファイルに書き込めません。"
+
+msgid "Catalog & Cache"
+msgstr "カタログとキャッシュ"
+
+msgid "Catalog refresh failed: "
+msgstr "カタログの更新に失敗しました: "
+
+msgid "Catalog refresh is already in progress in the background."
+msgstr "カタログの更新はすでにバックグラウンドで進行中です。"
+
+msgid "Catalog refreshed successfully."
+msgstr "カタログが正常に更新されました。"
+
+msgid "Catalog source"
+msgstr "カタログソース"
+
+msgid "Catalog updated: %d plugins, %d patches, %d fonts."
+msgstr "カタログを更新しました: %d プラグイン、%d パッチ、%d フォント。"
+
+msgid "Categories"
+msgstr "カテゴリ"
+
+msgid "Category: "
+msgstr "カテゴリ: "
+
+msgid "Category: %s"
+msgstr "カテゴリ: %s"
+
+msgid "Change..."
+msgstr "変更..."
+
+msgid "Changelog for %s\n%s \\\\xE2\\\\x86\\\\x92 %s"
+msgstr "Changelog for %s\n%s \\\\xE2\\\\x86\\\\x92 %s"
+
+msgid "Changelog for %s\n%s → %s"
+msgstr "%s の変更履歴\n%s → %s"
+
+msgid "Changelog for %s\\\n%s \\\\xE2\\\\x86\\\\x92 %s"
+msgstr "Changelog for %s\\\n%s \\\\xE2\\\\x86\\\\x92 %s"
+
+msgid "Changelog: %s"
+msgstr "変更履歴: %s"
+
+msgid "Check Updates"
+msgstr "確認"
+
+msgid "Check all updates"
+msgstr "すべての更新を確認"
+
+msgid "Check for updates"
+msgstr "更新を確認"
+
+msgid "Check this patch"
+msgstr "このパッチを確認"
+
+msgid "Check this plugin"
+msgstr "このプラグインを確認"
+
+msgid "Checked %d patches: %d need updates, %d up to date."
+msgstr "%d 件のパッチを確認しました: %d 件に更新が必要、%d 件は最新です。"
+
+msgid "Checked %d plugin updates"
+msgstr "%d 件のプラグイン更新を確認しました"
+
+msgid "Checked %d plugin(s) for updates."
+msgstr "%d件のプラグインの更新を確認しました。"
+
+msgid "Checking %s…"
+msgstr "%s を確認中…"
+
+msgid "Checking for Storefront updates..."
+msgstr "Storefront の更新を確認中..."
+
+msgid "Checking for Storefront updates…"
+msgstr "Storefrontの更新を確認中…"
+
+msgid "Checking patch updates…"
+msgstr "パッチの更新を確認中…"
+
+msgid "Checking plugin updates"
+msgstr "プラグインの更新を確認中"
+
+msgid "Checking plugin updates…"
+msgstr "プラグインの更新を確認中…"
+
+msgid "Choose Build — %s"
+msgstr "ビルドを選択 — %s"
+
+msgid "Clean"
+msgstr "クリーン"
+
+msgid "Clear"
+msgstr "消去"
+
+msgid "Clear All"
+msgstr "すべて消去"
+
+msgid "Clear All Caches?"
+msgstr "すべてのキャッシュを消去しますか？"
+
+msgid "Clear Cache"
+msgstr "キャッシュを消去"
+
+msgid "Clear README Cache?"
+msgstr "READMEキャッシュを消去しますか？"
+
+msgid "Clear README cache"
+msgstr "キャッシュをクリア"
+
+msgid "Clear README cache (%s)?\nCached README files and images will be deleted."
+msgstr "Clear README cache (%s)?\nCached README files and images will be deleted."
+
+msgid "Clear Thumbnail Cache?"
+msgstr "サムネイルキャッシュを消去しますか？"
+
+msgid "Clear Wiki Cache?"
+msgstr "Wikiキャッシュを消去しますか？"
+
+msgid "Clear Wiki cache (%s)?\nCached wiki articles and images will be deleted."
+msgstr "Clear Wiki cache (%s)?\nCached wiki articles and images will be deleted."
+
+msgid "Clear all cached data (%s)?\nAll README files, wiki articles, and thumbnails will be deleted."
+msgstr "Clear all cached data (%s)?\nAll README files, wiki articles, and thumbnails will be deleted."
+
+msgid "Clear cache…"
+msgstr "キャッシュを消去"
+
+msgid "Clear screensaver thumbnail cache (%s)?\nThumbnails will be re-downloaded when viewing wallpapers."
+msgstr "Clear screensaver thumbnail cache (%s)?\nThumbnails will be re-downloaded when viewing wallpapers."
+
+msgid "Clear search & filters"
+msgstr "検索とフィルタをクリア"
+
+msgid "Clear search/filters"
+msgstr "検索/フィルターをクリア"
+
+msgid "Cleared README cache (%s freed)."
+msgstr "Cleared README cache (%s freed)."
+
+msgid "Cleared Wiki cache (%s freed)."
+msgstr "Cleared Wiki cache (%s freed)."
+
+msgid "Cleared all caches (%s freed, %d files)."
+msgstr "Cleared all caches (%s freed, %d files)."
+
+msgid "Cleared screensaver thumbnails (%s freed)."
+msgstr "Cleared screensaver thumbnails (%s freed)."
+
+msgid "Close"
+msgstr "閉じる"
+
+msgid "Collection"
+msgstr "コレクション"
+
+msgid "Commit diff: %s → %s"
+msgstr "コミット差分: %s → %s"
+
+msgid "Commits: %s \\\\xE2\\\\x86\\\\x92 %s"
+msgstr "Commits: %s \\\\xE2\\\\x86\\\\x92 %s"
+
+msgid "Commits: %s → %s"
+msgstr "コミット: %s → %s"
+
+msgid "Community"
+msgstr "コミュニティ"
+
+msgid "Config files only"
+msgstr "設定ファイルのみ"
+
+msgid "Configured ✓"
+msgstr "設定済み ✓"
+
+msgid "Confirm"
+msgstr "確認"
+
+msgid "Confirm Update"
+msgstr "更新の確認"
+
+msgid "Confirm Update All"
+msgstr "すべて更新の確認"
+
+msgid "Connecting to GitHub…\n\nPlease wait."
+msgstr "GitHub に接続中…\n\nしばらくお待ちください。"
+
+msgid "Connecting to GitHub…\\\n\\\nPlease wait."
+msgstr "Connecting to GitHub…\\\n\\\nPlease wait."
+
+msgid "Continue"
+msgstr "続行"
+
+msgid "Copied to "
+msgstr "コピー先: "
+
+msgid "Copied to '%s'."
+msgstr "'%s' にコピーしました。"
+
+msgid "Copy"
+msgstr "コピー"
+
+msgid "Copy file as"
+msgstr "名前を付けてファイルをコピー"
+
+msgid "Could not detect .koplugin folder in archive"
+msgstr "アーカイブ内に .koplugin フォルダを検出できませんでした"
+
+msgid "Could not detect plugin inside archive."
+msgstr "アーカイブ内にプラグインを検出できませんでした。"
+
+msgid "Could not fetch commit comparison."
+msgstr "コミット比較を取得できませんでした。"
+
+msgid "Could not fetch releases for changelog."
+msgstr "変更履歴用のリリースを取得できませんでした。"
+
+msgid "Could not fetch releases for this repository."
+msgstr "このリポジトリのリリースを取得できませんでした。"
+
+msgid "Could not locate plugin folder (_meta.lua) in archive."
+msgstr "アーカイブ内にプラグインフォルダ (_meta.lua) が見つかりませんでした。"
+
+msgid "Could not open target file for writing"
+msgstr "書き込み用に対象ファイルを開けませんでした"
+
+msgid "Default"
+msgstr "デフォルト"
+
+msgid "Default only"
+msgstr "デフォルトのみ"
+
+msgid "Delete"
+msgstr "削除"
+
+msgid "Delete "
+msgstr "削除"
+
+msgid "Delete '%s' from your device?"
+msgstr "'%s' をデバイスから削除しますか？"
+
+msgid "Delete File?"
+msgstr "ファイルを削除しますか？"
+
+msgid "Delete Wallpaper?"
+msgstr "壁紙を削除しますか？"
+
+msgid "Delete all cached README files? They will be re-downloaded on demand."
+msgstr "キャッシュされたすべてのREADMEファイルを削除しますか？ 必要に応じて再ダウンロードされます。"
+
+msgid "Delete file "
+msgstr "ファイルを削除 "
+
+msgid "Delete file '%s'?\n\nThis cannot be undone."
+msgstr "ファイル '%s' を削除しますか？\n\nこの操作は取り消せません。"
+
+msgid "Delete font "
+msgstr "フォントを削除 "
+
+msgid "Delete font '%s'?"
+msgstr "フォント '%s' を削除しますか？"
+
+msgid "Delete from Device"
+msgstr "デバイスから削除"
+
+msgid "Delete patch"
+msgstr "パッチを削除"
+
+msgid "Delete patch "
+msgstr "パッチを削除 "
+
+msgid "Delete patch '%s'?"
+msgstr "パッチ '%s' を削除しますか？"
+
+msgid "Delete plugin"
+msgstr "プラグインを削除"
+
+msgid "Delete plugin "
+msgstr "プラグインを削除 "
+
+msgid "Delete plugin '%s'?"
+msgstr "プラグイン '%s' を削除しますか？"
+
+msgid "Deleted "
+msgstr "削除しました "
+
+msgid "Deleted %d cached README file(s)."
+msgstr "キャッシュされた README ファイルを %d 件削除しました。"
+
+msgid "Deleted %d cached README file(s); %d failed."
+msgstr "キャッシュされた README ファイルを %d 件削除しました (%d 件失敗)。"
+
+msgid "Deleted '%s'."
+msgstr "'%s' を削除しました。"
+
+msgid "Direct GitHub API"
+msgstr "Direct GitHub API"
+
+msgid "Disable"
+msgstr "無効化"
+
+msgid "Disable patch"
+msgstr "パッチを無効化"
+
+msgid "Disable plugin"
+msgstr "プラグインを無効化"
+
+msgid "Disabled"
+msgstr "無効"
+
+msgid "Display Options"
+msgstr "表示オプション"
+
+msgid "Displays a static wallpaper on sleep"
+msgstr "スリープ時に静止壁紙を表示します"
+
+msgid "Displays a static wallpaper on sleep.\nActive: %s"
+msgstr "スリープ時に静止壁紙を表示します。\nアクティブ: %s"
+
+msgid "Done"
+msgstr "完了"
+
+msgid "Download & Set Active"
+msgstr "ダウンロードして適用"
+
+msgid "Download Only"
+msgstr "ダウンロードのみ"
+
+msgid "Download Only (Save to Device)"
+msgstr "ダウンロードのみ (デバイスに保存)"
+
+msgid "Download failed: "
+msgstr "ダウンロードに失敗しました: "
+
+msgid "Download options"
+msgstr "ダウンロードオプション"
+
+msgid "Download options — %s"
+msgstr "ダウンロードオプション — %s"
+
+msgid "Download options — %s (%s)"
+msgstr "ダウンロードオプション — %s (%s)"
+
+msgid "Downloading "
+msgstr "Downloading..."
+
+msgid "Downloading %s%s…\nThis may take a moment."
+msgstr "%s%s をダウンロード中…\nこれには少し時間がかかる場合があります。"
+
+msgid "Downloading %s%s…\\\nThis may take a moment."
+msgstr "Downloading %s%s…\\\nThis may take a moment."
+
+msgid "Downloading %s…"
+msgstr "%s をダウンロード中…"
+
+msgid "Downloading '%s'..."
+msgstr "Downloading '%s'..."
+
+msgid "Downloading patch \"%s\"…"
+msgstr "パッチ「%s」をダウンロード中…"
+
+msgid "Downloading patch %s…"
+msgstr "パッチ %s をダウンロード中…"
+
+msgid "Downloading patch \\\\\"%s\\\\\"…"
+msgstr "Downloading patch \\\\\"%s\\\\\"…"
+
+msgid "Downloading screensaver..."
+msgstr "スクリーンセーバーをダウンロード中..."
+
+msgid "Downloading to shuffle pool..."
+msgstr "シャッフルプールにダウンロード中..."
+
+msgid "Edit"
+msgstr "編集"
+
+msgid "Empty (0 KB)"
+msgstr "空 (0 KB)"
+
+msgid "Enable"
+msgstr "有効化"
+
+msgid "Enable patch"
+msgstr "パッチを有効化"
+
+msgid "Enable plugin"
+msgstr "プラグインを有効化"
+
+msgid "Enabled"
+msgstr "有効"
+
+msgid "Enter item number"
+msgstr "項目番号を入力"
+
+msgid "Enter plugin number"
+msgstr "プラグイン番号を入力"
+
+msgid "Extracting and installing plugin…\nPlease wait."
+msgstr "プラグインを解凍してインストール中…\nしばらくお待ちください。"
+
+msgid "Extracting and installing plugin…\\\nPlease wait."
+msgstr "Extracting and installing plugin…\\\nPlease wait."
+
+msgid "Failed to check %s: %s"
+msgstr "%s の確認に失敗しました: %s"
+
+msgid "Failed to check for Storefront updates: %s"
+msgstr "Storefront の更新確認に失敗しました: %s"
+
+msgid "Failed to create patches directory: %s"
+msgstr "パッチディレクトリの作成に失敗しました: %s"
+
+msgid "Failed to delete patch: %s"
+msgstr "パッチの削除に失敗しました: %s"
+
+msgid "Failed to delete plugin: %s"
+msgstr "プラグインの削除に失敗しました: %s"
+
+msgid "Failed to delete: %s"
+msgstr "削除に失敗しました: %s"
+
+msgid "Failed to disable patch "
+msgstr "パッチの無効化に失敗しました "
+
+msgid "Failed to disable patch '%s'."
+msgstr "パッチ '%s' の無効化に失敗しました。"
+
+msgid "Failed to download patch: %s"
+msgstr "パッチのダウンロードに失敗しました: %s"
+
+msgid "Failed to download screensaver."
+msgstr "スクリーンセーバーのダウンロードに失敗しました。"
+
+msgid "Failed to enable patch "
+msgstr "パッチの有効化に失敗しました "
+
+msgid "Failed to enable patch '%s'."
+msgstr "パッチ '%s' の有効化に失敗しました。"
+
+msgid "Failed to extract file: "
+msgstr "ファイルの展開に失敗しました: "
+
+msgid "Failed to fetch patch list."
+msgstr "パッチ一覧の取得に失敗しました。"
+
+msgid "Failed to fetch repository "
+msgstr "リポジトリの取得に失敗しました "
+
+msgid "Failed to fetch repository '%s/%s': %s"
+msgstr "リポジトリ '%s/%s' の取得に失敗しました: %s"
+
+msgid "Failed to install patch: "
+msgstr "パッチのインストールに失敗しました: "
+
+msgid "Failed to open downloaded archive."
+msgstr "ダウンロードしたアーカイブを開けませんでした。"
+
+msgid "Failed to prepare patches directory."
+msgstr "パッチディレクトリの準備に失敗しました。"
+
+msgid "Failed to toggle patch status."
+msgstr "パッチ状態の切り替えに失敗しました。"
+
+msgid "Fetching Release Info"
+msgstr "リリース情報を取得中"
+
+msgid "Fetching changelog…"
+msgstr "変更履歴を取得中…"
+
+msgid "Fetching commits…"
+msgstr "コミットを取得中…"
+
+msgid "Fetching patch file listings…"
+msgstr "パッチファイル一覧を取得中…"
+
+msgid "Fetching patches via Direct GitHub API…"
+msgstr "Direct GitHub API経由でパッチを取得中…"
+
+msgid "Fetching plugins via Direct GitHub API…"
+msgstr "Direct GitHub API経由でプラグインを取得中…"
+
+msgid "Fetching release info…"
+msgstr "リリース情報を取得中…"
+
+msgid "Fetching releases…"
+msgstr "リリース情報を取得中…"
+
+msgid "Fetching repository %s/%s..."
+msgstr "リポジトリ %s/%s を取得中..."
+
+msgid "Filename cannot be empty."
+msgstr "ファイル名は空にできません。"
+
+msgid "Filter & Sort Fonts"
+msgstr "フォントのフィルターと並べ替え"
+
+msgid "Filter & Sort Installed"
+msgstr "インストール済みのフィルターと並べ替え"
+
+msgid "Filter & Sort Patches"
+msgstr "パッチのフィルターと並べ替え"
+
+msgid "Filter & Sort Plugins"
+msgstr "プラグインのフィルターと並べ替え"
+
+msgid "Filter & Sort Screensavers"
+msgstr "スクリーンセーバーを絞り込み & 並び替え"
+
+msgid "Filter Installed Patches"
+msgstr "インストール済みパッチをフィルター"
+
+msgid "Filter Installed Plugins"
+msgstr "インストール済みプラグインをフィルター"
+
+msgid "Filter pre-releases"
+msgstr "プレリリースをフィルター"
+
+msgid "Filter..."
+msgstr "フィルター..."
+
+msgid "Filter: "
+msgstr "フィルター: "
+
+msgid "Filters"
+msgstr "フィルター"
+
+msgid "Filters: "
+msgstr "フィルター: "
+
+msgid "Filters: (none)"
+msgstr "フィルター: (なし)"
+
+msgid "Folder Shuffle"
+msgstr "フォルダシャッフル"
+
+msgid "Folder Shuffle enabled with this wallpaper!"
+msgstr "この壁紙でフォルダシャッフルが有効になりました！"
+
+msgid "Font"
+msgstr "フォント"
+
+msgid "Font "
+msgstr "フォント "
+
+msgid "Font '%s' deleted."
+msgstr "フォント '%s' を削除しました。"
+
+msgid "Font files not found for %s."
+msgstr "%s のフォントファイルが見つかりません。"
+
+msgid "Font style"
+msgstr "フォントスタイル"
+
+msgid "Fonts"
+msgstr "フォント"
+
+msgid "Free up storage space on your device. Cached items are re-downloaded automatically when needed."
+msgstr "デバイスの空き容量を増やします。キャッシュされた項目は必要に応じて自動的に再ダウンロードされます。"
+
+msgid "GitHub API rate limit exceeded. Add a GitHub token in Storefront settings to increase the limit (10→30 req/min)."
+msgstr "GitHub APIのレート制限を超過しました。制限を増やすには Storefront の設定で GitHub トークンを追加してください (10→30 リクエスト/分)。"
+
+msgid "GitHub API rate limit exceeded. Please wait a few minutes and try again."
+msgstr "GitHub API のレート制限を超過しました。数分待ってから再試行してください。"
+
+msgid "GitHub personal access token"
+msgstr "GitHub 個人用アクセストークン"
+
+msgid "GitHub rejected this request: fine-grained personal access tokens are not supported for search. Please use a classic token instead (see the Storefront README)."
+msgstr "GitHub にリクエストが拒否されました: 細粒度 (fine-grained) 個人用アクセストークンは検索でサポートされていません。代わりにクラシックトークンを使用してください (Storefront の README を参照)。"
+
+msgid "GitHub token"
+msgstr "GitHubトークン"
+
+msgid "GitHub token saved."
+msgstr "GitHub トークンを保存しました。"
+
+msgid "Go"
+msgstr "移動"
+
+msgid "Go to page"
+msgstr "ページへ移動"
+
+msgid "HTTP error"
+msgstr "HTTP エラー"
+
+msgid "HTTP request failed"
+msgstr "HTTPリクエストに失敗しました"
+
+msgid "Ignore"
+msgstr "無視"
+
+msgid "Ignore All Updates"
+msgstr "すべての更新を無視"
+
+msgid "Ignore Updates"
+msgstr "更新を無視"
+
+msgid "Ignored"
+msgstr "無視"
+
+msgid "Image View"
+msgstr "画像表示"
+
+msgid "Include 0-star forks"
+msgstr "スター0のフォークを含める"
+
+msgid "Install"
+msgstr "インストール"
+
+msgid "Install %s"
+msgstr "%s をインストール"
+
+msgid "Install Font"
+msgstr "フォントをインストール"
+
+msgid "Install Patch"
+msgstr "パッチをインストール"
+
+msgid "Install a patch"
+msgstr "パッチをインストール"
+
+msgid "Install patch from GitHub"
+msgstr "GitHubからパッチをインストール"
+
+msgid "Install plugin from GitHub"
+msgstr "GitHub からプラグインをインストール"
+
+msgid "Install to Default?"
+msgstr "デフォルトにインストールしますか？"
+
+msgid "Install to default"
+msgstr "デフォルトにインストール"
+
+msgid "Installation failed: "
+msgstr "インストールに失敗しました: "
+
+msgid "Installation is currently only supported for plugins."
+msgstr "現在、インストールはプラグインのみサポートされています。"
+
+msgid "Installed"
+msgstr "インストール済み"
+
+msgid "Installed Patches Settings"
+msgstr "インストール済みパッチの設定"
+
+msgid "Installed Plugins Settings"
+msgstr "インストール済みプラグインの設定"
+
+msgid "Installed Regular font style offline for \"%s\". Full font family queued for download when reconnected."
+msgstr "「%s」の Regular フォントスタイルをオフラインでインストールしました。再接続時にフォントファミリー全体のダウンロードが実行されます。"
+
+msgid "Installed Regular font style offline for \\\\\"%s\\\\\". Full font family queued for download when reconnected."
+msgstr "Installed Regular font style offline for \\\\\"%s\\\\\". Full font family queued for download when reconnected."
+
+msgid "Installed font \"%s\" (%d file(s))."
+msgstr "フォント「%s」をインストールしました (%d ファイル)。"
+
+msgid "Installed font \\\\\"%s\\\\\" (%d file(s))."
+msgstr "Installed font \\\\\"%s\\\\\" (%d file(s))."
+
+msgid "Installed full font family \"%s\" (%d file(s))."
+msgstr "フォントファミリー「%s」全体をインストールしました (%d ファイル)。"
+
+msgid "Installed full font family \\\\\"%s\\\\\" (%d file(s))."
+msgstr "Installed full font family \\\\\"%s\\\\\" (%d file(s))."
+
+msgid "Installed patch \"%s\"."
+msgstr "パッチ「%s」をインストールしました。"
+
+msgid "Installed patch \\\\\"%s\\\\\"."
+msgstr "Installed patch \\\\\"%s\\\\\"."
+
+msgid "Installed plugin \"%s\" (version %s)."
+msgstr "プラグイン「%s」（バージョン %s）をインストールしました。"
+
+msgid "Installed plugin \"%s\"."
+msgstr "プラグイン「%s」をインストールしました。"
+
+msgid "Installed plugin Storefront version %s"
+msgstr "Storefront プラグイン バージョン %s をインストールしました"
+
+msgid "Installing %s…"
+msgstr "%s をインストール中…"
+
+msgid "Invalid archive reader"
+msgstr "無効なアーカイブリーダー"
+
+msgid "Invalid extraction parameters"
+msgstr "無効な展開パラメーター"
+
+msgid "Invalid patch target filename."
+msgstr "パッチ対象のファイル名が無効です。"
+
+msgid "Invalid selection."
+msgstr "無効な選択です。"
+
+msgid "Invert colors (night mode / dark background)"
+msgstr "色を反転（夜間モード / ダーク背景）"
+
+msgid "It is a truth universally acknowledged, that a single man in possession of a good fortune, must be in want of a wife. However little known the feelings or views of such a man may be on his first entering a neighbourhood, this truth is so well fixed in the minds of the surrounding families, that he is considered the rightful property of some one or other of their daughters."
+msgstr "資産のある独身男性が妻を求めているということは、世一般的によく知られた真理である。"
+
+msgid "Items per page"
+msgstr "1ページあたりの項目数"
+
+msgid "Items per page: %d"
+msgstr "1ページあたりの項目数: %d"
+
+msgid "Last Updated (Newest)"
+msgstr "更新日（新しい順）"
+
+msgid "Last Updated (Oldest)"
+msgstr "更新日（古い順）"
+
+msgid "Last check: %s"
+msgstr "最終確認: %s"
+
+msgid "Latest Release"
+msgstr "最新リリース"
+
+msgid "Latest release"
+msgstr "最新リリース"
+
+msgid "License: %s"
+msgstr "ライセンス: %s"
+
+msgid "Linked only"
+msgstr "リンク済みのみ"
+
+msgid "Loading README..."
+msgstr "README を読み込み中..."
+
+msgid "Loading Release Notes..."
+msgstr "リリースノートを読み込み中..."
+
+msgid "Loading Versions..."
+msgstr "バージョンを読み込み中..."
+
+msgid "Loading Wiki..."
+msgstr "Wikiを読み込み中..."
+
+msgid "Local SHA: %s"
+msgstr "ローカル SHA: %s"
+
+msgid "Local version: %s"
+msgstr "ローカルバージョン: %s"
+
+msgid "Local: %s"
+msgstr "ローカル: %s"
+
+msgid "Local: %s → Remote: %s"
+msgstr "ローカル: %s → リモート: %s"
+
+msgid "Manage plugin paths"
+msgstr "プラグインパスの管理"
+
+msgid "Manage plugin paths\n\nHiding a path only affects what Storefront shows/manages here. KOReader will still load plugins from it."
+msgstr "プラグインのパスを管理\n\nパスを非表示にしても Storefront での表示・管理にのみ影響します。KOReader は引き続きそのパスからプラグインを読み込みます。"
+
+msgid "Manage plugin paths\\\n\\\nHiding a path only affects what Storefront shows/manages here. KOReader will still load plugins from it."
+msgstr "Manage plugin paths\\\n\\\nHiding a path only affects what Storefront shows/manages here. KOReader will still load plugins from it."
+
+msgid "Match"
+msgstr "照合"
+
+msgid "Match from List"
+msgstr "一覧から照合"
+
+msgid "Match patch with GitHub repository"
+msgstr "パッチを GitHub リポジトリと照合"
+
+msgid "Match plugin with GitHub repository"
+msgstr "プラグインを GitHub リポジトリと照合"
+
+msgid "Match plugin: %s"
+msgstr "プラグインを照合: %s"
+
+msgid "Match this remote patch"
+msgstr "このリモートパッチと関連付ける"
+
+msgid "Match with URL"
+msgstr "URLと照合"
+
+msgid "Match with repo"
+msgstr "リポジトリと照合"
+
+msgid "Match with this repo"
+msgstr "このリポジトリと関連付ける"
+
+msgid "Matched %s with %s."
+msgstr "%s を %s に関連付けました。"
+
+msgid "Matched repo: %s/%s"
+msgstr "照合済みリポジトリ: %s/%s"
+
+msgid "Matching entries: %s / %s"
+msgstr "一致する項目: %s / %s"
+
+msgid "Matching patch: %s — tap to cancel"
+msgstr "照合中のパッチ: %s — タップでキャンセル"
+
+msgid "Matching patches: %s (repos: %s / %s)"
+msgstr "一致するパッチ: %s (リポジトリ: %s / %s)"
+
+msgid "Matching plugin: %s — tap to cancel"
+msgstr "照合中のプラグイン: %s — タップでキャンセル"
+
+msgid "Minimum stars"
+msgstr "最小スター数"
+
+msgid "Missing README path"
+msgstr "READMEのパスが見つかりません"
+
+msgid "Missing URL"
+msgstr "URLがありません"
+
+msgid "Missing asset download URL."
+msgstr "アセットのダウンロードURLがありません。"
+
+msgid "Missing download URL for release asset."
+msgstr "リリースアセットのダウンロードURLがありません。"
+
+msgid "Missing font metadata."
+msgstr "フォントのメタデータが見つかりません。"
+
+msgid "Missing meta path in record."
+msgstr "レコードにメタパスがありません。"
+
+msgid "Missing repository info for patch update."
+msgstr "パッチ更新用のリポジトリ情報がありません。"
+
+msgid "Missing repository info for update."
+msgstr "更新に必要なリポジトリ情報が見つかりません。"
+
+msgid "Missing repository metadata for README download."
+msgstr "READMEダウンロード用のリポジトリメタデータがありません。"
+
+msgid "Missing repository metadata for installation."
+msgstr "インストールに必要なリポジトリのメタデータが見つかりません。"
+
+msgid "Missing repository metadata for patch install."
+msgstr "パッチのインストールに必要なリポジトリのメタデータが見つかりません。"
+
+msgid "Missing repository metadata for patch."
+msgstr "パッチのリポジトリのメタデータが見つかりません。"
+
+msgid "Missing repository metadata for releases."
+msgstr "リリースに必要なリポジトリのメタデータが見つかりません。"
+
+msgid "Missing repository metadata for remote fetch."
+msgstr "リモート取得用のリポジトリメタデータがありません。"
+
+msgid "Modify Patch"
+msgstr "パッチを修正"
+
+msgid "Modify Plugin"
+msgstr "プラグインを変更"
+
+msgid "Modify Plugin: %s"
+msgstr "プラグインの修正: %s"
+
+msgid "Most Downloaded"
+msgstr "ダウンロード数順"
+
+msgid "Most Popular"
+msgstr "人気順"
+
+msgid "Multiple custom plugin folders are configured. Where should this plugin be installed?"
+msgstr "複数のカスタムプラグインフォルダが設定されています。このプラグインをどこにインストールしますか？"
+
+msgid "My wallpaper collection"
+msgstr "マイ壁紙コレクション"
+
+msgid "Name (A-Z)"
+msgstr "名前（A-Z）"
+
+msgid "Name (Z-A)"
+msgstr "名前（Z-A）"
+
+msgid "Name, description, topic"
+msgstr "名前、説明、トピック"
+
+msgid "Needs update"
+msgstr "要更新"
+
+msgid "Needs update: %d"
+msgstr "要更新: %d"
+
+msgid "Never"
+msgstr "しない"
+
+msgid "New filename"
+msgstr "新しいファイル名"
+
+msgid "Next"
+msgstr "次へ"
+
+msgid "Next >"
+msgstr "次へ >"
+
+msgid "No Fill (Transparent)"
+msgstr "塗りつぶしなし (透明)"
+
+msgid "No Lua files found in plugin directory"
+msgstr "プラグインディレクトリ内にLuaファイルが見つかりません"
+
+msgid "No README available."
+msgstr "利用可能なREADMEがありません。"
+
+msgid "No Release Notes available."
+msgstr "リリースノートはありません。"
+
+msgid "No Wiki available."
+msgstr "Wiki はありません。"
+
+msgid "No cached README files to delete."
+msgstr "削除するキャッシュ済み README ファイルはありません。"
+
+msgid "No cached entries yet."
+msgstr "キャッシュされた項目はまだありません。"
+
+msgid "No cached entries yet. Refresh to fetch from GitHub."
+msgstr "キャッシュされた項目がありません。更新して GitHub から取得してください。"
+
+msgid "No changelog entries found for this range."
+msgstr "この範囲に変更履歴のエントリが見つかりません。"
+
+msgid "No commits found in this range."
+msgstr "この範囲にコミットが見つかりません。"
+
+msgid "No config files found — uncheck filter to show all files"
+msgstr "設定ファイルが見つかりません — フィルターを解除してすべてのファイルを表示"
+
+msgid "No date"
+msgstr "日付なし"
+
+msgid "No detailed release notes provided for this version."
+msgstr "このバージョンには詳細なリリースノートが提供されていません。"
+
+msgid "No entries match current filters."
+msgstr "現在のフィルターに一致する項目はありません。"
+
+msgid "No installed items found."
+msgstr "インストール済みの項目が見つかりません。"
+
+msgid "No items found."
+msgstr "項目が見つかりません。"
+
+msgid "No matched patches to check."
+msgstr "確認する照合済みパッチはありません。"
+
+msgid "No matched plugins to check."
+msgstr "確認対象の関連付けられたプラグインがありません。"
+
+msgid "No patch files found in %s/%s."
+msgstr "%s/%s 内にパッチファイルが見つかりません。"
+
+msgid "No patch files found in repository %s."
+msgstr "リポジトリ %s 内にパッチファイルが見つかりません。"
+
+msgid "No patches found in matching repositories."
+msgstr "一致するリポジトリ内にパッチが見つかりません。"
+
+msgid "No patches need updates."
+msgstr "更新が必要なパッチはありません。"
+
+msgid "No patches to display."
+msgstr "表示するパッチはありません。"
+
+msgid "No plugin files were extracted"
+msgstr "プラグインファイルが展開されませんでした"
+
+msgid "No plugins need updates."
+msgstr "更新が必要なプラグインはありません。"
+
+msgid "No plugins to display."
+msgstr "表示するプラグインがありません。"
+
+msgid "No plugins tracked yet."
+msgstr "追跡されているプラグインはまだありません。"
+
+msgid "No previous page in history"
+msgstr "履歴に前のページがありません"
+
+msgid "No release notes provided for this version."
+msgstr "このバージョンにはリリースノートが提供されていません。"
+
+msgid "No release notes."
+msgstr "リリースノートはありません。"
+
+msgid "No releases found for this repository."
+msgstr "このリポジトリにはリリースが見つかりません。"
+
+msgid "No remote version info for %s."
+msgstr "%s のリモートバージョン情報がありません。"
+
+msgid "No screensavers match this filter."
+msgstr "このフィルタに一致するスクリーンセーバーはありません。"
+
+msgid "No stable releases found — uncheck filter to show all releases"
+msgstr "安定リリースが見つかりません — すべてのリリースを表示するにはフィルターを解除してください"
+
+msgid "No tracked plugins to check."
+msgstr "確認対象の追跡中プラグインがありません。"
+
+msgid "No wallpapers found in your screensavers folder.\n\nBrowse the Screensavers catalog in Storefront to download wallpapers!"
+msgstr "スクリーンセーバーフォルダに壁紙が見つかりませんでした。\n\nStorefrontのカタログから壁紙をダウンロードしてください！"
+
+msgid "No wallpapers found in your screensavers folder.\\\n\\\nBrowse the Screensavers catalog in Storefront to download wallpapers!"
+msgstr "No wallpapers found in your screensavers folder.\\\n\\\nBrowse the Screensavers catalog in Storefront to download wallpapers!"
+
+msgid "None selected"
+msgstr "選択なし"
+
+msgid "Not matched with a repository."
+msgstr "リポジトリに関連付けられていません。"
+
+msgid "Not set"
+msgstr "未設定"
+
+msgid "Notes"
+msgstr "メモ"
+
+msgid "OK"
+msgstr "OK"
+
+msgid "Offline Regular"
+msgstr "オフライン Regular"
+
+msgid "Open"
+msgstr "開く"
+
+msgid "Open Wallpaper Collection Gallery"
+msgstr "壁紙ギャラリーを開く"
+
+msgid "Open details"
+msgstr "詳細を開く"
+
+msgid "Optional. Raises the GitHub API rate limit. Generate one (classic, "
+msgstr "任意。GitHub API のレート制限を引き上げます。作成方法 (クラシック, "
+
+msgid "Optional. Raises the GitHub API rate limit. Generate one (classic, 'public_repo' scope is enough) at github.com/settings/tokens, then paste it here."
+msgstr "任意。GitHub APIのレート制限を引き上げます。github.com/settings/tokens でトークン(classic、'public_repo'スコープで十分です)を生成し、ここに貼り付けてください。"
+
+msgid "Options ▾"
+msgstr "オプション ▾"
+
+msgid "Origin"
+msgstr "提供元"
+
+msgid "Owner"
+msgstr "所有者"
+
+msgid "Owner %s"
+msgstr "所有者 %s"
+
+msgid "Owner: "
+msgstr "所有者: "
+
+msgid "Pack my box with five dozen liquor jugs."
+msgstr "いろはにほへと ちりぬるを わかよたれそ つねならむ"
+
+msgid "Page %d of %d"
+msgstr "ページ %d / %d"
+
+msgid "Page %d/%d"
+msgstr "ページ %d/%d"
+
+msgid "Pangram Preview"
+msgstr "プレビュー"
+
+msgid "Patch"
+msgstr "パッチ"
+
+msgid "Patch "
+msgstr "パッチ "
+
+msgid "Patch %s has been %s."
+msgstr "パッチ %s が%sされました。"
+
+msgid "Patch '%s' deleted."
+msgstr "パッチ '%s' を削除しました。"
+
+msgid "Patch '%s' disabled."
+msgstr "パッチ '%s' を無効化しました。"
+
+msgid "Patch '%s' enabled."
+msgstr "パッチ '%s' を有効化しました。"
+
+msgid "Patch cache is older than a week, consider refreshing."
+msgstr "パッチのキャッシュが1週間以上前のもので、更新をおすすめします。"
+
+msgid "Patch file not found in repository."
+msgstr "リポジトリ内にパッチファイルが見つかりません。"
+
+msgid "Patch file not found locally."
+msgstr "ローカルにパッチファイルが見つかりません。"
+
+msgid "Patch file not found."
+msgstr "パッチファイルが見つかりません。"
+
+msgid "Patch matching cancelled."
+msgstr "パッチの照合をキャンセルしました。"
+
+msgid "Patch: %s"
+msgstr "パッチ: %s"
+
+msgid "Patches"
+msgstr "パッチ"
+
+msgid "Patches cached: %s (last update: %s)"
+msgstr "キャッシュ済みパッチ: %s (最終更新: %s)"
+
+msgid "Patches found: %d"
+msgstr "見つかったパッチ: %d"
+
+msgid "Path: %s"
+msgstr "パス: %s"
+
+msgid "Plugin"
+msgstr "プラグイン"
+
+msgid "Plugin "
+msgstr "プラグイン "
+
+msgid "Plugin %s has been %s."
+msgstr "プラグイン %s が%sされました。"
+
+msgid "Plugin '%s' deleted."
+msgstr "プラグイン '%s' を削除しました。"
+
+msgid "Plugin '%s' disabled."
+msgstr "プラグイン '%s' を無効化しました。"
+
+msgid "Plugin '%s' enabled."
+msgstr "プラグイン '%s' を有効化しました。"
+
+msgid "Plugin and patch browser for KOReader."
+msgstr "KOReader 用プラグイン＆パッチブラウザ。"
+
+msgid "Plugin cache is older than a week, consider refreshing."
+msgstr "プラグインのキャッシュが1週間以上経過しています。更新を検討してください。"
+
+msgid "Plugin directory not found."
+msgstr "プラグインディレクトリが見つかりません。"
+
+msgid "Plugin folder not found."
+msgstr "プラグインフォルダが見つかりません。"
+
+msgid "Plugin is not currently loaded, so settings cannot be deleted."
+msgstr "プラグインが現在読み込まれていないため、設定を削除できません。"
+
+msgid "Plugins"
+msgstr "プラグイン"
+
+msgid "Plugins cached: %s (last update: %s)"
+msgstr "キャッシュ済みプラグイン: %s (最終更新: %s)"
+
+msgid "Pool size: %d wallpapers in rotation"
+msgstr "プールサイズ: %d 枚の壁紙がローテーション"
+
+msgid "Pre-installed core KOReader plugin."
+msgstr "KOReader に標準でインストールされているコアプラグインです。"
+
+msgid "Prev"
+msgstr "前へ"
+
+msgid "Published: %s"
+msgstr "公開日: %s"
+
+msgid "README"
+msgstr "README"
+
+msgid "README download failed: "
+msgstr "READMEのダウンロードに失敗しました: "
+
+msgid "README files & images"
+msgstr "READMEファイルと画像"
+
+msgid "Rate Wallpaper"
+msgstr "壁紙を評価"
+
+msgid "Reading Passage Specimen"
+msgstr "サンプル文章"
+
+msgid "Reading Progress"
+msgstr "読書進捗"
+
+msgid "Reading Progress / Summary"
+msgstr "読書の進捗 / サマリー"
+
+msgid "Recently Added"
+msgstr "最近追加された項目"
+
+msgid "Refresh"
+msgstr "更新"
+
+msgid "Refresh cache"
+msgstr "キャッシュを更新"
+
+msgid "Refresh catalog"
+msgstr "カタログを更新"
+
+msgid "Refreshing catalog via Direct GitHub API…"
+msgstr "Direct GitHub API経由でカタログを更新中…"
+
+msgid "Refreshing catalog..."
+msgstr "カタログを更新中..."
+
+msgid "Refreshing catalog…"
+msgstr "カタログを更新中…"
+
+msgid "Refreshing…"
+msgstr "更新中…"
+
+msgid "Reinstall"
+msgstr "再インストール"
+
+msgid "Release"
+msgstr "リリース"
+
+msgid "Release Notes"
+msgstr "リリースノート"
+
+msgid "Release notes for %s"
+msgstr "%s のリリースノート"
+
+msgid "Release: %s"
+msgstr "リリース: %s"
+
+msgid "Releases"
+msgstr "リリース"
+
+msgid "Releases — %s"
+msgstr "リリース — %s"
+
+msgid "Remote SHA: %s"
+msgstr "リモートSHA: %s"
+
+msgid "Remote SHA: %s (checked %s)"
+msgstr "リモート SHA: %s (確認済み %s)"
+
+msgid "Remote check failed: "
+msgstr "リモート確認に失敗しました: "
+
+msgid "Remote version for %s: %s."
+msgstr "%s のリモートバージョン: %s。"
+
+msgid "Remote version not found."
+msgstr "リモートのバージョンが見つかりません。"
+
+msgid "Remote: %s"
+msgstr "リモート: %s"
+
+msgid "Remote: %s (checked %s)"
+msgstr "リモート: %s (確認日時: %s)"
+
+msgid "Remote: (not checked)"
+msgstr "リモート: (未確認)"
+
+msgid "Remove"
+msgstr "削除"
+
+msgid "Remove "
+msgstr "削除"
+
+msgid "Remove '%s' from your wallpaper collection?"
+msgstr "'%s' を壁紙コレクションから削除しますか？"
+
+msgid "Remove Wallpaper?"
+msgstr "壁紙を削除しますか？"
+
+msgid "Rename"
+msgstr "名前を変更"
+
+msgid "Rename failed: %s"
+msgstr "名前の変更に失敗しました: %s"
+
+msgid "Rename file"
+msgstr "ファイル名を変更"
+
+msgid "Renamed to "
+msgstr "名前を以下に変更しました: "
+
+msgid "Renamed to '%s'."
+msgstr "'%s' に名前を変更しました。"
+
+msgid "Repo: %s/%s"
+msgstr "リポジトリ: %s/%s"
+
+msgid "Repo: (not matched)"
+msgstr "リポジトリ: (未関連付け)"
+
+msgid "Repository"
+msgstr "リポジトリ"
+
+msgid "Repository %s not found on GitHub."
+msgstr "GitHub 上にリポジトリ %s が見つかりません。"
+
+msgid "Repository name"
+msgstr "リポジトリ名"
+
+msgid "Repository owner"
+msgstr "リポジトリ所有者"
+
+msgid "Repository: %s"
+msgstr "リポジトリ: %s"
+
+msgid "Reset filters"
+msgstr "フィルター解除"
+
+msgid "Reset to defaults"
+msgstr "デフォルトに戻す"
+
+msgid "Restart later"
+msgstr "後で再起動"
+
+msgid "Restart now"
+msgstr "今すぐ再起動"
+
+msgid "Sample Text"
+msgstr "サンプルテキスト"
+
+msgid "Save"
+msgstr "保存"
+
+msgid "Screensaver"
+msgstr "スクリーンセーバー"
+
+msgid "Screensaver & Wallpapers"
+msgstr "スクリーンセーバー & 壁紙"
+
+msgid "Screensaver Details"
+msgstr "スクリーンセーバーの詳細"
+
+msgid "Screensaver Mode"
+msgstr "スクリーンセーバーモード"
+
+msgid "Screensaver Settings"
+msgstr "スクリーンセーバー設定"
+
+msgid "Screensaver mode"
+msgstr "スクリーンセーバーモード"
+
+msgid "Screensaver thumbnails"
+msgstr "スクリーンセーバーサムネイル"
+
+msgid "Screensavers"
+msgstr "スクリーンセーバー"
+
+msgid "Search"
+msgstr "検索"
+
+msgid "Search \"%s\""
+msgstr "「%s」を検索"
+
+msgid "Search & API"
+msgstr "検索とAPI"
+
+msgid "Search filter (\"%s\") is not applied to Updates."
+msgstr "Search filter (\"%s\") is not applied to Updates."
+
+msgid "Search filter (\\\\\"%s\\\\\") is not applied to Updates."
+msgstr "Search filter (\\\\\"%s\\\\\") is not applied to Updates."
+
+msgid "Search text"
+msgstr "検索テキスト"
+
+msgid "Search: "
+msgstr "検索: "
+
+msgid "Select All"
+msgstr "すべて選択"
+
+msgid "Select Categories"
+msgstr "カテゴリを選択"
+
+msgid "Select a repository patch entry to match with the chosen file."
+msgstr "選択したファイルと照合するリポジトリのパッチ項目を選択してください。"
+
+msgid "Select a repository to match with the chosen plugin."
+msgstr "選択したプラグインに関連付けるリポジトリを選択してください。"
+
+msgid "Select installation directory"
+msgstr "インストール先ディレクトリを選択"
+
+msgid "Select patch file from %s"
+msgstr "%s からパッチファイルを選択"
+
+msgid "Select patch in %s"
+msgstr "%s 内のパッチを選択"
+
+msgid "Select plugin to match"
+msgstr "関連付けるプラグインを選択"
+
+msgid "Select repository"
+msgstr "リポジトリを選択"
+
+msgid "Set"
+msgstr "設定"
+
+msgid "Set Active Single"
+msgstr "この壁紙を適用"
+
+msgid "Set Single"
+msgstr "単一に設定"
+
+msgid "Set as Active"
+msgstr "アクティブに設定"
+
+msgid "Set as Active Single Wallpaper"
+msgstr "アクティブな単一壁紙として設定"
+
+msgid "Set as active single wallpaper!"
+msgstr "アクティブな単一壁紙として設定しました！"
+
+msgid "Settings"
+msgstr "設定"
+
+msgid "Show needs update"
+msgstr "要更新のみ表示"
+
+msgid "Show reading progress banner overlay"
+msgstr "読書進捗バナーを表示"
+
+msgid "Shows reading stats, percentage, and chapter progress"
+msgstr "読書統計、パーセンテージ、章の進捗を表示します"
+
+msgid "Shows the cover of the book currently being read"
+msgstr "現在読んでいる本の表紙を表示します"
+
+msgid "Shuffle (%d)"
+msgstr "シャッフル (%d)"
+
+msgid "Shuffle Pool"
+msgstr "シャッフルプール"
+
+msgid "Shuffles through all wallpapers in folder on sleep.\nPool size: %d wallpapers in rotation"
+msgstr "スリープ時にフォルダ内のすべての壁紙を順に切り替えます。\nプールサイズ: %d 枚の壁紙がローテーション"
+
+msgid "Single"
+msgstr "単一"
+
+msgid "Single Wallpaper"
+msgstr "単一壁紙"
+
+msgid "Solid fill for screen margins & letterboxing"
+msgstr "画面余白を塗りつぶし"
+
+msgid "Sort"
+msgstr "並べ替え"
+
+msgid "Sort mode"
+msgstr "並べ替えモード"
+
+msgid "Sort: A-Z"
+msgstr "順序: A-Z"
+
+msgid "Sort: Most Liked"
+msgstr "並び替え: 高評価順"
+
+msgid "Sort: Name (A → Z)"
+msgstr "順序: 名前（昇順）"
+
+msgid "Sort: Name (Z → A)"
+msgstr "順序: 名前（降順）"
+
+msgid "Sort: Oldest"
+msgstr "順序: 古い順"
+
+msgid "Sort: Recently updated"
+msgstr "順序: 更新日順"
+
+msgid "Sort: Stars (high → low)"
+msgstr "順序: スター順"
+
+msgid "Sort: Status"
+msgstr "順序: 状態順"
+
+msgid "Sort: Type"
+msgstr "順序: 種類順"
+
+msgid "Sort: Updated"
+msgstr "並び替え: 更新日時"
+
+msgid "Sort: Z-A"
+msgstr "順序: Z-A"
+
+msgid "Sorting"
+msgstr "並べ替え"
+
+msgid "Stable"
+msgstr "安定版"
+
+msgid "Status"
+msgstr "状態"
+
+msgid "Status: Needs matching"
+msgstr "ステータス: 照合が必要"
+
+msgid "Status: Up to date"
+msgstr "ステータス: 最新"
+
+msgid "Status: Update available"
+msgstr "ステータス: 更新あり"
+
+msgid "Storefront"
+msgstr "Storefront"
+
+msgid "Storefront cache refreshed."
+msgstr "ストアフロントのキャッシュを更新しました。"
+
+msgid "Storefront is up to date (v%s)."
+msgstr "Storefrontは最新です (v%s)。"
+
+msgid "Storefront refresh failed: "
+msgstr "Storefront の更新に失敗しました: "
+
+msgid "Storefront · Updates"
+msgstr "Storefront · 更新"
+
+msgid "Storefront: Open"
+msgstr "Storefront: 開く"
+
+msgid "Stretch image to fill entire screen"
+msgstr "画面全体に合わせて拡大"
+
+msgid "Style: "
+msgstr "スタイル: "
+
+msgid "Successfully updated %d item(s)."
+msgstr "%d 個の項目を更新しました。"
+
+msgid "Successfully updated %d items."
+msgstr "%d 件のアイテムの更新に成功しました。"
+
+msgid "Switch to installed patches"
+msgstr "インストール済みパッチに切り替え"
+
+msgid "Switch to installed plugins"
+msgstr "インストール済みプラグインに切り替え"
+
+msgid "Switch to patch list"
+msgstr "パッチ一覧に切り替え"
+
+msgid "Switch to patches"
+msgstr "パッチ一覧に切り替え"
+
+msgid "Switch to plugin list"
+msgstr "プラグイン一覧に切り替え"
+
+msgid "Tag not found on GitHub (%s or %s)."
+msgstr "GitHub上にタグが見つかりません (%s または %s)。"
+
+msgid "Text"
+msgstr "テキスト"
+
+msgid "Text editor plugin is not available."
+msgstr "テキストエディタプラグインが利用できません。"
+
+msgid "The quick brown fox jumps over the lazy dog."
+msgstr "いろはにほへと ちりぬるを わかよたれそ つねならむ"
+
+msgid "This action cannot be undone.\n\nChanges will take effect after restart."
+msgstr "この操作は取り消せません。\n\n変更は再起動後に有効になります。"
+
+msgid "This action cannot be undone.\\\n\\\nChanges will take effect after restart."
+msgstr "This action cannot be undone.\\\n\\\nChanges will take effect after restart."
+
+msgid "This wallpaper is currently set as your active screensaver."
+msgstr "この壁紙は現在アクティブなスクリーンセーバーとして設定されています。"
+
+msgid "This will delete all cached README files, wiki articles, and screensaver thumbnails (%s)."
+msgstr "キャッシュされたすべてのREADMEファイル、Wiki記事、スクリーンセーバーのサムネイル (%s) が削除されます。"
+
+msgid "This will delete cached README markdown files and downloaded images (%s)."
+msgstr "キャッシュされたREADMEマークダウンファイルとダウンロード画像 (%s) が削除されます。"
+
+msgid "This will delete cached screensaver thumbnail previews (%s)."
+msgstr "キャッシュされたスクリーンセーバーのサムネイルプレビュー (%s) が削除されます。"
+
+msgid "This will delete cached wiki articles and downloaded images (%s)."
+msgstr "キャッシュされたWiki記事とダウンロード画像 (%s) が削除されます。"
+
+msgid "This will take effect on next restart."
+msgstr "これは次回の再起動時に有効になります。"
+
+msgid "Total commits: %d"
+msgstr "総コミット数: %d"
+
+msgid "Tracked: %d"
+msgstr "追跡中: %d"
+
+msgid "Transparent overlay (page content visible behind)"
+msgstr "透明オーバーレイ（読書画面の上に表示）"
+
+msgid "Type"
+msgstr "種類"
+
+msgid "Unable to determine patch download URL."
+msgstr "パッチのダウンロード URL を特定できません。"
+
+msgid "Unable to load wiki page. Tap refresh to retry."
+msgstr "Wiki ページを読み込めません。再試行するには「更新」をタップしてください。"
+
+msgid "Unable to read README file"
+msgstr "READMEファイルを読み込めません"
+
+msgid "Unable to read README. Tap refresh to retry."
+msgstr "README を読み込めません。再試行するには「更新」をタップしてください。"
+
+msgid "Unable to store match for patch."
+msgstr "パッチの照合情報を保存できません。"
+
+msgid "Unable to store match for plugin."
+msgstr "プラグインの照合情報を保存できません。"
+
+msgid "Uninstall"
+msgstr "アンインストール"
+
+msgid "Unknown"
+msgstr "不明"
+
+msgid "Unknown error"
+msgstr "不明なエラー"
+
+msgid "Unlink the repo"
+msgstr "リポジトリのリンクを解除"
+
+msgid "Unlinked %s from repository."
+msgstr "%s のリポジトリとのリンクを解除しました。"
+
+msgid "Unmatched: %d"
+msgstr "未照合: %d"
+
+msgid "Unnamed release"
+msgstr "無題のリリース"
+
+msgid "Update"
+msgstr "更新"
+
+msgid "Update %d outdated item(s)?"
+msgstr "%d 件の古いアイテムを更新しますか？"
+
+msgid "Update %s?"
+msgstr "%sを更新しますか？"
+
+msgid "Update All"
+msgstr "すべて更新"
+
+msgid "Update all outdated items?"
+msgstr "すべての古いアイテムを更新しますか？"
+
+msgid "Update available for %s: remote %s, installed %s."
+msgstr "%s の更新が利用可能です: リモート %s、インストール済み %s。"
+
+msgid "Update channel"
+msgstr "更新チャンネル"
+
+msgid "Update check was cancelled"
+msgstr "更新確認がキャンセルされました"
+
+msgid "Update patch"
+msgstr "パッチを更新"
+
+msgid "Update plugin"
+msgstr "プラグインを更新"
+
+msgid "Updated %d of %d item(s) (%d failed)."
+msgstr "%d/%d件の項目を更新しました（失敗: %d件）。"
+
+msgid "Updated patch \"%s\"."
+msgstr "パッチ「%s」を更新しました。"
+
+msgid "Updated patch %s."
+msgstr "パッチ %s を更新しました。"
+
+msgid "Updated patch \\\\\"%s\\\\\"."
+msgstr "Updated patch \\\\\"%s\\\\\"."
+
+msgid "Updated plugin \"%s\" to version %s."
+msgstr "プラグイン「%s」をバージョン %s に更新しました。"
+
+msgid "Updated plugin \"%s\"."
+msgstr "プラグイン「%s」を更新しました。"
+
+msgid "Updated plugin \\\\\"%s\\\\\" to version %s."
+msgstr "Updated plugin \\\\\"%s\\\\\" to version %s."
+
+msgid "Updated plugin \\\\\"%s\\\\\"."
+msgstr "Updated plugin \\\\\"%s\\\\\"."
+
+msgid "Updated: %s"
+msgstr "更新日時: %s"
+
+msgid "Updates"
+msgstr "更新"
+
+msgid "Updates Ignored"
+msgstr "更新を無視中"
+
+msgid "Updating [%d/%d]: %s…"
+msgstr "更新中 [%d/%d]: %s…"
+
+msgid "User Installed"
+msgstr "ユーザー追加"
+
+msgid "Verifying repository %s/%s..."
+msgstr "リポジトリ %s/%s を検証中..."
+
+msgid "Version"
+msgstr "バージョン"
+
+msgid "Versions"
+msgstr "バージョン"
+
+msgid "View README"
+msgstr "README を表示"
+
+msgid "View commits (%s \\\\xE2\\\\x86\\\\x92 %s)"
+msgstr "View commits (%s \\\\xE2\\\\x86\\\\x92 %s)"
+
+msgid "View commits (%s → %s)"
+msgstr "コミットを表示 (%s → %s)"
+
+msgid "Wallpaper Collection"
+msgstr "壁紙コレクション"
+
+msgid "Wallpaper Options"
+msgstr "壁紙オプション"
+
+msgid "Wallpaper deleted from device."
+msgstr "壁紙をデバイスから削除しました。"
+
+msgid "Wallpaper removed"
+msgstr "壁紙を削除しました"
+
+msgid "Wallpaper saved to collection!"
+msgstr "壁紙をコレクションに保存しました！"
+
+msgid "Wallpaper set as active KOReader screensaver!"
+msgstr "壁紙をKOReaderのスクリーンセーバーに設定しました！"
+
+msgid "Wallpaper set as active screensaver!"
+msgstr "壁紙をアクティブなスクリーンセーバーに設定しました！"
+
+msgid "Warning: the selected version is older than what is currently installed. You are downgrading."
+msgstr "警告: 選択したバージョンは現在インストールされているものより古いバージョンです。ダウングレードされます。"
+
+msgid "White Fill"
+msgstr "白塗りつぶし"
+
+msgid "Wiki"
+msgstr "Wiki"
+
+msgid "Wiki Pages"
+msgstr "Wiki ページ"
+
+msgid "Wiki pages & images"
+msgstr "Wikiページと画像"
+
+msgid "Z -> A"
+msgstr "Z -> A"
+
+msgid "Z → A"
+msgstr "Z → A"
+
+msgid "[ Loading preview... ]"
+msgstr "[ プレビューを読み込み中... ]"
+
+msgid "[ Wallpaper Preview Loading... ]"
+msgstr "[ 壁紙プレビューを読み込み中... ]"
+
+msgid "[Ignored]"
+msgstr "[無視]"
+
+msgid "[draft]"
+msgstr "[下書き]"
+
+msgid "[pre]"
+msgstr "[プレ]"
+
+msgid "\\\\\"My dear Mr. Bennet,\\\\\" said his lady to him one day, \\\\\"have you heard that Netherfield Park is let at last?\\\\\" Mr. Bennet replied that he had not. \\\\\"But it is,\\\\\" returned she; \\\\\"for Mrs. Long has just been here, and she told me all about it.\\\\\" Mr. Bennet made no answer."
+msgstr "\\\\\"My dear Mr. Bennet,\\\\\" said his lady to him one day, \\\\\"have you heard that Netherfield Park is let at last?\\\\\" Mr. Bennet replied that he had not. \\\\\"But it is,\\\\\" returned she; \\\\\"for Mrs. Long has just been here, and she told me all about it.\\\\\" Mr. Bennet made no answer."
+
+msgid "\\\\xC2\\\\xB7"
+msgstr "\\\\xC2\\\\xB7"
+
+msgid "about_text"
+msgstr "Storefrontは、KOReader用のプラグイン、パッチ、フォントのパッケージマネージャーです。"
+
+msgid "anyone"
+msgstr "誰でも"
+
+msgid "btn_apply"
+msgstr "適用"
+
+msgid "btn_back"
+msgstr "戻る"
+
+msgid "btn_cancel"
+msgstr "キャンセル"
+
+msgid "btn_close"
+msgstr "閉じる"
+
+msgid "btn_install"
+msgstr "インストール"
+
+msgid "btn_ok"
+msgstr "OK"
+
+msgid "btn_preview"
+msgstr "プレビュー"
+
+msgid "btn_refresh"
+msgstr "更新"
+
+msgid "btn_release_notes"
+msgstr "リリースノート"
+
+msgid "btn_restart"
+msgstr "KOReaderを再起動"
+
+msgid "btn_retry"
+msgstr "再試行"
+
+msgid "btn_search"
+msgstr "検索"
+
+msgid "btn_uninstall"
+msgstr "アンインストール"
+
+msgid "btn_update"
+msgstr "更新"
+
+msgid "btn_view_details"
+msgstr "詳細を表示"
+
+msgid "confirm_install"
+msgstr "'%s' をインストールしますか？"
+
+msgid "confirm_uninstall"
+msgstr "'%s' をアンインストールしますか？この操作は取り消せません。"
+
+msgid "confirm_update"
+msgstr "'%s' を v%s から v%s に更新しますか？"
+
+msgid "disabled"
+msgstr "無効"
+
+msgid "e.g., koreader"
+msgstr "例: koreader"
+
+msgid "enabled"
+msgstr "有効"
+
+msgid "err_install_failed"
+msgstr "'%s' のインストールに失敗しました。"
+
+msgid "err_network_failed"
+msgstr "ネットワークエラー: カタログをダウンロードできません。"
+
+msgid "err_uninstall_failed"
+msgstr "'%s' のアンインストールに失敗しました。"
+
+msgid "filter_all"
+msgstr "全カテゴリ"
+
+msgid "filter_installed"
+msgstr "インストール済"
+
+msgid "filter_updates"
+msgstr "更新あり"
+
+msgid "font"
+msgstr "フォント"
+
+msgid "ghp_..."
+msgstr "ghp_..."
+
+msgid "header_about"
+msgstr "header_about"
+
+msgid "header_updates"
+msgstr "header_updates"
+
+msgid "label_author"
+msgstr "作者"
+
+msgid "label_description"
+msgstr "説明"
+
+msgid "label_downloads"
+msgstr "ダウンロード数"
+
+msgid "label_license"
+msgstr "ライセンス"
+
+msgid "label_repository"
+msgstr "リポジトリ"
+
+msgid "label_size"
+msgstr "サイズ"
+
+msgid "label_type"
+msgstr "種類"
+
+msgid "label_version"
+msgstr "バージョン"
+
+msgid "latest"
+msgstr "最新"
+
+msgid "menu_about"
+msgstr "Storefrontについて"
+
+msgid "menu_settings"
+msgstr "Storefront設定"
+
+msgid "menu_storefront"
+msgstr "Storefront"
+
+msgid "menu_storefront_desc"
+msgstr "プラグイン、パッチ、フォントの閲覧、インストール、更新を行います。"
+
+msgid "msg_catalog_updated"
+msgstr "カタログが正常に更新されました。"
+
+msgid "msg_installed_plugin"
+msgstr "プラグイン「%s」をインストールしました。"
+
+msgid "msg_installed_plugin_version"
+msgstr "プラグイン「%s」（バージョン %s）をインストールしました。"
+
+msgid "msg_no_results"
+msgstr "一致する項目が見つかりません。"
+
+msgid "new"
+msgstr "新規"
+
+msgid "not found"
+msgstr "見つかりません"
+
+msgid "patch"
+msgstr "パッチ"
+
+msgid "plugin"
+msgstr "プラグイン"
+
+msgid "progress_please_wait"
+msgstr "お待ちください"
+
+msgid "prompt_restart_needed"
+msgstr "インストールが完了しました。'%s' を有効にするために今すぐKOReaderを再起動しますか？"
+
+msgid "release asset"
+msgstr "リリースアセット"
+
+msgid "release is newer by date"
+msgstr "日付によりリリースの方が新しい"
+
+msgid "remote is newer by date"
+msgstr "日付によりリモートの方が新しい"
+
+msgid "repository"
+msgstr "リポジトリ"
+
+msgid "search_hint"
+msgstr "ストア内を検索..."
+
+msgid "status_builtin"
+msgstr "組み込み"
+
+msgid "status_downloading"
+msgstr "ダウンロード中..."
+
+msgid "status_installed"
+msgstr "インストール済み"
+
+msgid "status_installing"
+msgstr "インストール中..."
+
+msgid "status_not_installed"
+msgstr "未インストール"
+
+msgid "status_uninstalling"
+msgstr "アンインストール中..."
+
+msgid "status_update_available"
+msgstr "更新可能"
+
+msgid "storefront_title"
+msgstr "Storefront"
+
+msgid "tab_all"
+msgstr "すべて"
+
+msgid "tab_fonts"
+msgstr "フォント"
+
+msgid "tab_patches"
+msgstr "パッチ"
+
+msgid "tab_plugins"
+msgstr "プラグイン"
+
+msgid "tab_readme"
+msgstr "README"
+
+msgid "tab_sample_text"
+msgstr "サンプルテキスト"
+
+msgid "tab_screensavers"
+msgstr "壁紙"
+
+msgid "tab_versions"
+msgstr "バージョン"
+
+msgid "unknown"
+msgstr "不明"
+
+msgid "updated %s"
+msgstr "更新: %s"
+
+msgid "updated %s (%s)"
+msgstr "更新済み %s (%s)"
+
+msgid "·"
+msgstr "·"
+
+msgid "≥ %s ⭐"
+msgstr "≥ %s ⭐"
+
+msgid "★ ACTIVE"
+msgstr "★ 有効"
+
+msgid "⚙ Settings"
+msgstr "⚙ 設定"
+
+msgid "⚙ Settings..."
+msgstr "⚙ 設定..."
+
+msgid "✓ Current"
+msgstr "✓ 現在"
+
+msgid "Downloading…"
+msgstr ""
+
+msgid "Download cancelled."
+msgstr ""
+
+msgid "Batch update cancelled."
+msgstr ""
+
+msgid "Connecting…"
+msgstr ""
+

@@ -1,0 +1,2290 @@
+msgid ""
+msgstr ""
+"Language-Team: French\n"
+"Language: fr\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "\"My dear Mr. Bennet,\" said his lady to him one day, \"have you heard that Netherfield Park is let at last?\" Mr. Bennet replied that he had not. \"But it is,\" returned she; \"for Mrs. Long has just been here, and she told me all about it.\" Mr. Bennet made no answer."
+msgstr "\"Mon cher M. Bennet,\" lui dit un jour sa dame, \"avez-vous appris que Netherfield Park est enfin loué ?\" M. Bennet répondit que non. \"Mais si,\" reprit-elle, \"car Mme Long vient de sortir d'ici et elle m'a tout raconté.\" M. Bennet ne répondit pas."
+
+msgid "%d Categories"
+msgstr "%d catégories"
+
+msgid "%d items"
+msgstr "%d éléments"
+
+msgid "%d patches"
+msgstr "%d patchs"
+
+msgid "%d plugins"
+msgstr "%d plugins"
+
+msgid "%d wallpapers"
+msgstr "%d fonds d'écran"
+
+msgid "%d wallpapers stored on device"
+msgstr "%d fonds d'écran enregistrés sur l'appareil"
+
+msgid "%d wallpapers · Folder Shuffle (all in rotation)"
+msgstr "%d fonds · Lecture aléatoire du dossier (tous en rotation)"
+
+msgid "%d wallpapers · Mode: Book Cover"
+msgstr "%d fonds · Mode: Couverture de livre"
+
+msgid "%d wallpapers · Single mode active"
+msgstr "%d fonds · Mode unique actif"
+
+msgid "%s and %s"
+msgstr "%s et %s"
+
+msgid "%s is up to date (version %s)."
+msgstr "%s est à jour (version %s)."
+
+msgid "%s is up to date."
+msgstr "%s est à jour."
+
+msgid "%s needs an update."
+msgstr "%s nécessite une mise à jour."
+
+msgid "%s · %d files"
+msgstr "%s · %d fichiers"
+
+msgid "%s · 1 file"
+msgstr "%s · 1 fichier"
+
+msgid "(fork)"
+msgstr "(fork)"
+
+msgid "(showing %d of %d commits)"
+msgstr "(affichage de %d sur %d commits)"
+
+msgid "+ Add to Shuffle Pool"
+msgstr "+ Ajouter à la sélection aléatoire"
+
+msgid "1 / 1"
+msgstr "1 / 1"
+
+msgid "1 patch"
+msgstr "1 patch"
+
+msgid "1 plugin"
+msgstr "1 plugin"
+
+msgid "< Back"
+msgstr "< Retour"
+
+msgid "< Prev"
+msgstr "< Préc"
+
+msgid "?"
+msgstr "?"
+
+msgid "A -> Z"
+msgstr "A -> Z"
+
+msgid "A → Z"
+msgstr "A → Z"
+
+msgid "About"
+msgstr "À propos"
+
+msgid "About Storefront"
+msgstr "À propos de Storefront"
+
+msgid "Active Single"
+msgstr "Unique actif"
+
+msgid "Active Wallpaper ✓"
+msgstr "Fond d'écran actif ✓"
+
+msgid "Active: %s"
+msgstr "Actif: %s"
+
+msgid "Add to Shuffle"
+msgstr "Ajouter au mélange"
+
+msgid "Add to Shuffle Pool (Enable Shuffle)"
+msgstr "Ajouter au mélange (activer aléatoire)"
+
+msgid "Added to shuffle pool & Folder Shuffle enabled!"
+msgstr "Ajouté à la sélection et mode aléatoire activé !"
+
+msgid "All"
+msgstr "Tous"
+
+msgid "All Caches"
+msgstr "Tous les caches"
+
+msgid "All Categories"
+msgstr "Toutes les catégories"
+
+msgid "All Types"
+msgstr "Tous"
+
+msgid "All items are up to date."
+msgstr "Tous les éléments sont à jour."
+
+msgid "All of your custom plugin folders are currently hidden (see Manage plugin paths). Install to the default plugin folder anyway?"
+msgstr "Tous vos dossiers de plugins personnalisés sont actuellement masqués (voir Gérer les chemins de plugins). Installer dans le dossier par défaut tout de même ?"
+
+msgid "All patches"
+msgstr "Tous les patchs"
+
+msgid "All plugins"
+msgstr "Tous les plugins"
+
+msgid "All plugins are already matched."
+msgstr "Tous les plugins sont déjà associés."
+
+msgid "Allow pre-release updates"
+msgstr "Autoriser les mises à jour en pré-version"
+
+msgid "Alphabet & Numbers"
+msgstr "Alphabet & Chiffres"
+
+msgid "Also delete plugin settings"
+msgstr "Supprimer aussi les paramètres du plugin"
+
+msgid "Always install here (don"
+msgstr "Toujours installer ici (ne pas"
+
+msgid "Always install here (don't ask again)"
+msgstr "Toujours installer ici (ne plus demander)"
+
+msgid "Any"
+msgstr "Toutes"
+
+msgid "App Store · Installed patches"
+msgstr "Magasin · Patchs installés"
+
+msgid "App Store · Installed plugins"
+msgstr "App Store · Plugins installés"
+
+msgid "Apply"
+msgstr "Appliquer"
+
+msgid "Assets — %s"
+msgstr "Ressources — %s"
+
+msgid "Author"
+msgstr "Auteur"
+
+msgid "Back"
+msgstr "Retour"
+
+msgid "Beta"
+msgstr "Bêta"
+
+msgid "Black Fill"
+msgstr "Remplissage noir"
+
+msgid "Blank"
+msgstr "Vierge"
+
+msgid "Book Cover"
+msgstr "Couverture du livre"
+
+msgid "Border Fill / Background"
+msgstr "Remplissage bordure / Arrière-plan"
+
+msgid "Both owner and repository name are required."
+msgstr "Le propriétaire et le nom du dépôt sont requis."
+
+msgid "Branch: %s"
+msgstr "Branche : %s"
+
+msgid "Browse Wallpapers in Storefront"
+msgstr "Parcourir les fonds d'écran dans Storefront"
+
+msgid "By "
+msgstr "By"
+
+msgid "By: %s"
+msgstr "Par : %s"
+
+msgid "Cache empty. Refresh to retrieve repositories."
+msgstr "Cache vide. Rafraîchissez pour récupérer les dépôts."
+
+msgid "Cache is older than a week, consider refreshing."
+msgstr "Le cache date de plus d'une semaine, pensez à rafraîchir."
+
+msgid "Cached %s patch repositories."
+msgstr "%s dépôts de patchs mis en cache."
+
+msgid "Cached %s plugins."
+msgstr "%s plugins mis en cache."
+
+msgid "Can"
+msgstr "Peut"
+
+msgid "Can't load readme...."
+msgstr "Impossible de charger le fichier lisez-moi...."
+
+msgid "Cancel"
+msgstr "Annuler"
+
+msgid "Cancel matching"
+msgstr "Annuler l'association"
+
+msgid "Cannot read source file."
+msgstr "Impossible de lire le fichier source."
+
+msgid "Cannot write destination file."
+msgstr "Impossible d'écrire dans le fichier de destination."
+
+msgid "Catalog & Cache"
+msgstr "Catalogue & Cache"
+
+msgid "Catalog refresh failed: "
+msgstr "Échec du rafraîchissement du catalogue : "
+
+msgid "Catalog refresh is already in progress in the background."
+msgstr "Le rafraîchissement du catalogue est déjà en cours en arrière-plan."
+
+msgid "Catalog refreshed successfully."
+msgstr "Catalogue rafraîchi avec succès."
+
+msgid "Catalog source"
+msgstr "Source du catalogue"
+
+msgid "Catalog updated: %d plugins, %d patches, %d fonts."
+msgstr "Catalogue mis à jour : %d plugins, %d patchs, %d polices."
+
+msgid "Categories"
+msgstr "Catégories"
+
+msgid "Category: "
+msgstr "Catégorie : "
+
+msgid "Category: %s"
+msgstr "Catégorie : %s"
+
+msgid "Change..."
+msgstr "Modifier..."
+
+msgid "Changelog for %s\n%s \\\\xE2\\\\x86\\\\x92 %s"
+msgstr "Changelog for %s\n%s \\\\xE2\\\\x86\\\\x92 %s"
+
+msgid "Changelog for %s\n%s → %s"
+msgstr "Journal des modifications pour %s\n%s → %s"
+
+msgid "Changelog for %s\\\n%s \\\\xE2\\\\x86\\\\x92 %s"
+msgstr "Changelog for %s\\\n%s \\\\xE2\\\\x86\\\\x92 %s"
+
+msgid "Changelog: %s"
+msgstr "Notes de changement : %s"
+
+msgid "Check Updates"
+msgstr "Vérifier"
+
+msgid "Check all updates"
+msgstr "Vérifier toutes les MAJ"
+
+msgid "Check for updates"
+msgstr "Rechercher des mises à jour"
+
+msgid "Check this patch"
+msgstr "Vérifier ce patch"
+
+msgid "Check this plugin"
+msgstr "Vérifier ce plugin"
+
+msgid "Checked %d patches: %d need updates, %d up to date."
+msgstr "%d patchs vérifiés : %d nécessitent une mise à jour, %d sont à jour."
+
+msgid "Checked %d plugin updates"
+msgstr "%d mises à jour de plugins vérifiées"
+
+msgid "Checked %d plugin(s) for updates."
+msgstr "Recherche de mises à jour effectuée pour %d plugin(s)."
+
+msgid "Checking %s…"
+msgstr "Vérification de %s…"
+
+msgid "Checking for Storefront updates..."
+msgstr "Recherche de mises à jour de Storefront..."
+
+msgid "Checking for Storefront updates…"
+msgstr "Recherche de mises à jour de Storefront…"
+
+msgid "Checking patch updates…"
+msgstr "Vérification des MAJ de patchs…"
+
+msgid "Checking plugin updates"
+msgstr "Recherche de mises à jour des plugins"
+
+msgid "Checking plugin updates…"
+msgstr "Vérification des MAJ du plugin…"
+
+msgid "Choose Build — %s"
+msgstr "Choisir la version — %s"
+
+msgid "Clean"
+msgstr "Nettoyer"
+
+msgid "Clear"
+msgstr "Effacer"
+
+msgid "Clear All"
+msgstr "Tout effacer"
+
+msgid "Clear All Caches?"
+msgstr "Effacer tous les caches ?"
+
+msgid "Clear Cache"
+msgstr "Vider le cache"
+
+msgid "Clear README Cache?"
+msgstr "Effacer le cache README ?"
+
+msgid "Clear README cache"
+msgstr "Vider le cache README"
+
+msgid "Clear README cache (%s)?\nCached README files and images will be deleted."
+msgstr "Clear README cache (%s)?\nCached README files and images will be deleted."
+
+msgid "Clear Thumbnail Cache?"
+msgstr "Effacer le cache des miniatures ?"
+
+msgid "Clear Wiki Cache?"
+msgstr "Effacer le cache Wiki ?"
+
+msgid "Clear Wiki cache (%s)?\nCached wiki articles and images will be deleted."
+msgstr "Clear Wiki cache (%s)?\nCached wiki articles and images will be deleted."
+
+msgid "Clear all cached data (%s)?\nAll README files, wiki articles, and thumbnails will be deleted."
+msgstr "Clear all cached data (%s)?\nAll README files, wiki articles, and thumbnails will be deleted."
+
+msgid "Clear cache…"
+msgstr "Vider le cache"
+
+msgid "Clear screensaver thumbnail cache (%s)?\nThumbnails will be re-downloaded when viewing wallpapers."
+msgstr "Clear screensaver thumbnail cache (%s)?\nThumbnails will be re-downloaded when viewing wallpapers."
+
+msgid "Clear search & filters"
+msgstr "Effacer recherche et filtres"
+
+msgid "Clear search/filters"
+msgstr "Effacer recherche/filtres"
+
+msgid "Cleared README cache (%s freed)."
+msgstr "Cleared README cache (%s freed)."
+
+msgid "Cleared Wiki cache (%s freed)."
+msgstr "Cleared Wiki cache (%s freed)."
+
+msgid "Cleared all caches (%s freed, %d files)."
+msgstr "Cleared all caches (%s freed, %d files)."
+
+msgid "Cleared screensaver thumbnails (%s freed)."
+msgstr "Cleared screensaver thumbnails (%s freed)."
+
+msgid "Close"
+msgstr "Fermer"
+
+msgid "Collection"
+msgstr "Collection"
+
+msgid "Commit diff: %s → %s"
+msgstr "Diff des commits : %s → %s"
+
+msgid "Commits: %s \\\\xE2\\\\x86\\\\x92 %s"
+msgstr "Commits: %s \\\\xE2\\\\x86\\\\x92 %s"
+
+msgid "Commits: %s → %s"
+msgstr "Commits : %s → %s"
+
+msgid "Community"
+msgstr "Communauté"
+
+msgid "Config files only"
+msgstr "Fichiers de configuration uniquement"
+
+msgid "Configured ✓"
+msgstr "Configuré ✓"
+
+msgid "Confirm"
+msgstr "Confirmer"
+
+msgid "Confirm Update"
+msgstr "Confirmer la mise à jour"
+
+msgid "Confirm Update All"
+msgstr "Confirmer la mise à jour globale"
+
+msgid "Connecting to GitHub…\n\nPlease wait."
+msgstr "Connexion à GitHub…\n\nVeuillez patienter."
+
+msgid "Connecting to GitHub…\\\n\\\nPlease wait."
+msgstr "Connecting to GitHub…\\\n\\\nPlease wait."
+
+msgid "Continue"
+msgstr "Continuer"
+
+msgid "Copied to "
+msgstr "Copié dans "
+
+msgid "Copied to '%s'."
+msgstr "Copié dans '%s'."
+
+msgid "Copy"
+msgstr "Copier"
+
+msgid "Copy file as"
+msgstr "Copier le fichier sous"
+
+msgid "Could not detect .koplugin folder in archive"
+msgstr "Dossier .koplugin introuvable dans l'archive"
+
+msgid "Could not detect plugin inside archive."
+msgstr "Impossible de détecter le plugin dans l'archive."
+
+msgid "Could not fetch commit comparison."
+msgstr "Impossible de comparer les commits."
+
+msgid "Could not fetch releases for changelog."
+msgstr "Impossible de récupérer les versions pour le journal des modifications."
+
+msgid "Could not fetch releases for this repository."
+msgstr "Impossible de récupérer les versions pour ce dépôt."
+
+msgid "Could not locate plugin folder (_meta.lua) in archive."
+msgstr "Dossier du plugin (_meta.lua) introuvable dans l'archive."
+
+msgid "Could not open target file for writing"
+msgstr "Impossible d'ouvrir le fichier cible en écriture"
+
+msgid "Default"
+msgstr "Par défaut"
+
+msgid "Default only"
+msgstr "Par défaut"
+
+msgid "Delete"
+msgstr "Supprimer"
+
+msgid "Delete "
+msgstr "Supprimer"
+
+msgid "Delete '%s' from your device?"
+msgstr "Supprimer '%s' de votre appareil ?"
+
+msgid "Delete File?"
+msgstr "Supprimer le fichier ?"
+
+msgid "Delete Wallpaper?"
+msgstr "Supprimer le fond d'écran ?"
+
+msgid "Delete all cached README files? They will be re-downloaded on demand."
+msgstr "Supprimer tous les fichiers README en cache ? Ils seront téléchargés à nouveau à la demande."
+
+msgid "Delete file "
+msgstr "Supprimer le fichier "
+
+msgid "Delete file '%s'?\n\nThis cannot be undone."
+msgstr "Supprimer le fichier '%s' ?\n\nCette action est irréversible."
+
+msgid "Delete font "
+msgstr "Supprimer la police "
+
+msgid "Delete font '%s'?"
+msgstr "Supprimer la police '%s' ?"
+
+msgid "Delete from Device"
+msgstr "Supprimer de l'appareil"
+
+msgid "Delete patch"
+msgstr "Supprimer le patch"
+
+msgid "Delete patch "
+msgstr "Supprimer le patch "
+
+msgid "Delete patch '%s'?"
+msgstr "Supprimer le patch '%s' ?"
+
+msgid "Delete plugin"
+msgstr "Supprimer le plugin"
+
+msgid "Delete plugin "
+msgstr "Supprimer le plugin "
+
+msgid "Delete plugin '%s'?"
+msgstr "Supprimer le plugin '%s' ?"
+
+msgid "Deleted "
+msgstr "Supprimé "
+
+msgid "Deleted %d cached README file(s)."
+msgstr "%d fichier(s) README en cache supprimé(s)."
+
+msgid "Deleted %d cached README file(s); %d failed."
+msgstr "%d fichier(s) README en cache supprimé(s) ; %d a/ont échoué."
+
+msgid "Deleted '%s'."
+msgstr "'%s' supprimé."
+
+msgid "Direct GitHub API"
+msgstr "API GitHub directe"
+
+msgid "Disable"
+msgstr "Désactiver"
+
+msgid "Disable patch"
+msgstr "Désactiver le patch"
+
+msgid "Disable plugin"
+msgstr "Désactiver le plugin"
+
+msgid "Disabled"
+msgstr "Désactivé"
+
+msgid "Display Options"
+msgstr "Options d'affichage"
+
+msgid "Displays a static wallpaper on sleep"
+msgstr "Affiche un fond d'écran statique en veille"
+
+msgid "Displays a static wallpaper on sleep.\nActive: %s"
+msgstr "Affiche un fond statique en veille.\nActif: %s"
+
+msgid "Done"
+msgstr "Terminé"
+
+msgid "Download & Set Active"
+msgstr "Télécharger et activer"
+
+msgid "Download Only"
+msgstr "Télécharger uniquement"
+
+msgid "Download Only (Save to Device)"
+msgstr "Télécharger uniquement (enregistrer sur l'appareil)"
+
+msgid "Download failed: "
+msgstr "Échec du téléchargement : "
+
+msgid "Download options"
+msgstr "Options de téléchargement"
+
+msgid "Download options — %s"
+msgstr "Options de téléchargement — %s"
+
+msgid "Download options — %s (%s)"
+msgstr "Options de téléchargement — %s (%s)"
+
+msgid "Downloading "
+msgstr "Downloading..."
+
+msgid "Downloading %s%s…\nThis may take a moment."
+msgstr "Téléchargement de %s%s…\nCela peut prendre un moment."
+
+msgid "Downloading %s%s…\\\nThis may take a moment."
+msgstr "Downloading %s%s…\\\nThis may take a moment."
+
+msgid "Downloading %s…"
+msgstr "Téléchargement de %s…"
+
+msgid "Downloading '%s'..."
+msgstr "Downloading '%s'..."
+
+msgid "Downloading patch \"%s\"…"
+msgstr "Téléchargement du patch \"%s\"…"
+
+msgid "Downloading patch %s…"
+msgstr "Téléchargement du patch %s…"
+
+msgid "Downloading patch \\\\\"%s\\\\\"…"
+msgstr "Downloading patch \\\\\"%s\\\\\"…"
+
+msgid "Downloading screensaver..."
+msgstr "Téléchargement de l'écran de veille..."
+
+msgid "Downloading to shuffle pool..."
+msgstr "Téléchargement dans le dossier aléatoire..."
+
+msgid "Edit"
+msgstr "Éditer"
+
+msgid "Empty (0 KB)"
+msgstr "Vide (0 Ko)"
+
+msgid "Enable"
+msgstr "Activer"
+
+msgid "Enable patch"
+msgstr "Activer le patch"
+
+msgid "Enable plugin"
+msgstr "Activer le plugin"
+
+msgid "Enabled"
+msgstr "Activé"
+
+msgid "Enter item number"
+msgstr "Saisir le numéro d'élément"
+
+msgid "Enter plugin number"
+msgstr "Saisir le numéro du plugin"
+
+msgid "Extracting and installing plugin…\nPlease wait."
+msgstr "Extraction et installation du plugin…\nVeuillez patienter."
+
+msgid "Extracting and installing plugin…\\\nPlease wait."
+msgstr "Extracting and installing plugin…\\\nPlease wait."
+
+msgid "Failed to check %s: %s"
+msgstr "Échec de la vérification de %s : %s"
+
+msgid "Failed to check for Storefront updates: %s"
+msgstr "Échec de la recherche de mises à jour de la boutique : %s"
+
+msgid "Failed to create patches directory: %s"
+msgstr "Échec de la création du dossier de patchs : %s"
+
+msgid "Failed to delete patch: %s"
+msgstr "Échec de la suppression du patch : %s"
+
+msgid "Failed to delete plugin: %s"
+msgstr "Échec de la suppression du plugin : %s"
+
+msgid "Failed to delete: %s"
+msgstr "Échec de la suppression : %s"
+
+msgid "Failed to disable patch "
+msgstr "Échec de la désactivation du patch "
+
+msgid "Failed to disable patch '%s'."
+msgstr "Échec de la désactivation du patch '%s'."
+
+msgid "Failed to download patch: %s"
+msgstr "Échec du téléchargement du patch : %s"
+
+msgid "Failed to download screensaver."
+msgstr "Échec du téléchargement du fond d'écran."
+
+msgid "Failed to enable patch "
+msgstr "Échec de l'activation du patch "
+
+msgid "Failed to enable patch '%s'."
+msgstr "Échec de l'activation du patch '%s'."
+
+msgid "Failed to extract file: "
+msgstr "Échec de l'extraction du fichier : "
+
+msgid "Failed to fetch patch list."
+msgstr "Échec de la récupération de la liste des patchs."
+
+msgid "Failed to fetch repository "
+msgstr "Échec de la récupération du dépôt "
+
+msgid "Failed to fetch repository '%s/%s': %s"
+msgstr "Échec de la récupération du dépôt '%s/%s' : %s"
+
+msgid "Failed to install patch: "
+msgstr "Échec de l'installation du patch : "
+
+msgid "Failed to open downloaded archive."
+msgstr "Échec de l'ouverture de l'archive téléchargée."
+
+msgid "Failed to prepare patches directory."
+msgstr "Échec de la préparation du dossier des patchs."
+
+msgid "Failed to toggle patch status."
+msgstr "Échec du changement d'état du patch."
+
+msgid "Fetching Release Info"
+msgstr "Récupération des infos de version"
+
+msgid "Fetching changelog…"
+msgstr "Récupération du journal des modifications…"
+
+msgid "Fetching commits…"
+msgstr "Récupération des commits…"
+
+msgid "Fetching patch file listings…"
+msgstr "Récupération de la liste des fichiers de patch…"
+
+msgid "Fetching patches via Direct GitHub API…"
+msgstr "Récupération des patchs via l'API GitHub Directe…"
+
+msgid "Fetching plugins via Direct GitHub API…"
+msgstr "Récupération des plugins via l'API GitHub Directe…"
+
+msgid "Fetching release info…"
+msgstr "Récupération des infos de version…"
+
+msgid "Fetching releases…"
+msgstr "Récupération des versions…"
+
+msgid "Fetching repository %s/%s..."
+msgstr "Récupération du dépôt %s/%s..."
+
+msgid "Filename cannot be empty."
+msgstr "Le nom de fichier ne peut pas être vide."
+
+msgid "Filter & Sort Fonts"
+msgstr "Filtrer & trier les polices"
+
+msgid "Filter & Sort Installed"
+msgstr "Filtrer & trier les éléments installés"
+
+msgid "Filter & Sort Patches"
+msgstr "Filtrer & trier les patchs"
+
+msgid "Filter & Sort Plugins"
+msgstr "Filtrer & trier les plugins"
+
+msgid "Filter & Sort Screensavers"
+msgstr "Filtrer et trier les fonds d'écran"
+
+msgid "Filter Installed Patches"
+msgstr "Filtrer les patchs installés"
+
+msgid "Filter Installed Plugins"
+msgstr "Filtrer les plugins installés"
+
+msgid "Filter pre-releases"
+msgstr "Filtrer les pré-versions"
+
+msgid "Filter..."
+msgstr "Filtrer..."
+
+msgid "Filter: "
+msgstr "Filtre : "
+
+msgid "Filters"
+msgstr "Filtres"
+
+msgid "Filters: "
+msgstr "Filtres : "
+
+msgid "Filters: (none)"
+msgstr "Filtres : (aucun)"
+
+msgid "Folder Shuffle"
+msgstr "Aléatoire par dossier"
+
+msgid "Folder Shuffle enabled with this wallpaper!"
+msgstr "Lecture aléatoire activée avec ce fond d'écran !"
+
+msgid "Font"
+msgstr "Police"
+
+msgid "Font "
+msgstr "Police "
+
+msgid "Font '%s' deleted."
+msgstr "Police '%s' supprimée."
+
+msgid "Font files not found for %s."
+msgstr "Fichiers de police introuvables pour %s."
+
+msgid "Font style"
+msgstr "Style de police"
+
+msgid "Fonts"
+msgstr "Polices"
+
+msgid "Free up storage space on your device. Cached items are re-downloaded automatically when needed."
+msgstr "Libérez de l'espace de stockage. Les éléments en cache sont retéléchargés automatiquement si besoin."
+
+msgid "GitHub API rate limit exceeded. Add a GitHub token in Storefront settings to increase the limit (10→30 req/min)."
+msgstr "Limite de taux de l'API GitHub dépassée. Ajoutez un jeton GitHub dans les paramètres de Storefront pour augmenter la limite (10→30 req/min)."
+
+msgid "GitHub API rate limit exceeded. Please wait a few minutes and try again."
+msgstr "Limite de requêtes API GitHub dépassée. Veuillez attendre quelques minutes et réessayer."
+
+msgid "GitHub personal access token"
+msgstr "Jeton d'accès personnel GitHub"
+
+msgid "GitHub rejected this request: fine-grained personal access tokens are not supported for search. Please use a classic token instead (see the Storefront README)."
+msgstr "GitHub a rejeté cette requête : les jetons d'accès fins ne sont pas pris en charge pour la recherche. Utilisez un jeton classique à la place (voir le README du magasin)."
+
+msgid "GitHub token"
+msgstr "Jeton GitHub"
+
+msgid "GitHub token saved."
+msgstr "Jeton GitHub enregistré."
+
+msgid "Go"
+msgstr "Aller"
+
+msgid "Go to page"
+msgstr "Aller à la page"
+
+msgid "HTTP error"
+msgstr "Erreur HTTP"
+
+msgid "HTTP request failed"
+msgstr "La requête HTTP a échoué"
+
+msgid "Ignore"
+msgstr "Ignorer"
+
+msgid "Ignore All Updates"
+msgstr "Ignorer toutes les mises à jour"
+
+msgid "Ignore Updates"
+msgstr "Ignorer les mises à jour"
+
+msgid "Ignored"
+msgstr "Ignoré"
+
+msgid "Image View"
+msgstr "Vue image"
+
+msgid "Include 0-star forks"
+msgstr "Inclure les forks à 0 étoile"
+
+msgid "Install"
+msgstr "Installer"
+
+msgid "Install %s"
+msgstr "Installer %s"
+
+msgid "Install Font"
+msgstr "Installer la police"
+
+msgid "Install Patch"
+msgstr "Installer le patch"
+
+msgid "Install a patch"
+msgstr "Installer un patch"
+
+msgid "Install patch from GitHub"
+msgstr "Installer le patch depuis GitHub"
+
+msgid "Install plugin from GitHub"
+msgstr "Installer le plugin depuis GitHub"
+
+msgid "Install to Default?"
+msgstr "Installer par défaut ?"
+
+msgid "Install to default"
+msgstr "Installer par défaut"
+
+msgid "Installation failed: "
+msgstr "Échec de l'installation : "
+
+msgid "Installation is currently only supported for plugins."
+msgstr "L'installation n'est actuellement prise en charge que pour les plugins."
+
+msgid "Installed"
+msgstr "Installé"
+
+msgid "Installed Patches Settings"
+msgstr "Paramètres des patchs installés"
+
+msgid "Installed Plugins Settings"
+msgstr "Paramètres des plugins installés"
+
+msgid "Installed Regular font style offline for \"%s\". Full font family queued for download when reconnected."
+msgstr "Style de police Normal installé hors ligne pour \"%s\". La famille complète a été ajoutée à la file d'attente pour le téléchargement lors de la reconnexion."
+
+msgid "Installed Regular font style offline for \\\\\"%s\\\\\". Full font family queued for download when reconnected."
+msgstr "Installed Regular font style offline for \\\\\"%s\\\\\". Full font family queued for download when reconnected."
+
+msgid "Installed font \"%s\" (%d file(s))."
+msgstr "Police \"%s\" installée (%d fichier(s))."
+
+msgid "Installed font \\\\\"%s\\\\\" (%d file(s))."
+msgstr "Installed font \\\\\"%s\\\\\" (%d file(s))."
+
+msgid "Installed full font family \"%s\" (%d file(s))."
+msgstr "Famille de polices complète \"%s\" installée (%d fichier(s))."
+
+msgid "Installed full font family \\\\\"%s\\\\\" (%d file(s))."
+msgstr "Installed full font family \\\\\"%s\\\\\" (%d file(s))."
+
+msgid "Installed patch \"%s\"."
+msgstr "Patch \"%s\" installé."
+
+msgid "Installed patch \\\\\"%s\\\\\"."
+msgstr "Installed patch \\\\\"%s\\\\\"."
+
+msgid "Installed plugin \"%s\" (version %s)."
+msgstr "Plugin \"%s\" installé (version %s)."
+
+msgid "Installed plugin \"%s\"."
+msgstr "Plugin \"%s\" installé."
+
+msgid "Installed plugin Storefront version %s"
+msgstr "Plugin Storefront version %s installé"
+
+msgid "Installing %s…"
+msgstr "Installation de %s…"
+
+msgid "Invalid archive reader"
+msgstr "Lecteur d'archive invalide"
+
+msgid "Invalid extraction parameters"
+msgstr "Paramètres d'extraction invalides"
+
+msgid "Invalid patch target filename."
+msgstr "Nom de fichier cible du patch invalide."
+
+msgid "Invalid selection."
+msgstr "Sélection invalide."
+
+msgid "Invert colors (night mode / dark background)"
+msgstr "Inverser les couleurs (mode nuit / fond sombre)"
+
+msgid "It is a truth universally acknowledged, that a single man in possession of a good fortune, must be in want of a wife. However little known the feelings or views of such a man may be on his first entering a neighbourhood, this truth is so well fixed in the minds of the surrounding families, that he is considered the rightful property of some one or other of their daughters."
+msgstr "C'est une vérité universellement reconnue qu'un célibataire pourvu d'une belle fortune doit avoir besoin d'une épouse. Si peu connus que soient les sentiments ou les vues d'un tel homme à son arrivée dans un voisinage, cette vérité est si bien fixée dans l'esprit des familles environnantes qu'ils le considèrent comme la propriété légitime de l'une ou l'autre de leurs filles."
+
+msgid "Items per page"
+msgstr "Éléments par page"
+
+msgid "Items per page: %d"
+msgstr "Éléments par page : %d"
+
+msgid "Last Updated (Newest)"
+msgstr "Plus récents"
+
+msgid "Last Updated (Oldest)"
+msgstr "Plus anciens"
+
+msgid "Last check: %s"
+msgstr "Dernière vérification : %s"
+
+msgid "Latest Release"
+msgstr "Dernière version"
+
+msgid "Latest release"
+msgstr "Dernière version"
+
+msgid "License: %s"
+msgstr "Licence : %s"
+
+msgid "Linked only"
+msgstr "Liés uniquement"
+
+msgid "Loading README..."
+msgstr "Chargement du README..."
+
+msgid "Loading Release Notes..."
+msgstr "Chargement des notes de version..."
+
+msgid "Loading Versions..."
+msgstr "Chargement des versions..."
+
+msgid "Loading Wiki..."
+msgstr "Chargement du Wiki..."
+
+msgid "Local SHA: %s"
+msgstr "SHA local : %s"
+
+msgid "Local version: %s"
+msgstr "Version locale : %s"
+
+msgid "Local: %s"
+msgstr "Local : %s"
+
+msgid "Local: %s → Remote: %s"
+msgstr "Local : %s → Distant : %s"
+
+msgid "Manage plugin paths"
+msgstr "Gérer les chemins des plugins"
+
+msgid "Manage plugin paths\n\nHiding a path only affects what Storefront shows/manages here. KOReader will still load plugins from it."
+msgstr "Gérer les chemins de plugins\n\nMasquer un chemin affecte uniquement ce que Storefront affiche/gère ici. KOReader chargera toujours les plugins à partir de celui-ci."
+
+msgid "Manage plugin paths\\\n\\\nHiding a path only affects what Storefront shows/manages here. KOReader will still load plugins from it."
+msgstr "Manage plugin paths\\\n\\\nHiding a path only affects what Storefront shows/manages here. KOReader will still load plugins from it."
+
+msgid "Match"
+msgstr "Associer"
+
+msgid "Match from List"
+msgstr "Associer depuis la liste"
+
+msgid "Match patch with GitHub repository"
+msgstr "Associer le patch à un dépôt GitHub"
+
+msgid "Match plugin with GitHub repository"
+msgstr "Associer le plugin à un dépôt GitHub"
+
+msgid "Match plugin: %s"
+msgstr "Associer le plugin : %s"
+
+msgid "Match this remote patch"
+msgstr "Associer à ce patch distant"
+
+msgid "Match with URL"
+msgstr "Associer avec l'URL"
+
+msgid "Match with repo"
+msgstr "Associer avec le dépôt"
+
+msgid "Match with this repo"
+msgstr "Associer à ce dépôt"
+
+msgid "Matched %s with %s."
+msgstr "Associé %s avec %s."
+
+msgid "Matched repo: %s/%s"
+msgstr "Dépôt associé : %s/%s"
+
+msgid "Matching entries: %s / %s"
+msgstr "Entrées correspondantes : %s / %s"
+
+msgid "Matching patch: %s — tap to cancel"
+msgstr "Association du patch : %s — appuyez pour annuler"
+
+msgid "Matching patches: %s (repos: %s / %s)"
+msgstr "Association des patchs : %s (dépôts : %s / %s)"
+
+msgid "Matching plugin: %s — tap to cancel"
+msgstr "Association du plugin : %s — appuyez pour annuler"
+
+msgid "Minimum stars"
+msgstr "Étoiles minimum"
+
+msgid "Missing README path"
+msgstr "Chemin du README manquant"
+
+msgid "Missing URL"
+msgstr "URL manquante"
+
+msgid "Missing asset download URL."
+msgstr "URL de téléchargement de ressource manquante."
+
+msgid "Missing download URL for release asset."
+msgstr "URL de téléchargement manquante pour l'élément de version."
+
+msgid "Missing font metadata."
+msgstr "Métadonnées de police manquantes."
+
+msgid "Missing meta path in record."
+msgstr "Chemin meta manquant dans l'enregistrement."
+
+msgid "Missing repository info for patch update."
+msgstr "Informations de dépôt manquantes pour la mise à jour du patch."
+
+msgid "Missing repository info for update."
+msgstr "Informations de dépôt manquantes pour la mise à jour."
+
+msgid "Missing repository metadata for README download."
+msgstr "Métadonnées de dépôt manquantes pour le téléchargement du README."
+
+msgid "Missing repository metadata for installation."
+msgstr "Métadonnées de dépôt manquantes pour l'installation."
+
+msgid "Missing repository metadata for patch install."
+msgstr "Métadonnées de dépôt manquantes pour l'installation du patch."
+
+msgid "Missing repository metadata for patch."
+msgstr "Métadonnées de dépôt manquantes pour le patch."
+
+msgid "Missing repository metadata for releases."
+msgstr "Métadonnées de dépôt manquantes pour les versions."
+
+msgid "Missing repository metadata for remote fetch."
+msgstr "Métadonnées de dépôt manquantes pour la récupération distante."
+
+msgid "Modify Patch"
+msgstr "Modifier le patch"
+
+msgid "Modify Plugin"
+msgstr "Modifier le plugin"
+
+msgid "Modify Plugin: %s"
+msgstr "Modifier le plugin : %s"
+
+msgid "Most Downloaded"
+msgstr "Plus téléchargés"
+
+msgid "Most Popular"
+msgstr "Plus populaires"
+
+msgid "Multiple custom plugin folders are configured. Where should this plugin be installed?"
+msgstr "Plusieurs dossiers de plugins personnalisés sont configurés. Où installer ce plugin ?"
+
+msgid "My wallpaper collection"
+msgstr "Ma collection de fonds d'écran"
+
+msgid "Name (A-Z)"
+msgstr "Nom (A-Z)"
+
+msgid "Name (Z-A)"
+msgstr "Nom (Z-A)"
+
+msgid "Name, description, topic"
+msgstr "Nom, description, sujet"
+
+msgid "Needs update"
+msgstr "Mise à jour requise"
+
+msgid "Needs update: %d"
+msgstr "Mise à jour requise : %d"
+
+msgid "Never"
+msgstr "Jamais"
+
+msgid "New filename"
+msgstr "Nouveau nom de fichier"
+
+msgid "Next"
+msgstr "Suivant"
+
+msgid "Next >"
+msgstr "Suiv >"
+
+msgid "No Fill (Transparent)"
+msgstr "Sans remplissage (transparent)"
+
+msgid "No Lua files found in plugin directory"
+msgstr "Aucun fichier Lua trouvé dans le dossier du plugin"
+
+msgid "No README available."
+msgstr "Aucun README disponible."
+
+msgid "No Release Notes available."
+msgstr "Aucune note de version disponible."
+
+msgid "No Wiki available."
+msgstr "Aucun Wiki disponible."
+
+msgid "No cached README files to delete."
+msgstr "Aucun fichier README en cache à supprimer."
+
+msgid "No cached entries yet."
+msgstr "Aucune entrée en cache pour le moment."
+
+msgid "No cached entries yet. Refresh to fetch from GitHub."
+msgstr "Aucune entrée en cache. Rafraîchissez pour récupérer depuis GitHub."
+
+msgid "No changelog entries found for this range."
+msgstr "Aucune modification trouvée pour cette période."
+
+msgid "No commits found in this range."
+msgstr "Aucun commit trouvé dans cette plage."
+
+msgid "No config files found — uncheck filter to show all files"
+msgstr "Aucun fichier de config trouvé — décochez le filtre pour tout afficher"
+
+msgid "No date"
+msgstr "Pas de date"
+
+msgid "No detailed release notes provided for this version."
+msgstr "Aucune note de version détaillée pour cette version."
+
+msgid "No entries match current filters."
+msgstr "Aucune entrée ne correspond aux filtres actuels."
+
+msgid "No installed items found."
+msgstr "Aucun élément installé trouvé."
+
+msgid "No items found."
+msgstr "Aucun élément trouvé."
+
+msgid "No matched patches to check."
+msgstr "Aucun patch associé à vérifier."
+
+msgid "No matched plugins to check."
+msgstr "Aucun plugin associé à vérifier."
+
+msgid "No patch files found in %s/%s."
+msgstr "Aucun fichier patch trouvé dans %s/%s."
+
+msgid "No patch files found in repository %s."
+msgstr "Aucun fichier patch trouvé dans le dépôt %s."
+
+msgid "No patches found in matching repositories."
+msgstr "Aucun patch trouvé dans les dépôts correspondants."
+
+msgid "No patches need updates."
+msgstr "Aucun patch ne nécessite de mise à jour."
+
+msgid "No patches to display."
+msgstr "Aucun patch à afficher."
+
+msgid "No plugin files were extracted"
+msgstr "Aucun fichier de plugin n'a été extrait"
+
+msgid "No plugins need updates."
+msgstr "Aucun plugin ne nécessite de mise à jour."
+
+msgid "No plugins to display."
+msgstr "Aucun plugin à afficher."
+
+msgid "No plugins tracked yet."
+msgstr "Aucun plugin suivi pour le moment."
+
+msgid "No previous page in history"
+msgstr "Aucune page précédente dans l'historique"
+
+msgid "No release notes provided for this version."
+msgstr "Aucune note de version fournie pour cette version."
+
+msgid "No release notes."
+msgstr "Aucune note de version."
+
+msgid "No releases found for this repository."
+msgstr "Aucune version trouvée pour ce dépôt."
+
+msgid "No remote version info for %s."
+msgstr "Aucune info de version distante pour %s."
+
+msgid "No screensavers match this filter."
+msgstr "Aucun fond d'écran ne correspond à ce filtre."
+
+msgid "No stable releases found — uncheck filter to show all releases"
+msgstr "Aucune version stable trouvée — décochez le filtre pour afficher toutes les versions"
+
+msgid "No tracked plugins to check."
+msgstr "Aucun plugin suivi à vérifier."
+
+msgid "No wallpapers found in your screensavers folder.\n\nBrowse the Screensavers catalog in Storefront to download wallpapers!"
+msgstr "Aucun fond d'écran trouvé dans votre dossier de veille.\n\nParcourez le catalogue Storefront pour en télécharger !"
+
+msgid "No wallpapers found in your screensavers folder.\\\n\\\nBrowse the Screensavers catalog in Storefront to download wallpapers!"
+msgstr "No wallpapers found in your screensavers folder.\\\n\\\nBrowse the Screensavers catalog in Storefront to download wallpapers!"
+
+msgid "None selected"
+msgstr "Aucun sélectionné"
+
+msgid "Not matched with a repository."
+msgstr "Non associé à un dépôt."
+
+msgid "Not set"
+msgstr "Non défini"
+
+msgid "Notes"
+msgstr "Notes"
+
+msgid "OK"
+msgstr "OK"
+
+msgid "Offline Regular"
+msgstr "Offline Regular"
+
+msgid "Open"
+msgstr "Ouvrir"
+
+msgid "Open Wallpaper Collection Gallery"
+msgstr "Ouvrir la galerie de fonds d'écran"
+
+msgid "Open details"
+msgstr "Ouvrir les détails"
+
+msgid "Optional. Raises the GitHub API rate limit. Generate one (classic, "
+msgstr "Optionnel. Augmente la limite de requêtes de l'API GitHub. Générez-en un (classique, "
+
+msgid "Optional. Raises the GitHub API rate limit. Generate one (classic, 'public_repo' scope is enough) at github.com/settings/tokens, then paste it here."
+msgstr "Optionnel. Augmente la limite de requêtes de l'API GitHub. Générez-en un (classic, portée 'public_repo' suffisante) sur github.com/settings/tokens, puis collez-le ici."
+
+msgid "Options ▾"
+msgstr "Options ▾"
+
+msgid "Origin"
+msgstr "Origine"
+
+msgid "Owner"
+msgstr "Propriétaire"
+
+msgid "Owner %s"
+msgstr "Propriétaire %s"
+
+msgid "Owner: "
+msgstr "Propriétaire : "
+
+msgid "Pack my box with five dozen liquor jugs."
+msgstr "Moi, le juge, fais piper du whisky à l'avocat."
+
+msgid "Page %d of %d"
+msgstr "Page %d sur %d"
+
+msgid "Page %d/%d"
+msgstr "Page %d/%d"
+
+msgid "Pangram Preview"
+msgstr "Aperçu pangramme"
+
+msgid "Patch"
+msgstr "Patch"
+
+msgid "Patch "
+msgstr "Patch "
+
+msgid "Patch %s has been %s."
+msgstr "Le patch %s a été %s."
+
+msgid "Patch '%s' deleted."
+msgstr "Patch '%s' supprimé."
+
+msgid "Patch '%s' disabled."
+msgstr "Patch '%s' désactivé."
+
+msgid "Patch '%s' enabled."
+msgstr "Patch '%s' activé."
+
+msgid "Patch cache is older than a week, consider refreshing."
+msgstr "Le cache des patchs a plus d'une semaine, pensez à rafraîchir."
+
+msgid "Patch file not found in repository."
+msgstr "Fichier patch introuvable dans le dépôt."
+
+msgid "Patch file not found locally."
+msgstr "Fichier patch introuvable localement."
+
+msgid "Patch file not found."
+msgstr "Fichier patch introuvable."
+
+msgid "Patch matching cancelled."
+msgstr "Association du patch annulée."
+
+msgid "Patch: %s"
+msgstr "Patch : %s"
+
+msgid "Patches"
+msgstr "Patchs"
+
+msgid "Patches cached: %s (last update: %s)"
+msgstr "Patchs en cache : %s (dernière maj : %s)"
+
+msgid "Patches found: %d"
+msgstr "Patchs trouvés : %d"
+
+msgid "Path: %s"
+msgstr "Chemin : %s"
+
+msgid "Plugin"
+msgstr "Plugin"
+
+msgid "Plugin "
+msgstr "Plugin "
+
+msgid "Plugin %s has been %s."
+msgstr "Le plugin %s a été %s."
+
+msgid "Plugin '%s' deleted."
+msgstr "Plugin '%s' supprimé."
+
+msgid "Plugin '%s' disabled."
+msgstr "Plugin '%s' désactivé."
+
+msgid "Plugin '%s' enabled."
+msgstr "Plugin '%s' activé."
+
+msgid "Plugin and patch browser for KOReader."
+msgstr "Navigateur de plugins et patchs pour KOReader."
+
+msgid "Plugin cache is older than a week, consider refreshing."
+msgstr "Le cache des plugins date de plus d'une semaine, pensez à rafraîchir."
+
+msgid "Plugin directory not found."
+msgstr "Dossier du plugin introuvable."
+
+msgid "Plugin folder not found."
+msgstr "Dossier du plugin introuvable."
+
+msgid "Plugin is not currently loaded, so settings cannot be deleted."
+msgstr "Le plugin n'est pas chargé, ses paramètres ne peuvent pas être supprimés."
+
+msgid "Plugins"
+msgstr "Plugins"
+
+msgid "Plugins cached: %s (last update: %s)"
+msgstr "Plugins en cache : %s (dernière maj : %s)"
+
+msgid "Pool size: %d wallpapers in rotation"
+msgstr "Taille du dossier : %d fonds d'écran en rotation"
+
+msgid "Pre-installed core KOReader plugin."
+msgstr "Plugin système KOReader préinstallé."
+
+msgid "Prev"
+msgstr "Préc"
+
+msgid "Published: %s"
+msgstr "Publié : %s"
+
+msgid "README"
+msgstr "README"
+
+msgid "README download failed: "
+msgstr "Échec du téléchargement du README : "
+
+msgid "README files & images"
+msgstr "Fichiers README et images"
+
+msgid "Rate Wallpaper"
+msgstr "Évaluer le fond d'écran"
+
+msgid "Reading Passage Specimen"
+msgstr "Spécimen de lecture"
+
+msgid "Reading Progress"
+msgstr "Progression de lecture"
+
+msgid "Reading Progress / Summary"
+msgstr "Progression de lecture / Résumé"
+
+msgid "Recently Added"
+msgstr "Récemment ajoutés"
+
+msgid "Refresh"
+msgstr "Rafraîchir"
+
+msgid "Refresh cache"
+msgstr "Actualiser le cache"
+
+msgid "Refresh catalog"
+msgstr "Actualiser le catalogue"
+
+msgid "Refreshing catalog via Direct GitHub API…"
+msgstr "Actualisation du catalogue via l'API GitHub Directe…"
+
+msgid "Refreshing catalog..."
+msgstr "Rafraîchissement du catalogue..."
+
+msgid "Refreshing catalog…"
+msgstr "Actualisation du catalogue…"
+
+msgid "Refreshing…"
+msgstr "Rafraîchissement…"
+
+msgid "Reinstall"
+msgstr "Réinstaller"
+
+msgid "Release"
+msgstr "Version"
+
+msgid "Release Notes"
+msgstr "Notes de version"
+
+msgid "Release notes for %s"
+msgstr "Notes de version pour %s"
+
+msgid "Release: %s"
+msgstr "Version : %s"
+
+msgid "Releases"
+msgstr "Versions"
+
+msgid "Releases — %s"
+msgstr "Versions — %s"
+
+msgid "Remote SHA: %s"
+msgstr "SHA distant : %s"
+
+msgid "Remote SHA: %s (checked %s)"
+msgstr "SHA distant : %s (vérifié %s)"
+
+msgid "Remote check failed: "
+msgstr "Échec de la vérification distante : "
+
+msgid "Remote version for %s: %s."
+msgstr "Version distante pour %s : %s."
+
+msgid "Remote version not found."
+msgstr "Version distante introuvable."
+
+msgid "Remote: %s"
+msgstr "Distant : %s"
+
+msgid "Remote: %s (checked %s)"
+msgstr "Distant : %s (vérifié %s)"
+
+msgid "Remote: (not checked)"
+msgstr "Distant : (non vérifié)"
+
+msgid "Remove"
+msgstr "Supprimer"
+
+msgid "Remove "
+msgstr "Supprimer"
+
+msgid "Remove '%s' from your wallpaper collection?"
+msgstr "Supprimer '%s' de votre collection de fonds d'écran ?"
+
+msgid "Remove Wallpaper?"
+msgstr "Supprimer le fond d'écran ?"
+
+msgid "Rename"
+msgstr "Renommer"
+
+msgid "Rename failed: %s"
+msgstr "Échec du renommage : %s"
+
+msgid "Rename file"
+msgstr "Renommer le fichier"
+
+msgid "Renamed to "
+msgstr "Renommé en "
+
+msgid "Renamed to '%s'."
+msgstr "Renommé en '%s'."
+
+msgid "Repo: %s/%s"
+msgstr "Dépôt : %s/%s"
+
+msgid "Repo: (not matched)"
+msgstr "Dépôt : (non associé)"
+
+msgid "Repository"
+msgstr "Dépôt"
+
+msgid "Repository %s not found on GitHub."
+msgstr "Dépôt %s introuvable sur GitHub."
+
+msgid "Repository name"
+msgstr "Nom du dépôt"
+
+msgid "Repository owner"
+msgstr "Propriétaire du dépôt"
+
+msgid "Repository: %s"
+msgstr "Dépôt : %s"
+
+msgid "Reset filters"
+msgstr "Filtres"
+
+msgid "Reset to defaults"
+msgstr "Réinitialiser"
+
+msgid "Restart later"
+msgstr "Redémarrer plus tard"
+
+msgid "Restart now"
+msgstr "Redémarrer"
+
+msgid "Sample Text"
+msgstr "Extrait"
+
+msgid "Save"
+msgstr "Enregistrer"
+
+msgid "Screensaver"
+msgstr "Écran de veille"
+
+msgid "Screensaver & Wallpapers"
+msgstr "Écran de veille et fonds d'écran"
+
+msgid "Screensaver Details"
+msgstr "Détails de l'écran de veille"
+
+msgid "Screensaver Mode"
+msgstr "Mode écran de veille"
+
+msgid "Screensaver Settings"
+msgstr "Paramètres de l'écran de veille"
+
+msgid "Screensaver mode"
+msgstr "Mode écran de veille"
+
+msgid "Screensaver thumbnails"
+msgstr "Miniatures d'écrans de veille"
+
+msgid "Screensavers"
+msgstr "Écrans de veille"
+
+msgid "Search"
+msgstr "Rechercher"
+
+msgid "Search \"%s\""
+msgstr "Rechercher \"%s\""
+
+msgid "Search & API"
+msgstr "Recherche & API"
+
+msgid "Search filter (\"%s\") is not applied to Updates."
+msgstr "Search filter (\"%s\") is not applied to Updates."
+
+msgid "Search filter (\\\\\"%s\\\\\") is not applied to Updates."
+msgstr "Search filter (\\\\\"%s\\\\\") is not applied to Updates."
+
+msgid "Search text"
+msgstr "Texte de recherche"
+
+msgid "Search: "
+msgstr "Recherche : "
+
+msgid "Select All"
+msgstr "Tout sélectionner"
+
+msgid "Select Categories"
+msgstr "Sélectionner des catégories"
+
+msgid "Select a repository patch entry to match with the chosen file."
+msgstr "Sélectionnez un patch du dépôt à associer au fichier choisi."
+
+msgid "Select a repository to match with the chosen plugin."
+msgstr "Sélectionnez un dépôt à associer au plugin choisi."
+
+msgid "Select installation directory"
+msgstr "Sélectionner le répertoire d'installation"
+
+msgid "Select patch file from %s"
+msgstr "Sélectionner le fichier patch dans %s"
+
+msgid "Select patch in %s"
+msgstr "Sélectionner le patch dans %s"
+
+msgid "Select plugin to match"
+msgstr "Sélectionner le plugin à associer"
+
+msgid "Select repository"
+msgstr "Sélectionner un dépôt"
+
+msgid "Set"
+msgstr "Définir"
+
+msgid "Set Active Single"
+msgstr "Définir comme fond unique actif"
+
+msgid "Set Single"
+msgstr "Définir unique"
+
+msgid "Set as Active"
+msgstr "Définir comme actif"
+
+msgid "Set as Active Single Wallpaper"
+msgstr "Définir comme fond d'écran unique actif"
+
+msgid "Set as active single wallpaper!"
+msgstr "Défini comme fond d'écran unique actif !"
+
+msgid "Settings"
+msgstr "Paramètres"
+
+msgid "Show needs update"
+msgstr "Afficher mises à jour requises"
+
+msgid "Show reading progress banner overlay"
+msgstr "Afficher la bannière de progression de lecture"
+
+msgid "Shows reading stats, percentage, and chapter progress"
+msgstr "Affiche les statistiques de lecture, le pourcentage et la progression du chapitre"
+
+msgid "Shows the cover of the book currently being read"
+msgstr "Affiche la couverture du livre en cours de lecture"
+
+msgid "Shuffle (%d)"
+msgstr "Aléatoire (%d)"
+
+msgid "Shuffle Pool"
+msgstr "Dossier aléatoire"
+
+msgid "Shuffles through all wallpapers in folder on sleep.\nPool size: %d wallpapers in rotation"
+msgstr "Fait défiler tous les fonds d'écran du dossier en veille.\nTaille : %d fonds en rotation"
+
+msgid "Single"
+msgstr "Unique"
+
+msgid "Single Wallpaper"
+msgstr "Fond d'écran unique"
+
+msgid "Solid fill for screen margins & letterboxing"
+msgstr "Remplissage plein pour marges d'écran"
+
+msgid "Sort"
+msgstr "Tri"
+
+msgid "Sort mode"
+msgstr "Mode de tri"
+
+msgid "Sort: A-Z"
+msgstr "Tri : A-Z"
+
+msgid "Sort: Most Liked"
+msgstr "Trier: Plus aimés"
+
+msgid "Sort: Name (A → Z)"
+msgstr "Tri : Nom (A-Z)"
+
+msgid "Sort: Name (Z → A)"
+msgstr "Tri : Nom (Z-A)"
+
+msgid "Sort: Oldest"
+msgstr "Tri : Plus anciens"
+
+msgid "Sort: Recently updated"
+msgstr "Tri : Date"
+
+msgid "Sort: Stars (high → low)"
+msgstr "Tri : Étoiles"
+
+msgid "Sort: Status"
+msgstr "Tri : Statut"
+
+msgid "Sort: Type"
+msgstr "Tri : Type"
+
+msgid "Sort: Updated"
+msgstr "Tri : Date"
+
+msgid "Sort: Z-A"
+msgstr "Tri : Z-A"
+
+msgid "Sorting"
+msgstr "Tri"
+
+msgid "Stable"
+msgstr "Stable"
+
+msgid "Status"
+msgstr "Statut"
+
+msgid "Status: Needs matching"
+msgstr "Statut : Association requise"
+
+msgid "Status: Up to date"
+msgstr "Statut : À jour"
+
+msgid "Status: Update available"
+msgstr "Statut : Mise à jour disponible"
+
+msgid "Storefront"
+msgstr "Boutique"
+
+msgid "Storefront cache refreshed."
+msgstr "Cache de la boutique rafraîchi."
+
+msgid "Storefront is up to date (v%s)."
+msgstr "La boutique est à jour (v%s)."
+
+msgid "Storefront refresh failed: "
+msgstr "Échec du rafraîchissement du catalogue : "
+
+msgid "Storefront · Updates"
+msgstr "Boutique · Mises à jour"
+
+msgid "Storefront: Open"
+msgstr "Boutique : Ouvrir"
+
+msgid "Stretch image to fill entire screen"
+msgstr "Étirer l'image sur tout l'écran"
+
+msgid "Style: "
+msgstr "Style : "
+
+msgid "Successfully updated %d item(s)."
+msgstr "%d élément(s) mis à jour avec succès."
+
+msgid "Successfully updated %d items."
+msgstr "%d éléments mis à jour avec succès."
+
+msgid "Switch to installed patches"
+msgstr "Passer aux patchs installés"
+
+msgid "Switch to installed plugins"
+msgstr "Passer aux plugins installés"
+
+msgid "Switch to patch list"
+msgstr "Passer à la liste des patchs"
+
+msgid "Switch to patches"
+msgstr "Passer aux patchs"
+
+msgid "Switch to plugin list"
+msgstr "Passer à la liste des plugins"
+
+msgid "Tag not found on GitHub (%s or %s)."
+msgstr "Étiquette introuvable sur GitHub (%s ou %s)."
+
+msgid "Text"
+msgstr "Texte"
+
+msgid "Text editor plugin is not available."
+msgstr "Le plugin d'éditeur de texte n'est pas disponible."
+
+msgid "The quick brown fox jumps over the lazy dog."
+msgstr "Portez ce vieux whisky au juge blond qui fume."
+
+msgid "This action cannot be undone.\n\nChanges will take effect after restart."
+msgstr "Cette action ne peut être annulée.\n\nLes modifications prendront effet après le redémarrage."
+
+msgid "This action cannot be undone.\\\n\\\nChanges will take effect after restart."
+msgstr "This action cannot be undone.\\\n\\\nChanges will take effect after restart."
+
+msgid "This wallpaper is currently set as your active screensaver."
+msgstr "Ce fond d'écran est actuellement défini comme votre écran de veille actif."
+
+msgid "This will delete all cached README files, wiki articles, and screensaver thumbnails (%s)."
+msgstr "Cela supprimera tous les fichiers README, articles wiki et miniatures en cache (%s)."
+
+msgid "This will delete cached README markdown files and downloaded images (%s)."
+msgstr "Cela supprimera les fichiers Markdown README et les images téléchargées en cache (%s)."
+
+msgid "This will delete cached screensaver thumbnail previews (%s)."
+msgstr "Cela supprimera les aperçus des miniatures d'écran de veille en cache (%s)."
+
+msgid "This will delete cached wiki articles and downloaded images (%s)."
+msgstr "Cela supprimera les articles wiki et les images téléchargées en cache (%s)."
+
+msgid "This will take effect on next restart."
+msgstr "Prendra effet au prochain redémarrage."
+
+msgid "Total commits: %d"
+msgstr "Total des commits : %d"
+
+msgid "Tracked: %d"
+msgstr "Suivis : %d"
+
+msgid "Transparent overlay (page content visible behind)"
+msgstr "Superposition transparente (page visible en arrière-plan)"
+
+msgid "Type"
+msgstr "Type"
+
+msgid "Unable to determine patch download URL."
+msgstr "Impossible de déterminer l'URL de téléchargement du patch."
+
+msgid "Unable to load wiki page. Tap refresh to retry."
+msgstr "Impossible de charger la page wiki. Appuyez sur rafraîchir pour réessayer."
+
+msgid "Unable to read README file"
+msgstr "Impossible de lire le fichier README"
+
+msgid "Unable to read README. Tap refresh to retry."
+msgstr "Impossible de lire le README. Appuyez sur rafraîchir pour réessayer."
+
+msgid "Unable to store match for patch."
+msgstr "Impossible d'enregistrer l'association du patch."
+
+msgid "Unable to store match for plugin."
+msgstr "Impossible d'enregistrer l'association du plugin."
+
+msgid "Uninstall"
+msgstr "Désinstaller"
+
+msgid "Unknown"
+msgstr "Inconnu"
+
+msgid "Unknown error"
+msgstr "Erreur inconnue"
+
+msgid "Unlink the repo"
+msgstr "Délier le dépôt"
+
+msgid "Unlinked %s from repository."
+msgstr "Assoc. supprimée entre %s et le dépôt."
+
+msgid "Unmatched: %d"
+msgstr "Non associés : %d"
+
+msgid "Unnamed release"
+msgstr "Version sans nom"
+
+msgid "Update"
+msgstr "Mettre à jour"
+
+msgid "Update %d outdated item(s)?"
+msgstr "Mettre à jour %d élément(s) obsolète(s) ?"
+
+msgid "Update %s?"
+msgstr "Mettre à jour %s ?"
+
+msgid "Update All"
+msgstr "Tout mettre à jour"
+
+msgid "Update all outdated items?"
+msgstr "Mettre à jour tous les éléments obsolètes ?"
+
+msgid "Update available for %s: remote %s, installed %s."
+msgstr "Mise à jour disponible pour %s : distante %s, installée %s."
+
+msgid "Update channel"
+msgstr "Canal de mise à jour"
+
+msgid "Update check was cancelled"
+msgstr "La recherche de mises à jour a été annulée"
+
+msgid "Update patch"
+msgstr "Mettre à jour le patch"
+
+msgid "Update plugin"
+msgstr "Mettre à jour le plugin"
+
+msgid "Updated %d of %d item(s) (%d failed)."
+msgstr "%d sur %d élément(s) mis à jour (%d échec(s))."
+
+msgid "Updated patch \"%s\"."
+msgstr "Patch \"%s\" mis à jour."
+
+msgid "Updated patch %s."
+msgstr "Patch %s mis à jour."
+
+msgid "Updated patch \\\\\"%s\\\\\"."
+msgstr "Updated patch \\\\\"%s\\\\\"."
+
+msgid "Updated plugin \"%s\" to version %s."
+msgstr "Plugin \"%s\" mis à jour vers la version %s."
+
+msgid "Updated plugin \"%s\"."
+msgstr "Plugin \"%s\" mis à jour."
+
+msgid "Updated plugin \\\\\"%s\\\\\" to version %s."
+msgstr "Updated plugin \\\\\"%s\\\\\" to version %s."
+
+msgid "Updated plugin \\\\\"%s\\\\\"."
+msgstr "Updated plugin \\\\\"%s\\\\\"."
+
+msgid "Updated: %s"
+msgstr "Mis à jour : %s"
+
+msgid "Updates"
+msgstr "Updates"
+
+msgid "Updates Ignored"
+msgstr "Mises à jour ignorées"
+
+msgid "Updating [%d/%d]: %s…"
+msgstr "Mise à jour [%d/%d] : %s…"
+
+msgid "User Installed"
+msgstr "Utilisateur"
+
+msgid "Verifying repository %s/%s..."
+msgstr "Vérification du dépôt %s/%s..."
+
+msgid "Version"
+msgstr "Version"
+
+msgid "Versions"
+msgstr "Versions"
+
+msgid "View README"
+msgstr "Voir le README"
+
+msgid "View commits (%s \\\\xE2\\\\x86\\\\x92 %s)"
+msgstr "View commits (%s \\\\xE2\\\\x86\\\\x92 %s)"
+
+msgid "View commits (%s → %s)"
+msgstr "Voir les commits (%s → %s)"
+
+msgid "Wallpaper Collection"
+msgstr "Collection de fonds d'écran"
+
+msgid "Wallpaper Options"
+msgstr "Options du fond d'écran"
+
+msgid "Wallpaper deleted from device."
+msgstr "Fond d'écran supprimé de l'appareil."
+
+msgid "Wallpaper removed"
+msgstr "Fond d'écran supprimé"
+
+msgid "Wallpaper saved to collection!"
+msgstr "Fond d'écran enregistré dans la collection !"
+
+msgid "Wallpaper set as active KOReader screensaver!"
+msgstr "Fond d'écran défini comme écran de veille actif !"
+
+msgid "Wallpaper set as active screensaver!"
+msgstr "Fond d'écran défini comme écran de veille actif !"
+
+msgid "Warning: the selected version is older than what is currently installed. You are downgrading."
+msgstr "Avertissement : la version sélectionnée est plus ancienne que celle actuellement installée. Vous effectuez une rétrogradation."
+
+msgid "White Fill"
+msgstr "Remplissage blanc"
+
+msgid "Wiki"
+msgstr "Wiki"
+
+msgid "Wiki Pages"
+msgstr "Pages du Wiki"
+
+msgid "Wiki pages & images"
+msgstr "Pages wiki et images"
+
+msgid "Z -> A"
+msgstr "Z -> A"
+
+msgid "Z → A"
+msgstr "Z → A"
+
+msgid "[ Loading preview... ]"
+msgstr "[ Chargement de l'aperçu... ]"
+
+msgid "[ Wallpaper Preview Loading... ]"
+msgstr "[ Chargement de l'aperçu du fond d'écran... ]"
+
+msgid "[Ignored]"
+msgstr "[Ignoré]"
+
+msgid "[draft]"
+msgstr "[brouillon]"
+
+msgid "[pre]"
+msgstr "[pré]"
+
+msgid "\\\\\"My dear Mr. Bennet,\\\\\" said his lady to him one day, \\\\\"have you heard that Netherfield Park is let at last?\\\\\" Mr. Bennet replied that he had not. \\\\\"But it is,\\\\\" returned she; \\\\\"for Mrs. Long has just been here, and she told me all about it.\\\\\" Mr. Bennet made no answer."
+msgstr "\\\\\"My dear Mr. Bennet,\\\\\" said his lady to him one day, \\\\\"have you heard that Netherfield Park is let at last?\\\\\" Mr. Bennet replied that he had not. \\\\\"But it is,\\\\\" returned she; \\\\\"for Mrs. Long has just been here, and she told me all about it.\\\\\" Mr. Bennet made no answer."
+
+msgid "\\\\xC2\\\\xB7"
+msgstr "\\\\xC2\\\\xB7"
+
+msgid "about_text"
+msgstr "Storefront est un gestionnaire de paquets intégré à KOReader pour les extensions, correctifs et polices."
+
+msgid "anyone"
+msgstr "n'importe qui"
+
+msgid "btn_apply"
+msgstr "Appliquer"
+
+msgid "btn_back"
+msgstr "Retour"
+
+msgid "btn_cancel"
+msgstr "Annuler"
+
+msgid "btn_close"
+msgstr "Fermer"
+
+msgid "btn_install"
+msgstr "Installer"
+
+msgid "btn_ok"
+msgstr "OK"
+
+msgid "btn_preview"
+msgstr "Aperçu"
+
+msgid "btn_refresh"
+msgstr "Actualiser"
+
+msgid "btn_release_notes"
+msgstr "Notes de version"
+
+msgid "btn_restart"
+msgstr "Redémarrer KOReader"
+
+msgid "btn_retry"
+msgstr "Réessayer"
+
+msgid "btn_search"
+msgstr "Rechercher"
+
+msgid "btn_uninstall"
+msgstr "Désinstaller"
+
+msgid "btn_update"
+msgstr "Mettre à jour"
+
+msgid "btn_view_details"
+msgstr "Voir les détails"
+
+msgid "confirm_install"
+msgstr "Installer '%s' ?"
+
+msgid "confirm_uninstall"
+msgstr "Désinstaller '%s' ? Cette action est irreversible."
+
+msgid "confirm_update"
+msgstr "Mettre à jour '%s' de la v%s vers la v%s ?"
+
+msgid "disabled"
+msgstr "désactivé"
+
+msgid "e.g., koreader"
+msgstr "ex. koreader"
+
+msgid "enabled"
+msgstr "activé"
+
+msgid "err_install_failed"
+msgstr "Échec de l'installation de '%s'."
+
+msgid "err_network_failed"
+msgstr "Erreur réseau : Impossible de télécharger le catalogue."
+
+msgid "err_uninstall_failed"
+msgstr "Échec de la désinstallation de '%s'."
+
+msgid "filter_all"
+msgstr "Toutes les catégories"
+
+msgid "filter_installed"
+msgstr "Installé"
+
+msgid "filter_updates"
+msgstr "MAJ dispo"
+
+msgid "font"
+msgstr "police"
+
+msgid "ghp_..."
+msgstr "ghp_..."
+
+msgid "header_about"
+msgstr "À propos"
+
+msgid "header_updates"
+msgstr "Mises à jour"
+
+msgid "label_author"
+msgstr "Auteur"
+
+msgid "label_description"
+msgstr "Description"
+
+msgid "label_downloads"
+msgstr "Téléchargements"
+
+msgid "label_license"
+msgstr "Licence"
+
+msgid "label_repository"
+msgstr "Dépôt"
+
+msgid "label_size"
+msgstr "Taille"
+
+msgid "label_type"
+msgstr "Type"
+
+msgid "label_version"
+msgstr "Version"
+
+msgid "latest"
+msgstr "dernière"
+
+msgid "menu_about"
+msgstr "À propos de Storefront"
+
+msgid "menu_settings"
+msgstr "Paramètres de Storefront"
+
+msgid "menu_storefront"
+msgstr "Storefront"
+
+msgid "menu_storefront_desc"
+msgstr "Parcourir, installer et mettre à jour les extensions, correctifs et polices."
+
+msgid "msg_catalog_updated"
+msgstr "Catalogue mis à jour avec succès."
+
+msgid "msg_installed_plugin"
+msgstr "Plugin \"%s\" installé."
+
+msgid "msg_installed_plugin_version"
+msgstr "Plugin \"%s\" installé (version %s)."
+
+msgid "msg_no_results"
+msgstr "Aucun élément ne correspond à la recherche."
+
+msgid "new"
+msgstr "nouveau"
+
+msgid "not found"
+msgstr "introuvable"
+
+msgid "patch"
+msgstr "patch"
+
+msgid "plugin"
+msgstr "plugin"
+
+msgid "progress_please_wait"
+msgstr "Veuillez patienter"
+
+msgid "prompt_restart_needed"
+msgstr "Installation terminée. Redémarrer KOReader maintenant pour activer '%s' ?"
+
+msgid "release asset"
+msgstr "ressource de version"
+
+msgid "release is newer by date"
+msgstr "la version est plus récente (par date)"
+
+msgid "remote is newer by date"
+msgstr "la version distante est plus récente (par date)"
+
+msgid "repository"
+msgstr "dépôt"
+
+msgid "search_hint"
+msgstr "Rechercher dans storefront..."
+
+msgid "status_builtin"
+msgstr "Intégré"
+
+msgid "status_downloading"
+msgstr "Téléchargement..."
+
+msgid "status_installed"
+msgstr "Installé"
+
+msgid "status_installing"
+msgstr "Installation..."
+
+msgid "status_not_installed"
+msgstr "Non installé"
+
+msgid "status_uninstalling"
+msgstr "Désinstallation..."
+
+msgid "status_update_available"
+msgstr "Mise à jour disponible"
+
+msgid "storefront_title"
+msgstr "Storefront"
+
+msgid "tab_all"
+msgstr "Tout"
+
+msgid "tab_fonts"
+msgstr "Polices"
+
+msgid "tab_patches"
+msgstr "Patches"
+
+msgid "tab_plugins"
+msgstr "Plugins"
+
+msgid "tab_readme"
+msgstr "tab_readme"
+
+msgid "tab_sample_text"
+msgstr "tab_sample_text"
+
+msgid "tab_screensavers"
+msgstr "Fonds"
+
+msgid "tab_versions"
+msgstr "tab_versions"
+
+msgid "unknown"
+msgstr "inconnu"
+
+msgid "updated %s"
+msgstr "mis à jour le %s"
+
+msgid "updated %s (%s)"
+msgstr "mis à jour le %s (%s)"
+
+msgid "·"
+msgstr "·"
+
+msgid "≥ %s ⭐"
+msgstr "≥ %s ⭐"
+
+msgid "★ ACTIVE"
+msgstr "★ ACTIF"
+
+msgid "⚙ Settings"
+msgstr "⚙ Paramètres"
+
+msgid "⚙ Settings..."
+msgstr "⚙ Paramètres..."
+
+msgid "✓ Current"
+msgstr "✓ Actuel"
+
+msgid "Downloading…"
+msgstr ""
+
+msgid "Download cancelled."
+msgstr ""
+
+msgid "Batch update cancelled."
+msgstr ""
+
+msgid "Connecting…"
+msgstr ""
+

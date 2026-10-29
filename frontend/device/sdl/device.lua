@@ -17,6 +17,10 @@ end
 local function yes() return true end
 local function no() return false end
 local function notOSX() return jit.os ~= "OSX" end
+-- Set by platform/ios/ios_loader.m. iOS is a pure touch device: it has no
+-- physical keyboard, so Menu must not draw the per-item shortcut letters
+-- (a/s/d/w...) that Menu gates on Device:hasKeyboard().
+local isIOS = os.getenv("KO_IOS") == "1"
 
 local function isUrl(s)
     return type(s) == "string" and s:match("*?://")
@@ -66,7 +70,7 @@ local Device = Generic:extend{
     isSDL = yes,
     home_dir = os.getenv("XDG_DOCUMENTS_DIR") or os.getenv("HOME"),
     hasBattery = SDL.getPowerInfo,
-    hasKeyboard = yes,
+    hasKeyboard = isIOS and no or yes,
     hasKeys = yes,
     hasSymKey = os.getenv("DISABLE_TOUCH") == "1" and yes or no,
     hasDPad = yes,
