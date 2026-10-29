@@ -30,6 +30,61 @@
 #define LANGUAGE "en_US.UTF-8"
 #define LUA_ERROR "failed to run lua chunk: %s\n"
 
+/* iOS moves the app's data container to a new UUID path on reinstall
+ * (…/Containers/Data/Application/<UUID>/Documents), but KOReader saves
+ * absolute paths in its settings: extra_plugin_paths, lastdir, history,
+ * collections, cover cache paths... Once stale, those silently stop
+ * working (e.g. Documents/plugins is no longer scanned, so Storefront
+ * and everything it installed disappears). Before Lua starts, rewrite any
+ * other container UUID in the Lua data files under Documents to the
+ * current one. A marker file records the container we last fixed up for,
+ * so the scan only runs after the container actually changed. */
+static void relocate_saved_paths(NSString *documentsDir) {
+    NSFileManager *fm = [NSFileManager defaultManager];
+    NSString *uuid = [[documentsDir stringByDeletingLastPathComponent] lastPathComponent];
+    NSString *marker = [documentsDir stringByAppendingPathComponent:@".ko_container"];
+    NSString *lastUUID = [NSString stringWithContentsOfFile:marker
+                                                   encoding:NSUTF8StringEncoding
+                                                      error:nil];
+    if ([lastUUID isEqualToString:uuid]) return;
+
+    NSRegularExpression *re = [NSRegularExpression
+        regularExpressionWithPattern:@"/Containers/Data/Application/[0-9A-Fa-f-]{36}"
+                             options:0
+                               error:nil];
+    NSString *replacement = [@"/Containers/Data/Application/" stringByAppendingString:uuid];
+
+    NSDirectoryEnumerator *it = [fm enumeratorAtPath:documentsDir];
+    for (NSString *rel in it) {
+        /* Plugin and font files are code/data we didn't write; leave them. */
+        if ([rel isEqualToString:@"plugins"] || [rel isEqualToString:@"fonts"]) {
+            [it skipDescendants];
+            continue;
+        }
+        if (![[rel pathExtension] isEqualToString:@"lua"]) continue;
+        NSString *path = [documentsDir stringByAppendingPathComponent:rel];
+        NSString *text = [NSString stringWithContentsOfFile:path
+                                                   encoding:NSUTF8StringEncoding
+                                                      error:nil];
+        if (!text || ![text containsString:@"/Containers/Data/Application/"]) continue;
+        NSString *fixed = [re stringByReplacingMatchesInString:text
+                                                       options:0
+                                                         range:NSMakeRange(0, text.length)
+                                                  withTemplate:replacement];
+        if ([fixed isEqualToString:text]) continue;
+        NSError *writeErr = nil;
+        if (![fixed writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:&writeErr]) {
+            fprintf(stderr, "[%s]: could not update paths in %s: %s\n", LOGNAME,
+                    [path fileSystemRepresentation],
+                    [[writeErr localizedDescription] UTF8String]);
+        } else {
+            fprintf(stderr, "[%s]: updated saved paths in %s\n", LOGNAME,
+                    [rel fileSystemRepresentation]);
+        }
+    }
+    [uuid writeToFile:marker atomically:YES encoding:NSUTF8StringEncoding error:nil];
+}
+
 int main(int argc, char *argv[]) {
     @autoreleasepool {
         NSString *resourcePath = [[NSBundle mainBundle] resourcePath];
@@ -78,6 +133,7 @@ int main(int argc, char *argv[]) {
             NSDocumentDirectory, NSUserDomainMask, YES);
         if (docs.count > 0) {
             setenv("KO_HOME", [docs[0] fileSystemRepresentation], 1);
+            relocate_saved_paths(docs[0]);
 
             /* PluginLoader auto-registers <data dir>/plugins as an extra
              * plugin path without checking that it exists, then calls
