@@ -42,6 +42,8 @@ targets:
         type: file
       - path: platform/ios/ios_filepicker.m
         type: file
+      - path: platform/ios/ios_exit.c
+        type: file
       - path: platform/ios/Assets.xcassets
     settings:
       base:

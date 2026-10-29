@@ -204,6 +204,37 @@ function Device:init()
     self.window.height = self.screen.h
     self.powerd = require("device/sdl/powerd"):new{device = self}
 
+    if isIOS then
+        -- Native helper in platform/ios/ios_filepicker.m: SDL3 doesn't queue
+        -- app lifecycle events, this re-posts them so the EV_SDL handlers
+        -- below (flush on background, repaint on foreground) actually run.
+        ffi.cdef[[
+            void ko_ios_install_lifecycle_watch(void);
+            void ko_ios_set_inline_child(int on);
+        ]]
+        ffi.C.ko_ios_install_lifecycle_watch()
+
+        -- No fork() on iOS: runInSubProcess runs the child inline, in our
+        -- process. Children that end with os.exit() or ffi.C._exit() (e.g.
+        -- Readest's sync workers) would then quit the whole app without
+        -- saving anything; make both just end the child instead. See
+        -- platform/ios/ios_exit.c for the _exit side.
+        local ffiUtil = require("ffi/util")
+        local runInSubProcess = ffiUtil.runInSubProcess
+        ffiUtil.runInSubProcess = function(func, ...)
+            local wrapped = function(...)
+                local os_exit = os.exit
+                os.exit = function() end -- luacheck: ignore 122
+                ffi.C.ko_ios_set_inline_child(1)
+                local ok, err = pcall(func, ...)
+                ffi.C.ko_ios_set_inline_child(0)
+                os.exit = os_exit -- luacheck: ignore 122
+                if not ok then error(err, 0) end
+            end
+            return runInSubProcess(wrapped, ...)
+        end
+    end
+
     local ok, re = pcall(self.screen.setWindowIcon, self.screen, "resources/koreader.png")
     if not ok then logger.warn(re) end
 
@@ -291,6 +322,13 @@ function Device:init()
                 -- composite. Force a full repaint to re-establish
                 -- the texture and present.
                 UIManager:setDirty("all", "full")
+            elseif ev.code == SDL.SDL.SDL_EVENT_DID_ENTER_BACKGROUND
+                    or ev.code == SDL.SDL.SDL_EVENT_TERMINATING then
+                -- iOS: a backgrounded app gets killed without notice (memory
+                -- pressure, swipe-away, reinstall), so there's no clean exit
+                -- to save on. Flush like we would before a suspend, or recent
+                -- settings (reading position, plugin logins...) are lost.
+                UIManager:flushSettings()
             end
         end,
     }

@@ -293,3 +293,66 @@ bool ko_ios_resolve_bookmark(const char *bookmark_b64,
     out_path[path_cap - 1] = '\0';
     return true;
 }
+
+/* App lifecycle bridge.
+ *
+ * SDL3 never queues SDL_EVENT_{WILL,DID}_ENTER_{BACKGROUND,FOREGROUND},
+ * SDL_EVENT_LOW_MEMORY or SDL_EVENT_TERMINATING: it hands them to event
+ * watchers synchronously and drops them (SDL_SendAppEvent). KOReader only
+ * reads the queue, so it never saw them. This watcher re-posts the ones
+ * KOReader acts on (see frontend/device/sdl/device.lua) into the queue.
+ *
+ * Entering the background also starts a short background task: iOS
+ * suspends the app as soon as the scene callback returns, which would
+ * otherwise freeze KOReader before it gets to flush its settings. */
+#include <SDL3/SDL_events.h>
+
+static bool g_lifecycle_reposting = false;
+/* UIBackgroundTaskInvalid isn't a compile-time constant, hence the flag. */
+static bool g_flush_task_active = false;
+static UIBackgroundTaskIdentifier g_flush_task;
+
+static void ko_ios_end_flush_task(void) {
+    if (g_flush_task_active) {
+        [UIApplication.sharedApplication endBackgroundTask:g_flush_task];
+        g_flush_task_active = false;
+    }
+}
+
+static bool ko_ios_lifecycle_watch(void *userdata, SDL_Event *event) {
+    (void)userdata;
+    if (g_lifecycle_reposting) return true; /* our own SDL_PushEvent below */
+    switch (event->type) {
+    case SDL_EVENT_DID_ENTER_BACKGROUND:
+        ko_ios_end_flush_task();
+        g_flush_task = [UIApplication.sharedApplication
+            beginBackgroundTaskWithName:@"KOReader flush settings"
+                      expirationHandler:^{ ko_ios_end_flush_task(); }];
+        g_flush_task_active = (g_flush_task != UIBackgroundTaskInvalid);
+        /* Writing a few settings files takes well under a second; give it
+         * a comfortable margin, then let iOS suspend us. */
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 5 * NSEC_PER_SEC),
+                       dispatch_get_main_queue(), ^{ ko_ios_end_flush_task(); });
+        break;
+    case SDL_EVENT_DID_ENTER_FOREGROUND:
+        ko_ios_end_flush_task();
+        break;
+    case SDL_EVENT_TERMINATING:
+    case SDL_EVENT_LOW_MEMORY:
+        break;
+    default:
+        return true;
+    }
+    SDL_Event copy = *event;
+    g_lifecycle_reposting = true;
+    SDL_PushEvent(&copy);
+    g_lifecycle_reposting = false;
+    return true;
+}
+
+/* Called once from Lua (frontend/device/sdl/device.lua) after SDL is up. */
+void ko_ios_install_lifecycle_watch(void) {
+    static bool installed = false;
+    if (installed) return;
+    installed = SDL_AddEventWatch(ko_ios_lifecycle_watch, NULL);
+}
