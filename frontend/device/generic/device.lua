@@ -62,6 +62,7 @@ local Device = {
     hasNaturalLightMixer = no, -- Same, but only found on newer boards
     hasNaturalLightApi = no,
     hasClipboard = yes, -- generic internal clipboard on all devices
+    hasSystemKeyboard = no, -- the OS provides its own on-screen keyboard (iOS), used instead of VirtualKeyboard
     hasEinkScreen = yes,
     hasExternalSD = no, -- or other storage volume that cannot be accessed using the File Manager
     canHWDither = no,
@@ -95,6 +96,8 @@ local Device = {
     -- Start and stop text input mode (e.g. open soft keyboard, etc)
     startTextInput = function() end,
     stopTextInput = function() end,
+    -- Tell the OS keyboard where the focused text field is (a Geom, in screen pixels)
+    setTextInputArea = function() end,
 
     -- use these only as a last resort. We should abstract the functionality
     -- and have device dependent implementations in the corresponding
@@ -509,6 +512,14 @@ function Device:setDateTime(year, month, day, hour, min, sec) end
 function Device:saveSettings() end
 
 function Device:isAlwaysFullscreen() return true end
+
+-- Whether text input should go without our VirtualKeyboard: either the OS
+-- brings its own on-screen keyboard, or there's a physical one and the user
+-- hasn't asked for the virtual keyboard anyway.
+function Device:hidesVirtualKeyboard()
+    return self:hasSystemKeyboard()
+        or ((self:hasKeyboard() or self:hasScreenKB()) and G_reader_settings:nilOrFalse("virtual_keyboard_enabled"))
+end
 function Device:toggleFullscreen() end
 
 -- Simulates suspend/resume

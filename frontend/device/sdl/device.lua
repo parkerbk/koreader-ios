@@ -85,11 +85,11 @@ local Device = Generic:extend{
     hasSystemFonts = yes,
     canSuspend = no,
     canStandby = no,
-    -- On iOS, SDL_StartTextInput pops up the system keyboard (and SDL shifts
-    -- the view to make room for it) on top of KOReader's own VirtualKeyboard.
-    -- Use only KOReader's keyboard there, as on Android.
-    startTextInput = not isIOS and SDL.startTextInput or nil,
-    stopTextInput = not isIOS and SDL.stopTextInput or nil,
+    -- On iOS, SDL_StartTextInput pops up the system keyboard, which replaces
+    -- KOReader's own VirtualKeyboard (see Device:hidesVirtualKeyboard).
+    hasSystemKeyboard = isIOS and yes or no,
+    startTextInput = SDL.startTextInput,
+    stopTextInput = SDL.stopTextInput,
     canOpenLink = getLinkOpener,
     openLink = function(self, link)
         local enabled, tool = getLinkOpener()
@@ -333,6 +333,27 @@ end
 function Device:isAlwaysFullscreen()
     -- return true on embedded devices, which should default to fullscreen
     return self:isDefaultFullscreen()
+end
+
+if isIOS then
+    ffi.cdef[[
+        bool SDL_SetTextInputArea(SDL_Window *window, const SDL_Rect *rect, int cursor);
+    ]]
+    -- SDL slides its view up when the system keyboard would cover this rect,
+    -- so the focused field stays visible while typing. SDL wants window
+    -- coordinates (points, full window); KOReader's are pixels inside the
+    -- safe-area letterbox.
+    function Device:setTextInputArea(dimen)
+        if not dimen or SDL.window_pixel_w == 0 then return end
+        local scale = SDL.win_w / SDL.window_pixel_w
+        local rect = ffi.new("SDL_Rect", {
+            math.floor((dimen.x + SDL.safe_left) * scale),
+            math.floor((dimen.y + SDL.safe_top) * scale),
+            math.ceil(dimen.w * scale),
+            math.ceil(dimen.h * scale),
+        })
+        SDL.SDL.SDL_SetTextInputArea(SDL.screen, rect, 0)
+    end
 end
 
 function Device:toggleFullscreen()

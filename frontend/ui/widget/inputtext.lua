@@ -144,7 +144,7 @@ local function initTouchEvents()
             if self.parent.onSwitchFocus then
                 self.parent:onSwitchFocus(self)
             else
-                if not ((Device:hasKeyboard() or Device:hasScreenKB()) and G_reader_settings:nilOrFalse("virtual_keyboard_enabled")) then
+                if not Device:hidesVirtualKeyboard() then
                     self:onShowKeyboard()
                 end
                 Device:startTextInput()
@@ -211,7 +211,7 @@ local function initDPadEvents()
             -- Event sent by focusmanager
             if self.parent.onSwitchFocus then
                 self.parent:onSwitchFocus(self)
-            elseif (Device:hasKeyboard() or Device:hasScreenKB()) and G_reader_settings:nilOrFalse("virtual_keyboard_enabled") then
+            elseif Device:hidesVirtualKeyboard() then
                 do end -- luacheck: ignore 541
             else
                 if not self:isKeyboardVisible() then
@@ -644,6 +644,15 @@ function InputText:initKeyboard()
         keyboard_layer = self.input_type == "number" and 4 or 2,
         inputbox = self,
     }
+end
+
+function InputText:paintTo(bb, x, y)
+    InputContainer.paintTo(self, bb, x, y)
+    -- Our position is only known once painted: keep the OS keyboard, if any,
+    -- informed so it doesn't cover us.
+    if self.focused and Device:hasSystemKeyboard() then
+        Device:setTextInputArea(self._frame_textwidget.dimen)
+    end
 end
 
 function InputText:unfocus()
