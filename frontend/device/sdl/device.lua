@@ -322,13 +322,20 @@ function Device:init()
                 -- composite. Force a full repaint to re-establish
                 -- the texture and present.
                 UIManager:setDirty("all", "full")
-            elseif ev.code == SDL.SDL.SDL_EVENT_DID_ENTER_BACKGROUND
+            elseif ev.code == SDL.SDL.SDL_EVENT_WILL_ENTER_BACKGROUND
+                    or ev.code == SDL.SDL.SDL_EVENT_DID_ENTER_BACKGROUND
                     or ev.code == SDL.SDL.SDL_EVENT_TERMINATING then
                 -- iOS: a backgrounded app gets killed without notice (memory
-                -- pressure, swipe-away, reinstall), so there's no clean exit
-                -- to save on. Flush like we would before a suspend, or recent
-                -- settings (reading position, plugin logins...) are lost.
+                -- pressure, swipe-away from the app switcher, reinstall), so
+                -- there's no clean exit to save on. Flush like we would before
+                -- a suspend, or recent settings (reading position, plugin
+                -- logins...) are lost. WILL_ENTER_BACKGROUND is the one that
+                -- matters for a swipe-away: the app is killed while inactive.
+                logger.info("iOS lifecycle event", ev.code, "- flushing settings")
                 UIManager:flushSettings()
+                -- FileManager/ReaderUI flush the global settings on that event,
+                -- but a fullscreen plugin view may have replaced both.
+                G_reader_settings:flush()
             end
         end,
     }

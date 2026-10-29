@@ -337,6 +337,10 @@ static bool ko_ios_lifecycle_watch(void *userdata, SDL_Event *event) {
     case SDL_EVENT_DID_ENTER_FOREGROUND:
         ko_ios_end_flush_task();
         break;
+    case SDL_EVENT_WILL_ENTER_BACKGROUND:
+        /* Resigning active (home swipe, app switcher). An app swiped away
+         * from the switcher is killed while still in this state and never
+         * gets DID_ENTER_BACKGROUND, so this is the reliable save point. */
     case SDL_EVENT_TERMINATING:
     case SDL_EVENT_LOW_MEMORY:
         break;
