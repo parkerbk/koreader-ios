@@ -154,9 +154,9 @@ local Emulator = Device:extend{
     isEmulator = yes,
     hasBattery = yes,
     hasEinkScreen = yes,
-    hasFrontlight = yes,
-    hasNaturalLight = yes,
-    hasNaturalLightApi = yes,
+    hasFrontlight = isIOS and no or yes,
+    hasNaturalLight = isIOS and no or yes,
+    hasNaturalLightApi = isIOS and no or yes,
     hasWifiToggle = yes,
     -- Not really, Device:reboot & Device:powerOff are not implemented, so we just exit ;).
     canPowerOff = yes,
