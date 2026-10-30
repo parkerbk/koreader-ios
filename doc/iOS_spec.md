@@ -270,7 +270,7 @@ with different sizes, aspect ratios, and safe areas while it is running.
 
 | Branch | State |
 |---|---|
-| `master` | Base iOS port, build docs, and (merged 2026-10-28) the clean-clone/Xcode 26-27 build fixes, bundle ID `com.bparker2003.koreader`, pinned signing team, no menu shortcut letters, writable Storefront seed, `Documents/fonts`. |
+| `master` | Base iOS port, build docs, and (merged 2026-10-28) the clean-clone/Xcode 26-27 build fixes, bundle ID `com.bparker2003.koreaderios`, pinned signing team, no menu shortcut letters, writable Storefront seed, `Documents/fonts`. |
 | `fix/clean-clone-and-xcode27` | Merged into `master`. |
 | `pr/clean-clone-build` | Upstreamable subset of the build fixes, without the `local:` commits. |
 

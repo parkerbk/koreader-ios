@@ -6,7 +6,7 @@
 #   BUILD_NUMBER=N platform/ios/testflight.sh --no-upload   # archive and export only
 #
 # N must be higher than the last uploaded build. Needs an app record for
-# com.bparker2003.koreader, an Apple Distribution certificate in the keychain,
+# com.bparker2003.koreaderios, an Apple Distribution certificate in the keychain,
 # and ASC_KEY_ID and ASC_ISSUER_ID set for an App Store Connect API key whose
 # file is in ~/.appstoreconnect/private_keys/.
 #

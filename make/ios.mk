@@ -19,7 +19,7 @@ update: ios-check-prereqs all
 
 # Bundle identifier baked into Info.plist. Must match
 # PRODUCT_BUNDLE_IDENTIFIER in platform/ios/project.yml.
-IOS_BUNDLE_ID ?= com.bparker2003.koreader
+IOS_BUNDLE_ID ?= com.bparker2003.koreaderios
 
 # platform/ios/Info.plist is gitignored and generated, leaving the version to
 # MARKETING_VERSION and CURRENT_PROJECT_VERSION in project.yml. project.yml points

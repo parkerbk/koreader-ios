@@ -60,7 +60,7 @@ targets:
         buildPhase: resources
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.bparker2003.koreader
+        PRODUCT_BUNDLE_IDENTIFIER: com.bparker2003.koreaderios
         INFOPLIST_FILE: platform/ios/Info.plist
         CODE_SIGN_ENTITLEMENTS: platform/ios/KOReader.entitlements
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
