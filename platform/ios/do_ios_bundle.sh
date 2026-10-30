@@ -72,12 +72,14 @@ xcrun --sdk "${IOS_PLATFORM}" clang \
     -framework Foundation \
     -framework UIKit \
     -framework CoreFoundation \
+    -framework CoreLocation \
     -framework UniformTypeIdentifiers \
     -Wl,-rpath,@executable_path/app/libs \
     -o "${APP_BUNDLE}/KOReader" \
     "${PLATFORM_DIR}/ios_loader.m" \
     "${PLATFORM_DIR}/ios_filepicker.m" \
     "${PLATFORM_DIR}/ios_menu.m" \
+    "${PLATFORM_DIR}/ios_location.m" \
     "${PLATFORM_DIR}/ios_exit.c"
 
 # 2) Copy assets.

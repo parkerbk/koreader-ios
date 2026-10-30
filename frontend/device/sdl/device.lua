@@ -89,6 +89,7 @@ local Device = Generic:extend{
     -- KOReader's own VirtualKeyboard (see Device:hidesVirtualKeyboard).
     hasSystemKeyboard = isIOS and yes or no,
     hasNativeMenu = isIOS and yes or no,
+    canRequestLocation = isIOS and yes or no,
     startTextInput = SDL.startTextInput,
     stopTextInput = SDL.stopTextInput,
     canOpenLink = getLinkOpener,
@@ -171,6 +172,34 @@ local UbuntuTouch = Device:extend{
     hasFrontlight = yes,
     isDefaultFullscreen = yes,
 }
+
+if isIOS then
+    ffi.cdef[[
+        void ko_ios_location_start(void);
+        int ko_ios_location_poll(double *latitude, double *longitude, double *altitude, int *has_altitude);
+    ]]
+
+    --- Asks iOS for the device's location, prompting for permission if needed.
+    -- Calls back with (latitude, longitude, altitude or nil) or (nil, nil, nil, error),
+    -- where error is "denied" or "failed".
+    function Device:requestLocation(callback)
+        local UIManager = require("ui/uimanager")
+        local latitude, longitude = ffi.new("double[1]"), ffi.new("double[1]")
+        local altitude, has_altitude = ffi.new("double[1]"), ffi.new("int[1]")
+        ffi.C.ko_ios_location_start()
+        local function poll()
+            local state = ffi.C.ko_ios_location_poll(latitude, longitude, altitude, has_altitude)
+            if state == 0 then
+                UIManager:scheduleIn(0.2, poll)
+            elseif state == 1 then
+                callback(latitude[0], longitude[0], has_altitude[0] ~= 0 and altitude[0] or nil)
+            else
+                callback(nil, nil, nil, state == 2 and "denied" or "failed")
+            end
+        end
+        poll()
+    end
+end
 
 function Device:init()
     -- allows to set a viewport via environment variable

@@ -46,6 +46,8 @@ targets:
         type: file
       - path: platform/ios/ios_menu.m
         type: file
+      - path: platform/ios/ios_location.m
+        type: file
       - path: platform/ios/Assets.xcassets
     settings:
       base:
@@ -77,6 +79,7 @@ targets:
       - sdk: Foundation.framework
       - sdk: UIKit.framework
       - sdk: CoreFoundation.framework
+      - sdk: CoreLocation.framework
       - sdk: UniformTypeIdentifiers.framework
     preBuildScripts:
       - name: Build base/ libs and staging tree

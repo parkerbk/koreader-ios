@@ -24,6 +24,7 @@ local TextWidget = require("ui/widget/textwidget")
 local UIManager = require("ui/uimanager")
 local WidgetContainer = require("ui/widget/container/widgetcontainer")
 local logger = require("logger")
+local util = require("util")
 local _ = require("gettext")
 local C_ = _.pgettext
 local Powerd = Device.powerd
@@ -591,7 +592,8 @@ The screen warmth is continuously adjusted to the current time.
 
 To use the sun's position, a geographical location must be entered. The calculations are very precise, with a deviation less than minute and a half.]])
 function AutoWarmth:getSubMenuItems()
-    return {
+    local fl_off_during_day_menu = self:getFlOffDuringDayMenu()
+    local sub_menu_items = {
         {
             text = Device:hasNaturalLight() and _("About auto warmth and night mode") or _("About auto night mode"),
             callback = function()
@@ -652,7 +654,7 @@ function AutoWarmth:getSubMenuItems()
             text = Device:hasNaturalLight() and _("Warmth and night mode settings") or _("Night mode settings"),
             sub_item_table_func = function() return self:getWarmthMenu() end,
         },
-        self:getFlOffDuringDayMenu(),
+        fl_off_during_day_menu,
         {
             text = _("Enable night mode warning"),
             checked_func = function()
@@ -668,6 +670,10 @@ function AutoWarmth:getSubMenuItems()
         self:getTimesMenu(_("Sun position information for"), true, activate_sun),
         self:getTimesMenu(_("Fixed schedule information"), false, activate_schedule),
     }
+    if not Device:hasFrontlight() then
+        table.remove(sub_menu_items, util.arrayContains(sub_menu_items, fl_off_during_day_menu))
+    end
+    return sub_menu_items
 end
 
 function AutoWarmth:getFlOffDuringDayMenu()
@@ -775,8 +781,33 @@ function AutoWarmth:getActivateMenu()
     }
 end
 
+function AutoWarmth:setCurrentLocation(touchmenu_instance)
+    Device:requestLocation(function(latitude, longitude, altitude, err)
+        if err then
+            UIManager:show(InfoMessage:new{
+                text = err == "denied"
+                    and _("KOReader doesn't have permission to use your location. You can allow it in the iOS Settings app, under KOReader.")
+                    or _("Couldn't get your location. Please try again."),
+            })
+            return
+        end
+        self.location = _("Current location")
+        self.latitude = tonumber(string.format("%.2f", latitude))
+        self.longitude = tonumber(string.format("%.2f", longitude))
+        self.altitude = altitude and math.floor(altitude + 0.5) or self.altitude
+        self.timezone = SunTime:getTimezoneOffset() -- use timezone of device
+        G_reader_settings:saveSetting("autowarmth_location", self.location)
+        G_reader_settings:saveSetting("autowarmth_latitude", self.latitude)
+        G_reader_settings:saveSetting("autowarmth_longitude", self.longitude)
+        G_reader_settings:saveSetting("autowarmth_altitude", self.altitude)
+        G_reader_settings:saveSetting("autowarmth_timezone", self.timezone)
+        self:scheduleMidnightUpdate()
+        self:updateItems(touchmenu_instance)
+    end)
+end
+
 function AutoWarmth:getLocationMenu()
-    return {{
+    local location_menu = {{
         text_func = function()
             if self.location ~= "" then
                 return T(_("Location: %1"), self.location)
@@ -887,6 +918,15 @@ function AutoWarmth:getLocationMenu()
         end,
         keep_menu_open = true,
     }}
+    if Device:canRequestLocation() then
+        table.insert(location_menu, 1, {
+            text = _("Use current location"),
+            callback = function(touchmenu_instance) self:setCurrentLocation(touchmenu_instance) end,
+            keep_menu_open = true,
+            separator = true,
+        })
+    end
+    return location_menu
 end
 
 function AutoWarmth:getScheduleMenu()

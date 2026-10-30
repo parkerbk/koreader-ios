@@ -64,6 +64,7 @@ local Device = {
     hasClipboard = yes, -- generic internal clipboard on all devices
     hasSystemKeyboard = no, -- the OS provides its own on-screen keyboard (iOS), used instead of VirtualKeyboard
     hasNativeMenu = no,
+    canRequestLocation = no,
     hasEinkScreen = yes,
     hasExternalSD = no, -- or other storage volume that cannot be accessed using the File Manager
     canHWDither = no,

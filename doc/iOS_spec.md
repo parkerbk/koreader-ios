@@ -116,6 +116,10 @@ new device class, to keep the diff against upstream small.
   did, so UIKit never calls into Lua. The sheet steps aside while a KOReader
   dialog is on top. Long-press a row for its help text. Dialogs and other
   full-screen widgets are still KOReader's own.
+- **Location**: `Device:requestLocation` (`ios_location.m`) makes a one-shot
+  CoreLocation request, used by Use current location in auto night mode. It
+  asks for when-in-use permission and stays start + poll, like the picker.
+- **Frontlight**: not exposed; iOS brightness belongs to Control Center.
 - **Page color**: Settings → Page color offers White, Cream, Sepia, Gray,
   Green and Black. `ReaderView:paintTo` multiplies the finished view by the
   `page_tint` setting, so it works for every document type and keeps black
