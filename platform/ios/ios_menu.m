@@ -326,6 +326,10 @@ void ko_ios_menu_close(void) {
     });
 }
 
+bool ko_ios_menu_transitioning(void) {
+    return g_transitioning;
+}
+
 /* Returns the next event type (KO_MENU_EV_NONE when there's none). */
 int ko_ios_menu_poll(int *value, int *depth) {
     @synchronized (g_events) {

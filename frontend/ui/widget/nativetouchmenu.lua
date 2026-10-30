@@ -128,7 +128,8 @@ function NativeTouchMenu:openMenu(path)
 end
 
 --- Whether the sheet should be up: KOReader's own widgets paint under it, so
--- it steps aside for whatever a menu item opened (toasts can stay under it).
+-- it steps aside for whatever a menu item opened (toasts can stay under it,
+-- and native dialogs show on top of it).
 function NativeTouchMenu:isOnTop()
     local n = 1
     local widget = UIManager:getNthTopWidget(n)
@@ -136,7 +137,7 @@ function NativeTouchMenu:isOnTop()
         if widget == self.show_parent then
             return true
         end
-        if not widget.toast and not widget.invisible then
+        if not widget.toast and not widget.invisible and not widget.native_dialog_id then
             return false
         end
         n = n + 1

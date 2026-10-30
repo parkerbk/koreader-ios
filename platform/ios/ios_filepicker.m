@@ -196,20 +196,7 @@ ko_pick_state_t ko_ios_pick_folder_poll(char *out_path, size_t path_cap,
     return state;
 }
 
-/* Read iOS' safeAreaInsets directly off the key window, in physical
- * pixels (UIKit reports points; KOReader's framebuffer is in pixels).
- * Called from framebuffer_SDL3.lua to letterbox the UI inside the
- * notch/home-indicator bezel. We read straight from UIKit rather than
- * via SDL_GetWindowSafeArea because SDL only observes safeAreaInsets
- * via the safeAreaInsetsDidChange callback, which may not have fired
- * yet by the time we want to size the framebuffer. */
-void ko_ios_get_safe_area_pixels(int *out_top, int *out_right,
-                                 int *out_bottom, int *out_left) {
-    if (out_top) *out_top = 0;
-    if (out_right) *out_right = 0;
-    if (out_bottom) *out_bottom = 0;
-    if (out_left) *out_left = 0;
-
+static UIWindow *ko_ios_main_window(void) {
     __block UIWindow *win = nil;
     void (^lookup)(void) = ^{
         for (UIScene *scene in UIApplication.sharedApplication.connectedScenes) {
@@ -228,6 +215,49 @@ void ko_ios_get_safe_area_pixels(int *out_top, int *out_right,
     } else {
         dispatch_sync(dispatch_get_main_queue(), lookup);
     }
+    return win;
+}
+
+/* The window's current size in physical pixels. SDL's own numbers lag behind
+ * during a rotation: its event and its renderer each go stale in one direction. */
+void ko_ios_get_window_pixels(int *out_w, int *out_h) {
+    __block CGSize size = CGSizeZero;
+    __block CGFloat scale = 1;
+    void (^read_size)(void) = ^{
+        UIWindow *win = ko_ios_main_window();
+        size = win.bounds.size;
+        scale = win.screen ? win.screen.nativeScale : UIScreen.mainScreen.nativeScale;
+    };
+    if ([NSThread isMainThread]) {
+        read_size();
+    } else {
+        dispatch_sync(dispatch_get_main_queue(), read_size);
+    }
+    *out_w = (int)lround(size.width * scale);
+    *out_h = (int)lround(size.height * scale);
+}
+
+void ko_ios_end_editing(void) {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [ko_ios_main_window() endEditing:YES];
+    });
+}
+
+/* Read iOS' safeAreaInsets directly off the key window, in physical
+ * pixels (UIKit reports points; KOReader's framebuffer is in pixels).
+ * Called from framebuffer_SDL3.lua to letterbox the UI inside the
+ * notch/home-indicator bezel. We read straight from UIKit rather than
+ * via SDL_GetWindowSafeArea because SDL only observes safeAreaInsets
+ * via the safeAreaInsetsDidChange callback, which may not have fired
+ * yet by the time we want to size the framebuffer. */
+void ko_ios_get_safe_area_pixels(int *out_top, int *out_right,
+                                 int *out_bottom, int *out_left) {
+    if (out_top) *out_top = 0;
+    if (out_right) *out_right = 0;
+    if (out_bottom) *out_bottom = 0;
+    if (out_left) *out_left = 0;
+
+    UIWindow *win = ko_ios_main_window();
     if (!win) return;
 
     /* Force a layout pass so safeAreaInsets is populated. Early in

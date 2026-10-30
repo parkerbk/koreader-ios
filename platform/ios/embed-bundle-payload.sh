@@ -57,6 +57,8 @@ rsync -aL --delete --delete-excluded \
     --exclude 'plugins/timesync.koplugin' \
     "${STAGING_KOREADER}/" "${APP_DIR}/app/"
 
+"${SRCROOT}/platform/ios/write-git-rev.sh" "${SRCROOT}" "${APP_DIR}/app"
+
 # --- 1.5) Precompile every .lua to LuaJIT bytecode in place. Skips if
 # we don't have a host luajit available; only a perf optimisation.
 "${SRCROOT}/platform/ios/precompile-lua.sh" "${APP_DIR}/app" || true

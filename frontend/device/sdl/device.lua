@@ -90,8 +90,14 @@ local Device = Generic:extend{
     hasSystemKeyboard = isIOS and yes or no,
     hasNativeMenu = isIOS and yes or no,
     canRequestLocation = isIOS and yes or no,
-    startTextInput = SDL.startTextInput,
-    stopTextInput = SDL.stopTextInput,
+    startTextInput = function(self)
+        self.text_input_started = true
+        SDL.startTextInput()
+    end,
+    stopTextInput = function(self)
+        self.text_input_started = false
+        SDL.stopTextInput()
+    end,
     canOpenLink = getLinkOpener,
     openLink = function(self, link)
         local enabled, tool = getLinkOpener()
@@ -175,9 +181,17 @@ local UbuntuTouch = Device:extend{
 
 if isIOS then
     ffi.cdef[[
+        void ko_ios_get_window_pixels(int *out_w, int *out_h);
+        void ko_ios_end_editing(void);
         void ko_ios_location_start(void);
         int ko_ios_location_poll(double *latitude, double *longitude, double *altitude, int *has_altitude);
     ]]
+
+    function Device:getIOSWindowPixels()
+        local w, h = ffi.new("int[1]"), ffi.new("int[1]")
+        ffi.C.ko_ios_get_window_pixels(w, h)
+        return tonumber(w[0]), tonumber(h[0])
+    end
 
     --- Asks iOS for the device's location, prompting for permission if needed.
     -- Calls back with (latitude, longitude, altitude or nil) or (nil, nil, nil, error),
@@ -311,34 +325,7 @@ function Device:init()
                     ReaderUI:doShowReader(dropped_file_path)
                 end
             elseif ev.code == SDL.SDL.SDL_EVENT_WINDOW_RESIZED then
-                device_input.device.screen.resize(device_input.device.screen, ev.value.data1, ev.value.data2)
-                self.window.width = ev.value.data1
-                self.window.height = ev.value.data2
-
-                local new_size = device_input.device.screen:getSize()
-                device_input.device.screen.screen_size.w = new_size.w
-                device_input.device.screen.screen_size.h = new_size.h
-
-                logger.dbg("Resizing screen to", new_size)
-
-                -- try to catch as many flies as we can
-                -- this means we can't just return one ScreenResize or SetDimensons event
-                UIManager:broadcastEvent(Event:new("SetDimensions", new_size))
-                UIManager:broadcastEvent(Event:new("ScreenResize", new_size))
-                --- @todo Toggle this elsewhere based on ScreenResize?
-
-                -- this triggers paged media like PDF and DjVu to redraw
-                -- CreDocument doesn't need it
-                UIManager:broadcastEvent(Event:new("RedrawCurrentPage"))
-
-                local FileManager = require("apps/filemanager/filemanager")
-                if FileManager.instance then
-                    FileManager.instance:reinit(FileManager.instance.path,
-                        FileManager.instance.focused_file)
-                end
-
-                -- make sure dialogs are displayed
-                UIManager:setDirty("all", "ui")
+                self:onWindowResized(ev.value.data1, ev.value.data2, device_input)
             elseif ev.code == SDL.SDL.SDL_EVENT_WINDOW_MOVED then
                 self.window.left = ev.value.data1
                 self.window.top = ev.value.data2
@@ -387,6 +374,86 @@ function Device:init()
     end
 
     Generic.init(self)
+end
+
+--- Resizes the framebuffer to the size UIKit reports for the window.
+-- screen.resize() can't be used here: during a rotation the size it's given and
+-- the renderer's size it prefers are each out of date in one direction.
+function Device:resizeIOSScreen()
+    local w, h = self:getIOSWindowPixels()
+    local scale = SDL.window_pixel_w / SDL.win_w
+    SDL.win_w = w / scale
+    SDL.win_h = h / scale
+    SDL.applyIOSSafeArea(w, h)
+    self.screen:_newBB(SDL.w, SDL.h)
+    SDL.destroyTexture(SDL.texture)
+    SDL.texture = SDL.createTexture(SDL.w, SDL.h)
+    self.screen.bb:fill(require("ffi/blitbuffer").COLOR_WHITE)
+    self.screen:refreshFull(0, 0, self.screen:getWidth(), self.screen:getHeight())
+end
+
+function Device:onWindowResized(w, h, device_input)
+    local Event = require("ui/event")
+    local UIManager = require("ui/uimanager")
+    if isIOS then
+        self:resizeIOSScreen()
+    else
+        device_input.device.screen.resize(device_input.device.screen, w, h)
+    end
+    self.window.width = w
+    self.window.height = h
+
+    local new_size = device_input.device.screen:getSize()
+    device_input.device.screen.screen_size.w = new_size.w
+    device_input.device.screen.screen_size.h = new_size.h
+
+    logger.dbg("Resizing screen to", new_size)
+
+    -- try to catch as many flies as we can
+    -- this means we can't just return one ScreenResize or SetDimensons event
+    UIManager:broadcastEvent(Event:new("SetDimensions", new_size))
+    UIManager:broadcastEvent(Event:new("ScreenResize", new_size))
+    --- @todo Toggle this elsewhere based on ScreenResize?
+
+    -- this triggers paged media like PDF and DjVu to redraw
+    -- CreDocument doesn't need it
+    UIManager:broadcastEvent(Event:new("RedrawCurrentPage"))
+
+    local FileManager = require("apps/filemanager/filemanager")
+    if FileManager.instance then
+        FileManager.instance:reinit(FileManager.instance.path,
+            FileManager.instance.focused_file)
+    end
+
+    -- make sure dialogs are displayed
+    UIManager:setDirty("all", "ui")
+
+    if isIOS then
+        -- UIKit only settles on the new size and safe area once the rotation
+        -- is done, after this event: lay out again if they turned out different.
+        UIManager:unschedule(self.window_size_check)
+        self.window_size_check = function()
+            -- SDL's hidden text field can take focus back during a rotation.
+            if not self.text_input_started then
+                ffi.C.ko_ios_end_editing()
+            end
+            local pixel_w, pixel_h = self:getIOSWindowPixels()
+            if SDL.applyIOSSafeArea(pixel_w, pixel_h) then
+                self:onWindowResized(w, h, device_input)
+            end
+        end
+        UIManager:scheduleIn(0.5, self.window_size_check)
+    end
+end
+
+--- How far a touch can move before it's a pan, which also cancels a hold.
+-- Fingers wobble by points, not pixels, so this has to follow the screen's
+-- scale: on a 3x phone the default is under 12 points, which a thumb often
+-- exceeds while holding still.
+function Device:getPanThreshold()
+    if isIOS then
+        return 20 * SDL.window_pixel_w / SDL.win_w
+    end
 end
 
 function Device:setDateTime(year, month, day, hour, min, sec)

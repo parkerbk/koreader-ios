@@ -29,8 +29,9 @@ Non-goals:
 - Public App Store release. Builds go to internal TestFlight testers only;
   KOReader's licence and its runtime plugin/code loading are unresolved for
   App Review.
-- iOS Simulator builds. `base/` libraries are built device-only
-  (`SUPPORTED_PLATFORMS: iphoneos`, `arm64`).
+- Shipping Simulator builds. `base/` libraries are built device-only, though
+  `platform/ios/run-simulator.sh` retags them to run on a Simulator for
+  testing, including the iPhone Duo.
 - A full native (UIKit) reimplementation of KOReader's UI. Native pieces
   replace individual surfaces (the top menu, §3); page rendering and
   everything else stays the SDL3-rendered Lua UI from upstream.
@@ -106,9 +107,10 @@ new device class, to keep the diff against upstream small.
 - **Clipboard**: SDL's clipboard, which is `UIPasteboard` on iOS, so
   KOReader's copy and paste share the system clipboard.
 - **Rotation**: the SDL window is resizable, so SDL allows every
-  orientation in Info.plist and resizes the window on rotation;
-  `WINDOW_RESIZED` re-lays out KOReader (see §6 for the pixel/point
-  caveat). KOReader's own rotation setting rotates the content inside
+  orientation in Info.plist and resizes the window on rotation.
+  `Device:resizeIOSScreen` sizes the framebuffer from UIKit's window bounds,
+  because mid-rotation SDL's event size and renderer size can each be stale,
+  then re-checks after the animation. KOReader's own rotation setting rotates the content inside
   the window and shouldn't be combined with device rotation.
 - **Night mode**: blitbuffer stays non-inverted; `_render` XOR-inverts the
   dirty region into a scratch buffer right before the texture upload.
@@ -124,6 +126,15 @@ new device class, to keep the diff against upstream small.
 - **Frontlight**: not exposed; iOS brightness belongs to Control Center.
 - **E-ink**: the emulator device class claims an e-ink screen everywhere
   else; on iOS that's off, along with its settings menu.
+- **Native dialogs**: `ui/nativedialogs.lua` intercepts `UIManager:show` and
+  presents `ConfirmBox`, `MultiConfirmBox`, `ButtonDialog`, untimed `InfoMessage`
+  and single-line `InputDialog`/`MultiInputDialog` through `ios_dialog.m`. The
+  widget stays in the stack unpainted, so callers work unchanged. That gives
+  text fields real iOS selection, copy and paste. Anything richer keeps its
+  KOReader look: dictionary popups, spin widgets, the bottom config bar, the file
+  browser, multi-line and full-screen editors.
+- **Long press**: `Device:getPanThreshold` allows 20 points of movement, since
+  KOReader's default is under 12 on a 3x screen and a thumb often exceeds it.
 - **Page color**: Settings → Page color offers White, Cream, Sepia, Gray,
   Green and Black. `ReaderView:paintTo` multiplies the finished view by the
   `page_tint` setting, so it works for every document type and keeps black
@@ -297,6 +308,7 @@ Things App Store builds depend on, which Debug builds hide:
   tree into the archive and it becomes a generic archive.
 - **Versions**: `MARKETING_VERSION` and `CURRENT_PROJECT_VERSION` in
   `project.yml`, because the fork has no git tags to derive them from.
+- **Version file**: `write-git-rev.sh`, since `git describe` needs tags.
 - **Icon**: `platform/ios/AppIcon.icon`, layered in Icon Composer format.
 
 ## 9. Text-to-speech (planned)

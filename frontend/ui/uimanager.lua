@@ -154,6 +154,9 @@ If refreshtype is omitted, no refresh will be enqueued at this time.
 @see setDirty
 ]]
 function UIManager:show(widget, refreshtype, refreshregion, x, y, refreshdither)
+    if Device:hasNativeMenu() then
+        require("ui/nativedialogs"):onShow(widget)
+    end
     if not widget then
         logger.dbg("attempted to show a nil widget")
         return
@@ -213,6 +216,9 @@ If refreshtype is omitted, no extra refresh will be enqueued at this time, leavi
 @see setDirty
 ]]
 function UIManager:close(widget, refreshtype, refreshregion, refreshdither)
+    if Device:hasNativeMenu() and widget then
+        require("ui/nativedialogs"):onClose(widget)
+    end
     if not widget then
         logger.dbg("attempted to close a nil widget")
         return
