@@ -120,6 +120,8 @@ new device class, to keep the diff against upstream small.
   CoreLocation request, used by Use current location in auto night mode. It
   asks for when-in-use permission and stays start + poll, like the picker.
 - **Frontlight**: not exposed; iOS brightness belongs to Control Center.
+- **E-ink**: the emulator device class claims an e-ink screen everywhere
+  else; on iOS that's off, along with its settings menu.
 - **Page color**: Settings → Page color offers White, Cream, Sepia, Gray,
   Green and Black. `ReaderView:paintTo` multiplies the finished view by the
   `page_tint` setting, so it works for every document type and keeps black

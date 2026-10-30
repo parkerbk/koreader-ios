@@ -313,7 +313,9 @@ common_settings.screen = {
 }
 common_settings.screen_rotation = dofile("frontend/ui/elements/screen_rotation_menu_table.lua")
 common_settings.screen_dpi = dofile("frontend/ui/elements/screen_dpi_menu_table.lua")
-common_settings.screen_eink_opt = dofile("frontend/ui/elements/screen_eink_opt_menu_table.lua")
+if os.getenv("KO_IOS") ~= "1" then
+    common_settings.screen_eink_opt = dofile("frontend/ui/elements/screen_eink_opt_menu_table.lua")
+end
 common_settings.screen_notification = dofile("frontend/ui/elements/screen_notification_menu_table.lua")
 
 if Device:isTouchDevice() then
