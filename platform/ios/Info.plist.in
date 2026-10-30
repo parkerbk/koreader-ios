@@ -75,6 +75,8 @@
     <true/>
     <key>NSHumanReadableCopyright</key>
     <string>© KOReader contributors</string>
+    <key>ITSAppUsesNonExemptEncryption</key>
+    <false/>
     <key>NSBluetoothAlwaysUsageDescription</key>
     <string>KOReader uses Bluetooth for game controllers and page turners.</string>
     <key>NSLocationWhenInUseUsageDescription</key>

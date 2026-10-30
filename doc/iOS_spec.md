@@ -308,6 +308,9 @@ Things App Store builds depend on, which Debug builds hide:
   tree into the archive and it becomes a generic archive.
 - **Versions**: `MARKETING_VERSION` and `CURRENT_PROJECT_VERSION` in
   `project.yml`, because the fork has no git tags to derive them from.
+- **Export compliance**: `ITSAppUsesNonExemptEncryption` is false, which skips
+  App Store Connect's question on each build. The app bundles LibreSSL for
+  HTTPS and sync; revisit this if it starts encrypting anything else.
 - **Version file**: `write-git-rev.sh`, since `git describe` needs tags.
 - **Icon**: `platform/ios/AppIcon.icon`, layered in Icon Composer format.
 
