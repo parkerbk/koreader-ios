@@ -2337,7 +2337,8 @@ function ReaderFooter:_updateFooterText(force_repaint, full_repaint)
             refresh_dim.y = self._saved_screen_height - refresh_dim.h
         end
         -- If we're making the footer visible (or it already is), we don't need to repaint ReaderUI behind it
-        if self.view.footer_visible and not full_repaint then
+        -- (A tinted page needs ReaderView:paintTo() to tint the footer, too.)
+        if self.view.footer_visible and not full_repaint and not self.view:getPageTint() then
             -- Unfortunately, it's not a modal (we never show() it), so it's not in the window stack,
             -- instead, it's baked inside ReaderUI, so it gets slightly trickier...
             -- NOTE: self.view.footer -> self ;).

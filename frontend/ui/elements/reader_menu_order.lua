@@ -71,6 +71,7 @@ local order = {
         -- those that don't exist will simply be skipped during menu gen
         "frontlight", -- if Device:hasFrontlight()
         "night_mode",
+        "page_theme",
         "----------------------------",
         "network",
         "screen",

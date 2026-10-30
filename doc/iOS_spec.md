@@ -66,7 +66,14 @@ new device class, to keep the diff against upstream small.
 
 - **No `fork()`** — `util.runInSubProcess` falls back to running the
   function inline (base). Anything upstream does "in the background"
-  runs on the UI thread on iOS and can stall the UI.
+  runs on the UI thread on iOS and can stall the UI. Plugin workers that
+  end with `ffi.C._exit(0)` must not take the app down: `ios_exit.c`
+  overrides `_exit` so it returns while `runInSubProcess` (wrapped in
+  `device/sdl/device.lua`) has an inline child running.
+- **Changing container path** — iOS moves the data container on every
+  reinstall, so absolute paths in saved settings go stale. At launch
+  `ios_loader.m` rewrites the old container UUID in the `.lua` files under
+  `Documents/` (`relocate_saved_paths`).
 - **Read-only bundle** — `KOReader.app` is signed and immutable. User
   data, settings, and user plugins go to `KO_HOME` = the app's
   `Documents/` folder. `UIFileSharingEnabled` exposes that folder in
@@ -103,11 +110,20 @@ new device class, to keep the diff against upstream small.
   the window and shouldn't be combined with device rotation.
 - **Night mode**: blitbuffer stays non-inverted; `_render` XOR-inverts the
   dirty region into a scratch buffer right before the texture upload.
+- **Page color**: Settings → Page color offers White, Cream, Sepia, Gray,
+  Green and Black. `ReaderView:paintTo` multiplies the finished view by the
+  `page_tint` setting, so it works for every document type and keeps black
+  text black, but it also tints images. Black is night mode, which turns
+  the tint off. The footer's direct repaint is bypassed while tinted.
 - **Orientation**: iPhone allows portrait + both landscapes; iPad allows
   all four (Info.plist).
 - **Lifecycle**: SDL foreground/background/low-memory events are
   forwarded as `EV_SDL`; on `DID_ENTER_FOREGROUND` the device forces a
-  full repaint.
+  full repaint. SDL3 never queues these events, so a native watcher in
+  `ios_filepicker.m` re-posts them. Settings are flushed on
+  `WILL_ENTER_BACKGROUND`, `DID_ENTER_BACKGROUND` and `TERMINATING`: an app
+  swiped away from the switcher is killed while inactive, without ever
+  reaching `DID_ENTER_BACKGROUND`.
 
 ## 4. Files and storage
 

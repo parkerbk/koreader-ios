@@ -182,6 +182,15 @@ function ReaderView:resetLayout()
     end
 end
 
+--- Returns the color the page gets multiplied by, nil when it stays white.
+-- Multiplying keeps black text black, whatever the document type.
+function ReaderView:getPageTint()
+    local page_tint = G_reader_settings:readSetting("page_tint")
+    if page_tint and G_reader_settings:nilOrFalse("night_mode") then
+        return Blitbuffer.colorFromString(page_tint)
+    end
+end
+
 function ReaderView:paintTo(bb, x, y)
     dbg:v("readerview painting", self.visible_area, "to", x, y)
     if self.page_scroll then
@@ -260,6 +269,11 @@ function ReaderView:paintTo(bb, x, y)
     -- paint view modules
     for _, m in pairs(self.view_modules) do
         m:paintTo(bb, x, y)
+    end
+    -- tint the page last, so that margins and the footer match it
+    local page_tint = self:getPageTint()
+    if page_tint then
+        bb:multiplyRectRGB(x, y, self.dimen.w, self.dimen.h, page_tint)
     end
     -- stop activity indicator
     self.ui:handleEvent(Event:new("StopActivityIndicator"))

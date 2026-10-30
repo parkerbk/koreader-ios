@@ -269,6 +269,40 @@ common_settings.night_mode = {
         UIManager:broadcastEvent(Event:new("ToggleNightMode"))
     end
 }
+local function setPageTheme(page_tint, night_mode)
+    G_reader_settings:saveSetting("page_tint", page_tint)
+    UIManager:broadcastEvent(Event:new("SetNightMode", night_mode))
+    UIManager:setDirty("all", "full")
+end
+local function genPageThemeItem(text, page_tint)
+    return {
+        text = text,
+        radio = true,
+        keep_menu_open = true,
+        checked_func = function()
+            return G_reader_settings:nilOrFalse("night_mode")
+                and G_reader_settings:readSetting("page_tint") == page_tint
+        end,
+        callback = function() setPageTheme(page_tint, false) end,
+    }
+end
+common_settings.page_theme = {
+    text = _("Page color"),
+    sub_item_table = {
+        genPageThemeItem(_("White")),
+        genPageThemeItem(_("Cream"), "FDF6E3"),
+        genPageThemeItem(_("Sepia"), "F1E3C6"),
+        genPageThemeItem(_("Gray"), "D8D8D8"),
+        genPageThemeItem(_("Green"), "CCE8CF"),
+        {
+            text = _("Black"),
+            radio = true,
+            keep_menu_open = true,
+            checked_func = function() return G_reader_settings:isTrue("night_mode") end,
+            callback = function() setPageTheme(nil, true) end,
+        },
+    },
+}
 common_settings.network = {
     text = _("Network"),
 }
