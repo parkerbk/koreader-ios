@@ -1,6 +1,6 @@
 # KOReader for iOS / iPadOS — Project Spec
 
-Status: living document, last updated 2026-10-28.
+Status: living document, last updated 2026-10-30.
 
 This fork (`parkerbk/koreader-ios`, based on `hezi/koreader-ios`) ships
 KOReader as a sideloadable iOS / iPadOS app. It tracks upstream
@@ -26,12 +26,14 @@ Goals:
 
 Non-goals:
 
-- App Store distribution. KOReader's GPL licence and its runtime
-  plugin/code loading are both incompatible with App Store review.
+- Public App Store release. Builds go to internal TestFlight testers only;
+  KOReader's licence and its runtime plugin/code loading are unresolved for
+  App Review.
 - iOS Simulator builds. `base/` libraries are built device-only
   (`SUPPORTED_PLATFORMS: iphoneos`, `arm64`).
-- Native (UIKit) reimplementation of KOReader's UI. The UI stays the
-  SDL3-rendered Lua UI from upstream.
+- A full native (UIKit) reimplementation of KOReader's UI. Native pieces
+  replace individual surfaces (the top menu, §3); page rendering and
+  everything else stays the SDL3-rendered Lua UI from upstream.
 
 ## 2. Architecture
 
@@ -297,7 +299,48 @@ Things App Store builds depend on, which Debug builds hide:
   `project.yml`, because the fork has no git tags to derive them from.
 - **Icon**: `platform/ios/AppIcon.icon`, layered in Icon Composer format.
 
-## 9. Open questions
+## 9. Text-to-speech (planned)
+
+Read the open book aloud with the system voices, and keep going with the
+screen locked. Nothing is built yet, and no bundled plugin provides this.
+
+Scope:
+
+- Reflowable books (crengine) first. PDFs follow where they have a text layer.
+  Scanned pages are out of scope, since they would need OCR.
+- `AVSpeechSynthesizer` only, so it works offline and needs no account.
+  Cloud voices are out of scope for this phase.
+
+Plan:
+
+1. **Native bridge**: add `ios_tts.m` with the same start + poll pattern as
+   `ios_location.m`: start, pause, resume, stop, rate, voice, list voices. Poll
+   for finished utterances and `willSpeakRange` positions.
+2. **Text source**: walk the book by sentence from the current page's xpointer
+   with `getPageXPointer`, `getTextFromXPointers` and `getNextVisibleChar`.
+   Keep each sentence's xpointers so progress maps back to the book.
+3. **Reader UI**: a small plugin with play/pause, speed and voice. Highlight
+   the current sentence and turn the page as speech moves past it.
+4. **Background playback**: add `UIBackgroundModes` `audio` and an
+   `AVAudioSession` playback category. Queue sentences ahead in native code,
+   because Lua can't be relied on to run while the app is in the background.
+5. **Lock Screen**: `MPNowPlayingInfoCenter` title and cover, plus
+   `MPRemoteCommandCenter` play, pause and skip. Handle interruptions such as
+   calls, and audio route changes.
+6. **Position**: save progress as speech moves, so stopping or being killed
+   resumes at the last spoken sentence.
+
+Done when: a chapter plays through with the iPad locked, the page has caught
+up on unlock, Lock Screen controls work, and a call pauses and resumes it.
+
+Risks:
+
+- `willSpeakRange` timing varies by voice, so sentence-level highlight is the
+  baseline and word-level is a stretch goal.
+- How much of the SDL/Lua loop keeps running in the background is unknown, and
+  has to be measured on device before step 4 is designed further.
+
+## 10. Open questions
 
 - Does SDL3 on iOS emit `WINDOW_PIXEL_SIZE_CHANGED` reliably on fold /
   unfold, or does the scene get torn down and recreated? If the scene
