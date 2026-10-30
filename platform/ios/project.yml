@@ -32,6 +32,13 @@ settings:
     # in Xcode's UI (xcodegen rewrites project.pbxproj from this file).
     DEVELOPMENT_TEAM: VEU4669KPZ
     PRODUCT_NAME: KOReader
+    MARKETING_VERSION: "1.0.0"
+    CURRENT_PROJECT_VERSION: "1"
+    # Lua looks the ko_ios_* functions up at runtime (ffi.C), so nothing refers
+    # to them at link time: Release must not hide, drop or strip them.
+    GCC_SYMBOLS_PRIVATE_EXTERN: NO
+    DEAD_CODE_STRIPPING: NO
+    STRIP_INSTALLED_PRODUCT: NO
 
 targets:
   KOReader:
@@ -48,7 +55,9 @@ targets:
         type: file
       - path: platform/ios/ios_location.m
         type: file
-      - path: platform/ios/Assets.xcassets
+      - path: platform/ios/AppIcon.icon
+        type: file
+        buildPhase: resources
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.bparker2003.koreader
@@ -67,10 +76,12 @@ targets:
         OTHER_LDFLAGS:
           - -lluajit
           - -lSDL3
-        # rpath so dyld finds the dylibs we copy into app/libs at post-build.
+          # embed-bundle-payload.sh rewrites the library paths after linking.
+          - -Wl,-headerpad_max_install_names
+        # rpath so dyld finds the frameworks we embed at post-build.
         LD_RUNPATH_SEARCH_PATHS:
           - $(inherited)
-          - "@executable_path/app/libs"
+          - "@executable_path/Frameworks"
         # Embedded dylibs need this; iOS 14+ enforces it.
         LD_DYLIB_INSTALL_NAME: ""
         # Quiet the noisy override of macOS-isms.
@@ -93,6 +104,10 @@ targets:
           BREW_PREFIX="$(brew --prefix)"
           export PATH="${BREW_PREFIX}/opt/findutils/libexec/gnubin:${BREW_PREFIX}/opt/gnu-getopt/bin:${BREW_PREFIX}/opt/make/libexec/gnubin:${BREW_PREFIX}/opt/util-linux/bin:${PATH}"
           cd "${SRCROOT}"
+          # Xcode's INSTALL_DIR points into the archive when archiving, and the
+          # Makefile would stage a second copy of the tree there; Xcode then
+          # treats the archive as generic and offers no way to distribute it.
+          unset INSTALL_DIR
           # `all` (not `base`) so the koreader-ios-…/koreader staging
           # tree gets assembled too — the post-build script rsyncs from
           # there into the .app.

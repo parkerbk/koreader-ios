@@ -39,7 +39,7 @@ echo "[*] Embedding payload into ${APP_DIR}"
 # Using `app/` rather than `koreader/` because APFS is case-insensitive by
 # default and CFBundleExecutable=KOReader would collide with `koreader/`.
 mkdir -p "${APP_DIR}/app"
-rsync -aL --delete \
+rsync -aL --delete --delete-excluded \
     --exclude '.git' \
     --exclude 'cache' \
     --exclude 'history' \
@@ -47,6 +47,10 @@ rsync -aL --delete \
     --exclude 'spec' \
     --exclude 'tools' \
     --exclude '*.dSYM' \
+    --exclude '/koreader' \
+    --exclude '/libs/*.dylib' \
+    --exclude '/luajit' \
+    --exclude '/sdcv' \
     --exclude 'plugins/SSH.koplugin' \
     --exclude 'plugins/autofrontlight.koplugin' \
     --exclude 'plugins/hello.koplugin' \
@@ -82,6 +86,60 @@ else
     KEYCHAIN_FLAG="${OTHER_CODE_SIGN_FLAGS:-}"
 fi
 
+# --- 1.7) Wrap the prebuilt dylibs in frameworks: App Store processing rejects
+# standalone libraries and executables anywhere else in the bundle. Lua finds
+# them through the redirect in setupkoenv.lua, keep the two lists in sync.
+FRAMEWORKS_DIR="${APP_DIR}/Frameworks"
+rm -rf "${FRAMEWORKS_DIR}"
+LINKED_BINARIES=("${APP_DIR}/${EXECUTABLE_NAME}")
+if [ -f "${APP_DIR}/${EXECUTABLE_NAME}.debug.dylib" ]; then
+    LINKED_BINARIES+=("${APP_DIR}/${EXECUTABLE_NAME}.debug.dylib")
+fi
+for entry in libSDL3.0.dylib:SDL3 libluajit.dylib:luajit libkoreader-monolibtic.dylib:koreader-monolibtic; do
+    dylib="${entry%%:*}"
+    name="${entry##*:}"
+    framework="${FRAMEWORKS_DIR}/${name}.framework"
+    mkdir -p "${framework}"
+    cp "${LIBS_SRC}/${dylib}" "${framework}/${name}"
+    /usr/bin/install_name_tool -id "@rpath/${name}.framework/${name}" "${framework}/${name}"
+    LINKED_BINARIES+=("${framework}/${name}")
+    cat >"${framework}/Info.plist" <<PLIST
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>CFBundleExecutable</key>
+    <string>${name}</string>
+    <key>CFBundleIdentifier</key>
+    <string>${PRODUCT_BUNDLE_IDENTIFIER}.${name}</string>
+    <key>CFBundleInfoDictionaryVersion</key>
+    <string>6.0</string>
+    <key>CFBundleName</key>
+    <string>${name}</string>
+    <key>CFBundlePackageType</key>
+    <string>FMWK</string>
+    <key>CFBundleShortVersionString</key>
+    <string>${MARKETING_VERSION}</string>
+    <key>CFBundleSupportedPlatforms</key>
+    <array>
+        <string>iPhoneOS</string>
+    </array>
+    <key>CFBundleVersion</key>
+    <string>${CURRENT_PROJECT_VERSION}</string>
+    <key>MinimumOSVersion</key>
+    <string>${IPHONEOS_DEPLOYMENT_TARGET}</string>
+</dict>
+</plist>
+PLIST
+done
+for binary in "${LINKED_BINARIES[@]}"; do
+    /usr/bin/install_name_tool \
+        -change @rpath/libSDL3.0.dylib @rpath/SDL3.framework/SDL3 \
+        -change @rpath/libluajit.dylib @rpath/luajit.framework/luajit \
+        -change @rpath/libkoreader-monolibtic.dylib @rpath/koreader-monolibtic.framework/koreader-monolibtic \
+        "${binary}"
+done
+
 echo "[*] Re-signing every Mach-O in the bundle with identity: ${SIGN_IDENTITY}"
 # We have to sign every .dylib and .so, not just app/libs/ — KOReader
 # also dlopens Lua C modules from app/common/ (lpeg.so, rapidjson.so,
@@ -95,5 +153,13 @@ while IFS= read -r -d '' lib; do
         ${KEYCHAIN_FLAG} \
         "${lib}" >/dev/null
 done < <(find "${APP_DIR}/app" -type f \( -name '*.dylib' -o -name '*.so' \) -print0)
+for framework in "${FRAMEWORKS_DIR}"/*.framework; do
+    /usr/bin/codesign \
+        --force \
+        --sign "${SIGN_IDENTITY}" \
+        --timestamp=none \
+        ${KEYCHAIN_FLAG} \
+        "${framework}" >/dev/null
+done
 
 echo "[*] Payload embedded."

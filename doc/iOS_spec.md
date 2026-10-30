@@ -278,7 +278,26 @@ Commits prefixed `local:` (bundle ID, signing team, vendored Storefront)
 are specific to this fork and should not be sent upstream to
 `hezi/koreader-ios`.
 
-## 8. Open questions
+## 8. TestFlight builds
+
+`BUILD_NUMBER=N platform/ios/testflight.sh` archives, exports a local .ipa and
+uploads it with altool. Signing is local: a missing profile gets fixed by hand
+in Xcode, and `-allowProvisioningUpdates` stays out of the script.
+
+Things App Store builds depend on, which Debug builds hide:
+
+- **Frameworks**: libraries can only ship inside frameworks, so
+  `embed-bundle-payload.sh` wraps the three dylibs in `Frameworks/` and
+  `setupkoenv.lua` redirects loads there. Standalone executables stay out.
+- **Exported symbols**: `ffi.C` finds `ko_ios_*` at runtime, so `project.yml`
+  turns off symbol hiding, dead stripping and installed-product stripping.
+- **`INSTALL_DIR`**: unset before `make`, or Xcode's value stages a second
+  tree into the archive and it becomes a generic archive.
+- **Versions**: `MARKETING_VERSION` and `CURRENT_PROJECT_VERSION` in
+  `project.yml`, because the fork has no git tags to derive them from.
+- **Icon**: `platform/ios/AppIcon.icon`, layered in Icon Composer format.
+
+## 9. Open questions
 
 - Does SDL3 on iOS emit `WINDOW_PIXEL_SIZE_CHANGED` reliably on fold /
   unfold, or does the scene get torn down and recreated? If the scene

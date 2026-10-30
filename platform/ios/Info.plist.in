@@ -75,6 +75,8 @@
     <true/>
     <key>NSHumanReadableCopyright</key>
     <string>© KOReader contributors</string>
+    <key>NSBluetoothAlwaysUsageDescription</key>
+    <string>KOReader uses Bluetooth for game controllers and page turners.</string>
     <key>NSLocationWhenInUseUsageDescription</key>
     <string>KOReader uses your location to work out sunrise and sunset for auto night mode.</string>
     <key>UIStatusBarHidden</key>
