@@ -77,6 +77,7 @@ xcrun --sdk "${IOS_PLATFORM}" clang \
     -o "${APP_BUNDLE}/KOReader" \
     "${PLATFORM_DIR}/ios_loader.m" \
     "${PLATFORM_DIR}/ios_filepicker.m" \
+    "${PLATFORM_DIR}/ios_menu.m" \
     "${PLATFORM_DIR}/ios_exit.c"
 
 # 2) Copy assets.

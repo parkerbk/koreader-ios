@@ -44,6 +44,8 @@ targets:
         type: file
       - path: platform/ios/ios_exit.c
         type: file
+      - path: platform/ios/ios_menu.m
+        type: file
       - path: platform/ios/Assets.xcassets
     settings:
       base:

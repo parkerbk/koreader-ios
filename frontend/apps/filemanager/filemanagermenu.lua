@@ -1027,7 +1027,7 @@ function FileManagerMenu:onShowMenu(tab_index, do_not_show)
 
     local main_menu
     if Device:isTouchDevice() or Device:hasDPad() then
-        local TouchMenu = require("ui/widget/touchmenu")
+        local TouchMenu = require(Device:hasNativeMenu() and "ui/widget/nativetouchmenu" or "ui/widget/touchmenu")
         main_menu = TouchMenu:new{
             width = Screen:getWidth(),
             last_index = tab_index or G_reader_settings:readSetting("filemanagermenu_tab_index") or 1,

@@ -110,6 +110,12 @@ new device class, to keep the diff against upstream small.
   the window and shouldn't be combined with device rotation.
 - **Night mode**: blitbuffer stays non-inverted; `_render` XOR-inverts the
   dirty region into a scratch buffer right before the texture upload.
+- **Menus**: the top menu is a native UIKit sheet (`ios_menu.m`), not
+  KOReader's widgets. `NativeTouchMenu` extends `TouchMenu`, keeps its logic
+  and sends each level as a JSON snapshot; a 50 ms timer polls what the user
+  did, so UIKit never calls into Lua. The sheet steps aside while a KOReader
+  dialog is on top. Long-press a row for its help text. Dialogs and other
+  full-screen widgets are still KOReader's own.
 - **Page color**: Settings → Page color offers White, Cream, Sepia, Gray,
   Green and Black. `ReaderView:paintTo` multiplies the finished view by the
   `page_tint` setting, so it works for every document type and keeps black

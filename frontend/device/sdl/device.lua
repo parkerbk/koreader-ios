@@ -88,6 +88,7 @@ local Device = Generic:extend{
     -- On iOS, SDL_StartTextInput pops up the system keyboard, which replaces
     -- KOReader's own VirtualKeyboard (see Device:hidesVirtualKeyboard).
     hasSystemKeyboard = isIOS and yes or no,
+    hasNativeMenu = isIOS and yes or no,
     startTextInput = SDL.startTextInput,
     stopTextInput = SDL.stopTextInput,
     canOpenLink = getLinkOpener,

@@ -98,7 +98,7 @@ static NSString *g_picked_error = nil;
  * we keep one global instance pinned. */
 static KOIOSPickerDelegate *g_delegate = nil;
 
-static UIViewController *ko_ios_top_view_controller(void) {
+UIViewController *ko_ios_top_view_controller(void) {
     UIWindow *win = nil;
     for (UIScene *scene in UIApplication.sharedApplication.connectedScenes) {
         if (![scene isKindOfClass:[UIWindowScene class]]) continue;
