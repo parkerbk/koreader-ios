@@ -36,26 +36,6 @@ static void ko_menu_post(int type, int value, int depth) {
     }
 }
 
-/* The sheet is well clear of the camera that the window's side insets are for,
- * so it drops those. */
-@interface KOSheetNavigationController : UINavigationController
-@end
-
-@implementation KOSheetNavigationController
-
-- (void)viewSafeAreaInsetsDidChange {
-    [super viewSafeAreaInsetsDidChange];
-    UIEdgeInsets insets = self.view.safeAreaInsets;
-    if (insets.left != 0 || insets.right != 0) {
-        UIEdgeInsets additional = self.additionalSafeAreaInsets;
-        additional.left -= insets.left;
-        additional.right -= insets.right;
-        self.additionalSafeAreaInsets = additional;
-    }
-}
-
-@end
-
 @interface KOMenuController : UITableViewController
 @property (nonatomic) NSInteger depth;
 @property (nonatomic) NSInteger scrollTo;
@@ -83,6 +63,24 @@ static void ko_menu_post(int type, int value, int depth) {
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self applyScroll];
+}
+
+/* The sheet is well clear of the camera that the window's side inset is for, so
+ * that only keeps a margin matching the other side's. */
+- (void)viewSafeAreaInsetsDidChange {
+    [super viewSafeAreaInsetsDidChange];
+    static const CGFloat margin = 16;
+    UIEdgeInsets insets = self.view.safeAreaInsets;
+    UIEdgeInsets additional = self.additionalSafeAreaInsets;
+    if (insets.left > margin) {
+        additional.left -= insets.left - margin;
+    }
+    if (insets.right > margin) {
+        additional.right -= insets.right - margin;
+    }
+    if (!UIEdgeInsetsEqualToEdgeInsets(additional, self.additionalSafeAreaInsets)) {
+        self.additionalSafeAreaInsets = additional;
+    }
 }
 
 /* Separators in KOReader's menus become grouped table sections. */
@@ -234,7 +232,7 @@ static void ko_menu_reconcile(void);
 static void ko_menu_apply(NSDictionary *snapshot) {
     if (!g_nav) {
         g_delegate = [[KOMenuDelegate alloc] init];
-        g_nav = [[KOSheetNavigationController alloc] initWithRootViewController:[[KOMenuController alloc] init]];
+        g_nav = [[UINavigationController alloc] initWithRootViewController:[[KOMenuController alloc] init]];
         g_nav.delegate = g_delegate;
         g_nav.modalPresentationStyle = UIModalPresentationPageSheet;
     }

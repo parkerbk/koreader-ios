@@ -11,9 +11,6 @@
 
 UIViewController *ko_ios_top_view_controller(void);
 
-@interface KOSheetNavigationController : UINavigationController
-@end
-
 bool ko_ios_menu_transitioning(void);
 
 static NSMutableArray<NSDictionary *> *g_dialog_events = nil;
@@ -468,7 +465,7 @@ bool ko_ios_dictionary_is_open(void) {
 
 static UIViewController *ko_form_wrapped(NSDictionary *spec, int dialog_id) {
     KOFormController *form = [[KOFormController alloc] initWithSpec:spec dialogId:dialog_id];
-    UINavigationController *nav = [[KOSheetNavigationController alloc] initWithRootViewController:form];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:form];
     nav.modalPresentationStyle = UIModalPresentationPageSheet;
     BOOL has_text = NO;
     for (NSDictionary *control in spec[@"controls"]) {
