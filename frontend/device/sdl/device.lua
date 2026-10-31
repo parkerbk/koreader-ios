@@ -508,11 +508,12 @@ function Device:checkIOSWindowSize()
     end
 end
 
---- SDL drops a rotation's resize event if it thinks the size hasn't changed,
--- so nothing else would tell us about it.
+--- SDL drops a rotation's resize event if it thinks the size hasn't changed, and
+-- a fold can settle its safe area well after the resize, so nothing else would
+-- tell us about either.
 function Device:watchIOSWindowSize()
     local pixel_w, pixel_h = self:getIOSWindowPixels()
-    if pixel_w ~= SDL.window_pixel_w or pixel_h ~= SDL.window_pixel_h then
+    if SDL.applyIOSSafeArea(pixel_w, pixel_h) then
         self:onWindowResized(nil, nil, self.input)
     end
     UIManager:scheduleIn(2, self.window_size_watch)

@@ -343,6 +343,7 @@ end
 
 function ReaderRolling:onReaderReady()
     self:applyAutoVisiblePages() -- the book's saved settings have been applied by now
+    self.short_side = math.min(Screen:getWidth(), Screen:getHeight())
     self:setupTouchZones()
     if self.hide_nonlinear_flows then
         self.ui.document:cacheFlows()
@@ -1100,10 +1101,11 @@ function ReaderRolling:applyAutoVisiblePages()
 end
 
 function ReaderRolling:onSetDimensions(dimen)
-    self:applyAutoVisiblePages()
     if self.ui.postReaderReadyCallback ~= nil then
         -- ReaderUI:init() not yet done: just set document dimensions
         self.ui.document:setViewDimen(Screen:getSize())
+        self:applyAutoVisiblePages()
+        self.short_side = math.min(Screen:getWidth(), Screen:getHeight())
         -- (what's done in the following else is done elsewhere by
         -- the initialization code)
     else
@@ -1114,8 +1116,22 @@ function ReaderRolling:onSetDimensions(dimen)
         self.ui.document:enableInternalHistory(true)
         -- Set document dimensions
         self.ui.document:setViewDimen(Screen:getSize())
+        self:applyAutoVisiblePages()
+        -- Switching between the Duo's screens changes the page too much for a
+        -- partial rerendering, which would only redo it as pages get turned.
+        local short_side = math.min(Screen:getWidth(), Screen:getHeight())
+        local full_rerendering = Device:getAutoVisiblePages() and self.short_side
+            and math.abs(short_side - self.short_side) > short_side * 0.2
+            and self.ui.document:isPartialRerenderingEnabled()
+        self.short_side = short_side
+        if full_rerendering then
+            self.ui.document:enablePartialRerendering(false)
+        end
         -- Re-render document (and update TOC, re set position)
         self:onUpdatePos()
+        if full_rerendering then
+            self.ui.document:enablePartialRerendering(true)
+        end
         -- Re-disable internal history, with required redraw
         self.ui.document:enableInternalHistory(false)
         self:onRedrawCurrentView()
