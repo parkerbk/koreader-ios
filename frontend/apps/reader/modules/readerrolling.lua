@@ -241,6 +241,7 @@ function ReaderRolling:onReadSettings(config)
     -- with config toggle, and the one that we will save for next load.
     -- Use self.ui.document:getVisiblePageCount() to get the current
     -- crengine used value.
+    self.configurable.visible_pages = Device:getAutoVisiblePages() or self.configurable.visible_pages
     self.ui.document:setVisiblePageCount(self.configurable.visible_pages)
 
     if config:has("hide_nonlinear_flows") then
@@ -1091,6 +1092,10 @@ function ReaderRolling:onRedrawCurrentView()
 end
 
 function ReaderRolling:onSetDimensions(dimen)
+    local auto_visible_pages = Device:getAutoVisiblePages()
+    if auto_visible_pages and auto_visible_pages ~= self.configurable.visible_pages then
+        self:onSetVisiblePages(auto_visible_pages)
+    end
     if self.ui.postReaderReadyCallback ~= nil then
         -- ReaderUI:init() not yet done: just set document dimensions
         self.ui.document:setViewDimen(Screen:getSize())

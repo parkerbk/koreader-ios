@@ -237,6 +237,10 @@ void ko_ios_get_window_pixels(int *out_w, int *out_h) {
     *out_h = (int)lround(size.height * scale);
 }
 
+bool ko_ios_is_phone(void) {
+    return UIDevice.currentDevice.userInterfaceIdiom == UIUserInterfaceIdiomPhone;
+}
+
 void ko_ios_end_editing(void) {
     dispatch_async(dispatch_get_main_queue(), ^{
         [ko_ios_main_window() endEditing:YES];

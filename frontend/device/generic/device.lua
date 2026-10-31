@@ -65,6 +65,7 @@ local Device = {
     hasSystemKeyboard = no, -- the OS provides its own on-screen keyboard (iOS), used instead of VirtualKeyboard
     hasNativeMenu = no,
     canRequestLocation = no,
+    getAutoVisiblePages = function() end, -- pages to show side by side, nil to leave it to the user
     hasEinkScreen = yes,
     hasExternalSD = no, -- or other storage volume that cannot be accessed using the File Manager
     canHWDither = no,

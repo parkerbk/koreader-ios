@@ -184,6 +184,7 @@ if isIOS then
     ffi.cdef[[
         void ko_ios_get_window_pixels(int *out_w, int *out_h);
         void ko_ios_end_editing(void);
+        bool ko_ios_is_phone(void);
         void ko_ios_location_start(void);
         int ko_ios_location_poll(double *latitude, double *longitude, double *altitude, int *has_altitude);
     ]]
@@ -192,6 +193,18 @@ if isIOS then
         local w, h = ffi.new("int[1]"), ffi.new("int[1]")
         ffi.C.ko_ios_get_window_pixels(w, h)
         return tonumber(w[0]), tonumber(h[0])
+    end
+
+    --- Two columns on the iPhone Duo's inner screen in landscape, one otherwise.
+    -- The Duo is told apart by its screen sizes: the short side of its cover
+    -- screen is 466 points and of its inner screen 669, past any other iPhone's.
+    function Device:getAutoVisiblePages()
+        if not ffi.C.ko_ios_is_phone() then return end
+        local w, h = self:getIOSWindowPixels()
+        local scale = SDL.window_pixel_w / SDL.win_w
+        local short_side = math.min(w, h) / scale
+        if short_side < 450 then return end
+        return (short_side >= 600 and w > h) and 2 or 1
     end
 
     --- Asks iOS for the device's location, prompting for permission if needed.

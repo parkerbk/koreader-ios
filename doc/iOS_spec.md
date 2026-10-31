@@ -137,6 +137,9 @@ new device class, to keep the diff against upstream small.
   browser, multi-line and full-screen editors.
 - **Long press**: `Device:getPanThreshold` allows 20 points of movement, since
   KOReader's default is under 12 on a 3x screen and a thumb often exceeds it.
+- **Duo columns**: `Device:getAutoVisiblePages` shows reflowable books in two
+  columns on the inner screen in landscape and one otherwise, re-applied on
+  every size change. The screens are told apart by size (§6).
 - **Page color**: Settings → Page color offers White, Cream, Sepia, Gray,
   Green and Black. `ReaderView:paintTo` multiplies the finished view by the
   `page_tint` setting, so it works for every document type and keeps black
