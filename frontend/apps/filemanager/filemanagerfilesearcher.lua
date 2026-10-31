@@ -21,22 +21,23 @@ local T = require("ffi/util").template
 local FileSearcher = InputContainer:extend{
     case_sensitive = false,
     include_subfolders = true,
+    use_patterns = false,
     include_metadata = false,
 }
 
 function FileSearcher:init()
-    self:registerKeyEvents()
     if not self.ui.document then
         self.ui.menu:registerToMainMenu(self)
     end
 end
 
-function FileSearcher:registerKeyEvents()
-    if Device:hasKeyboard() then
-        self.key_events.ShowFileSearch = { { "Alt", "F" }, { "Ctrl", "F" } }
-        self.key_events.ShowFileSearchBlank = { { "Alt", "Shift", "F" }, { "Ctrl", "Shift", "F" }, event = "ShowFileSearch", args = "" }
-    end
-end
+-- function FileSearcher:registerKeyEvents()
+--     now handled by hotkeys.koplugin:
+--     onShowFileSearch = { { "Alt", "F" }, { "Ctrl", "F" } }
+--     if Device:hasKeyboard() then
+--         onShowFileSearchBlank = { { "Alt", "Shift", "F" }, { "Ctrl", "Shift", "F" } }
+--     end
+-- end
 
 function FileSearcher:addToMainMenu(menu_items)
     menu_items.file_search = {
@@ -44,8 +45,11 @@ function FileSearcher:addToMainMenu(menu_items)
         text = _("File search"),
         help_text = _([[Search a book by filename in the current or home folder and its subfolders.
 
-Wildcards for one '?' or more '*' characters can be used.
-A search for '*' will show all files.
+The query is matched as plain text, except that a search
+for '*' will show all files.
+
+Check 'Use patterns' for advanced matching with Lua patterns
+(%d, [a-z], ^, …), where '*' and '?' act as wildcards.
 
 The sorting order is the same as in filemanager.
 
@@ -63,15 +67,18 @@ Tap a book in the search results to open it.]]),
 end
 
 function FileSearcher:onShowFileSearch(search_string)
-    local search_dialog, check_button_case, check_button_subfolders, check_button_metadata
+    local search_dialog
+    local check_button_case, check_button_patterns, check_button_metadata, check_button_content, check_button_subfolders
     local function _doSearch()
         local search_str = search_dialog:getInputText()
         if search_str == "" then return end
         FileSearcher.search_string = search_str
         UIManager:close(search_dialog)
         self.case_sensitive = check_button_case.checked
-        self.include_subfolders = check_button_subfolders.checked
+        self.use_patterns = check_button_patterns.checked
         self.include_metadata = check_button_metadata and check_button_metadata.checked
+        self.include_content = check_button_content and check_button_content.checked
+        self.include_subfolders = check_button_subfolders.checked
         local Trapper = require("ui/trapper")
         Trapper:wrap(function()
             self:doSearch()
@@ -114,12 +121,12 @@ function FileSearcher:onShowFileSearch(search_string)
         parent = search_dialog,
     }
     search_dialog:addWidget(check_button_case)
-    check_button_subfolders = CheckButton:new{
-        text = _("Include subfolders"),
-        checked = self.include_subfolders,
+    check_button_patterns = CheckButton:new{
+        text = _("Use patterns"),
+        checked = self.use_patterns,
         parent = search_dialog,
     }
-    search_dialog:addWidget(check_button_subfolders)
+    search_dialog:addWidget(check_button_patterns)
     if self.ui.coverbrowser then
         check_button_metadata = CheckButton:new{
             text = _("Also search in book metadata"),
@@ -128,6 +135,20 @@ function FileSearcher:onShowFileSearch(search_string)
         }
         search_dialog:addWidget(check_button_metadata)
     end
+    if not self.ui.document then -- avoid 2 instances of crengine
+        check_button_content = CheckButton:new{
+            text = _("Also search in book content (slow)"),
+            checked = self.include_content,
+            parent = search_dialog,
+        }
+        search_dialog:addWidget(check_button_content)
+    end
+    check_button_subfolders = CheckButton:new{
+        text = _("Include subfolders"),
+        checked = self.include_subfolders,
+        parent = search_dialog,
+    }
+    search_dialog:addWidget(check_button_subfolders)
     UIManager:show(search_dialog)
     search_dialog:onShowKeyboard()
     return true
@@ -135,18 +156,24 @@ end
 
 function FileSearcher:doSearch()
     local search_hash = FileSearcher.search_path .. (FileSearcher.search_string or "") ..
-        tostring(self.case_sensitive) .. tostring(self.include_subfolders) .. tostring(self.include_metadata)
+        tostring(self.case_sensitive) .. tostring(self.use_patterns) ..
+        tostring(self.include_metadata) .. tostring(self.include_content) .. tostring(self.include_subfolders)
     local not_cached = FileSearcher.search_hash ~= search_hash
     if not_cached then
         local Trapper = require("ui/trapper")
         local info = InfoMessage:new{ text = _("Searching… (tap to cancel)") }
         UIManager:show(info)
         UIManager:forceRePaint()
-        local completed, dirs, files, no_metadata_count = Trapper:dismissableRunInSubprocess(function()
+        local completed, dirs, files, no_metadata_count, invalid_pattern = Trapper:dismissableRunInSubprocess(function()
             return self:getList()
         end, info)
         if not completed then return end
         UIManager:close(info)
+        if invalid_pattern then
+            self:onShowFileSearch()
+            UIManager:show(InfoMessage:new{ text = _("Incorrect pattern") })
+            return
+        end
         FileSearcher.search_hash = search_hash
         self.no_metadata_count = no_metadata_count
         -- Cannot do this in getList() within Trapper (cannot serialize function)
@@ -157,8 +184,9 @@ function FileSearcher:doSearch()
             dirs[i] = fc:getListItem(nil, f, fullpath, attributes, collate)
         end
         for i, v in ipairs(files) do
-            local f, fullpath, attributes = unpack(v)
+            local f, fullpath, attributes, found_pos = unpack(v)
             files[i] = fc:getListItem(nil, f, fullpath, attributes, collate)
+            files[i].found_pos = type(found_pos) ~= "boolean" and found_pos or nil
         end
         FileSearcher.search_results = fc:genItemTable(dirs, files)
     end
@@ -171,6 +199,7 @@ end
 
 function FileSearcher:getList()
     self.no_metadata_count = 0 -- will be updated in doSearch() with result from subprocess
+    self.invalid_pattern = false
     local sys_folders = { -- do not search in sys_folders
         ["/dev"] = true,
         ["/proc"] = true,
@@ -182,12 +211,14 @@ function FileSearcher:getList()
         if not self.case_sensitive then
             search_string = util.stringLower(search_string)
         end
-        -- replace '.' with '%.'
-        search_string = search_string:gsub("%.","%%%.")
-        -- replace '*' with '.*'
-        search_string = search_string:gsub("%*","%.%*")
-        -- replace '?' with '.'
-        search_string = search_string:gsub("%?","%.")
+        if self.use_patterns then
+            -- replace '.' with '%.'
+            search_string = search_string:gsub("%.","%%%.")
+            -- replace '*' with '.*'
+            search_string = search_string:gsub("%*","%.%*")
+            -- replace '?' with '.'
+            search_string = search_string:gsub("%?","%.")
+        end
     end
 
     local dirs, files = {}, {}
@@ -219,8 +250,9 @@ function FileSearcher:getList()
                     elseif attributes.mode == "file" and not util.stringStartsWith(f, "._")
                             and (FileChooser.show_unsupported or DocumentRegistry:hasProvider(fullpath))
                             and FileChooser:show_file(f) then
-                        if self:isFileMatch(f, fullpath, search_string, true) then
-                            table.insert(files, { f, fullpath, attributes })
+                        local found_pos = self:isFileMatch(f, fullpath, search_string, true)
+                        if found_pos then
+                            table.insert(files, { f, fullpath, attributes, found_pos })
                         end
                     end
                 end
@@ -228,7 +260,7 @@ function FileSearcher:getList()
         end
         scan_dirs = new_dirs
     end
-    return dirs, files, self.no_metadata_count
+    return dirs, files, self.no_metadata_count, self.invalid_pattern
 end
 
 function FileSearcher:isFileMatch(filename, fullpath, search_string, is_file)
@@ -238,15 +270,33 @@ function FileSearcher:isFileMatch(filename, fullpath, search_string, is_file)
     if not self.case_sensitive then
         filename = util.stringLower(filename)
     end
-    if string.find(filename, search_string) then
-        return true
+    if self.use_patterns then
+        local ok, from = pcall(string.find, filename, search_string)
+        if not ok then
+            -- invalid pattern (e.g., unbalanced '(' or '['); LuaJIT only detects this while matching
+            self.invalid_pattern = true
+            return false
+        end
+        if from then
+            return true
+        end
+    else
+        if string.find(filename, search_string, 1, true) then
+            return true
+        end
     end
-    if self.include_metadata and is_file and DocumentRegistry:hasProvider(fullpath) then
-        local book_props = self.ui.bookinfo:getDocProps(fullpath, nil, true) -- do not open the document
-        if next(book_props) ~= nil then
-            return self.ui.bookinfo:findInProps(book_props, search_string, self.case_sensitive)
-        else
-            self.no_metadata_count = self.no_metadata_count + 1
+    if is_file and (self.include_metadata or self.include_content) and DocumentRegistry:hasProvider(fullpath) then
+        if self.include_metadata then
+            local book_props = self.ui.bookinfo:getDocProps(fullpath, nil, true) -- do not open the document
+            if next(book_props) ~= nil then
+                return self.ui.bookinfo:findInProps(book_props, search_string, self.case_sensitive)
+            else
+                self.no_metadata_count = self.no_metadata_count + 1
+            end
+        end
+        if self.include_content then
+            local ReaderUI = require("apps/reader/readerui")
+            return ReaderUI:findTextInBookContent(self, fullpath, search_string)
         end
     end
 end
@@ -343,7 +393,10 @@ function FileSearcher:onMenuSelect(item)
         end
     else
         if item.is_file then
-            if DocumentRegistry:hasProvider(item.path, nil, true) then
+            if item.found_pos then -- found in book content
+                filemanagerutil.showSearchResultsOpenFileDialog(self.ui, item.text, item.path,
+                    FileSearcher.search_string, item.found_pos, self.close_callback)
+            elseif DocumentRegistry:hasProvider(item.path, nil, true) then
                 filemanagerutil.openFile(self.ui, item.path, self.close_callback)
             end
         else

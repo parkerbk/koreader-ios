@@ -15,7 +15,6 @@ local UIManager = require("ui/uimanager")
 local WidgetContainer = require("ui/widget/container/widgetcontainer")
 local ffiUtil = require("ffi/util")
 local filemanagerutil = require("apps/filemanager/filemanagerutil")
-local logger = require("logger")
 local util = require("util")
 local _ = require("gettext")
 local N_ = _.ngettext
@@ -205,7 +204,15 @@ function FileManagerCollection:onMenuSelect(item)
         self._manager.selected_files[item.file] = item.dim
         self:updateItems(1, true)
     else
-        filemanagerutil.openFile(self.ui, item.file, self.close_callback)
+        local coll_settings = ReadCollection.coll_settings[self.path]
+        local found_pos = coll_settings and coll_settings.find_results and coll_settings.find_results[item.file]
+        if found_pos then -- 'search results' collection
+            local search_str = coll_settings.find_results[1]
+            filemanagerutil.showSearchResultsOpenFileDialog(self.ui, item.text, item.file,
+                search_str, found_pos, self.close_callback)
+        else -- usual collection
+            filemanagerutil.openFile(self.ui, item.file, self.close_callback)
+        end
     end
 end
 
@@ -311,8 +318,9 @@ function FileManagerCollection:onMenuHold(item)
         end
     end
 
+    local title = book_props and (book_props.title or book_props.display_title)
     self.file_dialog = ButtonDialog:new{
-        title = BD.filename(item.text),
+        title = title and self.ui.bookinfo.combineAuthorsTitle(book_props.authors, title, true) or BD.filename(item.text),
         title_align = "center",
         buttons = buttons,
     }
@@ -683,7 +691,7 @@ function FileManagerCollection:showPropValueList(prop)
         })
     end
     if #prop_item_table > 1 then
-        table.sort(prop_item_table, function(a, b) return ffiUtil.strcoll(a.text, b.text) end)
+        table.sort(prop_item_table, BookList.getCollateSortFunc())
     end
     prop_menu = Menu:new{
         title = T("%1 (%2)", self.ui.bookinfo.prop_text[prop]:gsub(":", ""), #prop_item_table),
@@ -1183,7 +1191,7 @@ function FileManagerCollection:updateCollFolderListItemTable()
             })
         end
         if #item_table > 1 then
-            table.sort(item_table, function(a, b) return ffiUtil.strcoll(a.text, b.text) end)
+            table.sort(item_table, BookList.getCollateSortFunc())
         end
     end
     local subtitle = T(_("Connected folders: %1"), #item_table)
@@ -1454,7 +1462,7 @@ function FileManagerCollection:sortCollections()
         title = _("Arrange collections"),
         item_table = self.coll_list.item_table,
         callback = function()
-            self.updated_collections = { true } -- all
+            self.updated_collections[1] = true -- all
             ReadCollection:updateCollectionListOrder(sort_widget.item_table)
             self:updateCollListItemTable(true) -- init
         end,
@@ -1529,36 +1537,8 @@ function FileManagerCollection:searchCollections(coll_name)
             return true
         end
         if self.include_content then
-            logger.dbg("Search in book:", file)
             local ReaderUI = require("apps/reader/readerui")
-            local provider = ReaderUI:extendProvider(file, DocumentRegistry:getProvider(file))
-            local document = DocumentRegistry:openDocument(file, provider)
-            if document then
-                local loaded, found
-                if document.loadDocument then -- CRE
-                    -- We will be half-loading documents and may mess with crengine's state.
-                    -- Fortunately, this is run in a subprocess, so we won't be affecting the
-                    -- main process's crengine state or any document opened in the main
-                    -- process (we furthermore prevent this feature when one is opened).
-                    -- To avoid creating half-rendered/invalid cache files, it's best to disable
-                    -- crengine saving of such cache files.
-                    if not self.is_cre_cache_disabled then
-                        local cre = require("document/credocument"):engineInit()
-                        cre.initCache("", 0, true, 40)
-                        self.is_cre_cache_disabled = true
-                    end
-                    loaded = document:loadDocument()
-                else
-                    loaded = true
-                end
-                if loaded then
-                    found = document:findText(self.search_str, 0, 0, not self.case_sensitive, 1, false, 1)
-                end
-                document:close()
-                if found then
-                    return true
-                end
-            end
+            return ReaderUI:findTextInBookContent(self, file, self.search_str)
         end
         return false
     end
@@ -1582,6 +1562,7 @@ function FileManagerCollection:searchCollections(coll_name)
                     if order_idx == nil then -- new
                         table.insert(_files_found_order, {
                             file = file,
+                            found_pos = match_cache[file],
                             coll_order = coll_order,
                             item_order = item.order,
                         })
@@ -1605,6 +1586,7 @@ function FileManagerCollection:searchCollections(coll_name)
             text = T(_("No results for: %1"), self.search_str),
         })
     else
+        local sort_func = BookList.getCollateSortFunc()
         table.sort(files_found_order, function(a, b)
             if a.coll_order ~= b.coll_order then
                 return a.coll_order < b.coll_order
@@ -1612,7 +1594,7 @@ function FileManagerCollection:searchCollections(coll_name)
             if a.item_order and b.item_order then
                 return a.item_order < b.item_order
             end
-            return ffiUtil.strcoll(a.text, b.text)
+            return sort_func(a, b)
         end)
         local new_coll_name = T(_("Search results: %1"), self.search_str)
         if coll_name then
@@ -1624,6 +1606,13 @@ function FileManagerCollection:searchCollections(coll_name)
         ReadCollection:addCollection(new_coll_name)
         ReadCollection:addItemsMultiple(files_found, { [new_coll_name] = true })
         ReadCollection:updateCollectionOrder(new_coll_name, files_found_order)
+        local coll_settings = ReadCollection.coll_settings[new_coll_name]
+        coll_settings.find_results = { self.search_str }
+        for _, v in ipairs(files_found_order) do
+            if type(v.found_pos) ~= "boolean" then -- found in book content
+                coll_settings.find_results[v.file] = v.found_pos
+            end
+        end
         if self.coll_list ~= nil then
             UIManager:close(self.coll_list)
             self.coll_list = nil
@@ -1650,9 +1639,7 @@ function FileManagerCollection:genAddToCollectionButton(file_or_files, caller_pr
                 caller_pre_callback()
             end
             local caller_callback = function(selected_collections)
-                for name in pairs(selected_collections) do
-                    self.updated_collections[name] = true
-                end
+                self.updated_collections[1] = true -- all, include unchecked collections to remove books from them
                 if is_single_file then
                     ReadCollection:addRemoveItemMultiple(file_or_files, selected_collections)
                 else -- selected files

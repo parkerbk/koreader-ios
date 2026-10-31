@@ -69,6 +69,8 @@ local InputText = InputContainer:extend{
     undo_startpos = nil, -- position to insert 'undoing'
     undo_charpos = nil, -- position to put the cursor after 'undoing'
     _password_toggle = nil,
+
+    clipboard_settings = Device:hasClipboard() and G_reader_settings:readSetting("clipboard", {}) or nil,
 }
 
 -- These may be (internally) overloaded as needed, depending on Device capabilities.
@@ -251,7 +253,7 @@ function InputText:holdTextBox(arg, ges)
     end
     -- clipboard dialog
     self._hold_handled = nil
-    if Device:hasClipboard() then
+    if self.clipboard_settings then
         if self.do_select then -- select mode on
             if self.selection_start_pos then -- select end
                 self:showSelectionDialog()
@@ -278,6 +280,24 @@ function InputText:holdTextBox(arg, ges)
             modal = true,
             stop_events_propagation = true,
             buttons_table = {
+                {
+                    {
+                        text = _("Delete all"),
+                        enabled = #self.charlist > 0,
+                        callback = function()
+                            UIManager:close(clipboard_dialog)
+                            self:delAll()
+                        end,
+                    },
+                    {
+                        text = _("Undo last deletion"),
+                        enabled = self.undo_charlist ~= nil,
+                        callback = function()
+                            UIManager:close(clipboard_dialog)
+                            self:undoLastDeletion()
+                        end,
+                    },
+                },
                 {
                     {
                         text = _("Copy all"),
@@ -314,14 +334,6 @@ function InputText:holdTextBox(arg, ges)
                 },
                 {
                     {
-                        text = _("Delete all"),
-                        enabled = #self.charlist > 0,
-                        callback = function()
-                            UIManager:close(clipboard_dialog)
-                            self:delAll()
-                        end,
-                    },
-                    {
                         text = _("Select"),
                         callback = function()
                             UIManager:close(clipboard_dialog)
@@ -340,14 +352,12 @@ function InputText:holdTextBox(arg, ges)
                             self:addChars(clipboard_value)
                         end,
                     },
-                },
-                {
                     {
-                        text = _("Undo last deletion"),
-                        enabled = self.undo_charlist ~= nil,
+                        text = "\u{F435}", -- pin
+                        enabled = not self.disable_clipboard_snippet_edit or self.clipboard_settings.snippets ~= nil,
                         callback = function()
                             UIManager:close(clipboard_dialog)
-                            self:undoLastDeletion()
+                            self:showClipboardSnippets()
                         end,
                     },
                 },
@@ -403,6 +413,112 @@ function InputText:showSelectionDialog()
         },
     }
     UIManager:show(selection_dialog)
+end
+
+function InputText:showClipboardSnippets()
+    local ButtonDialog = require("ui/widget/buttondialog")
+    local snippets_dialog
+    local buttons = self.disable_clipboard_snippet_edit and {} or {
+        {
+            {
+                text = _("New"),
+                font_face = "smallinfofont",
+                font_size = 22,
+                align = "left",
+                callback = function()
+                    UIManager:close(snippets_dialog)
+                    self:editClipboardSnippet()
+                end,
+            },
+        },
+    }
+    if self.clipboard_settings.snippets then
+        for i, v in ipairs(self.clipboard_settings.snippets) do
+            table.insert(buttons, {{
+                text = v.name and string.format("%s (%s)", v.name, v.text) or v.text,
+                menu_style = true,
+                avoid_text_truncation = false,
+                callback = function()
+                    UIManager:close(snippets_dialog)
+                    self:addChars(v.text)
+                end,
+                hold_callback = function()
+                    if not self.disable_clipboard_snippet_edit then
+                        UIManager:close(snippets_dialog)
+                        self:editClipboardSnippet(i)
+                    end
+                end,
+            }})
+        end
+    end
+    snippets_dialog = ButtonDialog:new{
+        width_factor = 0.6,
+        buttons = buttons,
+        modal = true,
+    }
+    UIManager:show(snippets_dialog)
+end
+
+function InputText:editClipboardSnippet(idx)
+    local MultiInputDialog = require("ui/widget/multiinputdialog")
+    local item = idx and self.clipboard_settings.snippets[idx]
+    local snippet_dialog
+    snippet_dialog = MultiInputDialog:new{
+        title = _("Clipboard snippet"),
+        fields = {
+            {
+                text = item and item.text or Device.input.getClipboardText(),
+                hint = _("text"),
+                allow_newline = true,
+            },
+            {
+                text = item and item.name,
+                hint = _("name (optional)"),
+            },
+        },
+        disable_clipboard_snippet_edit = true,
+        buttons = {
+            {
+                {
+                    text = _("Cancel"),
+                    id = "close",
+                    callback = function()
+                        UIManager:close(snippet_dialog)
+                    end,
+                },
+                {
+                    text = _("Remove"),
+                    enabled = idx ~= nil,
+                    callback = function()
+                        UIManager:close(snippet_dialog)
+                        table.remove(self.clipboard_settings.snippets, idx)
+                        if not next(self.clipboard_settings.snippets) then
+                            self.clipboard_settings.snippets = nil
+                        end
+                        self:showClipboardSnippets()
+                    end,
+                },
+                {
+                    text = _("Save"),
+                    callback = function()
+                        local fields = snippet_dialog:getFields()
+                        if fields[1] ~= "" then
+                            UIManager:close(snippet_dialog)
+                            self.clipboard_settings.snippets = self.clipboard_settings.snippets or {}
+                            idx = idx or #self.clipboard_settings.snippets + 1
+                            self.clipboard_settings.snippets[idx] = {
+                                text = fields[1],
+                                name = fields[2] ~= "" and fields[2] or nil,
+                            }
+                            self:showClipboardSnippets()
+                        end
+                    end,
+                },
+            },
+        },
+    }
+    UIManager:show(snippet_dialog)
+    snippet_dialog:onShowKeyboard()
 end
 
 function InputText:checkTextEditability()
@@ -669,6 +785,14 @@ function InputText:focus()
     Device:startTextInput()
 end
 
+function InputText:keyBack()
+    if self.parent.onCloseDialog then
+        self.parent:onCloseDialog()
+    else
+        UIManager:close(self.parent)
+    end
+end
+
 -- NOTE: This key_map can be used for keyboards without numeric keys, such as on Kindles with keyboards. It is loosely 'inspired' by the symbol layer on the virtual keyboard but,
 --       we have taken the liberty of making some adjustments since:
 --       * K3 does not have numeric keys (top row) and,
@@ -689,6 +813,13 @@ function InputText:onKeyPress(key)
     if not self.focused then
         return false
     end
+
+    -- A lone Sym or ScreenKB key press toggles the on-screen keyboard, same as Shift/ScreenKB + Home.
+    if key["SymPress"] or key["ScreenKBPress"] then
+        self:toggleKeyboard()
+        return self.keyboard ~= nil -- readonly fields have no keyboard: let the event bubble
+    end
+
     local handled = true
 
     if not key["Ctrl"] and not key["Shift"] and not key["Alt"] and not key["ScreenKB"] then
@@ -727,17 +858,26 @@ function InputText:onKeyPress(key)
         elseif key["End"] then
             self:goToEnd()
         elseif key["Home"] then
+            -- If our parent handles Home (e.g., InputDialog), delegate entirely
+            -- to avoid double-firing: once here and once via FocusManager routing.
+            if self.parent and self.parent.onHome then
+                return self.parent:onHome()
+            end
+            self:keyBack()
+            local Event = require("ui/event")
+            UIManager:nextTick(function()
+                UIManager:sendEvent(Event:new("Home"))
+            end)
+        elseif key["KeyHome"] then
             self:goToHome()
         elseif key["Press"] then
             self:addChars("\n")
         elseif key["Tab"] then
             self:addChars("    ")
         elseif key["Back"] then
-            if self.parent.onCloseDialog then
-                self.parent:onCloseDialog()
-            else
-                UIManager:close(self.parent)
-            end
+            self:keyBack()
+        elseif key["F9"] then
+            self:toggleKeyboard()
         else
             handled = false
         end
@@ -772,12 +912,8 @@ function InputText:onKeyPress(key)
             self:downLine()
         elseif key["Press"] then
             self:holdTextBox()
-        elseif key["Home"] then
-            if self.keyboard:isVisible() then
-                self:onCloseKeyboard()
-            else
-                self:onShowKeyboard()
-            end
+        elseif key["Home"] or key["KeyHome"] then
+            self:toggleKeyboard()
         elseif key["."] and Device:hasSymKey() then
             -- Kindle does not have a dedicated button for commas
             self:addChars(",")
@@ -803,14 +939,18 @@ function InputText:onKeyPress(key)
             FocusManagerInstance = FocusManager:new{}
         end
         local is_alternative_key = FocusManagerInstance:isAlternativeKey(key)
-        if not is_alternative_key and Device:isSDL() then
-            -- SDL already insert char via TextInput event
-            -- Stop event propagate to FocusManager
+        if not is_alternative_key and Device:hasKeyboardTextInput() then
+            if key["PrintScr"] or key["F8"] then
+                -- Keep physical keyboard screenshot shortcuts working in InputText.
+                return false
+            end
+            -- SDL and an external keyboard already emit TextInput.
+            -- Stop propagation to FocusManager.
             return true
         end
         -- if it is single text char, insert it
         local key_code = key.key -- is in upper case
-        if not Device.isSDL() and #key_code == 1 then
+        if not Device:hasKeyboardTextInput() and #key_code == 1 then
             if key["Shift"] and key["Alt"] and key["G"] then
                 -- Allow the screenshot keyboard-shortcut to work when focus is on InputText
                 return false
@@ -868,6 +1008,19 @@ function InputText:isKeyboardVisible()
     end
     -- NOTE: Never return `nil`, to avoid inheritance issues in (Multi)InputDialog's keyboard_visible flag.
     return false
+end
+
+-- Temporarily show/hide the on-screen keyboard, e.g. via Shift/ScreenKB + Home or a lone Sym/ScreenKB press.
+function InputText:toggleKeyboard()
+    local parent = self.parent
+    if parent and parent.shouldDelegateToggleKeyboard and parent:shouldDelegateToggleKeyboard() then
+        return parent:toggleKeyboard()
+    end
+    if self:isKeyboardVisible() then
+        self:onCloseKeyboard()
+    else
+        self:onShowKeyboard()
+    end
 end
 
 function InputText:lockKeyboard(toggle)

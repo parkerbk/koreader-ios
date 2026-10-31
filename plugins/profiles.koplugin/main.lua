@@ -1,3 +1,4 @@
+local BookList = require("ui/widget/booklist")
 local ConfirmBox = require("ui/widget/confirmbox")
 local DataStorage = require("datastorage")
 local DateTimeWidget = require("ui/widget/datetimewidget")
@@ -7,6 +8,7 @@ local Event = require("ui/event")
 local InfoMessage = require("ui/widget/infomessage")
 local InputDialog = require("ui/widget/inputdialog")
 local LuaSettings = require("luasettings")
+local ReadCollection = require("readcollection")
 local UIManager = require("ui/uimanager")
 local WidgetContainer = require("ui/widget/container/widgetcontainer")
 local ffiUtil = require("ffi/util")
@@ -17,6 +19,7 @@ local C_ = _.pgettext
 local Screen = Device.screen
 local T = ffiUtil.template
 
+local string_input_hint = _("^ NOT * AND , OR")
 local autostart_done
 
 local Profiles = WidgetContainer:extend{
@@ -30,6 +33,7 @@ local Profiles = WidgetContainer:extend{
 function Profiles:init()
     Dispatcher:init()
     self.autoexec = G_reader_settings:readSetting("profiles_autoexec", {})
+    self.external_autoexec_triggers = {}
     self.ui.menu:registerToMainMenu(self)
     self:onDispatcherRegisterActions() -- will call loadSettings()
     self:onStart()
@@ -78,6 +82,13 @@ function Profiles:onDispatcherRegisterActions()
     end
 end
 
+function Profiles:registerAutoExecTrigger(trigger)
+    table.insert(self.external_autoexec_triggers, trigger) -- for menu
+    self["on" .. trigger.event] = function()
+        self:executeAutoExecEvent(trigger.event)
+    end
+end
+
 function Profiles:addToMainMenu(menu_items)
     menu_items.profiles = {
         text = _("Profiles"),
@@ -89,6 +100,7 @@ end
 
 function Profiles:getSubMenuItems()
     local sub_item_table = {
+        max_per_page = 20,
         {
             text = _("New"),
             keep_menu_open = true,
@@ -116,6 +128,15 @@ function Profiles:getSubMenuItems()
                     touchmenu_instance:updateItems()
                 end
                 self:editProfileName(editCallback)
+            end,
+        },
+        {
+            text = _("Auto-executing"),
+            enabled_func = function()
+                return next(self.autoexec) ~= nil
+            end,
+            sub_item_table_func = function()
+                return self:genAllAutoExecMenu()
             end,
             separator = true,
         },
@@ -147,167 +168,7 @@ function Profiles:getSubMenuItems()
                     end
                 end,
                 sub_item_table_func = function()
-                    return {
-                        {
-                            text = _("Ask to execute"),
-                            checked_func = function()
-                                return v.settings.auto_exec_ask
-                            end,
-                            callback = function()
-                                v.settings.auto_exec_ask = not v.settings.auto_exec_ask or nil
-                                self.updated = true
-                            end,
-                        },
-                        {
-                            text_func = function()
-                                local txt
-                                if v.settings.auto_exec_promptly then
-                                    txt = _("promptly")
-                                elseif v.settings.auto_exec_delay then
-                                    txt = string.format("%0.1f", v.settings.auto_exec_delay) .. " " .. C_("Time", "s")
-                                else
-                                    txt = _("default")
-                                end
-                                return T(_("Executing delay: %1"), txt)
-                            end,
-                            checked_func = function()
-                                return v.settings.auto_exec_promptly or v.settings.auto_exec_delay ~= nil
-                            end,
-                            sub_item_table_func = function()
-                                return {
-                                    {
-                                        text = _("promptly"),
-                                        help_text =
-_([[Enable this option to execute the profile before some other operations triggered by the event.
-For example, with a trigger "on document closing" the profile will be executed before the document is closed.]]),
-                                        checked_func = function()
-                                            return v.settings.auto_exec_promptly
-                                        end,
-                                        radio = true,
-                                        callback = function()
-                                            if not v.settings.auto_exec_promptly then
-                                                v.settings.auto_exec_promptly = true
-                                                v.settings.auto_exec_delay = nil
-                                                self.updated = true
-                                            end
-                                        end,
-                                    },
-                                    {
-                                        text = _("default"),
-                                        checked_func = function()
-                                            return not (v.settings.auto_exec_promptly or v.settings.auto_exec_delay)
-                                        end,
-                                        radio = true,
-                                        callback = function()
-                                            if v.settings.auto_exec_promptly or v.settings.auto_exec_delay then
-                                                v.settings.auto_exec_promptly = nil
-                                                v.settings.auto_exec_delay = nil
-                                                self.updated = true
-                                            end
-                                        end,
-                                    },
-                                    {
-                                        text_func = function()
-                                            return v.settings.auto_exec_delay
-                                                and string.format("%0.1f", v.settings.auto_exec_delay) .. " " .. C_("Time", "s")
-                                                 or _("custom")
-                                        end,
-                                        checked_func = function()
-                                            return v.settings.auto_exec_delay ~= nil
-                                        end,
-                                        radio = true,
-                                        callback = function(touchmenu_instance)
-                                            local SpinWidget = require("ui/widget/spinwidget")
-                                            UIManager:show(SpinWidget:new{
-                                                title_text = _("Executing delay"),
-                                                value = v.settings.auto_exec_delay or 3,
-                                                value_min = 1,
-                                                value_max = 10,
-                                                value_hold_step = 0.1,
-                                                precision = "%0.1f",
-                                                unit = C_("Time", "s"),
-                                                ok_always_enabled = true,
-                                                callback = function(spin)
-                                                    v.settings.auto_exec_promptly = nil
-                                                    v.settings.auto_exec_delay = spin.value
-                                                    self.updated = true
-                                                    touchmenu_instance:updateItems()
-                                                end,
-                                            })
-                                        end,
-                                    },
-                                }
-                            end,
-                            hold_callback = function(touchmenu_instance)
-                                v.settings.auto_exec_promptly = nil
-                                v.settings.auto_exec_delay = nil
-                                self.updated = true
-                                touchmenu_instance:updateItems()
-                            end,
-                        },
-                        {
-                            text_func = function()
-                                local interval = v.settings.auto_exec_time_interval
-                                return _("Only within time interval") ..
-                                    (interval and ": " .. interval[1] .. " - " .. interval[2] or "")
-                            end,
-                            checked_func = function()
-                                return v.settings.auto_exec_time_interval and true
-                            end,
-                            sub_item_table_func = function()
-                                local sub_sub_item_table = {}
-                                local points = { _("start: "), _("end: ") }
-                                local titles = { _("Set start time"), _("Set end time") }
-                                for i, point in ipairs(points) do
-                                    sub_sub_item_table[i] = {
-                                        text_func = function()
-                                            local interval = v.settings.auto_exec_time_interval
-                                            return point .. (interval and interval[i] or "--:--")
-                                        end,
-                                        keep_menu_open = true,
-                                        callback = function(touchmenu_instance)
-                                            local interval = v.settings.auto_exec_time_interval
-                                            local time_str = interval and interval[i] or os.date("%H:%M")
-                                            local h, m = time_str:match("(%d+):(%d+)")
-                                            UIManager:show(DateTimeWidget:new{
-                                                title_text = titles[i],
-                                                info_text = _("Enter time in hours and minutes."),
-                                                hour = tonumber(h),
-                                                min = tonumber(m),
-                                                ok_text = _("Set time"),
-                                                callback = function(new_time)
-                                                    local str = string.format("%02d:%02d", new_time.hour, new_time.min)
-                                                    if interval then
-                                                        v.settings.auto_exec_time_interval[i] = str
-                                                    else
-                                                        v.settings.auto_exec_time_interval = { str, str }
-                                                    end
-                                                    self.updated = true
-                                                    touchmenu_instance:updateItems()
-                                                end,
-                                            })
-                                        end,
-                                    }
-                                end
-                                return sub_sub_item_table
-                            end,
-                            hold_callback = function(touchmenu_instance)
-                                v.settings.auto_exec_time_interval = nil
-                                self.updated = true
-                                touchmenu_instance:updateItems()
-                            end,
-                            separator = true,
-                        },
-                        self:genAutoExecMenuItem(_("on KOReader start"), "Start", k),
-                        self:genAutoExecMenuItem(_("on wake-up"), "Resume", k),
-                        self:genAutoExecMenuItem(_("on exiting sleep screen"), "OutOfScreenSaver", k),
-                        self:genAutoExecMenuItem(_("on read timer expiry"), "ReadTimerExpired", k),
-                        self:genAutoExecMenuItem(_("on rotation"), "SetRotationMode", k),
-                        self:genAutoExecMenuItem(_("on showing folder"), "PathChanged", k),
-                        self:genAutoExecMenuItem(_("on book opening"), "ReaderReadyAll", k),
-                        self:genAutoExecMenuItem(_("on book closing"), "CloseDocumentAll", k),
-                        max_per_page = 11,
-                    }
+                    return self:genAutoExecMenu(k, v)
                 end,
                 hold_callback = function(touchmenu_instance)
                     for event, profiles in pairs(self.autoexec) do
@@ -349,7 +210,7 @@ For example, with a trigger "on document closing" the profile will be executed b
             },
             {
                 text_func = function()
-                    return T(_("Edit actions: (%1)"), Dispatcher:menuTextFunc(v))
+                    return T(_("Edit actions: (%1)"), Dispatcher:menuTextFunc(v, true)) -- honor cycle
                 end,
                 sub_item_table_func = function()
                     local edit_actions_sub_items = {}
@@ -426,20 +287,26 @@ For example, with a trigger "on document closing" the profile will be executed b
         }
         table.insert(sub_item_table, {
             text_func = function()
-                local prefix
-                if v.settings.show_as_quickmenu then
-                    prefix = "\u{F0CA} "
-                elseif v.settings.execute_one_by_one then
-                    prefix = "\u{F051} "
-                else
-                    prefix = "\u{F144} "
-                end
-                return prefix .. k
+                return self:getProfileMenuText(k)
             end,
+            name = k,
             sub_item_table = sub_items,
         })
     end
     return sub_item_table
+end
+
+function Profiles:getProfileMenuText(profile_name)
+    local profile = self.data[profile_name]
+    local prefix
+    if profile.settings.show_as_quickmenu then
+        prefix = "\u{F0CA} "
+    elseif profile.settings.execute_one_by_one then
+        prefix = "\u{F051} "
+    else
+        prefix = "\u{F144} "
+    end
+    return prefix .. profile_name
 end
 
 function Profiles:onProfileExecute(name, exec_props)
@@ -630,6 +497,223 @@ function Profiles:updateAutoExec(old_name, new_name)
     end
 end
 
+function Profiles:genAllAutoExecMenu()
+    local profiles = {}
+    for event, event_profiles in pairs(self.autoexec) do
+        for profile_name in pairs(event_profiles) do
+            profiles[profile_name] = profiles[profile_name] or {}
+            profiles[profile_name][event] = true
+        end
+    end
+    local sub_item_table = {}
+    for profile_name, profile_events in pairs(profiles) do
+        table.insert(sub_item_table, {
+            text = self:getProfileMenuText(profile_name),
+            name = profile_name,
+            events = profile_events,
+            keep_menu_open = true,
+            callback = function(touchmenu_instance) -- open profile menu
+                local upper_item_table = touchmenu_instance.item_table_stack[#touchmenu_instance.item_table_stack]
+                for _, item in ipairs(upper_item_table) do
+                    if item.name == profile_name then
+                        touchmenu_instance.item_table = item.sub_item_table
+                        touchmenu_instance:updateItems(1)
+                        break
+                    end
+                end
+            end,
+            hold_callback = function(touchmenu_instance, item)
+                UIManager:show(ConfirmBox:new{
+                    text = _("Disable profile auto-executing?") .. "\n\n" .. profile_name .. "\n",
+                    ok_text = _("Disable"),
+                    ok_callback = function()
+                        self:updateAutoExec(profile_name)
+                        table.remove(touchmenu_instance.item_table, item.idx)
+                        if #touchmenu_instance.item_table > 0 then
+                            touchmenu_instance:updateItems()
+                        else
+                            touchmenu_instance:backToUpperMenu()
+                        end
+                    end,
+                })
+            end,
+        })
+    end
+    if #sub_item_table > 1 then
+        local sort_func = BookList.getCollateSortFunc()
+        table.sort(sub_item_table, function(a, b) return sort_func({ text = a.name }, { text = b.name }) end)
+    end
+    return sub_item_table
+end
+
+function Profiles:genAutoExecMenu(k, v)
+    -- k - profile name, v - profile table
+    local sub_item_table = {
+        {
+            text = _("Ask to execute"),
+            checked_func = function()
+                return v.settings.auto_exec_ask
+            end,
+            callback = function()
+                v.settings.auto_exec_ask = not v.settings.auto_exec_ask or nil
+                self.updated = true
+            end,
+        },
+        {
+            text_func = function()
+                local txt
+                if v.settings.auto_exec_promptly then
+                    txt = _("promptly")
+                elseif v.settings.auto_exec_delay then
+                    txt = string.format("%0.1f", v.settings.auto_exec_delay) .. " " .. C_("Time", "s")
+                else
+                    txt = _("default")
+                end
+                return T(_("Executing delay: %1"), txt)
+            end,
+            checked_func = function()
+                return v.settings.auto_exec_promptly or v.settings.auto_exec_delay ~= nil
+            end,
+            sub_item_table_func = function()
+                return {
+                    {
+                        text = _("promptly"),
+                        help_text =
+_([[Enable this option to execute the profile before some other operations triggered by the event.
+For example, with a trigger "on document closing" the profile will be executed before the document is closed.]]),
+                        checked_func = function()
+                            return v.settings.auto_exec_promptly
+                        end,
+                        radio = true,
+                        callback = function()
+                            if not v.settings.auto_exec_promptly then
+                                v.settings.auto_exec_promptly = true
+                                v.settings.auto_exec_delay = nil
+                                self.updated = true
+                            end
+                        end,
+                    },
+                    {
+                        text = _("default"),
+                        checked_func = function()
+                            return not (v.settings.auto_exec_promptly or v.settings.auto_exec_delay)
+                        end,
+                        radio = true,
+                        callback = function()
+                            if v.settings.auto_exec_promptly or v.settings.auto_exec_delay then
+                                v.settings.auto_exec_promptly = nil
+                                v.settings.auto_exec_delay = nil
+                                self.updated = true
+                            end
+                        end,
+                    },
+                    {
+                        text_func = function()
+                            return v.settings.auto_exec_delay
+                                and string.format("%0.1f", v.settings.auto_exec_delay) .. " " .. C_("Time", "s")
+                                 or _("custom")
+                        end,
+                        checked_func = function()
+                            return v.settings.auto_exec_delay ~= nil
+                        end,
+                        radio = true,
+                        callback = function(touchmenu_instance)
+                            local SpinWidget = require("ui/widget/spinwidget")
+                            UIManager:show(SpinWidget:new{
+                                title_text = _("Executing delay"),
+                                value = v.settings.auto_exec_delay or 3,
+                                value_min = 1,
+                                value_max = 10,
+                                value_hold_step = 0.1,
+                                precision = "%0.1f",
+                                unit = C_("Time", "s"),
+                                ok_always_enabled = true,
+                                callback = function(spin)
+                                    v.settings.auto_exec_promptly = nil
+                                    v.settings.auto_exec_delay = spin.value
+                                    self.updated = true
+                                    touchmenu_instance:updateItems()
+                                end,
+                            })
+                        end,
+                    },
+                }
+            end,
+            hold_callback = function(touchmenu_instance)
+                v.settings.auto_exec_promptly = nil
+                v.settings.auto_exec_delay = nil
+                self.updated = true
+                touchmenu_instance:updateItems()
+            end,
+        },
+        {
+            text_func = function()
+                local interval = v.settings.auto_exec_time_interval
+                return _("Only within time interval") ..
+                    (interval and ": " .. interval[1] .. " - " .. interval[2] or "")
+            end,
+            checked_func = function()
+                return v.settings.auto_exec_time_interval and true
+            end,
+            sub_item_table_func = function()
+                local sub_sub_item_table = {}
+                local points = { _("start: "), _("end: ") }
+                local titles = { _("Set start time"), _("Set end time") }
+                for i, point in ipairs(points) do
+                    sub_sub_item_table[i] = {
+                        text_func = function()
+                            local interval = v.settings.auto_exec_time_interval
+                            return point .. (interval and interval[i] or "--:--")
+                        end,
+                        keep_menu_open = true,
+                        callback = function(touchmenu_instance)
+                            local interval = v.settings.auto_exec_time_interval
+                            local time_str = interval and interval[i] or os.date("%H:%M")
+                            local h, m = time_str:match("(%d+):(%d+)")
+                            UIManager:show(DateTimeWidget:new{
+                                title_text = titles[i],
+                                info_text = _("Enter time in hours and minutes."),
+                                hour = tonumber(h),
+                                min = tonumber(m),
+                                ok_text = _("Set time"),
+                                callback = function(new_time)
+                                    local str = string.format("%02d:%02d", new_time.hour, new_time.min)
+                                    if interval then
+                                        v.settings.auto_exec_time_interval[i] = str
+                                    else
+                                        v.settings.auto_exec_time_interval = { str, str }
+                                    end
+                                    self.updated = true
+                                    touchmenu_instance:updateItems()
+                                end,
+                            })
+                        end,
+                    }
+                end
+                return sub_sub_item_table
+            end,
+            hold_callback = function(touchmenu_instance)
+                v.settings.auto_exec_time_interval = nil
+                self.updated = true
+                touchmenu_instance:updateItems()
+            end,
+            separator = true,
+        },
+        self:genAutoExecMenuItem(_("on KOReader start"), "Start", k),
+        self:genAutoExecMenuItem(_("on wake-up"), "Resume", k),
+        self:genAutoExecMenuItem(_("on exiting sleep screen"), "OutOfScreenSaver", k),
+        self:genAutoExecMenuItem(_("on rotation"), "SetRotationMode", k),
+        self:genAutoExecMenuItem(_("on showing folder"), "PathChanged", k),
+        self:genAutoExecMenuItem(_("on book opening"), "ReaderReadyAll", k),
+        self:genAutoExecMenuItem(_("on book closing"), "CloseDocumentAll", k),
+    }
+
+    for _, trigger in ipairs(self.external_autoexec_triggers) do
+        table.insert(sub_item_table, self:genAutoExecMenuItem(trigger.text .. "  \u{E20F}", trigger.event, k)) -- 'tools'
+    end
+    return sub_item_table
+end
+
 function Profiles:genAutoExecMenuItem(text, event, profile_name, separator)
     if event == "SetRotationMode" then
         return self:genAutoExecSetRotationModeMenuItem(text, event, profile_name, separator)
@@ -719,7 +803,7 @@ function Profiles:genAutoExecPathChangedMenuItem(text, event, profile_name, sepa
                     text_func = function()
                         local txt = mode[1]
                         local value = util.tableGetValue(self.autoexec, event, profile_name, condition)
-                        return value and txt .. ": " .. value or txt
+                        return value and txt .. ": " .. self.ui.folder_shortcuts:expandPath(value) or txt
                     end,
                     checked_func = function()
                         return util.tableGetValue(self.autoexec, event, profile_name, condition)
@@ -736,6 +820,21 @@ function Profiles:genAutoExecPathChangedMenuItem(text, event, profile_name, sepa
                                 end,
                             },
                         }}
+                        table.insert(buttons, {
+                            {
+                                text = _("Info"),
+                                callback = self.ui.folder_shortcuts.expandPath,
+                            },
+                            {
+                                text = _("Show"),
+                                callback = function()
+                                    local txt = dialog:getInputText()
+                                    if txt ~= "" then
+                                        UIManager:show(InfoMessage:new{ text = self.ui.folder_shortcuts:expandPath(txt) })
+                                    end
+                                end,
+                            },
+                        })
                         table.insert(buttons, {
                             {
                                 text = _("Cancel"),
@@ -759,8 +858,9 @@ function Profiles:genAutoExecPathChangedMenuItem(text, event, profile_name, sepa
                             },
                         })
                         dialog = InputDialog:new{
-                            title =  _("Enter text contained in folder path"),
+                            title = _("Enter text contained in folder path"),
                             input = util.tableGetValue(self.autoexec, event, profile_name, condition),
+                            input_hint = (condition == "has" or condition == "has_not") and string_input_hint,
                             buttons = buttons,
                         }
                         UIManager:show(dialog)
@@ -787,7 +887,8 @@ function Profiles:genAutoExecDocConditionalMenuItem(text, event, profile_name, s
     return {
         text = text,
         checked_func = function()
-            return (util.tableGetValue(self.autoexec, event_always, profile_name) or util.tableGetValue(self.autoexec, event, profile_name)) and true
+            return (util.tableGetValue(self.autoexec, event_always, profile_name)
+                or util.tableGetValue(self.autoexec, event, profile_name)) and true
         end,
         sub_item_table_func = function()
             local conditions = {
@@ -795,6 +896,7 @@ function Profiles:genAutoExecDocConditionalMenuItem(text, event, profile_name, s
                 { _("if book metadata contains"), "doc_props" },
                 { _("if book file path contains"), "filepath" },
                 { _("if book is in collections"), "collections" },
+                { _("all selected conditions"), "AND" },
                 { _("and if book is new"), "is_new" },
             }
             local sub_item_table = {
@@ -895,6 +997,7 @@ function Profiles:genAutoExecDocConditionalMenuItem(text, event, profile_name, s
                                     dialog = InputDialog:new{
                                         title =  _("Enter text contained in:") .. " " .. self.ui.bookinfo.prop_text[prop]:sub(1, -2),
                                         input = util.tableGetValue(self.autoexec, event, profile_name, condition, prop),
+                                        input_hint = string_input_hint,
                                         buttons = buttons,
                                     }
                                     UIManager:show(dialog)
@@ -917,7 +1020,7 @@ function Profiles:genAutoExecDocConditionalMenuItem(text, event, profile_name, s
                     text_func = function() -- filepath
                         local txt = conditions[3][1]
                         local value = util.tableGetValue(self.autoexec, event, profile_name, conditions[3][2])
-                        return value and txt .. ": " .. value or txt
+                        return value and txt .. ": " .. self.ui.folder_shortcuts:expandPath(value) or txt
                     end,
                     enabled_func = function()
                         return not util.tableGetValue(self.autoexec, event_always, profile_name)
@@ -937,6 +1040,21 @@ function Profiles:genAutoExecDocConditionalMenuItem(text, event, profile_name, s
                                 end,
                             },
                         }}
+                        table.insert(buttons, {
+                            {
+                                text = _("Info"),
+                                callback = self.ui.folder_shortcuts.expandPath,
+                            },
+                            {
+                                text = _("Show"),
+                                callback = function()
+                                    local txt = dialog:getInputText()
+                                    if txt ~= "" then
+                                        UIManager:show(InfoMessage:new{ text = self.ui.folder_shortcuts:expandPath(txt) })
+                                    end
+                                end,
+                            },
+                        })
                         table.insert(buttons, {
                             {
                                 text = _("Cancel"),
@@ -962,6 +1080,7 @@ function Profiles:genAutoExecDocConditionalMenuItem(text, event, profile_name, s
                         dialog = InputDialog:new{
                             title =  _("Enter text contained in file path"),
                             input = util.tableGetValue(self.autoexec, event, profile_name, condition),
+                            input_hint = string_input_hint,
                             buttons = buttons,
                         }
                         UIManager:show(dialog)
@@ -1008,15 +1127,16 @@ function Profiles:genAutoExecDocConditionalMenuItem(text, event, profile_name, s
                         util.tableRemoveValue(self.autoexec, event, profile_name, conditions[4][2])
                         touchmenu_instance:updateItems()
                     end,
-                    separator = true,
                 },
-                event == "ReaderReadyAll" and {
-                    text = conditions[5][1], -- new
+                {
+                    text = conditions[5][1], -- all selected conditions
                     enabled_func = function()
                         return not util.tableGetValue(self.autoexec, event_always, profile_name)
+                            and self:countDocConditions(event, profile_name) > 1
                     end,
                     checked_func = function()
-                        return util.tableGetValue(self.autoexec, event, profile_name, conditions[5][2]) and true
+                        return util.tableGetValue(self.autoexec, event, profile_name, conditions[5][2])
+                            and self:countDocConditions(event, profile_name) > 1
                     end,
                     callback = function(touchmenu_instance)
                         local condition = conditions[5][2]
@@ -1028,6 +1148,28 @@ function Profiles:genAutoExecDocConditionalMenuItem(text, event, profile_name, s
                     end,
                     hold_callback = function(touchmenu_instance)
                         util.tableRemoveValue(self.autoexec, event, profile_name, conditions[5][2])
+                        touchmenu_instance:updateItems()
+                    end,
+                    separator = true,
+                },
+                event == "ReaderReadyAll" and { -- "on book opening" only
+                    text = conditions[6][1], -- new
+                    enabled_func = function()
+                        return not util.tableGetValue(self.autoexec, event_always, profile_name)
+                    end,
+                    checked_func = function()
+                        return util.tableGetValue(self.autoexec, event, profile_name, conditions[6][2]) and true
+                    end,
+                    callback = function(touchmenu_instance)
+                        local condition = conditions[6][2]
+                        if util.tableGetValue(self.autoexec, event, profile_name, condition) then
+                            util.tableRemoveValue(self.autoexec, event, profile_name, condition)
+                        else
+                            util.tableSetValue(self.autoexec, true, event, profile_name, condition)
+                        end
+                    end,
+                    hold_callback = function(touchmenu_instance)
+                        util.tableRemoveValue(self.autoexec, event, profile_name, conditions[6][2])
                         touchmenu_instance:updateItems()
                     end,
                 } or nil,
@@ -1058,10 +1200,6 @@ function Profiles:onOutOfScreenSaver() -- global
     self:executeAutoExecEvent("OutOfScreenSaver")
 end
 
-function Profiles:onReadTimerExpired() -- global by ReadTimer plugin
-    self:executeAutoExecEvent("ReadTimerExpired")
-end
-
 function Profiles:onSetRotationMode(mode) -- global
     local event = "SetRotationMode"
     if self.autoexec[event] == nil then return end
@@ -1078,31 +1216,23 @@ end
 function Profiles:onPathChanged(path) -- global
     local event = "PathChanged"
     if self.autoexec[event] == nil then return end
-    local function is_match(txt, pattern)
-        for str in util.gsplit(pattern, ",") do -- comma separated patterns are allowed
-            if util.stringSearch(txt, util.trim(str)) ~= 0 then
-                return true
-            end
-        end
-    end
     for profile_name, conditions in pairs(self.autoexec[event]) do
-        local do_execute
         for condition, trigger in pairs(conditions) do
+            local expanded_trigger = self.ui.folder_shortcuts:expandPath(trigger)
+            local do_execute
             if condition == "has" then
-                do_execute = is_match(path, trigger)
+                do_execute = Profiles.doesStringContain(path, expanded_trigger)
             elseif condition == "has_not" then
-                do_execute = not is_match(path, trigger)
+                do_execute = not Profiles.doesStringContain(path, expanded_trigger)
             elseif condition == "is_equal" then
-                do_execute = path == trigger
+                do_execute = path == expanded_trigger
             elseif condition == "is_not_equal" then
-                do_execute = path ~= trigger
+                do_execute = path ~= expanded_trigger
             end
             if do_execute then
-                break
+                self:executeAutoExec(profile_name)
+                break -- any condition is enough
             end
-        end
-        if do_execute then
-            self:executeAutoExec(profile_name)
         end
     end
 end
@@ -1177,58 +1307,79 @@ function Profiles:executeAutoExec(profile_name, event)
     end
 end
 
-function Profiles:executeAutoExecDocConditional(event)
-    if self.autoexec[event] == nil then return end
-    local function is_match(txt, pattern)
-        for str in util.gsplit(pattern, ",") do
-            if util.stringSearch(txt, util.trim(str)) ~= 0 then
-                return true
-            end
-        end
-    end
-    for profile_name, conditions in pairs(self.autoexec[event]) do
-        if self.data[profile_name] then
-            local do_execute
-            if not conditions.is_new or self.document.is_new then
-                for condition, trigger in pairs(conditions) do
-                    if condition == "orientation" then
-                        local mode = Screen:getRotationMode()
-                        do_execute = trigger[mode]
-                    elseif condition == "doc_props" then
-                        if self.document then
-                            for prop_name, pattern in pairs(trigger) do
-                                local prop = self.ui.doc_props[prop_name == "title" and "display_title" or prop_name]
-                                do_execute = is_match(prop, pattern)
-                                if do_execute then
-                                    break -- any prop match is enough
-                                end
-                            end
-                        end
-                    elseif condition == "filepath" then
-                        if self.document then
-                            do_execute = is_match(self.document.file, trigger)
-                        end
-                    elseif condition == "collections" then
-                        if self.document then
-                            local ReadCollection = require("readcollection")
-                            for collection_name in pairs(trigger) do
-                                if ReadCollection:isFileInCollection(self.document.file, collection_name) then
-                                    do_execute = true
-                                    break -- any collection is enough
-                                end
-                            end
-                        end
-                    end
-                    if do_execute then
-                        break -- execute profile only once
-                    end
+function Profiles:getDocConditionalMatchFuncs()
+    return {
+        ["orientation"] = function(param)
+            return param[Screen:getRotationMode()]
+        end,
+        ["doc_props"] = function(param)
+            for prop_name, pattern in pairs(param) do
+                local prop = self.ui.doc_props[prop_name == "title" and "display_title" or prop_name]
+                if Profiles.doesStringContain(prop, pattern) then
+                    return true -- any prop match is enough
                 end
             end
-            if do_execute then
-                self:executeAutoExec(profile_name, event)
+        end,
+        ["filepath"] = function(param)
+            return Profiles.doesStringContain(self.document.file, self.ui.folder_shortcuts:expandPath(param))
+        end,
+        ["collections"] = function(param)
+            for collection_name in pairs(param) do
+                if ReadCollection:isFileInCollection(self.document.file, collection_name) then
+                    return true -- any collection is enough
+                end
+            end
+        end,
+    }
+end
+
+function Profiles:countDocConditions(event, profile_name)
+    local count = 0
+    local conditions = util.tableGetValue(self.autoexec, event, profile_name)
+    if conditions then
+        local match_funcs = self:getDocConditionalMatchFuncs()
+        for condition in pairs(conditions) do
+            if match_funcs[condition] then
+                count = count + 1
             end
         end
     end
+    return count
+end
+
+function Profiles:executeAutoExecDocConditional(event)
+    if self.autoexec[event] and self.document then
+        local match_funcs = self:getDocConditionalMatchFuncs()
+        for profile_name, conditions in pairs(self.autoexec[event]) do
+            if self.data[profile_name] and (not conditions.is_new or self.document.is_new) then
+                local any = not conditions.AND
+                for condition, trigger in pairs(conditions) do
+                    local match_func = match_funcs[condition]
+                    if match_func then -- skip is_new, AND
+                        if not match_func(trigger) then goto loop end
+                        if any then break end -- execute
+                    end
+                end
+                self:executeAutoExec(profile_name, event)
+            end
+            ::loop::
+        end
+    end
+end
+
+function Profiles.doesStringContain(txt, pattern)
+    -- In pattern "*" means AND; "," means OR; "^" at the beginning means NOT.
+    -- Splitted by AND first: "alice*epub,pdf" means "alice AND (epub OR pdf)".
+    local str, count = pattern:gsub("^^", "")
+    for str_and in util.gsplit(str, "*") do
+        local ok
+        for str_or in util.gsplit(str_and, ",") do
+            ok = util.stringSearch(txt, util.trim(str_or)) ~= 0
+            if ok then break end
+        end
+        if not ok then return count > 0 end
+    end
+    return count == 0
 end
 
 return Profiles

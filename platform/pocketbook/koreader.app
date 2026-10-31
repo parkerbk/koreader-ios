@@ -1,5 +1,9 @@
 #!/bin/sh
 
+# Work around PocketBook firmware 6.11.1480 rejecting executable-stack system libraries.
+# See https://github.com/koreader/koreader/issues/15720#issuecomment-5059698020
+export GLIBC_TUNABLES="${GLIBC_TUNABLES}${GLIBC_TUNABLES:+:}glibc.rtld.execstack=2"
+
 export LC_ALL="en_US.UTF-8"
 
 UNPACK_DIR='/mnt/ext1'
@@ -37,9 +41,10 @@ echo $$ >/tmp/koreader.pid
 
 # update to new version from OTA directory
 ko_update_check() {
-    NEWUPDATE="${KOREADER_DIR}/ota/koreader.updated.tar"
-    INSTALLED="${KOREADER_DIR}/ota/koreader.installed.tar"
+    NEWUPDATE="${KOREADER_DIR}/ota/update.tar.xz"
     if [ -f "${NEWUPDATE}" ]; then
+        # Clear screen to delete UI leftovers
+        "${KOREADER_DIR}/fbink" --cls
         "${KOREADER_DIR}/fbink" -q -y -7 -pmh "Updating KOReader"
         # Keep a copy of the old manifest for cleaning leftovers later.
         sed 's,^../,,' "${KOREADER_DIR}/ota/package.index" >/tmp/package.index.old
@@ -47,32 +52,15 @@ ko_update_check() {
         export FBINK_NAMED_PIPE="/tmp/.koreader.fbink"
         rm -f "${FBINK_NAMED_PIPE}"
         FBINK_PID="$("${KOREADER_DIR}/fbink" --daemon 1 %KOREADER% -q -y -6 -P 0)"
-        # NOTE: See frontend/ui/otamanager.lua for a few more details on how we squeeze a percentage out of tar's checkpoint feature
-        # NOTE: %B should always be 512 in our case, so let stat do part of the maths for us instead of using %s ;).
-        FILESIZE="$(stat -c %b "${NEWUPDATE}")"
-        # shellcheck disable=SC2003
-        BLOCKS="$(expr "${FILESIZE}" / 20)"
-        # shellcheck disable=SC2003
-        CPOINTS="$(expr "${BLOCKS}" / 100)"
-        export CPOINTS
-        # NOTE: We don't run as root, but folders created over USBMS are owned by root, which yields fun permission shenanigans...
-        #       c.f., https://github.com/koreader/koreader/issues/7581
-        KO_PB_TARLOG="/tmp/.koreader.tar"
-        # shellcheck disable=SC2016
-        "${KOREADER_DIR}/tar" --no-same-permissions --no-same-owner --checkpoint="${CPOINTS}" --checkpoint-action=exec='printf "%s" $(expr ${TAR_CHECKPOINT} / ${CPOINTS}) > ${FBINK_NAMED_PIPE}' -C "/mnt/ext1" -xf "${NEWUPDATE}" 2>"${KO_PB_TARLOG}"
+        # Open a handle to the fifo ourselves too: this prevent writes to the
+        # fifo from hanging if fbink crashed (even with no one reading, its
+        # buffer should still be big enough to never be full either).
+        exec 3<>"${FBINK_NAMED_PIPE}"
+        (cd "${UNPACK_DIR}" && "${KOREADER_DIR}/unpack" -X "${NEWUPDATE}" >&3)
         fail=$?
         kill -TERM "${FBINK_PID}"
-        # As mentioned above, filter out potential chmod & utime failures...
-        if [ "${fail}" -ne 0 ]; then
-            if [ "$(grep -Evc '(Cannot utime|Cannot change mode|Exiting with failure status due to previous errors)' "${KO_PB_TARLOG}")" -eq "0" ]; then
-                # No other errors, we're good!
-                fail=0
-            fi
-        fi
-        rm -f "${KO_PB_TARLOG}"
         # Cleanup behind us...
         if [ "${fail}" -eq 0 ]; then
-            mv "${NEWUPDATE}" "${INSTALLED}"
             # Cleanup leftovers from previous install.
             sed 's,^../,,' "${KOREADER_DIR}/ota/package.index" >/tmp/package.index.new
             (cd "${UNPACK_DIR}" && grep -xvFf /tmp/package.index.new /tmp/package.index.old | xargs -r rm -vf)
@@ -84,8 +72,10 @@ ko_update_check() {
             "${KOREADER_DIR}/fbink" -q -y -5 -pm "KOReader may fail to function properly!"
         fi
         rm -f /tmp/package.index.old /tmp/package.index.new "${NEWUPDATE}" # always purge newupdate to prevent update loops
-        unset CPOINTS FBINK_NAMED_PIPE
-        unset BLOCKS FILESIZE FBINK_PID
+        # Fifo cleanup: close our handle, and unlink the path too (in case fbink crashed).
+        exec 3>&-
+        rm -f "${FBINK_NAMED_PIPE}"
+        unset FBINK_NAMED_PIPE FBINK_PID
         # Ensure everything is flushed to disk before we restart. This *will* stall for a while on slow storage!
         sync
     fi

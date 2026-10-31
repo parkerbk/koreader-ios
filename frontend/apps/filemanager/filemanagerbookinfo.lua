@@ -5,6 +5,7 @@ This module provides a way to display book information (filename and book metada
 local BD = require("ui/bidi")
 local BookList = require("ui/widget/booklist")
 local ButtonDialog = require("ui/widget/buttondialog")
+local ButtonSelector = require("ui/widget/buttonselector")
 local ConfirmBox = require("ui/widget/confirmbox")
 local Device = require("device")
 local DocSettings = require("docsettings")
@@ -50,7 +51,6 @@ local BookInfo = WidgetContainer:extend{
         description  = _("Description:"),
         pages        = _("Pages:"),
     },
-    rating_max = 5,
 }
 
 function BookInfo:init()
@@ -87,16 +87,22 @@ function BookInfo:show(doc_settings_or_file, book_props)
         has_sidecar = true
     end
     local folder, filename = util.splitFilePathName(file)
-    local __, filetype = filemanagerutil.splitFileNameType(filename)
     local attr = lfs.attributes(file)
-    local file_size = attr.size or 0
-    local size_f = util.getFriendlySize(file_size)
-    local size_b = util.getFormattedSize(file_size)
+    local is_file = attr and true or nil
     table.insert(kv_pairs, { _("Filename:"), BD.filename(filename) })
-    table.insert(kv_pairs, { _("Format:"), filetype:upper() })
-    table.insert(kv_pairs, { _("Size:"), string.format("%s (%s bytes)", size_f, size_b) })
-    table.insert(kv_pairs, { _("File date:"), os.date("%Y-%m-%d %H:%M:%S", attr.modification) })
-    table.insert(kv_pairs, { _("Folder:"), BD.dirpath(filemanagerutil.abbreviate(folder)), separator = true })
+    if is_file then
+        local __, filetype = filemanagerutil.splitFileNameType(filename)
+        local file_size = attr.size or 0
+        local size_f = util.getFriendlySize(file_size)
+        local size_b = util.getFormattedSize(file_size)
+        table.insert(kv_pairs, { _("Format:"), filetype:upper() })
+        table.insert(kv_pairs, { _("Size:"), string.format("%s (%s bytes)", size_f, size_b) })
+        table.insert(kv_pairs, { _("File date:"), os.date("%Y-%m-%d %H:%M:%S", attr.modification) })
+        table.insert(kv_pairs, { _("Folder:"), BD.dirpath(filemanagerutil.abbreviate(folder)), separator = true })
+    else -- for deleted books show doc_settings info only
+        table.insert(kv_pairs, { _("Metadata:"),
+            doc_settings_or_file:readSetting("metadata_arc").datetime, separator = true })
+    end
 
     -- Book section
     -- book_props may be provided if caller already has them available
@@ -104,27 +110,33 @@ function BookInfo:show(doc_settings_or_file, book_props)
     book_props = book_props or self:getDocProps(file, book_props)
     book_props.pages = book_props.pages or BookList.getBookInfo(file).pages
     -- cover image
-    self.custom_book_cover = DocSettings:findCustomCoverFile(file)
-    local key_text = self.prop_text["cover"]
-    if self.custom_book_cover then
-        key_text = "\u{F040} " .. key_text
+    if is_file then
+        self.custom_book_cover = DocSettings:findCustomCoverFile(file)
+        local key_text = self.prop_text["cover"]
+        if self.custom_book_cover then
+            key_text = "\u{F040} " .. key_text
+        end
+        table.insert(kv_pairs, { key_text, _("Tap to display"),
+            callback = function()
+                self:onShowBookCover(file)
+            end,
+            hold_callback = function()
+                self:showCustomDialog(file, book_props)
+            end,
+            separator = true,
+        })
     end
-    table.insert(kv_pairs, { key_text, _("Tap to display"),
-        callback = function()
-            self:onShowBookCover(file)
-        end,
-        hold_callback = function()
-            self:showCustomDialog(file, book_props)
-        end,
-        separator = true,
-    })
     -- metadata
     local n_a = _("N/A")
     local custom_props
-    local custom_metadata_file = DocSettings:findCustomMetadataFile(file)
-    if custom_metadata_file then
-        self.custom_doc_settings = DocSettings.openSettingsFile(custom_metadata_file)
-        custom_props = self.custom_doc_settings:readSetting("custom_props")
+    if is_file then
+        local custom_metadata_file = DocSettings:findCustomMetadataFile(file)
+        if custom_metadata_file then
+            self.custom_doc_settings = DocSettings.openSettingsFile(custom_metadata_file)
+            custom_props = self.custom_doc_settings:readSetting("custom_props")
+        end
+    else
+        custom_props = doc_settings_or_file:readSetting("metadata_arc").custom_props
     end
     local values_lang, callback
     for _i, prop_key in ipairs(self.props) do
@@ -134,15 +146,7 @@ function BookInfo:show(doc_settings_or_file, book_props)
         elseif prop_key == "title" then
             prop = BD.auto(prop)
         elseif prop_key == "authors" or prop_key == "keywords" then
-            if prop:find("\n") then -- BD auto isolate each entry
-                prop = util.splitToArray(prop, "\n")
-                for i = 1, #prop do
-                    prop[i] = BD.auto(prop[i])
-                end
-                prop = table.concat(prop, "\n")
-            else
-                prop = BD.auto(prop)
-            end
+            prop = self.prettifyAuthors(prop) -- BD auto isolate each entry
         elseif prop_key == "language" then
             -- Get a chance to have title, authors... rendered with alternate
             -- glyphs for the book language (e.g. japanese book in chinese UI)
@@ -154,13 +158,16 @@ function BookInfo:show(doc_settings_or_file, book_props)
                 self:showBookProp("description", prop)
             end
         end
-        key_text = self.prop_text[prop_key]
+        local key_text = self.prop_text[prop_key]
         if custom_props and custom_props[prop_key] then -- customized
+            if not is_file then -- props not customized yet
+                prop = custom_props[prop_key]
+            end
             key_text = "\u{F040} " .. key_text
         end
         table.insert(kv_pairs, { key_text, prop,
             callback = callback,
-            hold_callback = function()
+            hold_callback = is_file and function()
                 self:showCustomDialog(file, book_props, prop_key)
             end,
         })
@@ -239,22 +246,23 @@ Source (print edition):
 
     -- Summary section
     local summary = has_sidecar and doc_settings_or_file:readSetting("summary") or {}
-    local rating = summary.rating or 0
-    local summary_hold_callback = function()
+    local summary_hold_callback = is_file and function()
         self:editSummary(doc_settings_or_file, book_props)
     end
-    table.insert(kv_pairs, { _("Rating:"), ("★"):rep(rating) .. ("☆"):rep(self.rating_max - rating),
+    table.insert(kv_pairs, { _("Rating:"), BookList.getBookRatingString(summary.rating or 0),
         hold_callback = summary_hold_callback })
     table.insert(kv_pairs, { _("Review:"), summary.note or n_a,
         hold_callback = summary_hold_callback, separator = true })
 
     -- Notebook file
-    local notebook_file = self:getNotebookFile(doc_settings_or_file)
-    local notebook_file_callback = function()
-        self:showNotebookFileDialog(notebook_file, doc_settings_or_file, book_props)
+    if is_file then
+        local notebook_file = self:getNotebookFile(doc_settings_or_file)
+        local notebook_file_callback = function()
+            self:showNotebookFileDialog(notebook_file, doc_settings_or_file, book_props)
+        end
+        table.insert(kv_pairs, { _("Notebook file:"), notebook_file:gsub(".*/", ""),
+            callback = notebook_file_callback })
     end
-    table.insert(kv_pairs, { _("Notebook file:"), notebook_file:gsub(".*/", ""),
-        callback = notebook_file_callback })
 
     local KeyValuePage = require("ui/widget/keyvaluepage")
     self.kvp_widget = KeyValuePage:new{
@@ -275,6 +283,28 @@ Source (print edition):
         end,
     }
     UIManager:show(self.kvp_widget)
+end
+
+function BookInfo.prettifyAuthors(authors, max_lines_nb)
+    if type(authors) ~= "string" or authors == "" then
+        return
+    elseif not authors:find("\n") then
+        return BD.auto(authors)
+    end
+    local t = util.splitToArray(authors, "\n")
+    for i = 1, #t do
+        t[i] = BD.auto(t[i])
+    end
+    if max_lines_nb and max_lines_nb < #t then
+        t[max_lines_nb] = T(_("%1 et al."), t[max_lines_nb])
+        return table.concat(t, "\n", 1, max_lines_nb), true -- multi-line authors
+    end
+    return table.concat(t, "\n"), true -- multi-line authors
+end
+
+function BookInfo.combineAuthorsTitle(authors, title, separate_lines)
+    return authors and T(separate_lines and "%1\n%2" or _("%1 • %2"), BookInfo.prettifyAuthors(authors, 1), title)
+        or title
 end
 
 function BookInfo.getCustomProp(prop_key, filepath)
@@ -699,8 +729,9 @@ function BookInfo:editSummary(doc_settings_or_file, book_props)
     local rating = summary.rating or 0
     local input_dialog
     local rating_buttons_row = {}
-    for i = -1, self.rating_max + 2 do -- 2 empty buttons on each side
-        if i < 1 or i > self.rating_max then
+    local rating_max = 5
+    for i = -1, rating_max + 2 do -- 2 empty buttons on each side
+        if i < 1 or i > rating_max then
             table.insert(rating_buttons_row, {
                 text = "",
                 no_vertical_sep = true,
@@ -716,6 +747,7 @@ function BookInfo:editSummary(doc_settings_or_file, book_props)
                     summary.note = note ~= "" and note or nil
                     summary.rating = (i ~= 1 or summary.rating ~= 1) and i or nil
                     doc_settings_or_file = filemanagerutil.saveSummary(doc_settings_or_file, summary)
+                    BookList.setBookInfoCacheProperty(doc_settings_or_file:readSetting("doc_path"), "rating", summary.rating)
                     self.summary_updated = true
                     self.kvp_widget:onClose()
                     self:show(doc_settings_or_file, book_props)
@@ -745,6 +777,7 @@ function BookInfo:editSummary(doc_settings_or_file, book_props)
                         local note = input_dialog:getInputText()
                         summary.note = note ~= "" and note or nil
                         doc_settings_or_file = filemanagerutil.saveSummary(doc_settings_or_file, summary)
+                        BookList.setBookInfoCacheProperty(doc_settings_or_file:readSetting("doc_path"), "been_opened", true)
                         self.summary_updated = true
                         self.kvp_widget:onClose()
                         self:show(doc_settings_or_file, book_props)
@@ -772,7 +805,7 @@ function BookInfo:getNotebookFile(doc_settings_or_file)
             elseif type(doc_settings_or_file) == "string" then
                 notebook_file = doc_settings_or_file .. ".txt"
             else
-                local home_folder = G_reader_settings:readSetting("home_dir") or filemanagerutil.getDefaultDir()
+                local home_folder = filemanagerutil.getHomeFolder()
                 notebook_file = ffiUtil.realpath(home_folder) .. "/notebook.txt"
             end
         end
@@ -910,6 +943,13 @@ end
 
 -- book metadata (sdr)
 
+function BookInfo:onShowBookMetadataArchive()
+    if G_reader_settings:has("document_metadata_arc_folder") then
+        local BookMetadataArchive = require("ui/widget/bookmetadataarchive")
+        BookMetadataArchive:showBookList(self.ui)
+    end
+end
+
 function BookInfo:moveBookMetadata()
     -- called by filemanagermenu only
     local file_chooser = self.ui.file_chooser
@@ -1003,41 +1043,92 @@ function BookInfo.showBooksWithHashBasedMetadata()
     })
 end
 
-function BookInfo:expandString(str, file, timestamp)
-    if self == nil then
-        UIManager:show(InfoMessage:new{
-            text = _([[
-%T title
-%A author
-%S series
-%t total pages
-%c current page
-%l pages left in chapter
-%p book percentage read
-%H time left in book
-%C chapter title
-%P chapter percentage read
-%h time left in chapter
-%F file path
-%f file name
-%b battery level
-%B battery symbol
-%r separator
-%D current date (yyyy-mm-dd)
-%d current date (mm-dd)
-%m current time (hh:mm)
-%M current time (hh-mm-ss)]]),
-            monospace_font = true,
-        })
-        return
-    end
+-- expand string
 
+function BookInfo.chooseExpandStringPattern(input_dialog, ui)
+    ui = ui or require("apps/reader/readerui").instance or require("apps/filemanager/filemanager").instance
+
+    local patterns = {
+        groups = {
+            { _("Current/last book"),   "book" },
+            { _("Current chapter"),     "chapter" },
+            { _("Current date/time"),   "datetime" },
+            { _("Device"),              "device" },
+        },
+        book = {
+            { _("File path"),           "%F" },
+            { _("File name"),           "%f" },
+            { _("Authors"),             "%A" },
+            { _("Author"),              "%a" }, -- 1st author et al.
+            { _("Title"),               "%T" },
+            { _("Series"),              "%S" }, -- including series index
+            { _("Total pages"),         "%t" }, -- stable or screen
+            { _("Current page"),        "%c" }, -- stable or screen
+            { _("Total screen pages"),  "%s" },
+            { _("Current screen page"), "%u" },
+            { _("Progress percentage"), "%p" },
+            { _("Time left"),           "%H" },
+            width_factor = 0.8,
+        },
+        chapter = {
+            { _("Title"),               "%C" },
+            { _("Pages left"),          "%l" },
+            { _("Progress percentage"), "%P" },
+            { _("Time left"),           "%h" },
+            width_factor = 0.8,
+        },
+        datetime = {
+            { _("Date"),                "%D" }, -- yyyy-mm-dd
+            { _("Date"),                "%d" }, -- mm-dd
+            { _("Time"),                "%M" }, -- hh-mm-ss
+            { _("Time"),                "%m" }, -- hh:mm
+            width_factor = 0.6,
+        },
+        device = {
+            { _("Battery symbol"),      "%B" },
+            { _("Battery level"),       "%b" },
+            { _("Frontlight on"),       "%O" }, -- "" when off
+            { _("Frontlight level"),    "%o" },
+            { _("Warmth level"),        "%v" },
+            { _("Wi-Fi on"),            "%W" }, -- "" when off
+            { _("Wi-Fi status"),        "%w" },
+            width_factor = 0.6,
+        },
+    }
+    UIManager:show(ButtonSelector:new{
+        title = _("Patterns"),
+        title_align = "center",
+        use_info_style = false,
+        modal = true, -- over InputDialog
+        values = patterns.groups,
+        callback = function(value_key, value_text)
+            local values = {}
+            for i, v in ipairs(patterns[value_key]) do
+                values[i] = { T(_("%1 (%2): %3"), v[1], v[2], ui.bookinfo:expandString(v[2])), v[2] }
+            end
+            UIManager:show(ButtonSelector:new{
+                width_factor = patterns[value_key].width_factor,
+                title = value_text,
+                title_align = "center",
+                use_info_style = false,
+                avoid_text_truncation = false,
+                modal = true, -- over InputDialog
+                values = values,
+                callback = function(pattern)
+                    input_dialog._input_widget:addChars(pattern)
+                end,
+            })
+        end,
+    })
+end
+
+function BookInfo:expandString(str, file, timestamp)
     if not (str and str:find("%%")) then
         return str
     end
 
     local n_a = _("N/A")
-    local doc_patterns, is_doc_required = "%T%A%S%t%c%p%H%C%l%P%h"
+    local doc_patterns, is_doc_required = "%A%a%T%S%t%c%s%u%p%H%C%l%P%h"
     local patterns = {}
     for p in str:gmatch("%%%a") do
         patterns[p] = n_a -- calculate only needed items
@@ -1067,6 +1158,8 @@ function BookInfo:expandString(str, file, timestamp)
                         patterns["%c"] = patterns["%c"] and pageno
                     end
                 end
+                patterns["%s"] = patterns["%s"] and footer.pages
+                patterns["%u"] = patterns["%u"] and pageno
                 patterns["%p"] = patterns["%p"] and Math.round(footer.percent_finished * 100)
                 if patterns["%C"] then
                     local title = self.ui.toc:getTocTitleByPage(pageno)
@@ -1103,34 +1196,30 @@ function BookInfo:expandString(str, file, timestamp)
             elseif BookList.hasBookBeenOpened(file) then -- do not open book, use sdr only
                 local doc_settings = BookList.getDocSettings(file)
                 props = BookInfo.extendProps(doc_settings:readSetting("doc_props"), file)
-                if patterns["%t"] or patterns["%c"] or patterns["%p"] then
+                if patterns["%t"] or patterns["%c"] or patterns["%s"] or patterns["%u"] or patterns["%p"] then
                     local book_info = BookList.getBookInfo(file)
                     local percent = book_info.percent_finished
                     if patterns["%p"] and percent then
                         patterns["%p"] = Math.round(percent * 100)
                     end
-                    local current_page
-                    local pages = doc_settings:readSetting("pagemap_last_page_label")
-                    if pages then -- stable pages
-                        current_page = doc_settings:readSetting("pagemap_current_page_label")
-                    else
-                        pages = book_info.pages
-                        current_page = percent and pages and Math.round(percent * pages)
-                    end
-                    if patterns["%t"] and pages then
-                        patterns["%t"] = pages
-                    end
-                    if patterns["%c"] and current_page then
-                        patterns["%c"] = current_page
+                    local pages = book_info.pages
+                    patterns["%t"] = patterns["%t"] and (doc_settings:readSetting("pagemap_last_page_label") or pages or "")
+                    patterns["%s"] = patterns["%s"] and (pages or "")
+                    if patterns["%c"] or patterns["%u"] then
+                        local current_page = percent and pages and Math.round(percent * pages)
+                        patterns["%c"] = patterns["%c"] and
+                            (doc_settings:readSetting("pagemap_current_page_label") or current_page or "")
+                        patterns["%u"] = patterns["%u"] and (current_page or "")
                     end
                 end
                 -- %H %C %P %h unavailable
             end
             if props then
-                patterns["%T"] = patterns["%T"] and props.display_title
-                if patterns["%A"] and props.authors then
-                    patterns["%A"] = props.authors
+                if props.authors then
+                    patterns["%A"] = patterns["%A"] and props.authors
+                    patterns["%a"] = patterns["%a"] and self.prettifyAuthors(props.authors, 1)
                 end
+                patterns["%T"] = patterns["%T"] and props.display_title
                 if patterns["%S"] and props.series then
                     patterns["%S"] = props.series_index and props.series .. " #" .. props.series_index or props.series
                 end
@@ -1140,9 +1229,7 @@ function BookInfo:expandString(str, file, timestamp)
         patterns["%F"] = patterns["%F"] and file
         patterns["%f"] = patterns["%f"] and file:gsub(".*/", "")
     end
-    if patterns["%r"] and self.document then
-        patterns["%r"] = self.ui.view.footer:genSeparator()
-    end
+
     if (patterns["%b"] or patterns["%B"]) and Device:hasBattery() then
         local powerd = Device:getPowerDevice()
         local batt_lvl = powerd:getCapacity()
@@ -1154,12 +1241,44 @@ function BookInfo:expandString(str, file, timestamp)
         end
         patterns["%b"] = patterns["%b"] and batt_lvl
     end
+    if (patterns["%O"] or patterns["%o"] or patterns["%v"]) and Device:hasFrontlight() then
+        local powerd = Device:getPowerDevice()
+        if powerd:isFrontlightOn() then
+            patterns["%O"] = patterns["%O"] and "☼"
+            if patterns["%o"] then
+                if Device:isCervantes() or Device:isKobo() then
+                    patterns["%o"] = (powerd:frontlightIntensity() or 0) .. "%"
+                else
+                    patterns["%o"] = powerd:frontlightIntensity()
+                end
+            end
+            if patterns["%v"] and Device:hasNaturalLight() then
+                patterns["%v"] = (powerd:frontlightWarmth() or 0) .. "%"
+            end
+        else
+            patterns["%O"] = patterns["%O"] and ""
+            patterns["%o"] = patterns["%o"] and _("off")
+            patterns["%v"] = patterns["%v"] and _("off")
+        end
+    end
+    if patterns["%W"] or patterns["%w"] then
+        local NetworkMgr = require("ui/network/manager")
+        if NetworkMgr:isWifiOn() then
+            patterns["%W"] = patterns["%W"] and ""
+            patterns["%w"] = patterns["%w"] and ""
+        else
+            patterns["%W"] = patterns["%W"] and ""
+            patterns["%w"] = patterns["%w"] and ""
+        end
+    end
 
     timestamp = timestamp or os.time()
     patterns["%D"] = patterns["%D"] and os.date("%Y-%m-%d", timestamp)
     patterns["%d"] = patterns["%d"] and os.date("%m-%d", timestamp)
     patterns["%m"] = patterns["%m"] and datetime.secondsToHour(timestamp, G_reader_settings:isTrue("twelve_hour_clock"))
     patterns["%M"] = patterns["%M"] and os.date("%H-%M-%S", timestamp)
+
+    patterns["%r"] = patterns["%r"] and (self.document and self.ui.view.footer:genSeparator() or " | ")
 
     return str:gsub("(%%%a)", patterns)
 end

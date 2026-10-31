@@ -90,6 +90,12 @@ You can access the complete user manual from [our GitHub page](https://github.co
     ) -- insert toc
 end
 
+if Device:isKindle() then
+    table.insert(quickstart_guide, _([[**IMPORTANT: KOReader's best supported format is EPUB. Other formats like MOBI may not support all features. KFX is not supported at all. DRM-protected books are not supported either.**
+]])
+    )
+end
+
 -- User interface
 if Device:hasScreenKB() then
     -- Use correct k4 illustration and appropriate button mapping
@@ -366,6 +372,10 @@ To use the dictionary lookup function, first you need to install one or more dic
 
 -- More information
 table.insert(quickstart_guide, T(_([[## More info <a id="more"></a>
+
+You can find any option within the top menu using:
+
+**Menu ➔ ![Menu](resources/icons/mdlight/appbar.menu.svg) ➔ Help ➔ Menu search
 
 You can find more information on our GitHub page
 

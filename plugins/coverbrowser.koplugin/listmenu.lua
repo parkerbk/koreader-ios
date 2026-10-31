@@ -115,6 +115,8 @@ function ListMenuItem:init()
             h = self.height
         },
         linesize = self.underline_h,
+        focus_linesize = Size.line.focus_row,
+        background = Blitbuffer.COLOR_WHITE,
         -- widget : will be filled in self:update()
     }
     self[1] = self._underline_container
@@ -135,6 +137,24 @@ function ListMenuItem:update()
         w = self.width,
         h = self.height - 2 * self.underline_h
     }
+
+    -- Create or replace corner_mark if needed
+    local mark_size = math.floor(dimen.h * (1/6))
+    -- Just fits under the page info text, which in turn adapts to the ListMenuItem height.
+    if mark_size ~= corner_mark_size then
+        corner_mark_size = mark_size
+        if corner_mark then
+            corner_mark:free()
+        end
+        corner_mark = IconWidget:new{
+            icon = "dogear.opaque",
+            rotation_angle = BD.mirroredUILayout() and 180 or 270,
+            width = corner_mark_size,
+            height = corner_mark_size,
+        }
+    end
+    -- The shortcut square sits over the bottom left corner: start the focus underline past it.
+    local shortcut_width = self.shortcut_icon and self.shortcut_icon.dimen.w or 0
 
     local function _fontSize(nominal, max)
         -- The nominal font size is based on 64px ListMenuItem height.
@@ -205,6 +225,10 @@ function ListMenuItem:update()
                 },
             },
         }
+
+        local line_left = pad_width + shortcut_width
+        self._underline_container.line_x_offset = line_left
+        self._underline_container.line_width = math.max(dimen.w - corner_mark_size - Screen:scaleBySize(6) - line_left, 0)
     else -- file
         self.file_deleted = self.entry.dim -- entry with deleted file from History or selected file from FM
         local fgcolor = self.file_deleted and Blitbuffer.COLOR_DARK_GRAY or nil
@@ -393,22 +417,6 @@ function ListMenuItem:update()
                 wright_right_padding = Screen:scaleBySize(10)
             end
 
-            -- Create or replace corner_mark if needed
-            local mark_size = math.floor(dimen.h * (1/6))
-            -- Just fits under the page info text, which in turn adapts to the ListMenuItem height.
-            if mark_size ~= corner_mark_size then
-                corner_mark_size = mark_size
-                if corner_mark then
-                    corner_mark:free()
-                end
-                corner_mark = IconWidget:new{
-                    icon = "dogear.opaque",
-                    rotation_angle = BD.mirroredUILayout() and 180 or 270,
-                    width = corner_mark_size,
-                    height = corner_mark_size,
-                }
-            end
-
             -- Build the middle main widget, in the space available
             local wmain_left_padding = Screen:scaleBySize(10)
             if self.do_cover_image then
@@ -438,26 +446,12 @@ function ListMenuItem:update()
                 authors = nil
             else
                 title = bookinfo.title or filename_without_suffix
-                authors = bookinfo.authors
                 -- If multiple authors (crengine separates them with \n), we
                 -- can display them on multiple lines, but limit to 2, and
-                -- append "et al." to the 2nd if there are more
-                if authors and authors:find("\n") then
-                    authors = util.splitToArray(authors, "\n")
-                    for i=1, #authors do
-                        authors[i] = BD.auto(authors[i])
-                    end
-                    if #authors > 1 and bookinfo.series and series_mode == "series_in_separate_line" then
-                        authors = { T(_("%1 et al."), authors[1]) }
-                    elseif #authors > 2 then
-                        authors = { authors[1], T(_("%1 et al."), authors[2]) }
-                    end
-                    authors = table.concat(authors, "\n")
-                    -- as we'll fit 3 lines instead of 2, we can avoid some loops by starting from a lower font size
-                    reduce_font_size = true
-                elseif authors then
-                    authors = BD.auto(authors)
-                end
+                -- append "et al." to the 2nd if there are more.
+                -- If we'll fit 3 lines instead of 2, we can avoid some loops by starting from a lower font size.
+                local lines_nb = (bookinfo.series and series_mode == "series_in_separate_line") and 1 or 2
+                authors, reduce_font_size = self.menu.ui.bookinfo.prettifyAuthors(bookinfo.authors, lines_nb)
             end
             title = BD.auto(title)
             -- add Series metadata if requested
@@ -621,6 +615,11 @@ function ListMenuItem:update()
                 })
             end
 
+            -- Start the underline past the cover or the shortcut square, so a focus-only repaint doesn't slice them.
+            local line_left = (self.do_cover_image and wleft_width or shortcut_width) + wmain_left_padding
+            self._underline_container.line_x_offset = line_left
+            self._underline_container.line_width = math.max(dimen.w - corner_mark_size - Screen:scaleBySize(6) - line_left, 0)
+
         else -- bookinfo not found
             if self.init_done then
                 -- Non-initial update(), but our widget is still not found:
@@ -707,6 +706,10 @@ function ListMenuItem:update()
                     },
                 }
             end
+
+            local line_left = Screen:scaleBySize(10) + shortcut_width
+            self._underline_container.line_x_offset = line_left
+            self._underline_container.line_width = math.max(dimen.w - corner_mark_size - Screen:scaleBySize(6) - line_left, 0)
         end
     end
 
@@ -790,14 +793,24 @@ function ListMenuItem:paintTo(bb, x, y)
     end
 end
 
+function ListMenuItem:getFocusIndicatorRegion()
+    return self._underline_container and self._underline_container:getFocusIndicatorRegion()
+end
+
+function ListMenuItem:repaintFocusIndicator(bb)
+    return self._underline_container and self._underline_container:repaintFocusIndicator(bb)
+end
+
 -- As done in MenuItem
 function ListMenuItem:onFocus()
     self._underline_container.color = Blitbuffer.COLOR_BLACK
+    self._underline_container.focused = true
     return true
 end
 
 function ListMenuItem:onUnfocus()
     self._underline_container.color = Blitbuffer.COLOR_WHITE
+    self._underline_container.focused = false
     return true
 end
 

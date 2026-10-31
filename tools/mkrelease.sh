@@ -28,6 +28,24 @@ function reverse_entry() {
 }
 '
 
+# shellcheck disable=SC2016
+declare -r AWK_TAR_BLOCKLIST='
+BEGIN {
+    FS = "[: ]+"
+    ORS = ""
+    TAR_BS = 512
+    prev_offset = 0
+}
+{
+    if ($2)
+        print ($2 - prev_offset) * TAR_BS ","
+    prev_offset = $2
+}
+END {
+    print 0
+}
+'
+
 if [[ "${OSTYPE}" = darwin* ]]; then
     declare -r READLINK=greadlink
     declare -r TAR=gtar
@@ -101,9 +119,10 @@ fi
 case "$1" in
     */) format='/' ;;
     *.7z | *.zip) format="${1##*.}" ;;
-    *.tar.gz | *.targz) format=tar.gz ;;
-    *.tar.xz) format=tar.xz ;;
-    *.tar.zst) format=tar.zst ;;
+    *.tar) format=tar ;;
+    *.tar.gz | *.targz | *.tgz) format=tar.gz ;;
+    *.tar.xz | *.txz) format=tar.xz ;;
+    *.tar.zst | *.tzst) format=tar.zst ;;
     *)
         echo "ERROR: unsupported release format: ${1##*.}" 1>&2
         exit 2
@@ -111,6 +130,16 @@ case "$1" in
 esac
 output="$("${READLINK}" -f "$1")"
 shift
+
+case "$1" in
+    *.7z | *.zip) input_extractor=7z ;;
+    *.tar | *.tar.gz | *.targz | *.tgz | *.tar.xz | *.txz | *.tar.zst | *.tzst) input_extractor=tar ;;
+esac
+if [[ -n "${input_extractor}" ]]; then
+    input_archive="$1"
+    shift
+fi
+
 patterns=("$@")
 if [[ -n "${manifest}" ]]; then
     patterns+=("-x!${manifest}")
@@ -130,6 +159,8 @@ fi
 
 # Ensure a "traditional" sort order.
 export LC_ALL=C
+# And UTC times.
+export TZ=UTC
 
 # We need to use the full path to the executable to avoid
 # a weird issue when using the p7zip project pre-built
@@ -178,6 +209,8 @@ if [[ -n "${debug}" ]]; then
     echo "manifest transform  : ${manifest_transform}"
     echo "epoch               : ${epoch}"
     echo "options             : ${options[*]@Q}"
+    echo "input archive       : ${input_archive@Q}"
+    echo "input extractor     : ${input_extractor}"
     echo "patterns            : ${patterns[*]@Q}"
     echo "7z executable       : ${sevenzip}"
     echo "7z compress command : ${sevenzip_compress_cmd[*]@Q}"
@@ -188,10 +221,27 @@ if [[ -n "${debug}" ]]; then
     [[ -t 0 ]] && read -srn 1
 fi
 
+if [[ -n "${input_archive}" ]]; then
+    # Extract input archive.
+    case "${input_extractor}" in
+        7z) 7z x "${input_archive}" -bd -o"${tmpdir}/contents" >/dev/null ;;
+        tar) tar xf "${input_archive}" --auto-compress -C "${tmpdir}/contents" ;;
+    esac
+    pushd "${tmpdir}/contents" >/dev/null
+    # Try to keep manifest modification time.
+    if [[ -z "${epoch}" ]] && [[ -n "${manifest}" ]] && [[ -f "${manifest}" ]]; then
+        manifest_epoch="$(stat -c %Y "${manifest}")"
+    fi
+fi
+
 # Build manifest.
 "${sevenzip_manifest_cmd[@]}" "${patterns[@]}" |
     awk "${AWK_HELPERS}"'{ reverse_entry(); print_entry($1, $2, $3) }' |
     sort -o "${tmpdir}/manifest"
+
+if [[ -n "${input_archive}" ]]; then
+    popd >/dev/null
+fi
 
 # Extract list of paths from manifest.
 rev <"${tmpdir}/manifest" | cut -f3- -d' ' | rev >"${tmpdir}/paths"
@@ -258,12 +308,14 @@ if [[ -r "${output}" ]]; then
     rm -rf "${output}"
 fi
 
-# Make a copy of everything so we can later patch timestamps and
-# fix permissions to ensure reproducibility.
-"${TAR}" --create --no-recursion \
-    ${dereference:+--dereference --hard-dereference} \
-    --verbatim-files-from --files-from="${tmpdir}/paths" |
-    "${TAR}" --extract --directory="${tmpdir}/contents"
+if [[ -z "${input_archive}" ]]; then
+    # Make a copy of everything so we can later patch timestamps and
+    # fix permissions to ensure reproducibility.
+    "${TAR}" --create --no-recursion \
+        ${dereference:+--dereference --hard-dereference} \
+        --verbatim-files-from --files-from="${tmpdir}/paths" |
+        "${TAR}" --extract --directory="${tmpdir}/contents"
+fi
 
 cd "${tmpdir}/contents"
 
@@ -273,6 +325,8 @@ chmod -R u=rwX,og=rX .
 # Fix timestamps.
 if [[ -n "${epoch}" ]]; then
     find . -depth -print0 | xargs -0 touch --date="${epoch}"
+elif [[ -n "${manifest_epoch}" ]]; then
+    touch --date="@${manifest_epoch}" "${manifest}"
 fi
 
 # And create the final output.
@@ -297,6 +351,10 @@ case "${format}" in
         # Note: sort by type (for better compression).
         "${sevenzip_compress_cmd[@]}" -mqs
         ;;
+    tar)
+        echo "Creating archive: ${output}"
+        "${tar_compress_cmd[@]}" | write_to_file "${output}"
+        ;;
     tar.gz)
         echo "Creating archive: ${output}"
         # Note: create a rsyncable gzipped tar.
@@ -306,13 +364,23 @@ case "${format}" in
         ;;
     tar.xz)
         echo "Creating archive: ${output}"
-        # NOTE: override xz default block size, as otherwise with the size of our
-        # uncompressed data (< 100 MiB), we never benefit from multi-threading:
-        # level 9 → 64 MiB dictionary → ×3 default block size = 192 MiB.
-        # With a block size of 32 MiB, compression with 4 threads is ~2.7 times faster,
-        # for a final output size increase of just 200 KiB (less than 1%).
-        "${tar_compress_cmd[@]}" |
-            xz -9 --block-size=32M ${jobs:+--threads=${jobs}} "${options[@]}" |
+        # Note: we create one XZ block per TAR entry.
+        tarfile="${tmpdir}/release.tar"
+        tarindex="${tarfile}.index"
+        blocklist="${tmpdir}/release.blocklist"
+        # Create the initial uncompressed TAR file.
+        "${tar_compress_cmd[@]}" --file="${tarfile}"
+        # Find out where each entry starts.
+        "${TAR}" --block-number --list --file="${tarfile}" >"${tarindex}"
+        # Generate block list for XZ.
+        awk "${AWK_TAR_BLOCKLIST}" <"${tarindex}" >"${blocklist}"
+        # Create the final TAR.XZ file.
+        # NOTE: we set the block size to a big enough number to
+        # prevent xz from splitting an entry into multiple blocks.
+        xz -9 ${jobs:+--threads=${jobs}} \
+            --block-size=32M \
+            --block-list="$(cat "${blocklist}")" \
+            "${options[@]}" --stdout "${tarfile}" |
             write_to_file "${output}"
         ;;
     tar.zst)

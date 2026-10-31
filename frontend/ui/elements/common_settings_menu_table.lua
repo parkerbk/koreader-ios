@@ -8,6 +8,8 @@ local Language = require("ui/language")
 local NetworkMgr = require("ui/network/manager")
 local PowerD = Device:getPowerDevice()
 local UIManager = require("ui/uimanager")
+local filemanagerutil = require("apps/filemanager/filemanagerutil")
+local util = require("util")
 local _ = require("gettext")
 local N_ = _.ngettext
 local C_ = _.pgettext
@@ -17,7 +19,6 @@ local T = require("ffi/util").template
 local common_settings = {}
 
 if Device:isCervantes() then
-    local util = require("util")
     if util.pathExists("/usr/bin/restart.sh") then
         common_settings.start_bq = {
             text = T(_("Start %1 reader app"), "BQ"),
@@ -436,12 +437,13 @@ local back_to_exit_str = {
     always = {_("Always"), _("always")},
     disable ={_("Disable"), _("disable")},
 }
-local function genGenericMenuEntry(title, setting, value, default)
+local function genGenericMenuEntry(title, setting, value, default, enabled_func)
     return {
         text = title,
         checked_func = function()
             return G_reader_settings:readSetting(setting, default) == value
         end,
+        enabled_func = enabled_func,
         radio = true,
         callback = function()
             G_reader_settings:saveSetting(setting, value)
@@ -578,7 +580,7 @@ Setting it to some interval may help prevent losing new settings/sidecar data af
 
 -- Some devices with FAT32 storage may not like having settings rewritten too often,
 -- so let that be known. See https://github.com/koreader/koreader/pull/3625
-local warn_about_auto_save = Device:isKobo() or Device:isKindle() or Device:isCervantes() or Device:isPocketBook() or Device:isSonyPRSTUX()
+local warn_about_auto_save = Device:isKobo() or Device:isKindle() or Device:isCervantes() or Device:isPocketBook()
 if warn_about_auto_save then
     local auto_save_help_warning = _([[Please be warned that on this device, setting a low interval may exacerbate the potential for filesystem corruption and complete data loss after a hardware crash.]])
     auto_save_help_text = auto_save_help_text .. "\n\n" .. auto_save_help_warning
@@ -725,6 +727,78 @@ common_settings.document_auto_save = {
     separator = true,
 }
 
+local document_metadata_arc_help_text = _([[
+Book metadata (view settings, bookmarks, notes) can be saved to the archive when deleting a book.
+
+If a book is restored on the device, its archived metadata can be used.
+Annotations of deleted books can be viewed in Bookmark browser.
+
+To keep book metadata when deleting a book outside of KOReader, book metadata can be saved to archive on book closing.]])
+common_settings.document_metadata_arc = {
+    text = _("Book metadata archive"),
+    sub_item_table = {
+        {
+            text = _("About"),
+            keep_menu_open = true,
+            callback = function()
+                UIManager:show(InfoMessage:new{ text = document_metadata_arc_help_text })
+            end,
+        },
+        {
+            text_func = function()
+                return T(_("Archive location: %1"),
+                    G_reader_settings:readSetting("document_metadata_arc_folder") or _("not set"))
+            end,
+            keep_menu_open = true,
+            callback = function(touchmenu_instance)
+                local title_header = _("Book metadata archive folder:")
+                local current_path = G_reader_settings:readSetting("document_metadata_arc_folder")
+                local caller_callback = function(path)
+                    local ok = true
+                    if path and path ~= current_path then
+                        local FileManager = require("apps/filemanager/filemanager")
+                        util.findFiles(current_path, function(fullpath, filename)
+                            if filename:match("%.lua$") then
+                                ok = FileManager:moveFile(fullpath, path .. "/" .. filename)
+                            elseif filename:match("%.old$") then
+                                os.remove(fullpath)
+                            end
+                        end, false)
+                    end
+                    if ok then
+                        G_reader_settings:saveSetting("document_metadata_arc_folder", path)
+                        touchmenu_instance:updateItems()
+                    end
+                end
+                filemanagerutil.showChooseDialog(title_header, caller_callback, current_path, nil, nil, true)
+            end,
+        },
+        {
+            text = _("Save metadata to archive on book closing"),
+            enabled_func = function()
+                return G_reader_settings:has("document_metadata_arc_folder")
+            end,
+            checked_func = function()
+                return G_reader_settings:isTrue("document_metadata_arc_on_closing")
+            end,
+            callback = function()
+                G_reader_settings:flipNilOrFalse("document_metadata_arc_on_closing")
+            end,
+            separator = true,
+        },
+        {
+            text = _("Archived book list"),
+            enabled_func = function()
+                return G_reader_settings:has("document_metadata_arc_folder")
+            end,
+            callback = function()
+                FileManagerBookInfo:onShowBookMetadataArchive()
+            end,
+        },
+    },
+    separator = true,
+}
+
 common_settings.document_end_action = {
     text = _("End of document action"),
     sub_item_table = {
@@ -738,30 +812,21 @@ common_settings.document_end_action = {
             end,
             separator = true,
         },
-        genGenericMenuEntry(_("Ask with popup dialog"), "end_document_action", "pop-up", "pop-up"),
-        genGenericMenuEntry(_("Do nothing"), "end_document_action", "nothing", nil),
-        genGenericMenuEntry(_("Book status"), "end_document_action", "book_status", nil),
-        genGenericMenuEntry(_("Delete file"), "end_document_action", "delete_file", nil),
-        {
-            text = _("Open next file"),
-            enabled_func = function()
-                local collate = G_reader_settings:readSetting("collate")
-                return collate ~= "access" and collate ~= "date"
-            end,
-            checked_func = function()
-                return G_reader_settings:readSetting("end_document_action") == "next_file"
-            end,
-            radio = true,
-            callback = function()
-                G_reader_settings:saveSetting("end_document_action", "next_file")
-            end,
-        },
-        genGenericMenuEntry(_("Go to beginning"), "end_document_action", "goto_beginning", nil),
-        genGenericMenuEntry(_("Return to file browser"), "end_document_action", "file_browser", nil),
-        genGenericMenuEntry(_("Mark book as finished"), "end_document_action", "mark_read", nil),
-        genGenericMenuEntry(_("Book status and return to file browser"), "end_document_action", "book_status_file_browser", nil),
     }
 }
+local ReaderStatus = require("apps/reader/modules/readerstatus")
+local end_actions, end_actions_texts = ReaderStatus.getEndOfBookActions()
+local end_actions_enabled_funcs = {
+    next_file = function()
+        local collate = G_reader_settings:readSetting("collate")
+        return collate ~= "access" and collate ~= "date"
+    end,
+}
+for i = 1, #end_actions do
+    table.insert(common_settings.document_end_action.sub_item_table,
+        genGenericMenuEntry(end_actions_texts[i], "end_document_action", end_actions[i], "pop-up",
+            end_actions_enabled_funcs[end_actions[i]]))
+end
 
 common_settings.language = Language:getLangMenuTable()
 

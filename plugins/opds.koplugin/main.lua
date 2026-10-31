@@ -66,8 +66,11 @@ end
 
 function OPDS:onDispatcherRegisterActions()
     Dispatcher:registerAction("opds_show_catalog",
-        {category="none", event="ShowOPDSCatalog", title=_("OPDS Catalog"), filemanager=true,}
-    )
+        {category="none", event="ShowOPDSCatalog", title=_("OPDS Catalog"), filemanager=true,})
+    Dispatcher:registerAction("opds_sync_all_catalogs",
+        {category="none", event="SyncAllOPDSCatalogs", arg=false, title=_("Sync all OPDS catalogs"), filemanager=true,})
+    Dispatcher:registerAction("opds_sync_all_catalogs",
+        {category="none", event="SyncAllOPDSCatalogs", arg=true, title=_("Force sync all OPDS catalogs"), filemanager=true,})
 end
 
 function OPDS:addToMainMenu(menu_items)
@@ -81,7 +84,7 @@ function OPDS:addToMainMenu(menu_items)
     end
 end
 
-function OPDS:onShowOPDSCatalog()
+function OPDS:setupOPDSBrowser()
     self:loadSettings()
     self.opds_browser = OPDSBrowser:new{
         settings = self.opds_settings,
@@ -95,6 +98,9 @@ function OPDS:onShowOPDSCatalog()
         _manager = self,
         file_downloaded_callback = function(file)
             self:showFileDownloadedDialog(file)
+        end,
+        file_read_now_callback = function(file)
+            self:openDownloadedFile(file)
         end,
         close_callback = function()
             if self.opds_browser.download_list then
@@ -111,7 +117,19 @@ function OPDS:onShowOPDSCatalog()
             end
         end,
     }
+end
+
+function OPDS:onShowOPDSCatalog()
+    self:setupOPDSBrowser()
     UIManager:show(self.opds_browser)
+    return true
+end
+
+function OPDS:onSyncAllOPDSCatalogs(is_force)
+    self:setupOPDSBrowser()
+    self.opds_browser.sync_force = is_force
+    self.opds_browser:checkSyncDownload()
+    return true
 end
 
 function OPDS:showFileDownloadedDialog(file)
@@ -120,19 +138,25 @@ function OPDS:showFileDownloadedDialog(file)
         text = T(_("File saved to:\n%1\nWould you like to read the downloaded book now?"), BD.filepath(file)),
         ok_text = _("Read now"),
         ok_callback = function()
-            self.last_downloaded_file = nil
-            self.opds_browser.close_callback()
-            if self.ui.document then
-                self.ui:switchDocument(file)
-            else
-                self.ui:openFile(file)
-            end
+            self:openDownloadedFile(file)
         end,
     }
     -- As the InfoMessage "Downloading" is getting closed, show this ConfirmBox on the next UI tick to avoid e-Ink rendering congestion
     UIManager:nextTick(function()
         UIManager:show(confirm_box)
     end)
+end
+
+-- Closes the browser and opens the book, either freshly downloaded or already on disk
+function OPDS:openDownloadedFile(file)
+    -- No need to have close_callback() navigate the file browser to the file, we're opening it
+    self.last_downloaded_file = nil
+    self.opds_browser.close_callback()
+    if self.ui.document then
+        self.ui:switchDocument(file)
+    else
+        self.ui:openFile(file)
+    end
 end
 
 function OPDS:onFlushSettings()

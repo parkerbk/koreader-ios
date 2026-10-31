@@ -25,6 +25,7 @@ local app_name = "koreader.app"
 local PocketBook = Generic:extend{
     model = "PocketBook",
     ota_model = "pocketbook",
+    ota_unpack_dir = "../..",
     isPocketBook = yes,
     hasOTAUpdates = yes,
     hasWifiToggle = yes,
@@ -771,6 +772,17 @@ function PocketBook700K3._fb_init(fb, finfo, vinfo)
     vinfo.bits_per_pixel = 24
 end
 
+-- PocketBook Era Lite (710)
+local PocketBook710 = PocketBook:extend{
+    model = "PB710",
+    display_dpi = 300,
+    isAlwaysPortrait = yes,
+    hasNaturalLight = yes,
+    -- c.f., https://github.com/koreader/koreader/issues/9556
+    inkview_translates_buttons = true,
+    needs_orientation_sync_after_resume = true,
+}
+
 -- PocketBook InkPad 3 (740)
 local PocketBook740 = PocketBook:extend{
     model = "PBInkPad3",
@@ -834,7 +846,7 @@ end
 local PocketBook743K3 = PocketBook:extend{
     model = "PBInkPadColor3",
     display_dpi = 300,
-    viewport = Geom:new{x=3, y=2, w=1395, h=1864},
+    viewport = Geom:new{x=3, y=2, w=1398, h=1864},
     hasColorScreen = yes,
     canHWDither = yes, -- Adjust color saturation with inkview
     canUseCBB = no, -- 24bpp
@@ -888,6 +900,14 @@ local PocketBook970 = PocketBook:extend{
     display_dpi = 150,
     isAlwaysPortrait = yes,
     hasNaturalLight = yes,
+}
+
+-- PocketBook InkPad One (1030)
+local PocketBook1030 = PocketBook:extend{
+    model = "PB1030",
+    display_dpi = 226,
+    hasNaturalLight = yes,
+    ota_model = "pocketbookhf",
 }
 
 -- PocketBook InkPad X (1040)
@@ -968,6 +988,8 @@ elseif codename == "700" then
     return PocketBook700
 elseif codename == "700K3" then
     return PocketBook700K3
+elseif codename == "710" then
+    return PocketBook710
 elseif codename == "740" then
     return PocketBook740
 elseif codename == "740-2" or codename == "740-3" then
@@ -984,6 +1006,8 @@ elseif codename == "840" or codename == "Reader InkPad" then
     return PocketBook840
 elseif codename == "970" then
     return PocketBook970
+elseif codename == "1030" then
+    return PocketBook1030
 elseif codename == "1040" then
     return PocketBook1040
 elseif codename == "Color Lux" then

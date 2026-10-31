@@ -338,9 +338,49 @@ local pdf_query_sample = [[
 </feed>
 ]]
 
+local pdf_acquisition_sample = [[
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/terms/" xmlns:os="http://a9.com/-/spec/opensearch/1.1/" xmlns:opds="http://opds-spec.org/2010/catalog">
+    <id>tag:root:pdfacquisition</id>
+    <title>PDF Acquisition Test</title>
+    <updated>2025-09-11T00:00:00Z</updated>
+    <entry>
+        <title>Sample PDF Without Suffix</title>
+        <id>urn:pdf:no:suffix</id>
+        <updated>2025-09-11T00:00:00Z</updated>
+        <content type="text">A PDF whose download link carries no .pdf suffix.</content>
+        <link href="/get/PDF/123/library" type="application/pdf" rel="http://opds-spec.org/acquisition" />
+    </entry>
+</feed>
+]]
+
+local multiple_authors_sample = [[
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>urn:multiple:authors</id>
+    <title>Multiple authors</title>
+    <updated>2026-10-25T00:00:00Z</updated>
+    <entry>
+        <title>The Wrong Box</title>
+        <id>urn:wrong:box</id>
+        <updated>2026-10-25T00:00:00Z</updated>
+        <author><name>Robert Louis Stevenson</name></author>
+        <author><name>Lloyd Osbourne</name></author>
+        <link href="/opds/download/97/epub/" type="application/epub+zip" rel="http://opds-spec.org/acquisition" />
+    </entry>
+    <entry>
+        <title>Treasure Island</title>
+        <id>urn:treasure:island</id>
+        <updated>2026-10-25T00:00:00Z</updated>
+        <author><name>Robert Louis Stevenson</name></author>
+        <link href="/opds/download/68/epub/" type="application/epub+zip" rel="http://opds-spec.org/acquisition" />
+    </entry>
+</feed>
+]]
+
 describe("OPDS module", function()
     local socketutil
-    local OPDSParser, OPDSBrowser
+    local CookieJar, OPDSClient, OPDSParser, OPDSBrowser
     local orig_path, orig_lbt, orig_ltt, orig_fbt, orig_ftt
 
     setup(function()
@@ -348,6 +388,8 @@ describe("OPDS module", function()
         package.path = "plugins/opds.koplugin/?.lua;" .. package.path
         require("commonrequire")
         socketutil = require("socketutil")
+        CookieJar = require("cookiejar")
+        OPDSClient = require("opdsclient")
         OPDSParser = require("opdsparser")
         OPDSBrowser = require("opdsbrowser")
 
@@ -397,6 +439,66 @@ describe("OPDS module", function()
             assert.are.same(entry.title, "1000 Mythological Characters Briefly Described")
             assert.are.same(entry.link[1].href, "https://www.gutenberg.org/ebooks/42474.epub.images")
             assert.are.same(entry.link[1].title, "EPUB (with images)")
+        end)
+        it("should not desync entries when a content tag is self-closing", function()
+            -- Regression for #15511: a self-closing <content type="text"/> used to make
+            -- the content rewrite over-match into the next entry, dropping entries and
+            -- pairing covers with the wrong titles.
+            local self_closing_content_sample = [[
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+<title>Self-closing content</title>
+<entry>
+<title>First</title>
+<id>urn:first</id>
+<content type="text"/>
+<link type="image/png" rel="http://opds-spec.org/image/thumbnail" href="FIRST_IMG"/>
+</entry>
+<entry>
+<title>Second</title>
+<id>urn:second</id>
+<content type="text">A description.</content>
+<link type="image/png" rel="http://opds-spec.org/image/thumbnail" href="SECOND_IMG"/>
+</entry>
+</feed>
+]]
+            local catalog = OPDSParser:parse(self_closing_content_sample)
+            local feed = catalog.feed
+            assert.truthy(feed)
+            local entries = feed.entry
+            assert.truthy(entries)
+            assert.are.same(#entries, 2)
+            assert.are.same(entries[1].title, "First")
+            assert.are.same(entries[1].link[1].href, "FIRST_IMG")
+            assert.are.same(entries[2].title, "Second")
+            assert.are.same(entries[2].link[1].href, "SECOND_IMG")
+        end)
+        it("should keep attribute values that are not ASCII", function()
+            local non_ascii_sample = [[
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+<title>Non-ASCII attributes</title>
+<entry>
+<title>Двадцать тысяч льё под водой</title>
+<id>urn:third</id>
+<category term="Приключения" label="Приключения"/>
+<link href="/opds/sequencebooks/109084" rel="related" type="application/atom+xml" title="Все книги серии «Капитан Немо»"/>
+</entry>
+</feed>
+]]
+            local catalog = OPDSParser:parse(non_ascii_sample)
+            local entry = catalog.feed.entry[1]
+            assert.are.same(entry.category.label, "Приключения")
+            assert.are.same(entry.link[1].title, "Все книги серии «Капитан Немо»")
+        end)
+        it("should keep every author of an entry", function()
+            local catalog = OPDSParser:parse(multiple_authors_sample)
+            local entries = catalog.feed.entry
+            assert.are.same(#entries[1].author, 2)
+            assert.are.same(entries[1].author[1].name, "Robert Louis Stevenson")
+            assert.are.same(entries[1].author[2].name, "Lloyd Osbourne")
+            assert.are.same(#entries[2].author, 1)
+            assert.are.same(entries[2].author[1].name, "Robert Louis Stevenson")
         end)
     end)
 
@@ -470,6 +572,15 @@ describe("OPDS module", function()
                 assert.are.same("Entry Two", item_table[2].title)
                 assert.are.same("https://www.cbeta.org/opds/index.php?vol=X", item_table[2].url)
             end)
+            it("should list every author of an entry", function()
+                local catalog = OPDSParser:parse(multiple_authors_sample)
+                local item_table = OPDSBrowser:genItemTableFromCatalog(catalog, "https://example.com/opds/")
+
+                assert.are.same("Robert Louis Stevenson, Lloyd Osbourne", item_table[1].author)
+                assert.are.same("The Wrong Box - Robert Louis Stevenson, Lloyd Osbourne", item_table[1].text)
+                assert.are.same("Robert Louis Stevenson", item_table[2].author)
+                assert.are.same("Robert Louis Stevenson, Lloyd Osbourne - The Wrong Box", (OPDSBrowser:getFileName(item_table[1])))
+            end)
             it("should use the main URL for faceted links as long as faceted links aren't properly supported #internet", function()
                 local catalog = OPDSParser:parse(facet_sample)
                 local item_table = OPDSBrowser:genItemTableFromCatalog(catalog, "http://flibusta.is/opds")
@@ -503,6 +614,350 @@ describe("OPDS module", function()
             assert(href:match("file%.pdf%?opds$"))
             -- And must NOT have an extra .pdf appended after the query string.
             assert(not href:match("opds%.pdf$"))
+        end)
+
+        it("should not duplicate a PDF acquisition whose href has no .pdf suffix #internet", function()
+            local catalog = OPDSParser:parse(pdf_acquisition_sample)
+            local item_table = OPDSBrowser:genItemTableFromCatalog(catalog, "http://example.org/opds")
+
+            assert.truthy(item_table)
+            assert.are.same(1, #item_table)
+            local acquisitions = item_table[1].acquisitions
+            assert.truthy(acquisitions)
+            -- The acquisition link is added once, by the rel handling above.
+            assert.are.same(1, #acquisitions)
+            assert.are.same("http://example.org/get/PDF/123/library", acquisitions[1].href)
+        end)
+
+        it("should retain response cookies only for matching URLs", function()
+            local cookie_jar = CookieJar:new()
+            cookie_jar:store("https://flibusta.is/opds", {
+                ["set-cookie"] = "session=abc; Path=/; Secure",
+            })
+            cookie_jar:store("https://flibusta.is/opds", {
+                ["set-cookie"] = "shared=def; Domain=.flibusta.is; Path=/b",
+            })
+
+            assert.are.same("session=abc", cookie_jar:headerFor("https://flibusta.is/opds/polka"))
+            assert.are.same("shared=def; session=abc", cookie_jar:headerFor("https://flibusta.is/b/619104/fb2"))
+            assert.are.same("shared=def", cookie_jar:headerFor("https://static.flibusta.is/b/619104/fb2"))
+            assert.are.same("shared=def", cookie_jar:headerFor("http://flibusta.is/b/619104/fb2"))
+        end)
+
+        it("should split combined response cookies without splitting quoted values or expiry dates", function()
+            local cookie_jar = CookieJar:new()
+            cookie_jar:store("https://example.test/catalog", {
+                ["set-cookie"] = 'quoted="a,b"; Path=/, session=abc; Expires=Wed, 21 Oct 2030 07:28:00 GMT; Path=/',
+            })
+
+            assert.are.same(2, #cookie_jar.cookies)
+            assert.are.same('"a,b"', cookie_jar.cookies[1].value)
+            assert.are.same("abc", cookie_jar.cookies[2].value)
+        end)
+
+        it("should retain shared-domain cookies but not credentials across redirects", function()
+            local http = require("socket.http")
+            local requests = {}
+            local responses = {
+                { 302, { location = "https://static.example.test/book", ["set-cookie"] = "session=abc; Domain=.example.test; Path=/" } },
+                { 200, {} },
+            }
+            local request_stub = stub(http, "request", function(request)
+                table.insert(requests, request)
+                local response = table.remove(responses, 1)
+                request.response_headers(response[1], response[2])
+                return 1, response[1], response[2], "HTTP " .. response[1]
+            end)
+            finally(function() request_stub:revert() end)
+
+            local client = OPDSClient:new{
+                cookie_jar = CookieJar:new(),
+            }
+            local code = client:request{
+                url = "https://example.test/catalog",
+                headers = { ["Accept-Encoding"] = "identity" },
+                username = "reader",
+                password = "secret",
+            }
+
+            assert.are.same(200, code)
+            assert.are.same("reader", requests[1].user)
+            assert.are.same("secret", requests[1].password)
+            assert.is_nil(requests[2].user)
+            assert.is_nil(requests[2].password)
+            assert.are.same("session=abc", requests[2].headers.Cookie)
+        end)
+
+        it("should retry an interrupted TLS handshake for idempotent requests", function()
+            local http = require("socket.http")
+            local requests = 0
+            local request_stub = stub(http, "request", function()
+                requests = requests + 1
+                if requests == 1 then
+                    return nil, socketutil.SSL_HANDSHAKE_CODE
+                end
+                return 1, 200, {}, "HTTP 200"
+            end)
+            finally(function() request_stub:revert() end)
+
+            local client = OPDSClient:new{
+                cookie_jar = CookieJar:new(),
+            }
+            local code = client:request{
+                url = "https://example.test/catalog",
+                method = "GET",
+                sink = function() end,
+            }
+
+            assert.are.same(200, code)
+            assert.are.same(2, requests)
+        end)
+
+        it("should add the file extension to a server filename that lacks a usable one #internet", function()
+            local orig_fetchFeed = OPDSBrowser.fetchFeed
+            OPDSBrowser.fetchFeed = function() return nil end -- no headers: fall back to the URL
+            finally(function() OPDSBrowser.fetchFeed = orig_fetchFeed end)
+
+            -- No suffix at all.
+            assert.are.same("library.pdf",
+                OPDSBrowser:getServerFileName("http://example.org/get/PDF/123/library", "pdf"))
+            -- A dotted tail that is not a known extension is not a suffix either.
+            assert.are.same("2509.07924v1.pdf",
+                OPDSBrowser:getServerFileName("http://arxiv.org/pdf/2509.07924v1", "pdf"))
+            -- An existing, usable extension is left alone.
+            assert.are.same("file.pdf",
+                OPDSBrowser:getServerFileName("http://example.org/books/file.pdf?opds", "pdf"))
+        end)
+
+        it("should conditionally revalidate cached catalog feeds", function()
+            local headers = OPDSBrowser:getConditionalFeedHeaders{
+                etag = '"catalog-v1"',
+                last_modified = "Wed, 21 Oct 2015 07:28:00 GMT",
+            }
+
+            assert.are.same('"catalog-v1"', headers["If-None-Match"])
+            assert.are.same("Wed, 21 Oct 2015 07:28:00 GMT", headers["If-Modified-Since"])
+            assert.is_nil(OPDSBrowser:getConditionalFeedHeaders())
+        end)
+
+        it("should restore a cached parent catalog when returning", function()
+            local parent_items = { { text = "Parent book" } }
+            local browser = OPDSBrowser:extend{
+                paths = {
+                    {
+                        url = "https://example.org/parent",
+                        snapshot = {
+                            catalog_title = "Parent",
+                            facet_groups = { Genre = {} },
+                            item_table = parent_items,
+                            search_url = "https://example.org/search?q=%s",
+                        },
+                    },
+                    { url = "https://example.org/child" },
+                },
+                switchItemTable = function(self, title, items)
+                    self.restored_title = title
+                    self.restored_items = items
+                end,
+                setTitleBarLeftIcon = function(self, icon)
+                    self.restored_icon = icon
+                end,
+                updateCatalog = function()
+                    error("cached parent should not be fetched")
+                end,
+            }
+
+            browser:onReturn()
+
+            assert.are.same("Parent", browser.restored_title)
+            assert.are.same(parent_items, browser.restored_items)
+            assert.are.same("appbar.menu", browser.restored_icon)
+            assert.are.same(1, #browser.paths)
+        end)
+
+        describe("sync settings", function()
+            it("should resolve sync paths for each catalog without a global folder", function()
+                local browser = OPDSBrowser:extend{
+                    settings = {},
+                    syncing = true,
+                    sync_server = { sync_dir = "/comics" },
+                }
+                assert.are.same("/comics", browser:getCurrentDownloadDir())
+                browser.sync_server = { sync_dir = "/ebooks" }
+                assert.are.same("/ebooks", browser:getCurrentDownloadDir())
+                browser.sync_server = {}
+                assert.is_nil(browser:getCurrentDownloadDir())
+                browser.settings.sync_dir = "/default"
+                assert.are.same("/default", browser:getCurrentDownloadDir())
+            end)
+
+            describe("sync selection", function()
+                local UIManager, browser, collected, downloaded, messages
+
+                before_each(function()
+                    UIManager = require("ui/uimanager")
+                    stub(require("ui/widget/infomessage"), "new", function(_, options) return options end)
+                    stub(UIManager, "show", function(_, dialog) table.insert(messages, dialog.text) end)
+                    stub(UIManager, "close")
+                    stub(UIManager, "forceRePaint")
+                    stub(require("ui/trapper"), "wrap", function(_, callback) callback() end)
+                    collected, messages = {}, {}
+                    downloaded = false
+                    browser = OPDSBrowser:extend{
+                        settings = {},
+                        servers = {
+                            { url = "comics", sync = true, sync_dir = "/comics" },
+                            { url = "ebooks", sync = true, sync_dir = "/ebooks" },
+                            { url = "disabled", sync_dir = "/disabled" },
+                            { url = "no-folder", sync = true },
+                        },
+                        pending_syncs = {},
+                        fillPendingSyncs = function(self, server)
+                            table.insert(collected, server.url)
+                            self.sync_server_list[server.url] = true
+                        end,
+                        downloadPendingSyncs = function() downloaded = true end,
+                    }
+                end)
+
+                after_each(function()
+                    require("ui/widget/infomessage").new:revert()
+                    require("ui/trapper").wrap:revert()
+                    UIManager.show:revert()
+                    UIManager.close:revert()
+                    UIManager.forceRePaint:revert()
+                end)
+
+                it("should sync enabled catalogs with their own folders without a global folder", function()
+                    browser:checkSyncDownload()
+                    assert.are.same({ "comics", "ebooks" }, collected)
+                    assert.is_false(browser.syncing)
+                    assert.is_false(downloaded)
+                end)
+
+                it("should include catalogs using the global fallback", function()
+                    browser.settings.sync_dir = "/default"
+                    browser:checkSyncDownload()
+                    assert.are.same({ "comics", "ebooks", "no-folder" }, collected)
+                end)
+
+                it("should allow explicit sync of a catalog excluded from automatic sync", function()
+                    browser:checkSyncDownload(browser.servers[3])
+                    assert.are.same({ "disabled" }, collected)
+                end)
+
+                it("should ignore pending downloads from a previous catalog selection", function()
+                    browser.sync_server_list = { ebooks = true }
+                    browser.pending_syncs = {{ catalog = "ebooks" }}
+                    browser:checkSyncDownload(browser.servers[1])
+                    assert.is_false(downloaded)
+                    assert.is_nil(browser.sync_server_list.ebooks)
+                    browser.pending_syncs = {{ catalog = "comics" }}
+                    browser:checkSyncDownload(browser.servers[1])
+                    assert.is_true(downloaded)
+                end)
+
+                it("should leave sync mode after feed collection fails", function()
+                    browser.fillPendingSyncs = function() error("feed failed") end
+                    local ok, err = pcall(function() browser:checkSyncDownload(browser.servers[1]) end)
+                    assert.is_false(ok)
+                    assert.truthy(err:find("feed failed", 1, true))
+                    assert.is_false(browser.syncing)
+                    assert.is_false(downloaded)
+                end)
+            end)
+
+            it("should prefer a catalog sync folder and fall back to the default sync folder", function()
+                local browser = OPDSBrowser:extend{
+                    settings = {
+                        sync_dir = "/default",
+                    },
+                }
+
+                assert.are.same("/catalog", browser:getSyncDir{
+                    sync_dir = "/catalog",
+                })
+                assert.are.same("/default", browser:getSyncDir{})
+            end)
+
+            it("should preserve sync metadata when editing a catalog", function()
+                local browser = OPDSBrowser:extend{
+                    servers = {
+                        {
+                            title = "Old catalog",
+                            url = "http://example.org/opds",
+                            sync_dir = "/catalog",
+                            last_download = "http://example.org/book.epub",
+                        },
+                    },
+                    item_table = {
+                        {},
+                        {},
+                    },
+                    _manager = {},
+                }
+
+                browser:editCatalogFromInput({
+                    "New catalog",
+                    "http://example.org/opds",
+                    "",
+                    "",
+                    nil,
+                    true,
+                }, { idx = 2 }, true)
+
+                assert.are.same("/catalog", browser.servers[1].sync_dir)
+                assert.are.same("http://example.org/book.epub", browser.servers[1].last_download)
+            end)
+
+            it("should reset last download when editing a catalog URL", function()
+                local browser = OPDSBrowser:extend{
+                    servers = {
+                        {
+                            title = "Old catalog",
+                            url = "http://example.org/opds",
+                            sync_dir = "/catalog",
+                            last_download = "http://example.org/book.epub",
+                        },
+                    },
+                    item_table = {
+                        {},
+                        {},
+                    },
+                    _manager = {},
+                }
+
+                browser:editCatalogFromInput({
+                    "New catalog",
+                    "http://example.com/opds",
+                    "",
+                    "",
+                    nil,
+                    true,
+                }, { idx = 2 }, true)
+
+                assert.are.same("/catalog", browser.servers[1].sync_dir)
+                assert.is_nil(browser.servers[1].last_download)
+            end)
+
+            it("should keep sync folders on servers without copying them to root items", function()
+                local browser = OPDSBrowser:extend{
+                    servers = {
+                        {
+                            title = "Catalog",
+                            url = "http://example.org/opds",
+                            sync_dir = "/catalog",
+                        },
+                    },
+                    downloads = {},
+                }
+
+                local items = browser:genItemTableFromRoot()
+
+                assert.is_nil(items[2].sync_dir)
+                assert.are.same("/catalog", browser.servers[1].sync_dir)
+                assert.are.same("/catalog", browser:getSyncDir(browser.servers[1]))
+            end)
         end)
     end)
 end)

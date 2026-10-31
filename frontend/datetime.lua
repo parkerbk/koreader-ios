@@ -12,18 +12,18 @@ local datetime = {}
 datetime.weekDays = { "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" } -- in Lua wday order
 
 datetime.shortMonthTranslation = {
-    ["Jan"] = _("Jan"),
-    ["Feb"] = _("Feb"),
-    ["Mar"] = _("Mar"),
-    ["Apr"] = _("Apr"),
-    ["May"] = _("May"),
-    ["Jun"] = _("Jun"),
-    ["Jul"] = _("Jul"),
-    ["Aug"] = _("Aug"),
-    ["Sep"] = _("Sep"),
-    ["Oct"] = _("Oct"),
-    ["Nov"] = _("Nov"),
-    ["Dec"] = _("Dec"),
+    ["Jan"] = C_("Abbreviated month", "Jan"),
+    ["Feb"] = C_("Abbreviated month", "Feb"),
+    ["Mar"] = C_("Abbreviated month", "Mar"),
+    ["Apr"] = C_("Abbreviated month", "Apr"),
+    ["May"] = C_("Abbreviated month", "May"),
+    ["Jun"] = C_("Abbreviated month", "Jun"),
+    ["Jul"] = C_("Abbreviated month", "Jul"),
+    ["Aug"] = C_("Abbreviated month", "Aug"),
+    ["Sep"] = C_("Abbreviated month", "Sep"),
+    ["Oct"] = C_("Abbreviated month", "Oct"),
+    ["Nov"] = C_("Abbreviated month", "Nov"),
+    ["Dec"] = C_("Abbreviated month", "Dec"),
 }
 
 datetime.longMonthTranslation = {
@@ -260,8 +260,8 @@ else
                 -- @translators This is the time using a 24-hour clock (%_H is the hour, %M the minute).
                 return os.date(_("%_H:%M"), seconds)
             else
-                -- @translators This is the time using a 24-hour clock (%-H is the hour, %M the minute).
-                return os.date(_("%-H:%M"), seconds)
+                -- @translators This is the time using a 24-hour clock (%H is the hour, %M the minute).
+                return os.date(_("%H:%M"), seconds)
             end
         end
     end

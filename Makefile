@@ -6,13 +6,12 @@ KOR_BASE ?= base
 
 include $(KOR_BASE)/Makefile.defs
 
-RELEASE_DATE := $(shell git show -s --format=format:"%cd" --date=short HEAD)
-# We want VERSION to carry the version of the KOReader main repo, not that of koreader-base
-VERSION := $(shell git describe HEAD)
-RELEASE_EPOCH := $(shell git log -1 --format='%cs' $(word 1,$(subst -, ,$(VERSION))))
-# Only append date if we're not on a whole version, like v2018.11
-ifneq (,$(findstring -,$(VERSION)))
-	VERSION := $(VERSION)_$(RELEASE_DATE)
+DESCRIBE := $(shell ./tools/describe.sh)
+VERSION := $(word 1,$(DESCRIBE))
+RELEASE_DATE := $(word 2,$(DESCRIBE))
+RELEASE_EPOCH := $(word 3,$(DESCRIBE))
+ifeq (,$(and $(VERSION),$(RELEASE_DATE),$(RELEASE_EPOCH)))
+  $(error failed to determine version)
 endif
 
 MACHINE=$(TARGET_MACHINE)
@@ -50,7 +49,6 @@ CR3GUI_DATADIR_FILES = $(filter-out $(CR3GUI_DATADIR_EXCLUDES),$(wildcard $(CR3G
 define DATADIR_FILES
 $(CR3GUI_DATADIR_FILES)
 $(OUTPUT_DIR_DATAFILES)
-$(THIRDPARTY_DIR)/kpvcrlib/cr3.css
 endef
 
 # files to link from main directory
@@ -129,7 +127,7 @@ endef
 
 all: base mo
 	install -d $(INSTALL_DIR)/koreader
-	rm -f $(INSTALL_DIR)/koreader/git-rev; echo "$(VERSION)" > $(INSTALL_DIR)/koreader/git-rev
+	rm -f $(INSTALL_DIR)/koreader/git-rev; echo "$(VERSION)_$(DIST)" > $(INSTALL_DIR)/koreader/git-rev
 ifdef ANDROID
 	rm -f android-fdroid-version; echo -e "$(ANDROID_NAME)\n$(ANDROID_VERSION)" > koreader-android-fdroid-latest
 endif
@@ -155,7 +153,7 @@ endif
 	@echo "[*] Install plugins"
 	$(SYMLINK) plugins $(INSTALL_DIR)/koreader/
 	@echo "[*] Install resources"
-	$(SYMLINK) resources/fonts/* $(INSTALL_DIR)/koreader/fonts/
+	$(SYMLINK) resources/fonts $(INSTALL_DIR)/koreader/fonts
 	install -d $(INSTALL_DIR)/koreader/{screenshots,fonts/host,ota}
 	# Note: the data dir is distinct from the one in base/build/…!
 	@echo "[*] Install data files"

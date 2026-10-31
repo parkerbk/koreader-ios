@@ -66,17 +66,19 @@ function ReaderAnnotation:buildAnnotation(bm, highlights, init)
     return { -- annotation
         datetime         = bm.datetime, -- creation time, not changeable
         datetime_updated = nil,         -- last modification time
-        drawer           = hl.drawer,   -- highlight drawer
+        drawer           = hl.drawer,   -- highlight style
         color            = hl.color,    -- highlight color
         text             = bm.notes,    -- highlighted text, editable
         text_edited      = hl.edited,   -- true if highlighted text has been edited
         note             = note,        -- user's note, editable
+        note_format      = nil,         -- plain text, or "html" or "md"
         chapter          = chapter,     -- book chapter title
         pageno           = pageno,      -- book page number (continuous numbering, used by KOHighlights)
-        pageref          = pageref,     -- book page number (iff: reference pages or hidden flows)
+        pageref          = pageref,     -- book page number (iff: stable pages or hidden flows)
         page             = bm.page,     -- highlight location, xPointer or number (pdf)
         pos0             = bm.pos0,     -- highlight start position, xPointer (== page) or table (pdf)
         pos1             = bm.pos1,     -- highlight end position, xPointer or table (pdf)
+        epubcfi          = bm.epubcfi,  -- epubcfi, based on pos0/pos1 xPointers, not used by pdf
         pboxes           = hl.pboxes,   -- pdf pboxes, used only and changeable by addMarkupAnnotation
         ext              = hl.ext,      -- pdf multi-page highlight
     }
@@ -259,7 +261,7 @@ end
 
 function ReaderAnnotation:onExportAnnotations(on_closing)
     local do_export = not on_closing or G_reader_settings:isTrue("annotations_export_on_closing")
-    if do_export and self:hasAnnotations() then
+    if do_export and (self:hasAnnotations() or not on_closing) then
         local file = self:getExportAnnotationsFilepath()
         local anno = LuaSettings:open(file)
         local device_id = G_reader_settings:readSetting("device_id")
@@ -379,30 +381,43 @@ function ReaderAnnotation:updateItemByXPointer(item)
     item.pageref = self:getPageRef(item.page, item.pageno)
 end
 
+function ReaderAnnotation:getInvalidXPointersOrder(a, b, key)
+    local is_a_valid = self.document:isXPointerInDocument(a[key])
+    local is_b_valid = self.document:isXPointerInDocument(b[key])
+    if is_a_valid and is_b_valid then return end
+    -- sort highlights with invalid xpointer to page 1
+    if is_a_valid then
+        return false
+    elseif is_b_valid then
+        return true
+    else -- both invalid
+        return a.datetime < b.datetime
+    end
+end
+
 function ReaderAnnotation:isItemInPositionOrderRolling(a, b)
+    local order = self:getInvalidXPointersOrder(a, b, "page")
+    if order ~= nil then
+        return order
+    end
     local a_page = self.document:getPageFromXPointer(a.page)
     local b_page = self.document:getPageFromXPointer(b.page)
-    if a_page == b_page then -- both items in the same page
-        if (not a.drawer) ~= (not b.drawer) then -- comparing a page bookmark and a highlight
-            return not a.drawer -- have page bookmarks before highlights
-        end
-        local compare_xp = self.document:compareXPointers(a.page, b.page)
-        if compare_xp then
-            if a.drawer and compare_xp == 0 then -- both highlights with the same start, compare ends
-                compare_xp = self.document:compareXPointers(a.pos1, b.pos1)
-                if compare_xp then
-                    return compare_xp > 0
-                end
-                logger.warn("Invalid xpointer in highlight:", a.pos1, b.pos1)
-                return true
-            end
-            return compare_xp > 0
-        end
-        -- if compare_xp is nil, some xpointer is invalid and "a" will be sorted first to page 1
-        logger.warn("Invalid xpointer in highlight:", a.page, b.page)
-        return true
+    if a_page ~= b_page then
+        return a_page < b_page
     end
-    return a_page < b_page
+    -- same page
+    if (not a.drawer) ~= (not b.drawer) then -- comparing a page bookmark and a highlight
+        return not a.drawer -- sort page bookmark before highlights
+    end
+    local compare_xp = self.document:compareXPointers(a.page, b.page)
+    if a.drawer and compare_xp == 0 then -- both highlights with the same start, compare ends
+        order = self:getInvalidXPointersOrder(a, b, "pos1")
+        if order ~= nil then
+            return order
+        end
+        return self.document:compareXPointers(a.pos1, b.pos1) > 0
+    end
+    return compare_xp > 0
 end
 
 function ReaderAnnotation:isItemInPositionOrderPaging(a, b)

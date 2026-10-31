@@ -4,12 +4,8 @@ describe("Readerfooter module", function()
     local tapFooterMenu
     local sample_epub = "spec/front/unit/data/juliet.epub"
     local sample_pdf = "spec/front/unit/data/2col.pdf"
+    local toc_pdf = "spec/front/unit/data/paper.pdf"
     local doc_epub, doc_pdf
-
-    local function is_am()
-        -- Technically only an issue for 1 digit results from %-H, e.g., anything below 10:00 AM
-        return tonumber(os.date("%H")) < 10
-    end
 
     setup(function()
         require("commonrequire")
@@ -97,6 +93,8 @@ describe("Readerfooter module", function()
         os.remove(DocSettings:getHistoryPath(sample_epub))
         purgeDir(DocSettings:getSidecarDir(sample_pdf))
         os.remove(DocSettings:getHistoryPath(sample_pdf))
+        purgeDir(DocSettings:getSidecarDir(toc_pdf))
+        os.remove(DocSettings:getHistoryPath(toc_pdf))
     end)
 
     it("should setup footer as visible in all_at_once mode", function()
@@ -285,25 +283,24 @@ describe("Readerfooter module", function()
         local footer = readerui.view.footer
         local horizontal_margin = Screen:scaleBySize(10)*2
         footer:onUpdateFooter()
-        -- Account for trimming of the leading 0 in the AM
-        local expected = is_am() and 362 or 370
+        local expected = 370
         assert.is.same(expected, footer.text_width)
         assert.is.same(600, footer.progress_bar.width
                             + footer.text_width
                             + horizontal_margin)
-        expected = is_am() and 218 or 210
+        expected = 210
         assert.is.same(expected, footer.progress_bar.width)
 
         local old_screen_getwidth = Screen.getWidth
         Screen.getWidth = function() return 900 end
         local new_horizontal_margin = Screen:scaleBySize(10)*2
         footer:resetLayout()
-        expected = is_am() and 362 or 370
+        expected = 370
         assert.is.same(expected, footer.text_width)
         assert.is.same(900, footer.progress_bar.width
                             + footer.text_width
                             + new_horizontal_margin)
-        expected = (is_am() and 518 or 510) - (new_horizontal_margin - horizontal_margin)
+        expected = 510 - (new_horizontal_margin - horizontal_margin)
         assert.is.same(expected, footer.progress_bar.width)
         Screen.getWidth = old_screen_getwidth
     end)
@@ -319,15 +316,15 @@ describe("Readerfooter module", function()
         }
         local footer = readerui.view.footer
         footer:onPageUpdate(1)
-        local expected = is_am() and 210 or 202
+        local expected = 202
         assert.are.same(expected, footer.progress_bar.width)
-        expected = is_am() and 370 or 378
+        expected = 378
         assert.are.same(expected, footer.text_width)
 
         footer:onPageUpdate(100)
-        expected = is_am() and 186 or 178
+        expected = 178
         assert.are.same(expected, footer.progress_bar.width)
-        expected = is_am() and 394 or 402
+        expected = 402
         assert.are.same(expected, footer.text_width)
     end)
 
@@ -348,6 +345,28 @@ describe("Readerfooter module", function()
         footer.settings.toc_markers = false
         footer:setTocMarkers()
         assert.are.same(nil, footer.progress_bar.ticks)
+    end)
+
+    it("should not crash with paging documents in scroll mode", function()
+        G_reader_settings:saveSetting("reader_footer_mode", 1)
+        local ReaderView = require("apps/reader/modules/readerview")
+        local default_view_mode = ReaderView.view_mode
+        ReaderView.view_mode = "scroll"
+
+        readerui = ReaderUI:new{
+            dimen = Screen:getSize(),
+            document = DocumentRegistry:openDocument(toc_pdf),
+        }
+        local footer = readerui.view.footer
+        assert.is.same("scroll", readerui.view.view_mode)
+        -- the progress bar scale and ticks must remain page-based
+        assert.is.same(footer.pages, footer.progress_bar.last)
+        assert.is.truthy(#footer.progress_bar.ticks > 0)
+        for _, tick in ipairs(footer.progress_bar.ticks) do
+            assert.is_true(tick <= footer.progress_bar.last)
+        end
+
+        ReaderView.view_mode = default_view_mode
     end)
 
     it("should schedule/unschedule auto refresh time task", function()

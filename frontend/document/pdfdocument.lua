@@ -1,4 +1,3 @@
-local BlitBuffer = require("ffi/blitbuffer")
 local CacheItem = require("cacheitem")
 local CanvasContext = require("document/canvascontext")
 local DocCache = require("document/doccache")
@@ -237,7 +236,7 @@ local function _quadpointsToPboxes(quadpoints, n)
     return pboxes
 end
 
-function PdfDocument:saveHighlight(pageno, item)
+function PdfDocument:saveHighlight(pageno, item, annot_color)
     local can_write = self:_checkIfWritable()
     if can_write ~= true then return can_write end
 
@@ -245,7 +244,6 @@ function PdfDocument:saveHighlight(pageno, item)
     local quadpoints, n = _quadpointsFromPboxes(item.pboxes)
     local page = self._document:openPage(pageno)
     local annot_type = C.PDF_ANNOT_HIGHLIGHT
-    local annot_color = item.color and BlitBuffer.colorFromName(item.color)
     if item.drawer == "lighten" then
         annot_type = C.PDF_ANNOT_HIGHLIGHT
     elseif item.drawer == "underscore" then
@@ -272,7 +270,7 @@ function PdfDocument:deleteHighlight(pageno, item)
     local page = self._document:openPage(pageno)
     local annot = page:getMarkupAnnotation(quadpoints, n)
     if annot ~= nil then
-        page:deleteMarkupAnnotation(annot)
+        page:deleteAnnotation(annot)
         self:resetTileCacheValidity()
     end
     page:close()
@@ -357,16 +355,16 @@ function PdfDocument:findAllText(pattern, case_insensitive, nb_context_words, ma
     return self.koptinterface:findAllText(self, pattern, case_insensitive, nb_context_words, max_hits)
 end
 
-function PdfDocument:renderPage(pageno, rect, zoom, rotation, gamma, hinting)
-    return self.koptinterface:renderPage(self, pageno, rect, zoom, rotation, gamma, hinting)
+function PdfDocument:renderPage(pageno, rect, zoom, rotation, gamma, saturation, hinting)
+    return self.koptinterface:renderPage(self, pageno, rect, zoom, rotation, gamma, saturation, hinting)
 end
 
-function PdfDocument:hintPage(pageno, zoom, rotation, gamma)
-    return self.koptinterface:hintPage(self, pageno, zoom, rotation, gamma)
+function PdfDocument:hintPage(pageno, zoom, rotation, gamma, saturation)
+    return self.koptinterface:hintPage(self, pageno, zoom, rotation, gamma, saturation)
 end
 
-function PdfDocument:drawPage(target, x, y, rect, pageno, zoom, rotation, gamma)
-    return self.koptinterface:drawPage(self, target, x, y, rect, pageno, zoom, rotation, gamma)
+function PdfDocument:drawPage(target, x, y, rect, pageno, zoom, rotation, gamma, saturation)
+    return self.koptinterface:drawPage(self, target, x, y, rect, pageno, zoom, rotation, gamma, saturation)
 end
 
 function PdfDocument:register(registry)
@@ -378,6 +376,7 @@ function PdfDocument:register(registry)
     registry:addProvider("cbz", "application/x-cbz", self, 100) -- Alternative mimetype for OPDS.
     registry:addProvider("cfb", "application/octet-stream", self, 80) -- Compound File Binary, a Microsoft general-purpose file with a file-system-like structure.
     registry:addProvider("docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document", self, 80)
+    registry:addProvider("docx", "application/docx", self, 80) -- Alternative mimetype for OPDS.
     registry:addProvider("epub", "application/epub+zip", self, 50)
     registry:addProvider("epub3", "application/epub+zip", self, 50)
     registry:addProvider("fb2", "application/fb2", self, 80)

@@ -44,7 +44,6 @@ ANDROID_LAUNCHER_BUILD = $(INSTALL_DIR)/luajit-launcher
 ANDROID_ASSETS = $(ANDROID_LAUNCHER_BUILD)/assets
 # Assets compression method:
 # - LZMA/LZMA2: `-m0=lzma2 -mx=9`
-# - LZMA/LZMA2 (7z >= 17.02, fast version): `-m0=flzma2 -mx=9`
 # - ZSTD (7z >= 17.02, LZMA still used for archive headers): `-m0=zstd -mx=16`
 # - ZSTD (7z >= 17.02): `-m0=zstd -mhc=off -mx=16`
 ANDROID_ASSETS_COMPRESSION ?= -m0=lzma2 -mx=9
@@ -83,7 +82,7 @@ LICENSE*
 NOTICE
 endef
 
-update: all
+update-apk: all
 	# Note: do not remove the module directory so there's no need
 	# for `mk7z.sh` to always recreate `koreader.7z` from scratch.
 	rm -rf $(ANDROID_LIBS)
@@ -91,7 +90,7 @@ update: all
 	rm -rf $(ANDROID_LAUNCHER_DIR)/assets/{libs,module}
 	# APK version.
 	mkdir -p $(ANDROID_ASSETS)/module $(ANDROID_LIBS)
-	echo $(VERSION) >$(ANDROID_ASSETS)/module/version.txt
+	echo '$(VERSION)_$(DIST)' >$(ANDROID_ASSETS)/module/version.txt
 	# Libraries.
 	cp -v $(INSTALL_DIR)/koreader/libs/*$(LIB_EXT) $(ANDROID_LIBS)/
 	# Binaries are stored as shared libraries to prevent W^X exception on Android 10+
@@ -118,6 +117,9 @@ update: all
 		$(GRADLE_FLAGS) \
 		'app:assemble$(ANDROID_ARCH)$(ANDROID_FLAVOR)$(if $(KODEBUG),Debug,Release)'
 	cp $(ANDROID_LAUNCHER_BUILD)/outputs/apk/$(ANDROID_ARCH)$(ANDROID_FLAVOR)/$(if $(KODEBUG),debug,release)/NativeActivity.apk $(ANDROID_APK)
+	type -P uber-apk-signer >/dev/null && uber-apk-signer --overwrite --apks $(ANDROID_APK) || echo 'WARNING: uber-apk-signer not found, APK is unsigned!'
+
+update: update-apk
 
 # }}}
 

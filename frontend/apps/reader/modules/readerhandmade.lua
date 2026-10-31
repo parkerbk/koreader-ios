@@ -21,7 +21,11 @@ function ReaderHandMade:onReadSettings(config)
     self.toc_enabled = config:isTrue("handmade_toc_enabled")
     self.toc_edit_enabled = config:nilOrTrue("handmade_toc_edit_enabled")
     self.toc = config:readSetting("handmade_toc") or {}
-    self.flows_enabled = config:isTrue("handmade_flows_enabled")
+    if config:has("handmade_flows_enabled") then
+        self.flows_enabled = config:isTrue("handmade_flows_enabled")
+    else
+        self.flows_enabled = G_reader_settings:isTrue("handmade_flows_enabled")
+    end
     self.flows_edit_enabled = config:nilOrTrue("handmade_flows_edit_enabled")
     self.flow_points = config:readSetting("handmade_flow_points") or {}
     self.inactive_flow_points = {}
@@ -113,7 +117,7 @@ function ReaderHandMade:onToggleHandmadeToc()
 end
 
 function ReaderHandMade:onToggleHandmadeFlows()
-    self.flows_enabled = not self.flows_enabled
+    self.flows_enabled = not self.flows_enabled -- keep it true or false
     self:setupFlows()
     -- Have footer updated, so we may see this took effect
     self.view.footer:maybeUpdateFooter()
@@ -135,10 +139,16 @@ function ReaderHandMade:addToMainMenu(menu_items)
         end,
     }
     menu_items.handmade_hidden_flows = {
-        text = _("Custom hidden flows"),
+        text_func = function()
+            return _("Custom hidden flows") .. (G_reader_settings:isTrue("handmade_flows_enabled") and "   ★" or "")
+        end,
         checked_func = function() return self.flows_enabled end,
         callback = function()
             self:onToggleHandmadeFlows()
+        end,
+        hold_callback = function(touchmenu_instance)
+            G_reader_settings:flipNilOrFalse("handmade_flows_enabled")
+            touchmenu_instance:updateItems()
         end,
     }
     --[[ Not yet implemented
@@ -224,9 +234,12 @@ This can be useful to exclude long footnotes or bibliography sections.
 It can also be handy when interested in reading only a subset of a book.
 
 In Page browser, you can long-press on a thumbnail to start a hidden flow or restart the regular flow on this page.
-(Once you're done building it and don't want to see the button anymore, you can disable Edit mode.)
+In the TOC, you can long-press on a chapter to include it in a hidden flow or in the regular flow.
+(Once you're done building hidden flows and don't want to see the buttons anymore, you can disable Edit mode.)
 
-Hidden flows are shown with gray or hatched background in Book map and Page browser.]])
+Hidden flows are shown with gray or hatched background in Book map and Page browser.]]),
+                            show_icon = false,
+                            width_factor = 0.9,
                         })
                     end,
                     keep_menu_open = true,
@@ -258,14 +271,8 @@ Hidden flows are shown with gray or hatched background in Book map and Page brow
                                     table.remove(self.flow_points, self.inactive_flow_points[i])
                                 end
                                 self:updateDocFlows()
-                                self.ui:handleEvent(Event:new("UpdateToc"))
-                                self.ui:handleEvent(Event:new("InitScrollPageStates"))
-                                -- The footer may be visible, so have it update its dependent items
-                                self.view.footer:maybeUpdateFooter()
-                                self.ui.annotation:setNeedsUpdateFlag()
-                                if touchmenu_instance then
-                                    touchmenu_instance:updateItems()
-                                end
+                                self:updateDocFlowsRelatedInfo(true)
+                                touchmenu_instance:updateItems()
                             end,
                         })
                     end,
@@ -280,16 +287,8 @@ Hidden flows are shown with gray or hatched background in Book map and Page brow
                         UIManager:show(ConfirmBox:new{
                             text = _("Are you sure you want to clear all your custom hidden flows?"),
                             ok_callback = function()
-                                self.flow_points = {}
-                                self:updateDocFlows()
-                                self.ui:handleEvent(Event:new("UpdateToc"))
-                                self.ui:handleEvent(Event:new("InitScrollPageStates"))
-                                -- The footer may be visible, so have it update its dependent items
-                                self.view.footer:maybeUpdateFooter()
-                                self.ui.annotation:setNeedsUpdateFlag()
-                                if touchmenu_instance then
-                                    touchmenu_instance:updateItems()
-                                end
+                                self:includeAllPagesInRegularFlow(true)
+                                touchmenu_instance:updateItems()
                             end,
                         })
                     end,
@@ -565,6 +564,66 @@ function ReaderHandMade:addOrEditPageTocItem(pageno, when_updated_callback, sele
     return true
 end
 
+function ReaderHandMade:updateDocFlowsRelatedInfo(update_toc)
+    if update_toc then
+        self.ui.toc:onUpdateToc()
+    end
+    self.ui:handleEvent(Event:new("InitScrollPageStates"))
+    self.ui.annotation:setNeedsUpdateFlag()
+    self.view.footer:maybeUpdateFooter()
+end
+
+function ReaderHandMade:includeAllPagesInRegularFlow(update_toc)
+    self.flow_points = {}
+    self:updateDocFlows()
+    self:updateDocFlowsRelatedInfo(update_toc)
+end
+
+function ReaderHandMade:includePagesInRegularOrHiddenFlow(first_page, last_page, hidden_flow)
+    local next_page, next_page_hidden
+    if last_page < self.document:getPageCount() then
+        next_page = last_page + 1
+        next_page_hidden = self:isInHiddenFlow(next_page)
+    end
+    local updated
+    if self:isInHiddenFlow(first_page) then
+        self:toggleHiddenFlow(first_page)
+        updated = true
+    end
+    if self:isInHiddenFlow(last_page) then
+        self:toggleHiddenFlow(last_page)
+        updated = true
+    end
+    local points_changed
+    for i = #self.flow_points, 1, -1 do -- remove all points between first_page and last_page
+        local point = self.flow_points[i]
+        if point.page < last_page then
+            if point.page <= first_page then break end
+            table.remove(self.flow_points, i)
+            points_changed = true
+        end
+    end
+    if points_changed then
+        self:updateDocFlows()
+        updated = true
+    end
+    if updated and next_page_hidden and not self:isInHiddenFlow(next_page) then
+        self:toggleHiddenFlow(next_page)
+    end
+
+    if hidden_flow then
+        self:toggleHiddenFlow(first_page)
+        if next_page and not next_page_hidden and self:isInHiddenFlow(next_page) then
+            self:toggleHiddenFlow(next_page)
+        end
+        updated = true
+    end
+
+    if updated then
+        self:updateDocFlowsRelatedInfo()
+    end
+end
+
 function ReaderHandMade:isInHiddenFlow(pageno)
     local idx, is_match = self:_getItemIndex(self.flow_points, pageno)
     if is_match then
@@ -582,9 +641,11 @@ function ReaderHandMade:toggleHiddenFlow(pageno)
     self.ui.annotation:setNeedsUpdateFlag()
     local idx, is_match = self:_getItemIndex(self.flow_points, pageno)
     if is_match then
-        -- Just remove the item (it feels we can, and that we don't
-        -- have to just toggle its hidden value)
-        table.remove(self.flow_points, idx)
+        if util.arrayContains(self.inactive_flow_points, idx) then
+            self.flow_points[idx].hidden = not self.flow_points[idx].hidden
+        else
+            table.remove(self.flow_points, idx)
+        end
         self:updateDocFlows()
         return
     end
@@ -651,7 +712,7 @@ function ReaderHandMade:updateDocFlows()
             first_linear_page = flow[1] + flow[2]
         end
         flow = flows[#flows]
-        if flow[1] + flow[2] == nb_pages then -- book last page is in a hidden flow
+        if flow[1] + flow[2] - 1 == nb_pages then -- book last page is in a hidden flow
             last_linear_page = flow[1] - 1
         end
     end
@@ -670,7 +731,7 @@ function ReaderHandMade:setupFlows(no_event)
         -- If enabled, plug some methods into the document object,
         -- so they are used instead of the methods from its class.
         self.document.hasHiddenFlows = function(this)
-            return true
+            return #self.flow_points > #self.inactive_flow_points
         end
         self.document.cacheFlows = function(this)
             return

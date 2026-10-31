@@ -67,9 +67,11 @@ function ButtonTable:init()
                 text = btn_entry.text,
                 text_func = btn_entry.text_func,
                 checked_func = btn_entry.checked_func,
+                focusable = btn_entry.focusable,
                 no_refresh_checkmark = btn_entry.no_refresh_checkmark,
                 lang = btn_entry.lang,
                 icon = btn_entry.icon,
+                alpha = btn_entry.alpha,
                 icon_width = btn_entry.icon_width,
                 icon_height = btn_entry.icon_height,
                 align = btn_entry.align,
@@ -82,6 +84,8 @@ function ButtonTable:init()
                     btn_entry.callback()
                 end,
                 hold_callback = btn_entry.hold_callback,
+                key_bindings = btn_entry.key_bindings,
+                hold_key_bindings = btn_entry.hold_key_bindings,
                 allow_hold_when_disabled = btn_entry.allow_hold_when_disabled,
                 vsync = btn_entry.vsync,
                 width = btn_entry.width or default_button_width,
@@ -125,7 +129,9 @@ function ButtonTable:init()
                     h = button_dim.h,
                 }
             }
-            buttons_layout_line[j] = button
+            if button.focusable then
+                buttons_layout_line[j] = button
+            end
             table.insert(horizontal_group, button)
             if j < column_cnt then
                 table.insert(horizontal_group, vertical_sep)

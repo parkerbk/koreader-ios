@@ -22,7 +22,6 @@ local TextWidget = require("ui/widget/textwidget")
 local TitleBar = require("ui/widget/titlebar")
 local UIManager = require("ui/uimanager")
 local UnderlineContainer = require("ui/widget/container/underlinecontainer")
-local Utf8Proc = require("ffi/utf8proc")
 local VerticalGroup = require("ui/widget/verticalgroup")
 local VerticalSpan = require("ui/widget/verticalspan")
 local WidgetContainer = require("ui/widget/container/widgetcontainer")
@@ -426,6 +425,11 @@ function MenuItem:init()
     self._underline_container = UnderlineContainer:new{
         color = self.line_color,
         linesize = self.linesize,
+        focus_linesize = Size.line.focus_row,
+        -- With text_bgcolor the row has a coloured frame behind its text only, so no
+        -- single colour erases the focus bar over the whole width; without background
+        -- set, such a row falls back to the stock full repaint.
+        background = not self.text_bgcolor and Blitbuffer.COLOR_WHITE or nil,
         vertical_align = "center",
         padding = 0,
         dimen = Geom:new{
@@ -487,19 +491,23 @@ function MenuItem:getDotsText(face)
     return _dots_cached_info.text, _dots_cached_info.min_width
 end
 
+function MenuItem:getFocusIndicatorRegion()
+    return self._underline_container and self._underline_container:getFocusIndicatorRegion()
+end
+
+function MenuItem:repaintFocusIndicator(bb)
+    return self._underline_container and self._underline_container:repaintFocusIndicator(bb)
+end
+
 function MenuItem:onFocus()
     self._underline_container.color = Blitbuffer.COLOR_BLACK
-    -- NOTE: Medium is really, really, really thin; so we'd ideally swap to something thicker...
-    --       Unfortunately, this affects vertical text positioning,
-    --       leading to an unsightly refresh of the item :/.
-    --self._underline_container.linesize = Size.line.thick
+    self._underline_container.focused = true
     return true
 end
 
 function MenuItem:onUnfocus()
     self._underline_container.color = self.line_color
-    -- See above for reasoning.
-    --self._underline_container.linesize = self.linesize
+    self._underline_container.focused = false
     return true
 end
 
@@ -801,6 +809,7 @@ function Menu:init()
                 callback = function()
                     local search_string = self.page_info_text.input_dialog:getInputText()
                     if search_string ~= "" then
+                        self.search_index = nil
                         self:goToMenuItemMatching(search_string, true)
                         self.page_info_text:closeInputDialog()
                     end
@@ -812,6 +821,7 @@ function Menu:init()
                 text = _("Cancel"),
                 id = "close",
                 callback = function()
+                    self.search_index = nil
                     self.page_info_text:closeInputDialog()
                 end,
             },
@@ -820,6 +830,7 @@ function Menu:init()
                 callback = function()
                     local page = tonumber(self.page_info_text.input_dialog:getInputText())
                     if page and page >= 1 and page <= self.page_num then
+                        self.search_index = nil
                         self:onGotoPage(page)
                         self.page_info_text:closeInputDialog()
                     end
@@ -834,6 +845,9 @@ function Menu:init()
         call_hold_input_on_tap = true,
         hold_input = {
             title = _("Enter text, letter or page number"),
+            input_func = function()
+                return self.search_index and self.search_string
+            end,
             hint_func = function()
                 -- @translators First group is the standard range for alphabetic searches, second group is a page number range
                 return T(_("(a - z) or (1 - %1)"), self.page_num)
@@ -957,26 +971,31 @@ function Menu:init()
     }
     self.ges_events.Close = self.on_close_ges
 
-    if Device:hasKeys() then
-        -- set up keyboard events
-        self.key_events.Close = { { Input.group.Back } }
-        self.key_events.LeftButtonTap = { { "Menu" } }
-        if Device:hasFewKeys() then
-            self.key_events.Close = { { "Left" } }
-        end
-        self.key_events.NextPage = { { Input.group.PgFwd } }
-        self.key_events.PrevPage = { { Input.group.PgBack } }
-        if Device:hasKeyboard() then
-            self.key_events.FirstPage = { { "Shift", { "LPgBack", "RPgBack" } } }
-            self.key_events.LastPage = { { "Shift", { "LPgFwd", "RPgFwd" } } }
-            self.key_events.ShowGotoDialog = { { "Shift", "Down" } }
-        elseif Device:hasScreenKB() then
-            self.key_events.FirstPage = { { "ScreenKB", { "LPgBack", "RPgBack" } } }
-            self.key_events.LastPage = { { "ScreenKB", { "LPgFwd", "RPgFwd" } } }
-            self.key_events.ShowGotoDialog = { { "ScreenKB", "Down" } }
-        end
-    end
+    self:registerKeyEvents()
 
+    if self.item_table.current then
+        self.page = self:getPageNumber(self.item_table.current)
+    end
+    if not self.path_items then -- not FileChooser
+        self:updateItems(1, true)
+    end
+end
+
+function Menu:registerKeyEvents()
+    if not Device:hasKeys() then return end
+    self.key_events.Close = { { Input.group.Back } }
+    self.key_events.LeftButtonTap = { { "Menu" } }
+    if Device:hasFewKeys() then
+        self.key_events.Close = { { "Left" } }
+    end
+    self.key_events.NextPage = { { Input.group.PgFwd } }
+    self.key_events.PrevPage = { { Input.group.PgBack } }
+    if Device:hasKeyboard() or Device:hasScreenKB() then
+        local modifier = Device:hasScreenKB() and "ScreenKB" or "Shift"
+        self.key_events.FirstPage = { { modifier, { "LPgBack", "RPgBack" } } }
+        self.key_events.LastPage = { { modifier, { "LPgFwd", "RPgFwd" } } }
+        self.key_events.ShowGotoDialog = { { modifier, "Down" } }
+    end
     if Device:hasDPad() then
         if Device:hasFewKeys() then
             -- we won't catch presses to "Right", leave that to MenuItem.
@@ -989,13 +1008,18 @@ function Menu:init()
             self.key_events.SelectByShortCut = { { self.item_shortcuts } }
         end
     end
+end
 
-    if self.item_table.current then
-        self.page = self:getPageNumber(self.item_table.current)
-    end
-    if not self.path_items then -- not FileChooser
-        self:updateItems(1, true)
-    end
+function Menu:onPhysicalKeyboardConnected()
+    FocusManager.onPhysicalKeyboardConnected(self)
+    self:registerKeyEvents()
+end
+
+function Menu:onPhysicalKeyboardDisconnected()
+    -- Drop the whole set: what the keys we no longer have were bound to cannot linger.
+    self.key_events = {}
+    FocusManager.onPhysicalKeyboardDisconnected(self)
+    self:registerKeyEvents()
 end
 
 function Menu:updatePageInfo(select_number)
@@ -1176,6 +1200,7 @@ function Menu:switchItemTable(new_title, new_item_table, itemnumber, itemmatch, 
     local no_recalculate_dimen = true
 
     if new_item_table then
+        self.search_index = nil
         self.item_table = new_item_table
         no_recalculate_dimen = false
     end
@@ -1322,12 +1347,21 @@ function Menu:onSelectByShortCut(_, keyevent)
 end
 
 function Menu:goToMenuItemMatching(search_string, goto_letter)
-    search_string = Utf8Proc.lowercase(util.fixUtf8(search_string, "?"))
-    for i, item in ipairs(self.item_table) do
+    search_string = util.stringLower(search_string)
+    local start_index = 1
+    if self.search_index and self.search_string == search_string then
+        start_index = self.search_index + 1
+    end
+    for i = start_index, #self.item_table do
+        local item = self.item_table[i]
         if not item.is_go_up then
-            local item_text = Utf8Proc.lowercase(util.fixUtf8(item.text, "?"))
+            local item_text = util.stringLower(item.text)
             local idx = item_text:find(search_string)
             if idx and (idx == 1 or not goto_letter) then
+                if not goto_letter then
+                    self.search_string = search_string
+                    self.search_index = i
+                end
                 self.itemnumber = i -- draw focus
                 self:onGotoPage(self:getPageNumber(i))
                 break
@@ -1421,6 +1455,19 @@ function Menu:onShowingReader()
     self.dithered = nil
 end
 Menu.onSetupShowReader = Menu.onShowingReader
+
+-- Although Menu inherits this method from InputContainer and it is pretty
+-- much identical to that one, we need to override it here due to the
+-- complexity of the module (multiple FocusManagers and InputContainers).
+function Menu:onHome()
+    UIManager:setSuspendRepaints(true)
+    self:onClose()
+    local Event = require("ui/event")
+    UIManager:nextTick(function()
+        UIManager:sendEvent(Event:new("Home"))
+    end)
+    return true
+end
 
 function Menu:onCloseWidget()
     --- @fixme
@@ -1571,20 +1618,6 @@ function Menu.getMenuText(item)
         text = string.format(sub_item_format, text)
     end
     return text
-end
-
-function Menu.itemTableFromTouchMenu(t)
-    local item_t = {}
-    for k, v in ffiUtil.orderedPairs(t) do
-        local item = { text = k }
-        if v.callback then
-            item.callback = v.callback
-        else
-            item.sub_item_table = v
-        end
-        table.insert(item_t, item)
-    end
-    return item_t
 end
 
 return Menu

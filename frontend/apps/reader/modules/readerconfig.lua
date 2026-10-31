@@ -35,7 +35,13 @@ function ReaderConfig:onGesture() end
 
 function ReaderConfig:registerKeyEvents()
     if Device:hasKeys() then
-        self.key_events.ShowConfigMenu = { { { "Press", "AA" } } }
+        if Device:hasScreenKB() or Device:hasSymKey() then
+            local key = Device:hasScreenKB() and "ScreenKBPress" or "AA"
+            self.key_events.ShowConfigMenu = { { key } }
+            -- Hotkeys adds by default "Press" as another ShowConfigMenu shortcut
+        else
+            self.key_events.ShowConfigMenu = { { { "Press", "AA" } } }
+        end
     end
 end
 
@@ -135,7 +141,7 @@ function ReaderConfig:onShowConfigMenu()
         covers_footer = true,
         close_callback = function() self:onCloseCallback() end,
     }
-    self.ui.highlight:onStopHighlightIndicator(true) -- stop any text selection in progress, if applicable
+    self.ui.keyselection:stopHighlightIndicator(true) -- stop any text selection in progress, if applicable
     self.ui:handleEvent(Event:new("DisableHinting"))
     -- show last used panel when opening config dialog
     self.config_dialog:onShowConfigPanel(self.last_panel_index)

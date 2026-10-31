@@ -6,9 +6,10 @@ local _ = require("gettext")
 local ButtonSelector = ButtonDialog:extend{
     multi_choice = nil,
     current_value = nil, -- value; or for multi_choice: hash table { value_key = true }
-    values = nil, -- array { { value_text, value_key } } - buttons in order
-    bg_colors = nil, -- array { color }, corresponding to values
+    values = nil, -- array { { value_text, value_key, value_color } } - buttons in order
+    apply_current_value = nil, -- set to true to apply the callback when value == current_value
     keep_open_on_apply = nil,
+    avoid_text_truncation = nil,
     width_factor = 0.4,
 }
 
@@ -18,7 +19,11 @@ function ButtonSelector:init()
 
     self.buttons = {}
     for i, v in ipairs(self.values) do
-        local value_text, value_key = unpack(v)
+        local value_text, value_key, value_color = unpack(v)
+        if value_color and not self.colorful then
+            self.colorful = true
+            self.dithered = true
+        end
         if self.multi_choice then
             -- no current_value means no filter, i.e. all selected
             curr_values[value_key] = not self.current_value or self.current_value[value_key]
@@ -27,7 +32,8 @@ function ButtonSelector:init()
             id = value_key,
             text = value_text,
             menu_style = true,
-            background = self.bg_colors and self.bg_colors[i],
+            avoid_text_truncation = self.avoid_text_truncation,
+            background = value_color,
             checked_func = function()
                 if self.multi_choice then
                     return curr_values[value_key]
@@ -41,14 +47,19 @@ function ButtonSelector:init()
                     curr_values[value_key] = not curr_values[value_key] or nil
                 else
                     UIManager:close(self)
-                    if self.current_value ~= value_key then
-                        self.callback(value_key)
+                    if self.apply_current_value or self.current_value ~= value_key then
+                        self.callback(value_key, value_text)
                     end
                     if self.keep_open_on_apply then
                         self.current_value = value_key
                         self:init()
                         UIManager:show(self)
                     end
+                end
+            end,
+            hold_callback = function()
+                if self.hold_callback then
+                    self.hold_callback(value_key, value_text)
                 end
             end,
         }}
@@ -91,11 +102,6 @@ function ButtonSelector:init()
                 end,
             },
         })
-    end
-
-    if self.bg_color then
-        self.colorful = true
-        self.dithered = true
     end
 
     ButtonDialog.init(self)

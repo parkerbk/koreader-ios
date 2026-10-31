@@ -149,7 +149,7 @@ function ReaderStatus:onEndOfBook()
     elseif settings == "mark_read" then
         self:markBook(true)
         UIManager:show(InfoMessage:new{
-            text = _("You've reached the end of the document.\nThe current book is marked as finished."),
+            text = _("You've reached the end of the document.\nThe current book has been marked as finished."),
             timeout = 3
         })
     elseif settings == "book_status_file_browser" then
@@ -179,10 +179,11 @@ function ReaderStatus:onOpenNextOrPreviousFileInFolder(prev)
     local fc = FileChooser:new{ ui = self.ui }
     local file = fc:getNextOrPreviousFileInFolder(self.document.file, prev)
     if file then
+        local filemanagerutil = require("apps/filemanager/filemanagerutil")
         -- Delay until the next tick, as this will destroy the Document instance,
         -- but we may not be the final Event caught by said Document...
         UIManager:nextTick(function()
-            self.ui:switchDocument(file)
+            filemanagerutil.openFile(self.ui, file)
         end)
     else
         UIManager:show(InfoMessage:new{
@@ -213,6 +214,32 @@ function ReaderStatus:markBook(mark_read)
     summary.status = (not mark_read and summary.status == "complete") and "reading" or "complete"
     summary.modified = os.date("%Y-%m-%d", os.time())
     BookList.setBookInfoCacheProperty(self.document.file, "status", summary.status)
+end
+
+local end_actions = {
+    "pop-up",
+    "nothing",
+    "book_status",
+    "delete_file",
+    "next_file",
+    "goto_beginning",
+    "file_browser",
+    "mark_read",
+    "book_status_file_browser",
+}
+local end_actions_texts = {
+    _("Ask with popup dialog"),
+    _("Do nothing"),
+    _("Book status"),
+    _("Delete file"),
+    _("Open next file"),
+    _("Go to beginning"),
+    _("Return to file browser"),
+    _("Mark book as finished"),
+    _("Book status and return to file browser"),
+}
+function ReaderStatus.getEndOfBookActions()
+    return end_actions, end_actions_texts
 end
 
 return ReaderStatus

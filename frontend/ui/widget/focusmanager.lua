@@ -6,6 +6,7 @@ local UIManager = require("ui/uimanager")
 local bit = require("bit")
 local logger = require("logger")
 local util = require("util")
+local Screen = Device.screen
 --[[
 Wrapper Widget that manages focus for a whole dialog
 
@@ -32,6 +33,9 @@ local FocusManager = InputContainer:extend{
     layout = nil, -- mandatory
     movement_allowed = { x = true, y = true },
     key_events_enabled = true,
+    -- Widgets that bind keys the focus manager also uses set this; see releaseFocusKeys.
+    focus_keys_callback = nil,
+    released_focus_keys = nil,
 }
 
 -- Only build the default mappings once on initialization, or when an external keyboard is (dis-)/connected.
@@ -39,11 +43,14 @@ local FocusManager = InputContainer:extend{
 local KEY_EVENTS
 local BUILTIN_KEY_EVENTS
 local EXTRA_KEY_EVENTS
+-- The device caps the mappings above were built from.
+local mappings_has_dpad
 
 local function populateEventMappings()
     KEY_EVENTS = {}
     BUILTIN_KEY_EVENTS = {}
     EXTRA_KEY_EVENTS = {}
+    mappings_has_dpad = Device:hasDPad()
 
     if Device:hasDPad() then
         local event_keys = {}
@@ -56,6 +63,7 @@ local function populateEventMappings()
 
         table.insert(event_keys, { "FocusLeft",  { { "Left" },  event = "FocusMove", args = {-1, 0} } })
 
+        table.insert(event_keys, { "Home",           { { "Home" },         event = "Home" } })
         -- Advanced features: more event handlers can be enabled via settings.reader.lua in a similar manner
         table.insert(event_keys, { "HoldContext",    { { "ContextMenu" },  event = "Hold" } })
         table.insert(event_keys, { "HoldShift",      { { "Shift", "Press" }, event = "Hold" } })
@@ -108,6 +116,13 @@ populateEventMappings()
 function FocusManager:_init()
     InputContainer._init(self)
 
+    -- The mappings are only refreshed by the hot-plug handlers below, which only
+    -- run if a FocusManager is in the window stack when the event is broadcast.
+    -- If the D-pad cap changed while none was, they're stale.
+    if mappings_has_dpad ~= Device:hasDPad() then
+        populateEventMappings()
+    end
+
     -- These *need* to be instance-specific, hence the copy
     if not self.selected then
         self.selected = { x = 1, y = 1 }
@@ -120,6 +135,40 @@ function FocusManager:_init()
     -- We should be fine with a simple ref for those, though
     self.builtin_key_events = BUILTIN_KEY_EVENTS
     self.extra_key_events = EXTRA_KEY_EVENTS
+end
+
+--- Releases focus keys a widget wants for itself, e.g. the horizontal moves in a
+--- single-column menu. They stay released when a keyboard hot-plug re-merges the
+--- default mappings.
+--- SCOPE: this only guarantees FocusManager's own base key_events (built by
+--- populateEventMappings, e.g., FocusLeft/FocusRight/FocusHalfMove/...) stay
+--- released. It does NOT protect keys a subclass adds itself (e.g., Menu's
+--- ShowGotoDialog/FirstPage/LastPage): if that subclass's own key-rebuilding
+--- method (e.g. Menu:registerKeyEvents) reassigns such a key unconditionally on
+--- external-keyboard connect/disconnect, the release will silently be undone.
+--- A subclass that needs to release one of its own keys is responsible for
+--- checking self.released_focus_keys itself before rebinding it.
+function FocusManager:releaseFocusKeys(...)
+    if not self.released_focus_keys then
+        self.released_focus_keys = {}
+    end
+    for _, name in ipairs({...}) do
+        self.released_focus_keys[name] = true
+        self.key_events[name] = nil
+    end
+end
+
+-- Re-drop the released keys after the defaults came back, and let the widget
+-- rebind its own keys: a hot-plug may just have brought a D-Pad along.
+-- The widget makes the first call itself, once it is fully built; we're not
+-- calling this from _init, where its own bindings aren't in place yet.
+function FocusManager:_refreshFocusKeys()
+    for name in pairs(self.released_focus_keys or {}) do
+        self.key_events[name] = nil
+    end
+    if self.focus_keys_callback then
+        self:focus_keys_callback()
+    end
 end
 
 function FocusManager:isAlternativeKey(key)
@@ -265,16 +314,47 @@ function FocusManager:onFocusMove(args)
         if self.layout[self.selected.y][self.selected.x] ~= current_item
         or not self.layout[self.selected.y][self.selected.x].is_inactive then
             -- we found a different object to focus
+            local next_item = self.layout[self.selected.y][self.selected.x]
             current_item:handleEvent(Event:new("Unfocus"))
-            self.layout[self.selected.y][self.selected.x]:handleEvent(Event:new("Focus"))
-            -- Trigger a fast repaint, this does not count toward a flashing eink refresh
-            -- NOTE: Ideally, we'd only have to repaint the specific subwidget we're highlighting,
-            --       but we may not know its exact coordinates, so, redraw the parent widget instead.
-            UIManager:setDirty(self.show_parent or self, "fast")
+            next_item:handleEvent(Event:new("Focus"))
+            self:_repaintFocusChange(current_item, next_item)
             break
         end
     end
     return true
+end
+
+-- An item that knows where its focus indicator is, and can paint it on its own.
+local function canFastRepaint(item)
+    return item.getFocusIndicatorRegion and item.repaintFocusIndicator
+end
+
+--- Repaint after focus moved from one item to another.
+--- When both items can paint their focus indicator on their own, we paint and refresh
+--- only those two indicators; otherwise we let the parent repaint it all.
+--- A fast repaint does not count toward a flashing eink refresh.
+function FocusManager:_repaintFocusChange(prev_item, next_item)
+    local parent = self.show_parent or self
+    -- Painting outside UIManager's paint-pass skips Screen:beforePaint(), which is
+    -- where forced HW rotation gets asserted; leave those screens the stock path.
+    if not Screen.forced_rotation
+            and canFastRepaint(prev_item) and canFastRepaint(next_item)
+            and UIManager:getTopmostVisibleWidget() == parent then
+        local prev_region = prev_item:getFocusIndicatorRegion()
+        local next_region = next_item:getFocusIndicatorRegion()
+        if prev_region and next_region
+                and prev_item:repaintFocusIndicator(Screen.bb)
+                and next_item:repaintFocusIndicator(Screen.bb) then
+            -- Refresh each one on its own, so nothing between the two items is touched.
+            UIManager:setDirty(nil, "fast", prev_region)
+            UIManager:setDirty(nil, "fast", next_region)
+            return
+        end
+    end
+    -- We have to repaint the widget whole. We don't narrow the refresh here: a focus
+    -- border may grow outside the item's dimen (FrameContainer widens its own on focus),
+    -- and we have no way to tell how far.
+    UIManager:setDirty(parent, "fast")
 end
 
 function FocusManager:onPhysicalKeyboardConnected()
@@ -287,6 +367,8 @@ function FocusManager:onPhysicalKeyboardConnected()
     -- populateEventMappings replaces these, so, update our refs
     self.builtin_key_events = BUILTIN_KEY_EVENTS
     self.extra_key_events = EXTRA_KEY_EVENTS
+    -- Last, so the widget's callback sees the new refs too.
+    self:_refreshFocusKeys()
 end
 
 function FocusManager:onPhysicalKeyboardDisconnected()
@@ -294,19 +376,27 @@ function FocusManager:onPhysicalKeyboardDisconnected()
     populateEventMappings()
 
     -- If we still have keys, remove what disappeared from KEY_EVENTS from self.key_events (if any).
-    if Device:hasKeys() then
+    local has_keys = Device:hasKeys()
+    if has_keys then
         -- NOTE: This is slightly overkill, we could very well live with a few unreachable mappings for the rest of this widget's life ;).
         for k, _ in pairs(prev_key_events) do
             if not KEY_EVENTS[k] then
                 self.key_events[k] = nil
             end
         end
+        -- And put back the ones we still want: a widget rebuilding its own bindings around
+        -- the hot-plug may well have dropped the whole set, ours included.
+        util.tableMerge(self.key_events, KEY_EVENTS)
     else
         -- If we longer have keys at all, that's easy ;).
         self.key_events = {}
     end
     self.builtin_key_events = BUILTIN_KEY_EVENTS
     self.extra_key_events = EXTRA_KEY_EVENTS
+    -- Nothing left to bind when the keys are gone, so don't ask the widget to.
+    if has_keys then
+        self:_refreshFocusKeys()
+    end
 end
 
 -- constant, used to reset focus widget after layout recreation
@@ -333,6 +423,8 @@ function FocusManager:moveFocusTo(x, y, focus_flags)
     if self.layout[y] then
         target_item = self.layout[y][x]
     end
+    -- The item we sent Unfocus to, when we could pin it down to a single one.
+    local unfocused_item
     if target_item then
         logger.dbg("FocusManager: Move focus position to:", x, ",", y)
         self.selected.x = x
@@ -351,6 +443,7 @@ function FocusManager:moveFocusTo(x, y, focus_flags)
                 if current_item and current_item ~= target_item then
                     -- This is the absolute best-case scenario, when self.layout's integrity is sound
                     current_item:handleEvent(Event:new("Unfocus"))
+                    unfocused_item = current_item
                 else
                     -- Couldn't find the current item, or it matches the target_item: blast the whole widget container,
                     -- just in case we still have a different, older widget visually focused.
@@ -360,7 +453,12 @@ function FocusManager:moveFocusTo(x, y, focus_flags)
             end
             if bit.band(focus_flags, FocusManager.NOT_FOCUS) ~= FocusManager.NOT_FOCUS then
                 target_item:handleEvent(Event:new("Focus"))
-                UIManager:setDirty(self.show_parent or self, "fast")
+                if unfocused_item then
+                    self:_repaintFocusChange(unfocused_item, target_item)
+                else
+                    -- We did not unfocus a single item, so there is nothing to narrow to.
+                    UIManager:setDirty(self.show_parent or self, "fast")
+                end
             end
         end
         return true

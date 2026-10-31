@@ -7,6 +7,7 @@ local ConfirmBox = require("ui/widget/confirmbox")
 local DocumentRegistry = require("document/documentregistry")
 local InfoMessage = require("ui/widget/infomessage")
 local InputDialog = require("ui/widget/inputdialog")
+local MultiConfirmBox = require("ui/widget/multiconfirmbox")
 local PathChooser = require("ui/widget/pathchooser")
 local ProgressbarDialog = require("ui/widget/progressbardialog")
 local SortWidget = require("ui/widget/sortwidget")
@@ -23,18 +24,15 @@ local CloudStorage = BookList:extend{
     collates = {
         strcoll = {
             text = _("name"),
-            sort_func = function(a, b)
-                return ffiUtil.strcoll(a.text, b.text)
-            end,
+            sort_func = BookList.getCollateSortFunc(),
+        },
+        natural = {
+            text = _("name (natural sorting)"),
+            sort_func = BookList.getCollateSortFunc("natural"),
         },
         type = {
             text = _("type"),
-            sort_func = function(a, b)
-                if (a.suffix or b.suffix) and a.suffix ~= b.suffix then
-                    return ffiUtil.strcoll(a.suffix, b.suffix)
-                end
-                return ffiUtil.strcoll(a.text, b.text)
-            end,
+            sort_func = BookList.getCollateSortFunc("type"),
         },
         size = {
             text = _("size"),
@@ -68,13 +66,30 @@ function CloudStorage:init(re_init)
             table.sort(self.item_table, function(a, b) return a.order < b.order end)
         end
     end
-    self.onLeftButtonTap = self.showPlusRootDialog
     if re_init then
-        self.paths = {}
+        self.paths = {} -- list of visited urls, including the current one; used as flag that we are in cloud
         self:switchItemTable(self.title, self.item_table, self.item_idx, nil, "")
         self.item_idx = nil -- set item_idx before opening a server to keep the page when reopening the root list
+        self.remote_selected_files = nil -- select mode off
+        self:setTitleBarLeftIcon("plus")
     else
         self.title_bar_left_icon = "plus"
+        self.onLeftButtonTap = function()
+            if next(self.paths) then -- cloud
+                if self.remote_selected_files then
+                    self:showSelectModeDialog()
+                else
+                    self:showPlusCloudDialog()
+                end
+            else -- root
+                self:showPlusRootDialog()
+            end
+        end
+        self.onLeftButtonHold = function()
+            if next(self.paths) and not self.choose_folder_callback then
+                self:toggleSelectMode()
+            end
+        end
         BookList.init(self)
     end
 end
@@ -107,21 +122,25 @@ end
 
 function CloudStorage:sortItemTable(tbl, url)
     tbl = tbl or self.item_table
-    if #tbl == 0 then return end
+
     local folder_mode_item
-    if self.choose_folder_callback and tbl[1].is_folder_long_press then
+    if self.choose_folder_callback and #tbl > 0 and tbl[1].is_folder_long_press then
         folder_mode_item = table.remove(tbl, 1)
     end
-    local sort_func = self.collates[self.collate].sort_func
-    table.sort(tbl, function(a, b)
-        if a.is_file and b.is_file then
-            return sort_func(a, b)
-        elseif a.is_folder and b.is_folder then
-            return ffiUtil.strcoll(a.text, b.text)
-        else -- folders first
-            return a.is_folder
-        end
-    end)
+
+    if #tbl > 1 then
+        local sort_func = self.collates[self.collate].sort_func
+        table.sort(tbl, function(a, b)
+            if a.is_file and b.is_file then
+                return sort_func(a, b)
+            elseif a.is_folder and b.is_folder then
+                return ffiUtil.strcoll(a.text, b.text)
+            else -- folders first
+                return a.is_folder
+            end
+        end)
+    end
+
     if self.choose_folder_callback then
         table.insert(tbl, 1, folder_mode_item or {
             is_folder_long_press = true,
@@ -136,25 +155,29 @@ function CloudStorage:show()
     local default_server_idx = self.settings:readSetting("default_server")
     if default_server_idx then -- open default server
         self.server_idx = default_server_idx
-        local url = self.servers[default_server_idx].url
-        table.insert(self.paths, { url = url })
-        self:openCloudServer(url, true)
+        self:openCloudServer(self.servers[default_server_idx].url, nil, true)
     else -- show root list of servers
         UIManager:show(self)
     end
 end
 
-function CloudStorage:openCloudServer(url, do_show)
-    if self.caller_choose_folder_callback then
-        self.choose_folder_callback = true
-    end
+function CloudStorage:openCloudServer(url, choose_folder_callback, do_show)
     local server = self:initServer(self.server_idx)
-    url = url or server.url
     self.provider.run(function()
         local tbl = self.provider.listFolder(url, true) -- including folders
         if tbl then
-            self.onLeftButtonTap = function()
-                self:showPlusCloudDialog(url)
+            self.choose_folder_callback = self.caller_choose_folder_callback or choose_folder_callback
+            if self.paths[#self.paths] ~= url then
+                table.insert(self.paths, url)
+            end
+            if self.remote_selected_files then
+                for _, item in ipairs(tbl) do
+                    if self.remote_selected_files[item.url] then
+                        item.dim = true
+                    end
+                end
+            else
+                self:setTitleBarLeftIcon("appbar.menu")
             end
             self:sortItemTable(tbl, url)
             self:switchItemTable(server.name, tbl, nil, nil, url == "" and "/" or url)
@@ -162,8 +185,6 @@ function CloudStorage:openCloudServer(url, do_show)
                 UIManager:show(self)
             end
         else
-            table.remove(self.paths)
-            self.choose_folder_callback = nil
             if do_show then
                 -- could not show the server content; show the root list of servers
                 -- "flashui" is needed when called with wi-fi off (NetworkMgr:willRerunWhenConnected())
@@ -178,11 +199,10 @@ function CloudStorage:openCloudServer(url, do_show)
 end
 
 function CloudStorage:onReturn()
-    if #self.paths > 0 then
+    if next(self.paths) then -- up one level
         table.remove(self.paths)
-        local path = self.paths[#self.paths]
-        if path then
-            self:openCloudServer(path.url)
+        if next(self.paths) then
+            self:openCloudServer(self.paths[#self.paths])
         else -- return to root list
             self:init(true)
         end
@@ -193,27 +213,27 @@ end
 function CloudStorage:onHoldReturn()
     if #self.paths > 1 then -- return to the server start folder
         local path = self.paths[1]
-        if path then
-            for i = #self.paths, 2, -1 do
-                table.remove(self.paths)
-            end
-            self:openCloudServer(path.url)
-        end
+        self.paths = { path }
+        self:openCloudServer(path)
     end
     return true
 end
 
 function CloudStorage:onMenuSelect(item)
     if item.server_idx then -- root list
-        table.insert(self.paths, { url = item.url })
         self.item_idx = item.idx
         self.server_idx = item.server_idx
-        self:openCloudServer()
+        self:openCloudServer(item.url)
     elseif item.is_folder then
-        table.insert(self.paths, { url = item.url })
         self:openCloudServer(item.url)
     elseif item.is_file and not self.choose_folder_callback then
-        self:showFileDownloadDialog(item)
+        if self.remote_selected_files then
+            item.dim = not item.dim and true or nil
+            self.remote_selected_files[item.url] = item.dim
+            self:updateItems(1, true)
+        else
+            self:showFileDownloadDialog(item)
+        end
     end
     return true
 end
@@ -227,7 +247,11 @@ function CloudStorage:onMenuHold(item)
         if item.server_idx then -- root list
             self:showServerDialog(item)
         elseif item.is_file then
-            self:showFileDeleteDialog(item)
+            if self.remote_selected_files then
+                self:showSelectModeDialog()
+            else
+                self:showFileDialog(item)
+            end
         end
     end
     return true
@@ -273,21 +297,131 @@ function CloudStorage:showFolderChooseDialog(item)
     UIManager:show(folder_dialog)
 end
 
-function CloudStorage:showFileDeleteDialog(item)
-    if self.provider.deleteFile then
-        UIManager:show(ConfirmBox:new{
-            text = _("Delete this file?") .. "\n\n" .. item.text,
-            ok_text = _("Delete"),
-            ok_callback = function()
-                local ok = self.provider.deleteFile(item.url)
-                if ok then
-                    table.remove(self.item_table, item.idx)
-                    self:switchItemTable()
-                else
-                    UIManager:show(InfoMessage:new{ text = T(_("Could not delete file:\n%1"), item.text) })
-                end
-            end,
-        })
+function CloudStorage:showFileDialog(item)
+    local file_dialog
+    file_dialog = ButtonDialog:new{
+        title = item.text,
+        title_align = "center",
+        buttons = {
+            {
+                {
+                    text = _("Delete"),
+                    enabled = self.provider.deleteFile and true or false,
+                    callback = function()
+                        UIManager:close(file_dialog)
+                        UIManager:show(ConfirmBox:new{
+                            text = _("Delete this file?") .. "\n\n" .. item.text,
+                            ok_text = _("Delete"),
+                            ok_callback = function()
+                                local ok = self.provider.deleteFile(item.url)
+                                if ok then
+                                    table.remove(self.item_table, item.idx)
+                                    self:switchItemTable()
+                                else
+                                    UIManager:show(InfoMessage:new{ text = T(_("Could not delete file:\n%1"), item.text) })
+                                end
+                            end,
+                        })
+                    end,
+                },
+                {
+                    text = _("Select"),
+                    callback = function()
+                        UIManager:close(file_dialog)
+                        self:toggleSelectMode() -- turn on
+                        self.remote_selected_files[item.url] = true
+                        self.item_table[item.idx].dim = true
+                        self:updateItems(1, true)
+                    end,
+                },
+            },
+        },
+    }
+    UIManager:show(file_dialog)
+end
+
+function CloudStorage:showSelectModeDialog()
+    local select_count = util.tableSize(self.remote_selected_files)
+    local actions_enabled = select_count > 0
+    local select_dialog
+    select_dialog = ButtonDialog:new{
+        title = actions_enabled and T(N_("1 file selected", "%1 files selected", select_count), select_count)
+            or _("No files selected"),
+        title_align = "center",
+        buttons = {
+            {
+                {
+                    text = _("Delete"),
+                    enabled = actions_enabled and self.provider.deleteFile and true or false,
+                    callback = function()
+                        UIManager:close(select_dialog)
+                        self:showSelectedFilesDeleteDialog()
+                    end,
+                },
+                {
+                    text = _("Download"),
+                    enabled = actions_enabled,
+                    callback = function()
+                        UIManager:close(select_dialog)
+                        self:showSelectedFilesDownloadDialog()
+                    end,
+                },
+            },
+            {}, -- separator
+            {
+                {
+                    text = _("Deselect all"),
+                    enabled = actions_enabled,
+                    callback = function()
+                        UIManager:close(select_dialog)
+                        for url in pairs (self.remote_selected_files) do
+                            self.remote_selected_files[url] = nil
+                        end
+                        for _, item in ipairs(self.item_table) do
+                            item.dim = nil
+                        end
+                        self:updateItems(1, true)
+                    end,
+                },
+                {
+                    text = _("Select all files in folder"),
+                    callback = function()
+                        UIManager:close(select_dialog)
+                        for _, item in ipairs(self.item_table) do
+                            if item.is_file then
+                                item.dim = true
+                                self.remote_selected_files[item.url] = true
+                            end
+                        end
+                        self:updateItems(1, true)
+                    end,
+                },
+            },
+            {
+                {
+                    text = _("Exit select mode"),
+                    callback = function()
+                        UIManager:close(select_dialog)
+                        self:toggleSelectMode()
+                    end,
+                },
+            },
+        },
+    }
+    UIManager:show(select_dialog)
+end
+
+function CloudStorage:toggleSelectMode()
+    if self.remote_selected_files then
+        for _, item in ipairs(self.item_table) do
+            item.dim = nil
+        end
+        self:updateItems(1, true)
+        self:setTitleBarLeftIcon("appbar.menu")
+        self.remote_selected_files = nil
+    else
+        self:setTitleBarLeftIcon("check")
+        self.remote_selected_files = {}
     end
 end
 
@@ -388,7 +522,7 @@ function CloudStorage:showPlusRootDialog()
                         self._manager.updated = true
                         local max_order = #self.servers
                         for _, item in ipairs(self.servers) do
-                            if max_order < item.order then
+                            if item.order and max_order < item.order then
                                 max_order = item.order
                             end
                         end
@@ -437,7 +571,8 @@ function CloudStorage:showPlusRootDialog()
     UIManager:show(plus_root_dialog)
 end
 
-function CloudStorage:showPlusCloudDialog(url)
+function CloudStorage:showPlusCloudDialog()
+    local url = self.paths[#self.paths]
     local plus_cloud_dialog
     plus_cloud_dialog = ButtonDialog:new{
         buttons = {
@@ -484,9 +619,11 @@ function CloudStorage:showPlusCloudDialog(url)
                     text = T(_("Sort by: %1"), self.collates[self.collate].text),
                     callback = function()
                         UIManager:show(ButtonSelector:new{
+                            width_factor = 0.5,
                             current_value = self.collate,
                             values = {
                                 { self.collates["strcoll"].text, "strcoll" },
+                                { self.collates["natural"].text, "natural" },
                                 { self.collates["type"].text, "type" },
                                 { self.collates["size"].text, "size" },
                                 { self.collates["date"].text, "date" },
@@ -559,7 +696,7 @@ function CloudStorage:showFileDownloadDialog(item)
             filename_orig, filesize_str, filename, BD.dirpath(path))
     end
 
-    local download_dir = self.settings:readSetting("download_dir") or G_reader_settings:readSetting("lastdir")
+    local download_dir = self._manager:getDownloadDir()
     local filename_orig = item.text
     local filename = filename_orig
     local filesize = item.filesize
@@ -574,6 +711,7 @@ function CloudStorage:showFileDownloadDialog(item)
                         select_file = false,
                         path = download_dir,
                         onConfirm = function(path)
+                            self._manager.ui.folder_shortcuts:updateShortcut("cloudstorage", path)
                             self.settings:saveSetting("download_dir", path)
                             self._manager.updated = true
                             download_dir = path
@@ -655,12 +793,18 @@ function CloudStorage:showFileDownloadDialog(item)
 end
 
 function CloudStorage:showFileUploadDialog(url)
+    local old_path = self.settings:readSetting("upload_dir") or filemanagerutil.getHomeFolder()
     UIManager:show(PathChooser:new{
         select_directory = false,
-        path = self.last_path,
+        path = old_path,
         onConfirm = function(file_path)
-            self.last_path = file_path:match("(.*)/")
-            if self.last_path == "" then self.last_path = "/" end
+            local new_path = file_path:match("(.*)/")
+            if new_path == "" then new_path = "/" end
+            if new_path ~= old_path then
+                self._manager.ui.folder_shortcuts:updateShortcut("cloudstorage_upload", new_path)
+                self.settings:saveSetting("upload_dir", new_path)
+                self._manager.updated = true
+            end
             if lfs.attributes(file_path, "size") > 157286400 then
                 UIManager:show(InfoMessage:new{ text = _("File size must be less than 150 MB.") })
             else
@@ -754,7 +898,6 @@ function CloudStorage:showFolderCreateDialog(url)
                         if ok then
                             if check_button_enter_folder.checked then
                                 url = url_base .. "/" .. folder_name
-                                table.insert(self.paths, { url = url })
                             end
                             self:openCloudServer(url)
                         else
@@ -775,6 +918,111 @@ function CloudStorage:showFolderCreateDialog(url)
     input_dialog:onShowKeyboard()
 end
 
+function CloudStorage:showSelectedFilesDeleteDialog()
+    local files = self.remote_selected_files
+    local files_nb = util.tableSize(files)
+    UIManager:show(ConfirmBox:new{
+        text = T(N_("Delete 1 file?", "Delete %1 files?", files_nb), files_nb),
+        ok_text = _("Delete"),
+        ok_callback = function()
+            local Trapper = require("ui/trapper")
+            Trapper:wrap(function()
+                Trapper:setPausedText("Deleting paused.\nDo you want to continue or abort deleting files?")
+                local proccessed_files, success_files, unsuccess_files = 0, 0, 0
+                for file in pairs(files) do
+                    proccessed_files = proccessed_files + 1
+                    local text = string.format("Deleting file (%d/%d):\n%s", proccessed_files, files_nb, file:gsub(".*/", ""))
+                    if not Trapper:info(text) then
+                        break
+                    end
+                    local ok = self.provider.deleteFile(file)
+                    if ok then
+                        files[file] = nil
+                        success_files = success_files + 1
+                    else
+                        unsuccess_files = unsuccess_files + 1
+                    end
+                end
+                Trapper:clear()
+                if success_files > 0 then
+                    if not next(files) then
+                        self:toggleSelectMode() -- turn off
+                    end
+                    self:openCloudServer(self.paths[#self.paths]) -- refresh
+                end
+                local text = T(N_("Deleted 1 file.", "Deleted %1 files.", success_files), success_files)
+                if unsuccess_files > 0 then
+                    text = text .. "\n" ..
+                        T(N_("Could not delete 1 file.", "Could not delete %1 files.", unsuccess_files), unsuccess_files)
+                end
+                UIManager:show(InfoMessage:new{ text = text })
+            end)
+        end,
+    })
+end
+
+function CloudStorage:showSelectedFilesDownloadDialog()
+    local files = self.remote_selected_files
+    local files_nb = util.tableSize(files)
+    local download_dir = self._manager:getDownloadDir()
+    local local_path = (download_dir ~= "/" and download_dir or "") .. "/"
+    UIManager:show(MultiConfirmBox:new{
+        text = T(N_("Download 1 file?", "Download %1 files?", files_nb), files_nb) .. "\n" ..
+            "\n" .. _("Download folder:") .. "\n" .. download_dir ..
+            "\n" .. _("Existing files will be overwritten."),
+        choice1_text = _("Choose folder"),
+        choice1_callback = function()
+            UIManager:show(PathChooser:new{
+                select_file = false,
+                path = download_dir,
+                onConfirm = function(path)
+                    self._manager.ui.folder_shortcuts:updateShortcut("cloudstorage", path)
+                    self.settings:saveSetting("download_dir", path)
+                    self._manager.updated = true
+                    download_dir = path
+                    self:showSelectedFilesDownloadDialog()
+                end,
+            })
+        end,
+        choice2_text = _("Download"),
+        choice2_callback = function()
+            local Trapper = require("ui/trapper")
+            Trapper:wrap(function()
+                Trapper:setPausedText("Downloading paused.\nDo you want to continue or abort downloading files?")
+                local proccessed_files, success_files, unsuccess_files = 0, 0, 0
+                for file in pairs(files) do
+                    proccessed_files = proccessed_files + 1
+                    local file_name = file:gsub(".*/", "")
+                    local text = string.format("Downloading file (%d/%d):\n%s", proccessed_files, files_nb, file_name)
+                    if not Trapper:info(text) then
+                        break
+                    end
+                    local code = self.provider.downloadFile(file, local_path .. file_name)
+                    if code == 200 then
+                        files[file] = nil
+                        success_files = success_files + 1
+                    else
+                        unsuccess_files = unsuccess_files + 1
+                    end
+                end
+                Trapper:clear()
+                if success_files > 0 then
+                    if not next(files) then
+                        self:toggleSelectMode() -- turn off
+                    end
+                    self:openCloudServer(self.paths[#self.paths]) -- refresh
+                end
+                local text = T(N_("Downloaded 1 file.", "Downloaded %1 files.", success_files), success_files)
+                if unsuccess_files > 0 then
+                    text = text .. "\n" ..
+                        T(N_("Could not download 1 file.", "Could not download %1 files.", unsuccess_files), unsuccess_files)
+                end
+                UIManager:show(InfoMessage:new{ text = text })
+            end)
+        end,
+    })
+end
+
 function CloudStorage:showSyncSettingsDialog(item)
     local server = self.servers[item.server_idx]
     local sync_source_folder = server.sync_source_folder == "" and "/" or server.sync_source_folder
@@ -790,15 +1038,14 @@ function CloudStorage:showSyncSettingsDialog(item)
                     text = _("Choose remote folder"),
                     callback = function()
                         UIManager:close(sync_dialog)
-                        self.choose_folder_callback = function(path)
+                        local choose_folder_callback = function(path)
                             server.sync_source_folder = path
                             self._manager.updated = true
                             self:showSyncSettingsDialog(item)
                         end
-                        table.insert(self.paths, { url = item.url })
                         self.item_idx = item.idx
                         self.server_idx = item.server_idx
-                        self:openCloudServer()
+                        self:openCloudServer(item.url, choose_folder_callback)
                     end,
                 },
             },

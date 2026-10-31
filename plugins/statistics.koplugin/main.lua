@@ -58,6 +58,7 @@ local STATISTICS_SQL_BOOK_TOTALS_QUERY = [[
 
 local ReaderStatistics = Widget:extend{
     name = "statistics",
+    settings_key = "statistics",
     start_current_period = 0,
     preserved_start_current_period = nil, -- should stay a class property
     curr_page = 0,
@@ -105,7 +106,7 @@ function ReaderStatistics:onDispatcherRegisterActions()
     Dispatcher:registerAction("stats_calendar_day_view",
         {category="none", event="ShowCalendarDayView", title=_("Reading statistics: show today's timeline"), general=true})
     Dispatcher:registerAction("stats_sync",
-        {category="none", event="SyncBookStats", title=_("Reading statistics: synchronize"), general=true, separator=true})
+        {category="none", event="SyncBookStats", arg=true, title=_("Reading statistics: synchronize"), general=true, separator=true})
     Dispatcher:registerAction("book_statistics",
         {category="none", event="ShowBookStats", title=_("Reading statistics: current book"), reader=true})
 end
@@ -115,17 +116,12 @@ function ReaderStatistics:useColorRendering()
 end
 
 function ReaderStatistics:init()
-    if self.document and self.document.is_pic then
-        self.settings = { is_enabled = false }
-        return -- disable in PIC documents
-    end
-
     self.color = self:useColorRendering()
     self.is_doc = false
     self.is_doc_not_frozen = false -- freeze finished books statistics
 
     -- Placeholder until onReaderReady
-    self.data = {
+    self.data = self.document and {
         title = "",
         authors = "N/A",
         language = "N/A",
@@ -144,7 +140,7 @@ function ReaderStatistics:init()
     end
     self:resetVolatileStats()
 
-    self.settings = G_reader_settings:readSetting("statistics", self.default_settings)
+    self.settings = G_reader_settings:readSetting(self.settings_key, self.default_settings)
 
     self.ui.menu:registerToMainMenu(self)
     self:onDispatcherRegisterActions()
@@ -1251,7 +1247,7 @@ Time is in hours and minutes.]]),
             {
                 text = _("Sync now"),
                 callback = function()
-                    self:onSyncBookStats()
+                    self:onSyncBookStats(true)
                 end,
                 enabled_func = function()
                     return self:canSync()
@@ -2736,10 +2732,12 @@ end
 
 function ReaderStatistics:onReaderReady(config)
     if self.settings.is_enabled then
-        self.data = config:readSetting("stats", { performance_in_pages = {} })
-        self.doc_md5 = config:readSetting("partial_md5_checksum")
-        -- we have correct page count now, do the actual initialization work
-        self:initData()
+        if not self.document.is_pic then -- disabled in PIC documents
+            self.data = config:readSetting("stats", { performance_in_pages = {} })
+            self.doc_md5 = config:readSetting("partial_md5_checksum")
+            -- we have correct page count now, do the actual initialization work
+            self:initData()
+        end
         self.view.footer:maybeUpdateFooter()
     end
 end
@@ -3094,15 +3092,21 @@ function ReaderStatistics:setSyncRemoteFolder(touchmenu_instance)
     UIManager:show(dialogue)
 end
 
-function ReaderStatistics:onSyncBookStats()
+-- `interactive` marks a sync the user asked for: the menu entry and the Dispatcher action both pass
+-- it. A plugin driving a periodic sync sends the bare event and gets a silent one, leaving the page
+-- the user is reading alone. Same flag as KOSync:updateProgress.
+function ReaderStatistics:onSyncBookStats(interactive)
     if self:canSync() then
-        local caller_pre_callback = function()
-            UIManager:show(InfoMessage:new {
-                text = _("Syncing book statistics…"),
-                timeout = 1,
-            })
+        local caller_pre_callback
+        if interactive then
+            caller_pre_callback = function()
+                UIManager:show(InfoMessage:new {
+                    text = _("Syncing book statistics…"),
+                    timeout = 1,
+                })
+            end
         end
-        self.ui.cloudstorage:sync(self.settings.sync_server, db_location, self.onSync, nil, caller_pre_callback)
+        self.ui.cloudstorage:sync(self.settings.sync_server, db_location, self.onSync, not interactive, caller_pre_callback)
     end
 end
 

@@ -5,7 +5,6 @@ local Device = require("device")
 local Event = require("ui/event")
 local InputContainer = require("ui/widget/container/inputcontainer")
 local PluginLoader = require("pluginloader")
-local Screensaver = require("ui/screensaver")
 local UIManager = require("ui/uimanager")
 local logger = require("logger")
 local dbg = require("dbg")
@@ -21,50 +20,13 @@ local ReaderMenu = InputContainer:extend{
 }
 
 function ReaderMenu:init()
-    self.menu_items = {
-        ["KOMenu:menu_buttons"] = {
-            -- top menu
-        },
-        -- items in top menu
-        navi = {
-            icon = "appbar.navigation",
-        },
-        typeset = {
-            icon = "appbar.typeset",
-        },
-        setting = {
-            icon = "appbar.settings",
-        },
-        tools = {
-            icon = "appbar.tools",
-        },
-        search = {
-            icon = "appbar.search",
-        },
-        filemanager = {
-            icon = "appbar.filebrowser",
-            remember = false,
-            callback = function()
-                self:onTapCloseMenu()
-                local file = self.ui.document.file
-                self.ui:onClose()
-                self.ui:showFileManager(file)
-            end,
-        },
-        main = {
-            icon = "appbar.menu",
-        }
-    }
+    self.menu_items = self:getDefaultMenuButtons()
 
     self.registered_widgets = {}
 
     self:registerKeyEvents()
 
-    if G_reader_settings:has("activate_menu") then
-        self.activation_menu = G_reader_settings:readSetting("activate_menu")
-    else
-        self.activation_menu = "swipe_tap"
-    end
+    self.activation_menu = G_reader_settings:readSetting("activate_menu") or "swipe_tap"
 
     -- delegate gesture listener to readerui, NOP our own
     self.ges_events = nil
@@ -89,7 +51,37 @@ function ReaderMenu:registerKeyEvents()
     end
 end
 
-ReaderMenu.onPhysicalKeyboardConnected = ReaderMenu.registerKeyEvents
+function ReaderMenu:getDefaultMenuButtons()
+    return {
+        ["KOMenu:menu_buttons"] = {
+            -- top menu
+        },
+        -- items in top menu
+        navi = { icon = "appbar.navigation" },
+        typeset = { icon = "appbar.typeset" },
+        setting = { icon = "appbar.settings" },
+        tools = { icon = "appbar.tools" },
+        search = { icon = "appbar.search" },
+        filemanager = {
+            icon = "appbar.filebrowser",
+            remember = false,
+            callback = function()
+                self:onTapCloseMenu()
+                local file = self.ui.document.file
+                self.ui:onClose()
+                self.ui:showFileManager(file)
+            end,
+        },
+        main = { icon = "appbar.menu" },
+    }
+end
+
+function ReaderMenu:onPhysicalKeyboardConnected()
+    self.key_events = {}
+    self:registerKeyEvents()
+    self:onRebuildMenu()
+end
+ReaderMenu.onPhysicalKeyboardDisconnected = ReaderMenu.onPhysicalKeyboardConnected
 
 function ReaderMenu:getPreviousFile()
     return require("readhistory"):getPreviousFile(self.ui.document.file)
@@ -182,13 +174,9 @@ end
 ReaderMenu.onReaderReady = ReaderMenu.initGesListener
 
 function ReaderMenu:setUpdateItemTable()
-    for _, widget in pairs(self.registered_widgets) do
-        local ok, err = pcall(widget.addToMainMenu, widget, self.menu_items)
-        if not ok then
-            logger.err("failed to register widget", widget.name, err)
-        end
+    for k, v in pairs(self:getDefaultMenuButtons()) do
+        self.menu_items[k] = v
     end
-
     -- typeset tab
     self.menu_items.document_settings = {
         text = _("Document settings"),
@@ -299,28 +287,9 @@ Useful when used alongside 'Invert page turn taps and swipes'.]]),
     end
 
     if Device:supportsScreensaver() then
-        local screensaver_sub_item_table = dofile("frontend/ui/elements/screensaver_menu.lua")
-        table.insert(screensaver_sub_item_table, {
-            text = _("Do not show this book cover on sleep screen"),
-            enabled_func = function()
-                local screensaver_type = G_reader_settings:readSetting("screensaver_type")
-                return screensaver_type == "cover" or screensaver_type == "disable"
-            end,
-            checked_func = function()
-                return self.ui.doc_settings:isTrue("exclude_screensaver")
-            end,
-            callback = function()
-                if Screensaver.isExcluded(self.ui) then
-                    self.ui.doc_settings:makeFalse("exclude_screensaver")
-                else
-                    self.ui.doc_settings:makeTrue("exclude_screensaver")
-                end
-                self.ui:saveSettings()
-            end,
-        })
         self.menu_items.screensaver = {
             text = _("Sleep screen"),
-            sub_item_table = screensaver_sub_item_table,
+            sub_item_table = dofile("frontend/ui/elements/screensaver_menu.lua"),
         }
     end
 
@@ -368,6 +337,13 @@ Useful when used alongside 'Invert page turn taps and swipes'.]]),
         end
     }
 
+    for _, widget in ipairs(self.registered_widgets) do
+        local ok, err = pcall(widget.addToMainMenu, widget, self.menu_items)
+        if not ok then
+            logger.err("failed to register widget", widget.name, err)
+        end
+    end
+
     -- NOTE: This is cached via require for ui/plugin/insert_menu's sake...
     local order = require("ui/elements/reader_menu_order")
 
@@ -377,7 +353,7 @@ end
 dbg:guard(ReaderMenu, 'setUpdateItemTable',
     function(self)
         local mock_menu_items = {}
-        for _, widget in pairs(self.registered_widgets) do
+        for _, widget in ipairs(self.registered_widgets) do
             -- make sure addToMainMenu works in debug mode
             widget:addToMainMenu(mock_menu_items)
         end
@@ -386,6 +362,12 @@ dbg:guard(ReaderMenu, 'setUpdateItemTable',
 function ReaderMenu:saveDocumentSettingsAsDefault()
     local prefix
     if self.ui.rolling then
+        G_reader_settings:saveSetting("text_lang_embedded_langs", self.ui.typography.text_lang_embedded_langs)
+        G_reader_settings:saveSetting("hyphenation", self.ui.typography.hyphenation)
+        G_reader_settings:saveSetting("hyph_trust_soft_hyphens", self.ui.typography.hyph_trust_soft_hyphens)
+        G_reader_settings:saveSetting("hyph_soft_hyphens_only", self.ui.typography.hyph_soft_hyphens_only)
+        G_reader_settings:saveSetting("hyph_force_algorithmic", self.ui.typography.hyph_force_algorithmic)
+        G_reader_settings:saveSetting("floating_punctuation", self.ui.typography.floating_punctuation == 1)
         G_reader_settings:saveSetting("cre_font", self.ui.font.font_face)
         G_reader_settings:saveSetting("copt_css", self.ui.document.default_css)
         local style_tweaks = G_reader_settings:readSetting("style_tweaks")
@@ -412,7 +394,7 @@ function ReaderMenu:exitOrRestart(callback, force)
 end
 
 function ReaderMenu:onShowMenu(tab_index, do_not_show)
-    self.ui.highlight:onStopHighlightIndicator(true) -- stop any text selection in progress, if applicable
+    self.ui.keyselection:stopHighlightIndicator(true) -- stop any text selection in progress, if applicable
     if self.tab_item_table == nil then
         self:setUpdateItemTable()
     end
@@ -423,31 +405,19 @@ function ReaderMenu:onShowMenu(tab_index, do_not_show)
         dimen = Screen:getSize(),
     }
 
-    local main_menu
-    if Device:isTouchDevice() or Device:hasDPad() then
-        local TouchMenu = require(Device:hasNativeMenu() and "ui/widget/nativetouchmenu" or "ui/widget/touchmenu")
-        main_menu = TouchMenu:new{
-            width = Screen:getWidth(),
-            last_index = tab_index or self.last_tab_index,
-            tab_item_table = self.tab_item_table,
-            show_parent = menu_container,
-            not_shown = do_not_show,
-        }
-    else
-        local Menu = require("ui/widget/menu")
-        main_menu = Menu:new{
-            title = _("Document menu"),
-            item_table = Menu.itemTableFromTouchMenu(self.tab_item_table),
-            width = Screen:getWidth() - 100,
-            show_parent = menu_container,
-        }
-    end
+    local TouchMenu = require(Device:hasNativeMenu() and "ui/widget/nativetouchmenu" or "ui/widget/touchmenu")
+    local main_menu = TouchMenu:new{
+        width = Screen:getWidth(),
+        last_index = tab_index or self.last_tab_index,
+        tab_item_table = self.tab_item_table,
+        show_parent = menu_container,
+        not_shown = do_not_show,
+        close_callback = function()
+            self:onCloseReaderMenu()
+        end,
+    }
 
-    main_menu.close_callback = function()
-        self:onCloseReaderMenu()
-    end
-
-    main_menu.touch_menu_callback = function ()
+    main_menu.touch_menu_callback = function() -- TouchMenu calls it on init
         self.ui:handleEvent(Event:new("CloseConfigMenu"))
     end
 
@@ -537,6 +507,33 @@ function ReaderMenu:onTapCloseMenu()
     self.ui:handleEvent(Event:new("CloseConfigMenu"))
 end
 
+function ReaderMenu:teardownMenu()
+    if self.menu_container then
+        self:onCloseReaderMenu()
+    end
+    self.tab_item_table = nil
+end
+
+function ReaderMenu:onRebuildMenu()
+    local was_open = self.menu_container ~= nil
+    local state
+    if was_open and self.menu_container[1] then
+        state = self.menu_container[1]:getState()
+    end
+    self:teardownMenu()
+
+    if was_open then
+        UIManager:nextTick(function()
+            self:onShowMenu(nil, true)
+            local menu = self.menu_container[1]
+            if state and menu.restoreState then
+                menu:restoreState(state.path_stack, state.page)
+            end
+            UIManager:show(self.menu_container)
+        end)
+    end
+end
+
 function ReaderMenu:onReadSettings(config)
     self.last_tab_index = config:readSetting("readermenu_tab_index") or 1
 end
@@ -551,13 +548,12 @@ function ReaderMenu:onMenuSearch()
 end
 
 function ReaderMenu:registerToMainMenu(widget)
+    for _, w in ipairs(self.registered_widgets) do
+        if w == widget then
+            return
+        end
+    end
     table.insert(self.registered_widgets, widget)
-end
-
-function ReaderMenu:onShowCloudStorage()
-    local CloudStorage = require("apps/cloudstorage/cloudstorage")
-    UIManager:show(CloudStorage:new{ ui = self.ui })
-    return true
 end
 
 return ReaderMenu

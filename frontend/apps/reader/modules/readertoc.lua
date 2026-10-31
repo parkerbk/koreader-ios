@@ -1,6 +1,7 @@
 local BD = require("ui/bidi")
 local Blitbuffer = require("ffi/blitbuffer")
 local Button = require("ui/widget/button")
+local ButtonDialog = require("ui/widget/buttondialog")
 local CenterContainer = require("ui/widget/container/centercontainer")
 local ConfirmBox = require("ui/widget/confirmbox")
 local Device = require("device")
@@ -36,8 +37,6 @@ local ReaderToc = InputContainer:extend{
 }
 
 function ReaderToc:init()
-    self:registerKeyEvents()
-
     if G_reader_settings:hasNot("toc_items_per_page") then
         -- The TOC items per page and items' font size can now be
         -- configured. Previously, the ones set for the file browser
@@ -61,13 +60,10 @@ end
 
 function ReaderToc:onGesture() end
 
-function ReaderToc:registerKeyEvents()
-    if Device:hasScreenKB() then
-        self.key_events.ShowToc = { { "ScreenKB", "Up" } }
-    elseif Device:hasKeyboard() then
-        self.key_events.ShowToc = { { "T" }, { "Shift", "Up" } }
-    end
-end
+-- function ReaderToc:registerKeyEvents()
+--     Now handled by hotkeys.koplugin:
+--     onShowToc = { { "T" }, { "Shift", "Up" } }
+-- end
 
 function ReaderToc:getTitle()
     local title = _("Table of contents")
@@ -79,8 +75,6 @@ function ReaderToc:getTitle()
     end
     return title
 end
-
-ReaderToc.onPhysicalKeyboardConnected = ReaderToc.registerKeyEvents
 
 function ReaderToc:onReadSettings(config)
     self.toc_ticks_ignored_levels = config:readSetting("toc_ticks_ignored_levels") or {}
@@ -836,61 +830,16 @@ function ReaderToc:onShowToc()
             text = "    ",
             face = Font:getFace("smallinfofont", items_font_size),
             }
-        local toc_indent = tmp:getSize().w
+        self.toc_indent = tmp:getSize().w
         tmp:free()
-
-        local has_hidden_flows = self.ui.document:hasHiddenFlows()
-        for k, v in ipairs(self.toc) do
-            v.index = k
-            v.indent = toc_indent * (v.depth-1)
-            v.text = self:cleanUpTocTitle(v.title, true)
-            if items_show_chapter_length then
-                v.post_text = T("(%1)", v.chapter_length)
-            else
-                v.post_text = nil
-            end
-            v.bidi_wrap_func = BD.auto
-            v.mandatory = v.page
-            if has_hidden_flows then
-                local flow = self.ui.document:getPageFlow(v.page)
-                if v.orig_page then -- bogus page fixed: show original page number
-                    -- This is an ugly piece of code, which can result in an ugly TOC,
-                    -- but it shouldn't be needed very often, only when bogus page numbers
-                    -- are fixed, and then showing everything gets complicated
-                    local orig_flow = self.ui.document:getPageFlow(v.orig_page)
-                    if flow == 0 and orig_flow == flow then
-                        v.mandatory = T("(%1) %2", self.ui.document:getPageNumberInFlow(v.orig_page), self.ui.document:getPageNumberInFlow(v.page))
-                    elseif flow == 0 and orig_flow ~= flow then
-                        v.mandatory = T("[%1]%2", self.ui.document:getPageNumberInFlow(v.orig_page), self.ui.document:getPageFlow(v.orig_page))
-                    elseif flow > 0 and orig_flow == flow then
-                        v.mandatory = T("[(%1) %2]%3", self.ui.document:getPageNumberInFlow(v.orig_page),
-                                                       self.ui.document:getPageNumberInFlow(v.page), self.ui.document:getPageFlow(v.page))
-                    else
-                        v.mandatory = T("([%1]%2) [%3]%4", self.ui.document:getPageNumberInFlow(v.orig_page), self.ui.document:getPageFlow(v.orig_page),
-                                                           self.ui.document:getPageNumberInFlow(v.page), self.ui.document:getPageFlow(v.page))
-                    end
-                else
-                    -- Plain numbers for the linear entries,
-                    -- for non-linear entries we use the same syntax as in the Go to dialog
-                    if flow == 0 then
-                        v.mandatory = self.ui.document:getPageNumberInFlow(v.page)
-                    else
-                        v.mandatory = T("[%1]%2", self.ui.document:getPageNumberInFlow(v.page), self.ui.document:getPageFlow(v.page))
-                    end
-                end
-            elseif v.orig_page then -- bogus page fixed: show original page number
-                v.mandatory = T("(%1) %2", v.orig_page, v.page)
-            end
-            if self.ui.pagemap and self.ui.pagemap:wantsPageLabels() then
-                v.mandatory = self.ui.pagemap:getXPointerPageLabel(v.xpointer)
-            end
-        end
+        self:updateChaptersDisplayedTitlePageNumber()
     end
 
     -- Estimate expand/collapse icon size
     -- *2/5 to account for Menu top title and bottom icons, and add some space between consecutive icons
     local icon_size = math.floor(Screen:getHeight() / items_per_page * 2/5)
     local button_width = icon_size * 2
+    -- no_focus: expand/collapse is on the left/right keys, so the buttons don't need to take focus.
     self.expand_button = Button:new{
         icon = "control.expand",
         icon_rotation_angle = BD.mirroredUILayout() and 180 or 0,
@@ -898,6 +847,7 @@ function ReaderToc:onShowToc()
         icon_width = icon_size,
         icon_height = icon_size,
         bordersize = 0,
+        no_focus = true,
         show_parent = self,
         callback = function(index) self:expandToc(index) end,
         onTapSelectButton = function() end, -- pass through taps to onMenuSelect
@@ -909,6 +859,7 @@ function ReaderToc:onShowToc()
         icon_width = icon_size,
         icon_height = icon_size,
         bordersize = 0,
+        no_focus = true,
         show_parent = self,
         callback = function(index) self:collapseToc(index) end,
         onTapSelectButton = function() end, -- pass through taps to onMenuSelect
@@ -1003,15 +954,106 @@ function ReaderToc:onShowToc()
             -- non touch to expand toc
             item.state.callback(item.index)
         else
-            -- Match the items' width
-            local infomessage = InfoMessage:new{
-                width = Screen:getWidth() - (Size.padding.fullscreen * (can_collapse and 4 or 3)),
-                alignment = "center",
-                show_icon = false,
-                text = item.text,
-                face = Font:getFace("infofont", self.items_font_size),
-            }
-            UIManager:show(infomessage)
+            if self.ui.handmade:isHandmadeHiddenFlowsEnabled() and self.ui.handmade:isHandmadeHiddenFlowsEditEnabled() then
+                local chapter_start = item.page
+                local chapter_end
+                if item.chapter_length then
+                    chapter_end = chapter_start + item.chapter_length - 1
+                else
+                    local next_start = self.ui.toc:getNextChapter(chapter_start)
+                    chapter_end = next_start and next_start - 1 or self.ui.document:getPageCount()
+                end
+                local toc_hide_dialog
+                local function updateToc()
+                    UIManager:close(toc_hide_dialog)
+                    self.ui.toc:updateChaptersDisplayedTitlePageNumber()
+                    self:switchItemTable(nil, nil, -1)
+                end
+                toc_hide_dialog = ButtonDialog:new{
+                    title = item.text,
+                    title_align = "center",
+                    width_factor = 0.8,
+                    buttons = {
+                        {
+                            {
+                                text = _("Include all chapters in regular flow"),
+                                enabled = self.ui.document:hasHiddenFlows(),
+                                callback = function()
+                                    self.ui.handmade:includeAllPagesInRegularFlow()
+                                    updateToc()
+                                end,
+                            },
+                        },
+                        {
+                            {
+                                text = _("Include chapter in regular flow"),
+                                enabled = self.ui.document:hasHiddenFlows(),
+                                callback = function()
+                                    self.ui.handmade:includePagesInRegularOrHiddenFlow(chapter_start, chapter_end)
+                                    updateToc()
+                                end,
+                            },
+                        },
+                        {
+                            {
+                                text = _("Include chapter in hidden flow"),
+                                callback = function()
+                                    self.ui.handmade:includePagesInRegularOrHiddenFlow(chapter_start, chapter_end, true)
+                                    updateToc()
+                                end,
+                            },
+                        },
+                    },
+                }
+                UIManager:show(toc_hide_dialog)
+            else
+                -- Match the items' width
+                UIManager:show(InfoMessage:new{
+                    width = Screen:getWidth() - (Size.padding.fullscreen * (can_collapse and 4 or 3)),
+                    alignment = "center",
+                    show_icon = false,
+                    text = item.text,
+                    face = Font:getFace("infofont", self.items_font_size),
+                })
+            end
+        end
+        return true
+    end
+
+    -- Tree-view idiom: right arrow key expands the focused node, left collapses
+    -- it (swapped in mirrored UI layout). Replaces the horizontal focus moves,
+    -- no-ops in this single-column menu; hasFewKeys devices use these keys otherwise.
+    -- Runs again whenever the focus keys are rebuilt, e.g. when a hot-plugged
+    -- keyboard brings a D-Pad along.
+    toc_menu.focus_keys_callback = function(menu)
+        if not Device:hasDPad() or Device:hasFewKeys() then
+            menu.key_events.ExpandCurrentNode = nil
+            menu.key_events.CollapseCurrentNode = nil
+            return
+        end
+        menu:releaseFocusKeys("FocusLeft", "FocusRight")
+        local mirrored = BD.mirroredUILayout()
+        local expand_key = mirrored and "Left" or "Right"
+        local collapse_key = mirrored and "Right" or "Left"
+        menu.key_events.ExpandCurrentNode = { { expand_key } }
+        menu.key_events.CollapseCurrentNode = { { collapse_key } }
+    end
+    toc_menu:focus_keys_callback()
+
+    toc_menu.onExpandCurrentNode = function(menu)
+        local focused_widget = menu:getFocusItem()
+        local item = focused_widget and focused_widget.entry
+        if item and item.state and item.state.icon == "control.expand" then
+            self:expandToc(item.index, true)
+        end
+        return true
+    end
+
+    toc_menu.onCollapseCurrentNode = function(menu)
+        local focused_widget = menu:getFocusItem()
+        local item = focused_widget and focused_widget.entry
+        if item and item.state and item.state.icon == "control.collapse" then
+            self:collapseToc(item.index, true)
         end
         return true
     end
@@ -1040,12 +1082,66 @@ function ReaderToc:onShowToc()
         end
     end
 
+    if self.collapsed_toc.current then
+        self:refocusTocNode(self.collapsed_toc[self.collapsed_toc.current])
+    end
+
     -- auto goto page of the current toc entry
     self.toc_menu:switchItemTable(nil, self.collapsed_toc, self.collapsed_toc.current or -1)
 
     UIManager:show(menu_container)
 
     return true
+end
+
+function ReaderToc:updateChaptersDisplayedTitlePageNumber()
+    local items_show_chapter_length = G_reader_settings:isTrue("toc_items_show_chapter_length")
+    local has_hidden_flows = self.ui.document:hasHiddenFlows()
+    for k, v in ipairs(self.toc) do
+        v.index = k
+        v.indent = self.toc_indent * (v.depth-1)
+        v.text = self:cleanUpTocTitle(v.title, true)
+        if items_show_chapter_length then
+            v.post_text = T("(%1)", v.chapter_length)
+        else
+            v.post_text = nil
+        end
+        v.bidi_wrap_func = BD.auto
+        v.mandatory = v.page
+        if has_hidden_flows then
+            local flow = self.ui.document:getPageFlow(v.page)
+            if v.orig_page then -- bogus page fixed: show original page number
+                -- This is an ugly piece of code, which can result in an ugly TOC,
+                -- but it shouldn't be needed very often, only when bogus page numbers
+                -- are fixed, and then showing everything gets complicated
+                local orig_flow = self.ui.document:getPageFlow(v.orig_page)
+                if flow == 0 and orig_flow == flow then
+                    v.mandatory = T("(%1) %2", self.ui.document:getPageNumberInFlow(v.orig_page), self.ui.document:getPageNumberInFlow(v.page))
+                elseif flow == 0 and orig_flow ~= flow then
+                    v.mandatory = T("[%1]%2", self.ui.document:getPageNumberInFlow(v.orig_page), self.ui.document:getPageFlow(v.orig_page))
+                elseif flow > 0 and orig_flow == flow then
+                    v.mandatory = T("[(%1) %2]%3", self.ui.document:getPageNumberInFlow(v.orig_page),
+                                                   self.ui.document:getPageNumberInFlow(v.page), self.ui.document:getPageFlow(v.page))
+                else
+                    v.mandatory = T("([%1]%2) [%3]%4", self.ui.document:getPageNumberInFlow(v.orig_page), self.ui.document:getPageFlow(v.orig_page),
+                                                       self.ui.document:getPageNumberInFlow(v.page), self.ui.document:getPageFlow(v.page))
+                end
+            else
+                -- Plain numbers for the linear entries,
+                -- for non-linear entries we use the same syntax as in the Go to dialog
+                if flow == 0 then
+                    v.mandatory = self.ui.document:getPageNumberInFlow(v.page)
+                else
+                    v.mandatory = T("[%1]%2", self.ui.document:getPageNumberInFlow(v.page), self.ui.document:getPageFlow(v.page))
+                end
+            end
+        elseif v.orig_page then -- bogus page fixed: show original page number
+            v.mandatory = T("(%1) %2", v.orig_page, v.page)
+        end
+        if self.ui.pagemap and self.ui.pagemap:wantsPageLabels() then
+            v.mandatory = self.ui.pagemap:getXPointerPageLabel(v.xpointer)
+        end
+    end
 end
 
 function ReaderToc:showTocDialog()
@@ -1116,8 +1212,20 @@ function ReaderToc:searchToc()
     input_dialog:onShowKeyboard()
 end
 
+-- Keep the focus on the toggled node across the menu rebuild.
+function ReaderToc:refocusTocNode(node)
+    if not Device:hasDPad() then return end
+    for i, v in ipairs(self.collapsed_toc) do
+        if v == node then
+            self.toc_menu.itemnumber = i
+            break
+        end
+    end
+end
+
 -- expand TOC node of index in raw toc table
-function ReaderToc:expandToc(index)
+-- refocus: keep the focus even on touch-capable devices (set by key-driven callers)
+function ReaderToc:expandToc(index, refocus)
     if self.expanded_nodes[index] == true then return end
 
     self.expanded_nodes[index] = true
@@ -1147,11 +1255,15 @@ function ReaderToc:expandToc(index)
     if cur_node.state then cur_node.state:free() end
     cur_node.state = self.collapse_button:new{}
     self:updateCurrentNode()
+    if refocus or not Device:isTouchDevice() then
+        self:refocusTocNode(cur_node)
+    end
     self.toc_menu:switchItemTable(nil, self.collapsed_toc, -1)
 end
 
 -- collapse TOC node of index in raw toc table
-function ReaderToc:collapseToc(index)
+-- refocus: see expandToc
+function ReaderToc:collapseToc(index, refocus)
     if self.expanded_nodes[index] == true then
         self.expanded_nodes[index] = nil
     end
@@ -1185,6 +1297,9 @@ function ReaderToc:collapseToc(index)
     cur_node.state:free()
     cur_node.state = self.expand_button:new{}
     self:updateCurrentNode()
+    if refocus or not Device:isTouchDevice() then
+        self:refocusTocNode(cur_node)
+    end
     self.toc_menu:switchItemTable(nil, self.collapsed_toc, -1)
 end
 
@@ -1405,7 +1520,7 @@ Enabling this option will restrict display to the chapter titles of progress bar
         end
     }
     menu_items.toc_items_with_dots = {
-        text = _("Dot leaders"),
+        text = _("Show dot leaders"),
         keep_menu_open = true,
         checked_func = function()
             return G_reader_settings:nilOrTrue("toc_items_with_dots")

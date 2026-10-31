@@ -19,7 +19,7 @@ local ReadHistory = {
 
 local function getMandatory(date_time)
     return G_reader_settings:isTrue("history_datetime_short")
-        and os.date(C_("Date string", "%y-%m-%d"), date_time) or datetime.secondsToDateTime(date_time)
+        and os.date(C_("Date string", "%y-%m-%d"), date_time) or datetime.secondsToDateTime(date_time, nil, true)
 end
 
 local function buildEntry(input_time, input_file)
@@ -165,17 +165,6 @@ function ReadHistory:getPreviousFile(current_file)
         -- skip current document and deleted items kept in history
         if v.file ~= current_file and v.select_enabled then
             return v.file
-        end
-    end
-end
-
---- Used in the BookShortcuts plugin.
-function ReadHistory:getFileByDirectory(directory, recursive)
-    local real_path = realpath(directory)
-    for _, v in ipairs(self.hist) do
-        local ipath = realpath(ffiutil.dirname(v.file))
-        if ipath == real_path or (recursive and util.stringStartsWith(ipath, real_path)) then
-             return v.file
         end
     end
 end

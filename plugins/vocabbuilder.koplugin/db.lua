@@ -9,24 +9,24 @@ local db_location = DataStorage:getSettingsDir() .. "/vocabulary_builder.sqlite3
 local DB_SCHEMA_VERSION = 20240905
 local VOCABULARY_DB_SCHEMA = [[
     -- To store looked up words
-    CREATE TABLE IF NOT EXISTS "vocabulary" (
-        "word"          TEXT NOT NULL UNIQUE,
-        "title_id"      INTEGER,
-        "create_time"   INTEGER NOT NULL,
-        "review_time"   INTEGER,
-        "due_time"      INTEGER NOT NULL,
-        "review_count"  INTEGER NOT NULL DEFAULT 0,
-        "prev_context"  TEXT,
-        "next_context"  TEXT,
-        "streak_count"  INTEGER NOT NULL DEFAULT 0,
-        "highlight"     TEXT,
-        PRIMARY KEY("word")
+    CREATE TABLE IF NOT EXISTS vocabulary (
+        word          TEXT NOT NULL UNIQUE,
+        title_id      INTEGER,
+        create_time   INTEGER NOT NULL,
+        review_time   INTEGER,
+        due_time      INTEGER NOT NULL,
+        review_count  INTEGER NOT NULL DEFAULT 0,
+        prev_context  TEXT,
+        next_context  TEXT,
+        streak_count  INTEGER NOT NULL DEFAULT 0,
+        highlight     TEXT,
+        PRIMARY KEY(word)
     );
-    CREATE TABLE IF NOT EXISTS "title" (
-        "id"            INTEGER NOT NULL UNIQUE,
-        "name"          TEXT UNIQUE,
-        "filter"        INTEGER NOT NULL DEFAULT 1,
-        PRIMARY KEY("id")
+    CREATE TABLE IF NOT EXISTS title (
+        id            INTEGER NOT NULL UNIQUE,
+        name          TEXT UNIQUE,
+        filter        INTEGER NOT NULL DEFAULT 1,
+        PRIMARY KEY(id)
     );
     CREATE INDEX IF NOT EXISTS due_time_index ON vocabulary(due_time);
     CREATE INDEX IF NOT EXISTS title_name_index ON title(name);
@@ -309,6 +309,7 @@ function VocabularyBuilder:hasWord(word)
     stmt:bind(word)
     local result = stmt:step()
     stmt:close()
+    conn:close()
     if result then
         return {
             book_title = result[1],
@@ -426,6 +427,7 @@ function VocabularyBuilder.onSync(local_path, cached_path, income_path)
     if not ok1 or tonumber(v1) == 0 then
         -- no income db or wrong db, first time sync
         logger.dbg("vocabbuilder open income DB failed", v1)
+        conn_income:close()
         return true
     end
 
@@ -466,6 +468,7 @@ function VocabularyBuilder.onSync(local_path, cached_path, income_path)
     if not ok3 or tonumber(v3) == 0 then
         -- no local db, this is an error
         logger.err("vocabbuilder open local DB", v3)
+        conn:close()
         return false
     end
 

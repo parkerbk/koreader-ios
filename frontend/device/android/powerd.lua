@@ -27,13 +27,22 @@ function AndroidPowerD:init()
     --    do not use fl_min==0 if getScreenMinBrightness!=0,
     --    because intenstiy==0 would mean to use system intensity
     if min_bright ~= self.fl_min then
-        self.fl_min = math.ceil(min_bright * self.bright_diff / self.fl_max)
+        self.fl_min = math.ceil(min_bright * self.fl_max / self.bright_diff)
     end
 
     if self.device:hasNaturalLight() then
         self.fl_warmth_min = android.getScreenMinWarmth()
         self.fl_warmth_max = android.getScreenMaxWarmth()
         self.warm_diff = self.fl_warmth_max - self.fl_warmth_min
+
+        -- BasePowerD only sets warmth_scale after init() returns, c.f. KoboPowerD:init.
+        self.warmth_scale = 100 / self.fl_warmth_max
+
+        local warmth = G_reader_settings:readSetting("frontlight_warmth")
+        if warmth then
+            self.fl_warmth = warmth
+            self:setWarmth(warmth, true)
+        end
     end
 end
 

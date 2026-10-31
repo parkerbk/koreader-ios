@@ -60,7 +60,14 @@ function Screenshoter:onScreenshot(screenshot_name, caller_callback)
     if not screenshot_name then
         screenshot_name = os.date(self:getScreenshotDir() .. "/" .. prefix .. "_%Y-%m-%d_%H%M%S.png")
     end
-    Screen:shot(screenshot_name)
+    local ok, err = Screen:shot(screenshot_name)
+    if not ok then
+        local InfoMessage = require("ui/widget/infomessage")
+        UIManager:show(InfoMessage:new{
+            text = _("Screenshot failed:") .. "\n\n" .. tostring(err),
+        })
+        return false
+    end
 
     local dialog
     local buttons = {
@@ -137,6 +144,8 @@ function Screenshoter:chooseFolder()
     local current_path = G_reader_settings:readSetting("screenshot_dir")
     local default_path = self.default_dir
     local caller_callback = function(path)
+        local ui = require("apps/reader/readerui").instance or require("apps/filemanager/filemanager").instance
+        ui.folder_shortcuts:updateShortcut("screenshot_dir", path)
         G_reader_settings:saveSetting("screenshot_dir", path)
     end
     filemanagerutil.showChooseDialog(title_header, caller_callback, current_path, default_path)
@@ -146,6 +155,8 @@ function Screenshoter:registerKeyEvents()
     if Device:hasKeyboard() then
         self.key_events.KeyPressShoot = {
             { "Alt", "Shift", "G" }, -- same as stock Kindle firmware
+            { "F8" },
+            { "PrintScr" },
         }
     elseif Device:hasScreenKB() then
         -- kindle 4 case: same as stock firmware.

@@ -26,6 +26,10 @@ Each setting contains:
 * toggle: display name for args
 * separator: put a separator after in the menu list
 * configurable: can be parsed from cre/kopt and used to set `document.configurable`. Should not be set manually
+* condition: static boolean, set once when the table loads
+* condition_func: like condition, but a closure evaluated fresh every time `isAvailable()` is called.
+    That means `Dispatcher:isActionEnabled()` (execution gating), `getDisplayList`/`_addItem` (menu visibility),
+    and the section-level tick all correctly reflect live condition state, not a stale snapshot from boot.
 --]]--
 
 local CreOptions = require("ui/data/creoptions")
@@ -33,13 +37,18 @@ local KoptOptions = require("ui/data/koptoptions")
 local Device = require("device")
 local Event = require("ui/event")
 local FileManager = require("apps/filemanager/filemanager")
+local FileManagerBookInfo = require("apps/filemanager/filemanagerbookinfo")
+local Key = require("device/key")
 local Notification = require("ui/widget/notification")
 local ReaderDictionary = require("apps/reader/modules/readerdictionary")
 local ReaderFooter = require("apps/reader/modules/readerfooter")
 local ReaderHighlight = require("apps/reader/modules/readerhighlight")
+local ReaderStatus = require("apps/reader/modules/readerstatus")
 local ReaderTypography = require("apps/reader/modules/readertypography")
+local ReaderView = require("apps/reader/modules/readerview")
 local ReaderZooming = require("apps/reader/modules/readerzooming")
 local Screen = Device.screen
+local Size = require("ui/size")
 local UIManager = require("ui/uimanager")
 local util = require("util")
 local _ = require("gettext")
@@ -62,6 +71,7 @@ local settingsList = {
     favorites = {category="none", event="ShowColl", title=_("Favorites"), general=true},
     collections = {category="none", event="ShowCollList", title=_("Collections"), general=true},
     collections_search = {category="none", event="ShowCollectionsSearchDialog", title=_("Collections search"), general=true},
+    book_metadata_archive = {category="none", event="ShowBookMetadataArchive", title=_("Book metadata archive"), general=true},
     bookmark_browser = {category="none", event="ShowBookmarkBrowser", title=_("Bookmark browser"), general=true, separator=true},
     ----
     dictionary_lookup = {category="none", event="ShowDictionaryLookup", title=_("Dictionary lookup"), general=true},
@@ -75,6 +85,8 @@ local settingsList = {
     open_previous_document_in_folder = {category="none", event="OpenNextOrPreviousFileInFolder", arg=true, title=_("Open previous file in last book folder"), general=true},
     notebook_file = {category="none", event="ShowNotebookFile", title=_("Notebook file"), general=true},
     screenshot = {category="none", event="Screenshot", title=_("Screenshot"), general=true, separator=true},
+    ----
+    set_end_of_book_action = {category="string", event="SetEndOfBookAction", title=_("End of document action"), args_func=ReaderStatus.getEndOfBookActions, general=true, separator=true},
     ----
 
     -- Device
@@ -92,12 +104,12 @@ local settingsList = {
     touch_input_off = {category="none", event="IgnoreTouchInput", arg=true, title=_("Disable touch input"), device=true, condition=Device:isTouchDevice()},
     toggle_touch_input = {category="none", event="IgnoreTouchInput", title=_("Toggle touch input"), device=true, separator=true, condition=Device:isTouchDevice()},
     ----
-    swap_left_page_turn_buttons = {category="none", event="SwapPageTurnButtons", arg="left", title=_("Invert left-side page-turn buttons"), device=true, condition= Device:hasDPad() and Device:useDPadAsActionKeys()},
-    swap_right_page_turn_buttons = {category="none", event="SwapPageTurnButtons", arg="right", title=_("Invert right-side page-turn buttons"), device=true, condition= Device:hasDPad() and Device:useDPadAsActionKeys()},
-    swap_page_turn_buttons = {category="none", event="SwapPageTurnButtons", title=_("Invert page-turn buttons"), device=true, condition=Device:hasKeys()},
-    set_page_turn_buttons = {category="string", event="SetPageTurnButtonDirection", title=_("Set page-turn button inversion"), device=true, condition=Device:hasKeys(), args = {true, false}, toggle = { _("on"), _("off")}, separator=true},
+    swap_left_page_turn_buttons = {category="none", event="SwapPageTurnButtons", arg="left", title=_("Invert left-side page-turn buttons"), device=true, condition_func=function() return Device:hasDPad() and Device:useDPadAsActionKeys() end},
+    swap_right_page_turn_buttons = {category="none", event="SwapPageTurnButtons", arg="right", title=_("Invert right-side page-turn buttons"), device=true, condition_func=function() return Device:hasDPad() and Device:useDPadAsActionKeys() end},
+    swap_page_turn_buttons = {category="none", event="SwapPageTurnButtons", title=_("Invert page-turn buttons"), device=true, condition_func=function() return Device:hasKeys() end},
+    set_page_turn_buttons = {category="string", event="SetPageTurnButtonDirection", title=_("Set page-turn button inversion"), device=true, condition_func=function() return Device:hasKeys() end, args = {true, false}, toggle = { _("on"), _("off")}, separator=true},
     ----
-    toggle_key_repeat = {category="none", event="ToggleKeyRepeat", title=_("Toggle key repeat"), device=true, condition=Device:hasKeys() and Device:canKeyRepeat(), separator=true},
+    toggle_key_repeat = {category="none", event="ToggleKeyRepeat", title=_("Toggle key repeat"), device=true, condition_func=function() return Device:hasKeys() and Device:canKeyRepeat() end, separator=true},
     toggle_gsensor = {category="none", event="ToggleGSensor", title=_("Toggle accelerometer"), device=true, condition=Device:hasGSensor()},
     temp_gsensor_on = {category="none", event="TempGSensorOn", title=_("Enable accelerometer for 5 seconds"), device=true, condition=Device:hasGSensor()},
     lock_gsensor = {category="none", event="LockGSensor", title=_("Toggle lock auto rotation to current orientation"), device=true, condition=Device:hasGSensor()},
@@ -143,20 +155,19 @@ local settingsList = {
     set_display_mode = {category="string", event="SetDisplayMode", title=_("Set display mode"), args_func=FileManager.getDisplayModeActions, filemanager=true},
     set_sort_by = {category="string", event="SetSortBy", title=_("Sort by"), args_func=FileManager.getSortByActions, filemanager=true},
     set_reverse_sorting = {category="string", event="SetReverseSorting", title=_("Reverse sorting"), args={true, false}, toggle={_("on"), _("off")}, filemanager=true},
-    set_mixed_sorting = {category="string", event="SetMixedSorting", title=_("Folders and files mixed"), args={true, false}, toggle={_("on"), _("off")}, filemanager=true, separator=true},
+    set_mixed_sorting = {category="string", event="SetMixedSorting", title=_("Folders and files mixed"), args={true, false}, toggle={_("on"), _("off")}, filemanager=true},
+    set_flat_view = {category="string", event="SetFlatView", title=_("Show all files from subfolders"), args={true, false}, toggle={_("on"), _("off")}, filemanager=true, separator=true},
     ----
     show_plus_menu = {category="none", event="ShowPlusMenu", title=_("Show plus menu"), filemanager=true},
     toggle_select_mode = {category="none", event="ToggleSelectMode", title=_("Toggle select mode"), filemanager=true},
     refresh_content = {category="none", event="RefreshContent", title=_("Refresh content"), filemanager=true},
-    folder_shortcuts = {category="none", event="ShowFolderShortcutsDialog", title=_("Folder shortcuts"), filemanager=true},
     file_search = {category="none", event="ShowFileSearch", title=_("File search"), filemanager=true},
     file_search_results = {category="none", event="ShowSearchResults", title=_("Last file search results"), filemanager=true},
     ----
+    folder_shortcuts = {category="none", event="ShowFolderShortcutsDialog", title=_("Folder shortcuts"), filemanager=true},
     folder_up = {category="none", event="FolderUp", title=_("Folder up"), filemanager=true},
     fm_go_to = {category="none", event="ShowGotoDialog", title=_("Go to page"), filemanager=true},
     fm_back = {category="none", event="Back", title=_("Back"), filemanager=true, separator=true},
-    ----
-    cloud_storage = {category="none", event="ShowCloudStorage", title=_("Cloud storage"), filemanager=true},
 
     -- Reader
     show_config_menu = {category="none", event="ShowConfigMenu", title=_("Show bottom menu"), reader=true},
@@ -216,9 +227,13 @@ local settingsList = {
     toggle_handmade_toc = {category="none", event="ToggleHandmadeToc", title=_("Toggle custom TOC"), reader=true, condition=Device:isTouchDevice() or (Device:hasDPad() and Device:useDPadAsActionKeys())},
     toggle_handmade_flows = {category="none", event="ToggleHandmadeFlows", title=_("Toggle custom hidden flows"), reader=true, separator=true, condition=Device:isTouchDevice() or (Device:hasDPad() and Device:useDPadAsActionKeys())},
     ----
+    text_selection = {category="none", event="StartHighlightIndicator", title=_("Toggle text selection mode"), reader=true, condition_func=function() return Device:hasKeyboard() end},
     set_highlight_action = {category="string", event="SetHighlightAction", title=_("Set highlight action"), args_func=ReaderHighlight.getHighlightActions, reader=true},
     cycle_highlight_action = {category="none", event="CycleHighlightAction", title=_("Cycle highlight action"), reader=true},
     cycle_highlight_style = {category="none", event="CycleHighlightStyle", title=_("Cycle highlight style"), reader=true, separator=true},
+    ----
+    set_overlap_style = {category="string", event="SetOverlapStyle", title=_("Set page overlap style"), args_func=ReaderView.getOverlapStyles, reader=true},
+    cycle_overlap_style = {category="none", event="CycleOverlapStyle", title=_("Cycle page overlap style"), reader=true, separator=true},
     ----
     flush_settings = {category="none", event="FlushSettings", arg=true, title=_("Save book metadata"), reader=true, separator=true},
     ----
@@ -318,6 +333,7 @@ local dispatcher_menu_order = {
     "favorites",
     "collections",
     "collections_search",
+    "book_metadata_archive",
     "bookmark_browser",
     ----
     "dictionary_lookup",
@@ -331,6 +347,8 @@ local dispatcher_menu_order = {
     "open_previous_document_in_folder",
     "notebook_file",
     "screenshot",
+    ----
+    "set_end_of_book_action",
     ----
 
     -- Device
@@ -401,19 +419,18 @@ local dispatcher_menu_order = {
     "set_sort_by",
     "set_reverse_sorting",
     "set_mixed_sorting",
+    "set_flat_view",
     ----
     "show_plus_menu",
     "toggle_select_mode",
     "refresh_content",
-    "folder_shortcuts",
     "file_search",
     "file_search_results",
     ----
+    "folder_shortcuts",
     "folder_up",
     "fm_go_to",
     "fm_back",
-    ----
-    "cloud_storage",
 
     -- Reader
     "show_config_menu",
@@ -473,9 +490,13 @@ local dispatcher_menu_order = {
     "toggle_handmade_toc",
     "toggle_handmade_flows",
     ----
+    "text_selection",
     "set_highlight_action",
     "cycle_highlight_action",
     "cycle_highlight_style",
+    ----
+    "set_overlap_style",
+    "cycle_overlap_style",
     ----
     "flush_settings",
     ----
@@ -664,8 +685,36 @@ function Dispatcher:removeAction(name)
     return true
 end
 
+-- condition_func (evaluated on every call) takes precedence over the static condition, for anything
+-- that can change while running (e.g., a keyboard being connected).
+local function isAvailable(action)
+    if action == nil then return false end
+    if action.condition_func ~= nil then
+        return action.condition_func() and true or false
+    end
+    return action.condition ~= false
+end
+
+function Dispatcher.getActionArgs(settings, get_args)
+    if Dispatcher:_itemsCount(settings) == 1 then
+        local action = next(settings)
+        if action == "settings" then action = next(settings, action) end
+        local args = settingsList[action] and (settingsList[action].args_func or settingsList[action].args)
+        if get_args then
+            args = type(args) == "function" and args() or args
+        end
+        return args, action
+    end
+end
+
 function Dispatcher.iter_func(settings, to_execute)
-    local order = util.tableGetValue(settings, "settings", "order")
+    local order, action
+    local is_cycle = settings.settings and settings.settings.cycle
+    if is_cycle and to_execute then
+        order, action = Dispatcher.getActionArgs(settings, true) -- args array
+    else
+        order = settings.settings and settings.settings.order -- actions array
+    end
     if order then
         local idx = settings.settings.execute_one_by_one
         if idx and to_execute then
@@ -677,6 +726,10 @@ function Dispatcher.iter_func(settings, to_execute)
             end
             idx = idx > #order and 1 or idx
             settings.settings.execute_one_by_one = idx == #order and 1 or idx + 1
+            if is_cycle then
+                settings[action] = order[idx] -- action next arg to execute with
+                return ipairs({ action })
+            end
             return ipairs({ order[idx] })
         end
         return ipairs(order)
@@ -696,7 +749,7 @@ function Dispatcher:_itemsCount(settings)
 end
 
 -- Returns a display name for the item.
-function Dispatcher:getNameFromItem(item, settings, dont_show_value)
+function Dispatcher:getNameFromItem(item, settings, dont_show_value, honor_cycle)
     if settingsList[item] == nil then
         return _("Unknown item")
     end
@@ -704,6 +757,9 @@ function Dispatcher:getNameFromItem(item, settings, dont_show_value)
     local title = settingsList[item].title
     if dont_show_value or value == nil then
         return title
+    elseif honor_cycle and settings and settings.settings and settings.settings.cycle
+            and Dispatcher.getActionArgs(settings) ~= nil then
+        return title .. " \u{F01E}" -- 'repeat'
     end
     local display_value
     local category = settingsList[item].category
@@ -753,6 +809,7 @@ function Dispatcher._addToOrder(location, settings, item)
             end
         end
         actions.settings = actions.settings or {}
+        actions.settings.cycle = nil -- available for single-action gestures/profiles only
         actions.settings.order = { first_item, item }
     elseif count > 2 then
         local order = util.tableGetValue(actions, "settings", "order")
@@ -787,10 +844,11 @@ function Dispatcher._removeFromOrder(location, settings, item)
         end
     end
     util.tableRemoveValue(actions, "settings", "quickmenu_separators", item)
+    util.tableRemoveValue(actions, "settings", "quickmenu_action_names", item)
 end
 
 -- Get a textual representation of the enabled actions to display in a menu item.
-function Dispatcher:menuTextFunc(settings)
+function Dispatcher:menuTextFunc(settings, honor_cycle)
     if settings then
         local count = Dispatcher:_itemsCount(settings)
         if count == 0 then
@@ -798,7 +856,7 @@ function Dispatcher:menuTextFunc(settings)
         elseif count == 1 then
             local item = next(settings)
             if item == "settings" then item = next(settings, item) end
-            return Dispatcher:getNameFromItem(item, settings)
+            return Dispatcher:getNameFromItem(item, settings, nil, honor_cycle)
         end
         return T(NC_("Dispatcher", "1 action", "%1 actions", count), count)
     end
@@ -812,7 +870,7 @@ function Dispatcher.getDisplayList(settings, for_sorting)
     local is_check_mark = for_sorting and settings.settings and settings.settings.show_as_quickmenu
     for item, v in Dispatcher.iter_func(settings) do
         if type(item) == "number" then item = v end
-        if settingsList[item] ~= nil and settingsList[item].condition ~= false then
+        if isAvailable(settingsList[item]) then
             table.insert(item_table, {
                 text = Dispatcher:getNameFromItem(item, settings),
                 key = item,
@@ -870,7 +928,7 @@ function Dispatcher:_addItem(caller, menu, location, settings, section)
         end
     end
     for __, k in ipairs(dispatcher_menu_order) do
-        if settingsList[k][section] == true and settingsList[k].condition ~= false then
+        if settingsList[k][section] == true and isAvailable(settingsList[k]) then
             if settingsList[k].category == "none" or settingsList[k].category == "arg" then
                 table.insert(menu, {
                     text = settingsList[k].title,
@@ -1008,6 +1066,20 @@ function Dispatcher:_addItem(caller, menu, location, settings, section)
                     separator = settingsList[k].separator,
                 })
             end
+        -- A dynamic action that is not available in the current context, but was selected previously.
+        -- We still want to show it, so the user can unselect it, the action will be removed from the list
+        -- when the user disables it, and will only return once the condition is met again.
+        elseif settingsList[k][section] == true and location[settings] ~= nil and location[settings][k] ~= nil then
+            table.insert(menu, {
+                text = T(_("%1 (unavailable)"), settingsList[k].title),
+                checked_func = function() return true end,
+                callback = function(touchmenu_instance)
+                    -- Murder the action and hide the body ;)
+                    setValue(k, nil, touchmenu_instance)
+                    UIManager:broadcastEvent(Event:new("RebuildMenu"))
+                end,
+                separator = settingsList[k].separator,
+            })
         end
     end
 end
@@ -1039,6 +1111,7 @@ function Dispatcher:addSubMenu(caller, menu, location, settings)
     Dispatcher:init()
     menu.ignored_by_menu_search = true -- all those would be duplicated
     table.insert(menu, {
+        id = "nothing", -- used by Hotkeys
         text = _("Nothing"),
         checked_func = function()
             return location[settings] ~= nil and Dispatcher:_itemsCount(location[settings]) == 0
@@ -1074,9 +1147,9 @@ function Dispatcher:addSubMenu(caller, menu, location, settings)
             checked_func = function()
                 if location[settings] ~= nil then
                     for k, _ in pairs(location[settings]) do
-                        if settingsList[k] ~= nil and settingsList[k][section[1]] == true and
-                            (settingsList[k].condition == nil or settingsList[k].condition)
-                        then return true end
+                        if settingsList[k] ~= nil and settingsList[k][section[1]] == true then
+                            return true
+                        end
                     end
                 end
             end,
@@ -1089,7 +1162,7 @@ function Dispatcher:addSubMenu(caller, menu, location, settings)
                             caller.updated = true
                         end
                     end
-                    if touchmenu_instance then touchmenu_instance:updateItems() end
+                    touchmenu_instance:updateItems()
                 end
             end,
             sub_item_table = submenu,
@@ -1104,7 +1177,7 @@ function Dispatcher:addSubMenu(caller, menu, location, settings)
         enabled_func = function()
             return location[settings] and Dispatcher:_itemsCount(location[settings]) > 1 or false
         end,
-        callback = function(touchmenu_instance)
+        callback = function()
             Dispatcher._sortActions(caller, location[settings])
         end,
         keep_menu_open = true,
@@ -1124,9 +1197,11 @@ function Dispatcher:addSubMenu(caller, menu, location, settings)
                     actions.settings.quickmenu_separators = nil
                     actions.settings.keep_open_on_apply = nil
                     actions.settings.anchor_quickmenu = nil
+                    actions.settings.quickmenu_position = nil
                     util.tableRemoveValue(actions, "settings", "show_as_quickmenu")
                     caller.updated = true
                 elseif util.tableGetValue(actions, "settings", "execute_one_by_one") then
+                    actions.settings.cycle = nil
                     util.tableRemoveValue(actions, "settings", "execute_one_by_one")
                     caller.updated = true
                 end
@@ -1136,20 +1211,26 @@ function Dispatcher:addSubMenu(caller, menu, location, settings)
     table.insert(menu, {
         text = _("Execute one by one"),
         enabled_func = function()
-            return util.tableGetValue(location[settings], "settings", "order") and true or false
+            return (util.tableGetValue(location[settings], "settings", "order")
+                or Dispatcher.getActionArgs(location[settings]) ~= nil) and true or false
         end,
         checked_func = function()
             return util.tableGetValue(location[settings], "settings", "execute_one_by_one")
+                and Dispatcher.getActionArgs(location[settings]) ~= nil
         end,
         radio = true,
         callback = function()
             local actions = location[settings]
             if actions and not util.tableGetValue(actions, "settings", "execute_one_by_one") then
-                util.tableSetValue(actions, 1, "settings", "execute_one_by_one") -- start from the first action
+                local args, action = Dispatcher.getActionArgs(actions, true)
+                local start_idx = args and util.arrayContains(args, actions[action]) -- start from the selected option
+                util.tableSetValue(actions, start_idx or 1, "settings", "execute_one_by_one")
+                actions.settings.cycle = args and true
                 actions.settings.show_as_quickmenu = nil
                 actions.settings.quickmenu_separators = nil
                 actions.settings.keep_open_on_apply = nil
                 actions.settings.anchor_quickmenu = nil
+                actions.settings.quickmenu_position = nil
                 caller.updated = true
             end
         end,
@@ -1164,11 +1245,93 @@ function Dispatcher:addSubMenu(caller, menu, location, settings)
             local actions = location[settings]
             if actions and not util.tableGetValue(actions, "settings", "show_as_quickmenu") then
                 util.tableSetValue(actions, true, "settings", "show_as_quickmenu")
+                actions.settings.cycle = nil
                 actions.settings.execute_one_by_one = nil
                 caller.updated = true
             end
         end,
         separator = true,
+    })
+    -- @translators position in the screen
+    local pos_text_default = _("center")
+    local pos_text = {
+        y = { [0] = _("top"), [1] = _("bottom") },
+        x = { [0] = _("left"), [1] = _("right") },
+    }
+    local function genPosMenuItem(axis, value)
+        local actions = location[settings]
+        return {
+            text = value and pos_text[axis][value] or pos_text_default,
+            checked_func = function()
+                if util.tableGetValue(actions, "settings", "anchor_quickmenu") then
+                    return false
+                end
+                local pos = util.tableGetValue(actions, "settings", "quickmenu_position")
+                return (not pos and not value) or (pos and pos[axis] == value)
+            end,
+            radio = true,
+            callback = function()
+                local pos = util.tableGetValue(actions, "settings", "quickmenu_position")
+                if not (pos and pos[axis] == value) then
+                    if value then
+                        util.tableSetValue(actions, value, "settings", "quickmenu_position", axis)
+                    else
+                        util.tableRemoveValue(actions, "settings", "quickmenu_position", axis)
+                    end
+                    util.tableRemoveValue(actions, "settings", "anchor_quickmenu")
+                    caller.updated = true
+                end
+            end,
+            separator = value == 1,
+        }
+    end
+    local pos_sub_item_table = {
+        genPosMenuItem("y", 0),
+        genPosMenuItem("y"),
+        genPosMenuItem("y", 1),
+        genPosMenuItem("x", 0),
+        genPosMenuItem("x"),
+        genPosMenuItem("x", 1),
+        not util.tableGetValue(location[settings], "settings", "name") and { -- for gestures only
+            text = _("gesture position"),
+            checked_func = function()
+                return util.tableGetValue(location[settings], "settings", "anchor_quickmenu")
+            end,
+            radio = true,
+            callback = function()
+                if not util.tableGetValue(location[settings], "settings", "anchor_quickmenu") then
+                    util.tableSetValue(location[settings], true, "settings", "anchor_quickmenu")
+                    util.tableRemoveValue(location[settings], "settings", "quickmenu_position")
+                    caller.updated = true
+                end
+            end,
+        } or nil,
+    }
+    table.insert(menu, {
+        text_func = function()
+            local pos = util.tableGetValue(location[settings], "settings", "quickmenu_position")
+            if not pos and not util.tableGetValue(location[settings], "settings", "anchor_quickmenu") then
+                return _("QuickMenu position") -- center by default, no indication
+            end
+            local text
+            if pos then
+                text = string.format("%s %s", pos.y and pos_text.y[pos.y] or pos_text_default,
+                                              pos.x and pos_text.x[pos.x] or pos_text_default)
+            else
+                text = _("gesture position")
+            end
+            return T(_("QuickMenu position: %1"), text)
+        end,
+        enabled_func = function()
+            return util.tableGetValue(location[settings], "settings", "show_as_quickmenu") or false
+        end,
+        sub_item_table = pos_sub_item_table,
+        hold_callback = function(touchmenu_instance) -- reset to default
+            util.tableRemoveValue(location[settings], "settings", "anchor_quickmenu")
+            util.tableRemoveValue(location[settings], "settings", "quickmenu_position")
+            caller.updated = true
+            touchmenu_instance:updateItems()
+        end,
     })
     table.insert(menu, {
         text = _("Keep QuickMenu open"),
@@ -1190,11 +1353,99 @@ function Dispatcher:addSubMenu(caller, menu, location, settings)
             end
         end,
     })
+    table.insert(menu, {
+        text = _("Rename QuickMenu actions"),
+        enabled_func = function()
+            return util.tableGetValue(location[settings], "settings", "show_as_quickmenu") or false
+        end,
+        checked_func = function()
+            return util.tableGetValue(location[settings], "settings", "quickmenu_action_names")
+        end,
+        check_callback_updates_menu = true,
+        callback = function(touchmenu_instance)
+            local function rename_update_func()
+                caller.updated = true
+                touchmenu_instance:updateItems()
+            end
+            Dispatcher.renameQuickMenuActions(location[settings], rename_update_func)
+        end,
+        hold_callback = function(touchmenu_instance) -- reset all custom names
+            util.tableRemoveValue(location[settings], "settings", "quickmenu_action_names")
+            caller.updated = true
+            touchmenu_instance:updateItems()
+        end,
+        separator = true,
+    })
+    -- items from Gestures plugin
+end
+
+function Dispatcher.renameQuickMenuActions(actions, rename_update_func)
+    local rename_callback, rename_hold_callback
+    rename_callback = function(action, quickmenu)
+        local InputDialog = require("ui/widget/inputdialog")
+        local name_input
+        name_input = InputDialog:new{
+            title = _("Action name"),
+            description = T(_("Action: %1"), action.text),
+            input = util.tableGetValue(actions, "settings", "quickmenu_action_names", action.key) or action.text,
+            buttons = {
+                {
+                    {
+                        text = _("Patterns"),
+                        callback = function()
+                            FileManagerBookInfo.chooseExpandStringPattern(name_input)
+                        end,
+                    },
+                    {
+                        text = _("Default"),
+                        callback = function()
+                            name_input:setInputText(action.text, nil, false)
+                        end,
+                    },
+                },
+                {
+                    {
+                        text = _("Cancel"),
+                        id = "close",
+                        callback = function()
+                            UIManager:close(name_input)
+                        end,
+                    },
+                    {
+                        text = _("Save"),
+                        callback = function()
+                            local new_name = name_input:getInputText()
+                            if new_name == "" or new_name == action.text then -- reset custom name
+                                util.tableRemoveValue(actions, "settings", "quickmenu_action_names", action.key)
+                            else
+                                util.tableSetValue(actions, new_name, "settings", "quickmenu_action_names", action.key)
+                            end
+                            UIManager:close(name_input)
+                            UIManager:close(quickmenu)
+                            rename_update_func()
+                            Dispatcher._showAsMenu(actions, nil, rename_callback, rename_hold_callback)
+                        end,
+                    },
+                },
+            },
+        }
+        UIManager:show(name_input)
+        name_input:onShowKeyboard()
+    end
+    rename_hold_callback = function(action, quickmenu) -- reset custom name
+        if util.tableGetValue(actions, "settings", "quickmenu_action_names", action.key) then
+            util.tableRemoveValue(actions, "settings", "quickmenu_action_names", action.key)
+            UIManager:close(quickmenu)
+            rename_update_func()
+            Dispatcher._showAsMenu(actions, nil, rename_callback, rename_hold_callback)
+        end
+    end
+    Dispatcher._showAsMenu(actions, nil, rename_callback, rename_hold_callback)
 end
 
 function Dispatcher:isActionEnabled(action)
     local disabled = true
-    if action and (action.condition == nil or action.condition == true) then
+    if action and isAvailable(action) then
         local ui = require("apps/reader/readerui").instance
         local context = ui and (ui.paging and "paging" or "rolling")
         if context == "paging" then
@@ -1208,7 +1459,7 @@ function Dispatcher:isActionEnabled(action)
     return not disabled
 end
 
-function Dispatcher._showAsMenu(settings, exec_props)
+function Dispatcher._showAsMenu(settings, exec_props, rename_callback, rename_hold_callback)
     local title = settings.settings.name
     local keep_open_on_apply = settings.settings.keep_open_on_apply
     local display_list = Dispatcher.getDisplayList(settings)
@@ -1227,22 +1478,40 @@ function Dispatcher._showAsMenu(settings, exec_props)
         }})
     end
     for _, v in ipairs(display_list) do
+        local text = util.tableGetValue(settings, "settings", "quickmenu_action_names", v.key) -- custom name
+        if text then
+            local ui = require("apps/reader/readerui").instance or require("apps/filemanager/filemanager").instance
+            text = ui.bookinfo:expandString(text)
+            if rename_callback then -- rename mode
+                text = "\u{F040} " .. text -- "pen" symbol
+            end
+        end
         table.insert(buttons, {{
-            text = v.text,
-            enabled = Dispatcher:isActionEnabled(settingsList[v.key]),
+            text = text or v.text,
+            enabled = rename_callback ~= nil or Dispatcher:isActionEnabled(settingsList[v.key]),
             menu_style = true,
             callback = function()
-                UIManager:close(quickmenu)
-                Dispatcher:execute({[v.key] = settings[v.key]})
-                if keep_open_on_apply and not util.stringStartsWith(v.key, "touch_input") then
-                    quickmenu:setTitle(title)
-                    UIManager:show(quickmenu)
+                if rename_callback then
+                    rename_callback(v, quickmenu)
+                else
+                    local current_offset = quickmenu:getScrolledOffset()
+                    UIManager:close(quickmenu)
+                    Dispatcher:execute({[v.key] = settings[v.key]})
+                    if keep_open_on_apply and not util.stringStartsWith(v.key, "touch_input") then
+                        quickmenu:setTitle(title)
+                        quickmenu:setScrolledOffset(current_offset)
+                        UIManager:show(quickmenu)
+                    end
                 end
             end,
             hold_callback = function()
-                if v.key:sub(1, 13) == "profile_exec_" then
-                    UIManager:close(quickmenu)
-                    UIManager:sendEvent(Event:new(settingsList[v.key].event, settingsList[v.key].arg, { qm_show = true }))
+                if rename_hold_callback then
+                    rename_hold_callback(v, quickmenu)
+                else
+                    if v.key:sub(1, 13) == "profile_exec_" then
+                        UIManager:close(quickmenu)
+                        UIManager:sendEvent(Event:new(settingsList[v.key].event, settingsList[v.key].arg, { qm_show = true }))
+                    end
                 end
             end,
         }})
@@ -1250,15 +1519,36 @@ function Dispatcher._showAsMenu(settings, exec_props)
             table.insert(buttons, {})
         end
     end
+    local screen_size = Screen:getSize()
     local ButtonDialog = require("ui/widget/buttondialog")
     quickmenu = ButtonDialog:new{
         title = title,
         title_align = "center",
         shrink_unneeded_width = true,
-        shrink_min_width = math.floor(0.6 * Screen:getWidth()),
+        shrink_min_width = math.floor(0.6 * screen_size.w),
         use_info_style = false,
         buttons = buttons,
-        anchor = exec_props and exec_props.qm_anchor,
+        anchor = function()
+            if exec_props and exec_props.qm_anchor then
+                return exec_props.qm_anchor
+            end
+            local pos = settings.settings.quickmenu_position
+            if pos then
+                local padding = Size.padding.small -- do not stick to the screen edge
+                local x, y
+                if pos.x == 0 then
+                    x = padding
+                elseif pos.x == 1 then
+                    x = screen_size.w - quickmenu:getContentSize().w - padding
+                end
+                if pos.y == 0 then
+                    y = padding
+                elseif pos.y == 1 then
+                    y = screen_size.h - padding
+                end
+                return { x = x, y = y }
+            end
+        end,
     }
     UIManager:show(quickmenu)
 end
@@ -1321,6 +1611,10 @@ function Dispatcher:execute(settings, exec_props)
                 -- the event can accept a gesture object or a number
                 arg = v ~= 0 and v or gesture or 0
                 UIManager:sendEvent(Event:new(event, arg))
+            elseif category == "key" then
+                local key = Key:new(arg, {})
+                UIManager:sendEvent(Event:new("KeyPress", key))
+                UIManager:sendEvent(Event:new("KeyRelease", key))
             end
         end
     end

@@ -7,6 +7,7 @@ It works using data gathered from a document interface.
 local Archiver = require("ffi/archiver")
 local BD = require("ui/bidi")
 local BookList = require("ui/widget/booklist")
+local ConfirmBox = require("ui/widget/confirmbox")
 local Device = require("device")
 local DeviceListener = require("device/devicelistener")
 local DocCache = require("document/doccache")
@@ -40,6 +41,7 @@ local ReaderHandMade = require("apps/reader/modules/readerhandmade")
 local ReaderHinting = require("apps/reader/modules/readerhinting")
 local ReaderHighlight = require("apps/reader/modules/readerhighlight")
 local ReaderScrolling = require("apps/reader/modules/readerscrolling")
+local ReaderKeySelection = require("apps/reader/modules/readerkeyselection")
 local ReaderKoptListener = require("apps/reader/modules/readerkoptlistener")
 local ReaderLink = require("apps/reader/modules/readerlink")
 local ReaderMenu = require("apps/reader/modules/readermenu")
@@ -125,7 +127,21 @@ function ReaderUI:init()
         self.dialog = self
     end
 
-    self.doc_settings = DocSettings:open(self.document.file)
+    local file = self.document.file
+    self.doc_settings = DocSettings:open(file)
+    if self.arc_settings_data then -- new book with archived metadata to be applied
+        local custom_props = self.arc_settings_data.metadata_arc.custom_props
+        if custom_props then
+            local custom_doc_settings = DocSettings.openSettingsFile()
+            custom_doc_settings.data.custom_props = custom_props
+            custom_doc_settings.data.doc_props = self.arc_settings_data.doc_props
+            custom_doc_settings:flushCustomMetadata(file)
+        end
+        self.arc_settings_data.metadata_arc = nil
+        self.arc_settings_data.doc_path = file
+        self.doc_settings.data = self.arc_settings_data
+        self.arc_settings_data = nil
+    end
     self.document.is_new = self.doc_settings:readSetting("doc_props") == nil
     -- Handle local settings migration
     SettingsMigration:migrateSettings(self.doc_settings)
@@ -208,6 +224,13 @@ function ReaderUI:init()
     })
     -- wikipedia
     self:registerModule("wikipedia", ReaderWikipedia:new{
+        dialog = self.dialog,
+        view = self.view,
+        ui = self,
+        document = self.document,
+    })
+    -- text selection with cursor keys
+    self:registerModule("keyselection", ReaderKeySelection:new{
         dialog = self.dialog,
         view = self.view,
         ui = self,
@@ -310,7 +333,7 @@ function ReaderUI:init()
             if not self.document:loadDocument() then
                 self:dealWithLoadDocumentFailure()
             end
-            logger.dbg(string.format("  loading took %.3f seconds", time.to_s(time.since(start_time))))
+            logger.info(string.format("  loading took %.3f seconds", time.to_s(time.since(start_time))))
 
             -- used to read additional settings after the document has been
             -- loaded (but not rendered yet)
@@ -318,7 +341,7 @@ function ReaderUI:init()
 
             start_time = time.now()
             self.document:render()
-            logger.dbg(string.format("  rendering took %.3f seconds", time.to_s(time.since(start_time))))
+            logger.info(string.format("  rendering took %.3f seconds", time.to_s(time.since(start_time))))
 
             -- Uncomment to output the built DOM (for debugging)
             -- logger.dbg(self.document:getHTMLFromXPointer(".0", 0x6830))
@@ -469,13 +492,14 @@ function ReaderUI:init()
     local props = self.document:getProps()
     self.doc_settings:saveSetting("doc_props", props)
     -- And have an extended and customized copy in memory for quick access.
-    self.doc_props = FileManagerBookInfo.extendProps(props, self.document.file)
+    self.doc_props = FileManagerBookInfo.extendProps(props, file)
 
     local md5 = self.doc_settings:readSetting("partial_md5_checksum")
     if md5 == nil then
-        md5 = util.partialMD5(self.document.file)
+        md5 = self.md5_checksum or util.partialMD5(file)
         self.doc_settings:saveSetting("partial_md5_checksum", md5)
     end
+    self.md5_checksum = nil
 
     local summary = self.doc_settings:readSetting("summary", {})
     if BookList.getBookStatusString(summary.status) == nil then
@@ -484,7 +508,7 @@ function ReaderUI:init()
     end
 
     if summary.status ~= "complete" or not G_reader_settings:isTrue("history_freeze_finished_books") then
-        require("readhistory"):addItem(self.document.file) -- (will update "lastfile")
+        require("readhistory"):addItem(file) -- (will update "lastfile")
     end
 
     -- After initialisation notify that document is loaded and rendered
@@ -503,7 +527,7 @@ function ReaderUI:init()
         self.after_open_callback = nil
     end
 
-    BookList.setBookInfoCache(self.document.file, self.doc_settings)
+    BookList.setBookInfoCache(file, self.doc_settings)
 
     Device:setIgnoreInput(false) -- Allow processing of events (on Android).
     Input:inhibitInputUntil(0.2)
@@ -526,18 +550,6 @@ function ReaderUI:registerKeyEvents()
     if Device:hasKeys() then
         self.key_events.Home = { { "Home" } }
         self.key_events.Reload = { { "F5" } }
-        if Device:hasDPad() and Device:useDPadAsActionKeys() then
-            self.key_events.StartHighlightIndicator = { { { "Up", "Down" } } }
-        end
-        if Device:hasScreenKB() or Device:hasSymKey() then
-            if Device:hasKeyboard() then
-                self.key_events.ToggleWifi = { { "Shift", "Home" } }
-                self.key_events.OpenLastDoc = { { "Shift", "Back" } }
-            else -- Currently exclusively targets Kindle 4.
-                self.key_events.ToggleWifi = { { "ScreenKB", "Home" } }
-                self.key_events.OpenLastDoc = { { "ScreenKB", "Back" } }
-            end
-        end
     end
 end
 
@@ -618,10 +630,41 @@ function ReaderUI:showReader(file, provider, seamless, is_provider_forced, after
         provider = self:extendProvider(file, provider, is_provider_forced)
     end
     if provider and provider.provider then
-        self.after_open_callback = after_open_callback
-        -- We can now signal the existing ReaderUI/FileManager instances that it's time to go bye-bye...
-        UIManager:broadcastEvent(Event:new("ShowingReader"))
-        self:showReaderCoroutine(file, provider, seamless)
+        local function do_show(settings_file)
+            if settings_file then
+                os.remove(settings_file)
+                os.remove(settings_file .. ".old")
+            end
+            self.after_open_callback = after_open_callback
+            -- We can now signal the existing ReaderUI/FileManager instances that it's time to go bye-bye...
+            UIManager:broadcastEvent(Event:new("ShowingReader"))
+            self:showReaderCoroutine(file, provider, seamless)
+        end
+        if BookList.hasBookBeenOpened(file) then
+            do_show()
+        else -- new book
+            self.md5_checksum = util.partialMD5(file)
+            local arc_settings_file = DocSettings.getSettingsArcFile(self.md5_checksum, true) -- check if exists
+            if arc_settings_file then
+                UIManager:show(ConfirmBox:new{
+                    text =
+_[[This book was previously opened on this device.
+Would you like to restore its metadata from the archive?
+Discarded metadata will be removed from the archive.]],
+                    ok_text = _("Restore"),
+                    ok_callback = function()
+                        self.arc_settings_data = DocSettings.openSettingsFile(arc_settings_file).data
+                        do_show(arc_settings_file)
+                    end,
+                    cancel_text = _("Discard"),
+                    cancel_callback = function()
+                        do_show(arc_settings_file)
+                    end,
+                })
+            else -- no arc settings file
+                do_show()
+            end
+        end
     else
         UIManager:show(InfoMessage:new{
             text = T(_("File '%1' is not supported."), BD.filepath(filemanagerutil.abbreviate(file)))
@@ -723,15 +766,21 @@ function ReaderUI:doShowReader(file, provider, seamless)
             end
         end
     end
+    local start_time = time.now()
     local reader = ReaderUI:new{
         dimen = Screen:getSize(),
         covers_fullscreen = true, -- hint for UIManager:_repaint()
         document = document,
         reloading = self.reloading,
         after_open_callback = self.after_open_callback,
+        md5_checksum = self.md5_checksum,
+        arc_settings_data = self.arc_settings_data,
     }
     self.reloading = nil
     self.after_open_callback = nil
+    self.md5_checksum = nil
+    self.arc_settings_data = nil
+    logger.info(string.format("  opening took %.3f seconds", time.to_s(time.since(start_time))))
 
     Screen:setWindowTitle(reader.doc_props.display_title)
     Device:notifyBookState(reader.doc_props.display_title, document)
@@ -800,6 +849,7 @@ end
 
 function ReaderUI:saveSettings()
     self:handleEvent(Event:new("SaveSettings"))
+    DocSettings.saveSettingsArcFile(self.doc_settings, nil, true)
     self.doc_settings:flush()
     G_reader_settings:flush()
 end
@@ -883,6 +933,7 @@ function ReaderUI:dealWithLoadDocumentFailure()
 end
 
 function ReaderUI:onHome()
+    UIManager:setSuspendRepaints(false)
     local file = self.document.file
     self:onClose()
     self:showFileManager(file)
@@ -915,7 +966,7 @@ function ReaderUI:reloadDocument(after_close_callback, seamless, after_open_call
     self:showReader(file, provider, seamless, nil, after_open_callback)
 end
 
-function ReaderUI:switchDocument(new_file, seamless, after_open_callback)
+function ReaderUI:switchDocument(new_file, seamless, after_open_callback, provider, is_provider_forced)
     if not new_file then return end
 
     -- Mimic onShowingReader's refresh optimizations
@@ -927,15 +978,17 @@ function ReaderUI:switchDocument(new_file, seamless, after_open_callback)
     self.highlight:onClose() -- close highlight dialog if any
     self:onClose(false)
 
-    self:showReader(new_file, nil, seamless, nil, after_open_callback)
+    self:showReader(new_file, provider, seamless, is_provider_forced, after_open_callback)
 end
 
 function ReaderUI:onOpenLastDoc()
-    self:switchDocument(self.menu:getPreviousFile())
+    filemanagerutil.openFile(self, self.menu:getPreviousFile())
 end
 
-function ReaderUI:onAnnotationsModified()
-    BookList.setBookInfoCacheProperty(self.document.file, "has_annotations", self.annotation:hasAnnotations())
+function ReaderUI:onAnnotationsModified(items)
+    if items.index_modified then
+        BookList.setBookInfoCacheProperty(self.document.file, "has_annotations", self.annotation:hasAnnotations())
+    end
 end
 
 function ReaderUI:onDocumentRerendered()
@@ -955,6 +1008,37 @@ end
 
 function ReaderUI:getCurrentPage()
     return self.paging and self.paging.current_page or self.document:getCurrentPage()
+end
+
+function ReaderUI:findTextInBookContent(caller, file, search_string)
+    -- Must be called within a subprocess (Trapper).
+    -- Must not be called from modules over Reader to avoid two instances of crengine.
+    logger.dbg("Search in book:", file)
+    local provider = self:extendProvider(file, DocumentRegistry:getProvider(file))
+    local document = DocumentRegistry:openDocument(file, provider)
+    if not document then return false end
+    local loaded, found
+    if document.loadDocument then -- crengine
+        -- We will be half-loading documents and may mess with crengine's state.
+        -- Fortunately, this is run in a subprocess, so we won't be affecting the
+        -- main process's crengine state or any document opened in the main
+        -- process (we furthermore prevent this feature when one is opened).
+        -- To avoid creating half-rendered/invalid cache files, it's best to disable
+        -- crengine saving of such cache files.
+        if not caller.is_cre_cache_disabled then
+            local cre = require("document/credocument"):engineInit()
+            cre.initCache("", 0, true, 40)
+            caller.is_cre_cache_disabled = true
+        end
+        loaded = document:loadDocument()
+    else
+        loaded = true
+    end
+    if loaded then
+        found = document:findText(search_string, 0, 0, not caller.case_sensitive, 1, false, 1)
+    end
+    document:close()
+    return type(found) == "table" and (found.page or found[1]["start"])
 end
 
 return ReaderUI

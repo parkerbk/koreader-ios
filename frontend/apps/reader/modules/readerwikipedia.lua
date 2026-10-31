@@ -1,6 +1,5 @@
 local ConfirmBox = require("ui/widget/confirmbox")
 local DataStorage = require("datastorage")
-local Device = require("device")
 local DictQuickLookup = require("ui/widget/dictquicklookup")
 local InfoMessage = require("ui/widget/infomessage")
 local InputDialog = require("ui/widget/inputdialog")
@@ -29,7 +28,6 @@ local ReaderWikipedia = ReaderDictionary:extend{
 }
 
 function ReaderWikipedia:init()
-    self:registerKeyEvents()
     self.wiki_languages = {}
     -- Read this from G_reader_settings for when used in FileBrowser
     -- (:onReadSettings() may replace it from the one saved in doc_settings)
@@ -40,13 +38,18 @@ function ReaderWikipedia:init()
     end
 end
 
-function ReaderWikipedia:registerKeyEvents()
-    if Device:hasKeyboard() then
-        self.key_events.ShowWikipediaLookup = { { "Alt", "W" }, { "Ctrl", "W" } }
-        if Device.k3_alt_plus_key_kernel_translated then
-            self.key_events.ShowWikipediaLookup = { { Device.k3_alt_plus_key_kernel_translated["W"] } }
-        end
+-- function ReaderWikipedia:registerKeyEvents()
+--     Now handled by hotkeys.koplugin:
+--     onShowWikipediaLookup = { { "Alt", "W" }, { "Ctrl", "W" } }
+-- end
+
+local function getKeyboardLayoutLanguage()
+    local VirtualKeyboard = require("ui/widget/virtualkeyboard")
+    local layout = VirtualKeyboard.getKeyboardLayout()
+    if not layout or layout == "" then
+        return nil
     end
+    return layout:match("^[^_-]+")
 end
 
 function ReaderWikipedia:lookupInput()
@@ -69,8 +72,12 @@ function ReaderWikipedia:lookupInput()
                     callback = function()
                         if self.input_dialog:getInputText() == "" then return end
                         UIManager:close(self.input_dialog)
+                        local kb_lang
+                        if G_reader_settings:isTrue("wikipedia_use_keyboard_language") then
+                            kb_lang = getKeyboardLayoutLanguage()
+                        end
                         -- Trust that input text does not need any cleaning (allows querying for "-suffix")
-                        self:onLookupWikipedia(self.input_dialog:getInputText(), true)
+                        self:onLookupWikipedia(self.input_dialog:getInputText(), true, nil, nil, kb_lang)
                     end,
                 },
             }
@@ -197,6 +204,19 @@ function ReaderWikipedia:addToMainMenu(menu_items)
                     UIManager:show(wikilang_input)
                     wikilang_input:onShowKeyboard()
                 end,
+            },
+            {
+                text = ("Use virtual keyboard language"),
+                help_text = _([[
+When looking up a word or phrase, search in the Wikipedia edition matching the current keyboard layout language.
+
+This has no effect on lookups from text selection or from the Wikipedia history.]]),
+                checked_func = function()
+                    return G_reader_settings:isTrue("wikipedia_use_keyboard_language")
+                end,
+                callback = function()
+                    G_reader_settings:flipTrue("wikipedia_use_keyboard_language")
+                end,
                 separator = true,
             },
             { -- setting used by dictquicklookup
@@ -211,6 +231,7 @@ You can choose an existing folder, or use a default folder named "Wikipedia" in 
                     local current_path = G_reader_settings:readSetting("wikipedia_save_dir")
                     local default_path = DictQuickLookup.getWikiSaveEpubDefaultDir()
                     local caller_callback = function(path)
+                        self.ui.folder_shortcuts:updateShortcut("wikipedia_save_dir", path)
                         G_reader_settings:saveSetting("wikipedia_save_dir", path)
                         if not util.pathExists(path) then
                             lfs.mkdir(path)

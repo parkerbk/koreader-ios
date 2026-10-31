@@ -22,10 +22,14 @@ function filemanagerutil.getDefaultDir()
     return Device.home_dir or "."
 end
 
+function filemanagerutil.getHomeFolder()
+    return G_reader_settings:readSetting("home_dir") or Device.home_dir or "."
+end
+
 function filemanagerutil.abbreviate(path)
     if not path then return "" end
     if G_reader_settings:nilOrTrue("shorten_home_dir") then
-        local home_dir = G_reader_settings:readSetting("home_dir") or filemanagerutil.getDefaultDir()
+        local home_dir = filemanagerutil.getHomeFolder()
         if path == home_dir or path == home_dir .. "/" then
             return _("Home")
         end
@@ -84,6 +88,7 @@ function filemanagerutil.resetDocumentSettings(file)
         highlights_imported = true,
         last_page = true,
         last_xpointer = true,
+        last_epubcfi = true,
     }
     local file_abs_path = ffiUtil.realpath(file)
     if file_abs_path then
@@ -367,7 +372,7 @@ function filemanagerutil.executeScript(file, caller_callback)
     end)
 end
 
-function filemanagerutil.showChooseDialog(title_header, caller_callback, current_path, default_path, file_filter)
+function filemanagerutil.showChooseDialog(title_header, caller_callback, current_path, default_path, file_filter, reset_button)
     local is_file = file_filter and true or false
     local path = current_path or default_path
     local dialog
@@ -382,7 +387,7 @@ function filemanagerutil.showChooseDialog(title_header, caller_callback, current
                             path = ffiUtil.dirname(path)
                         end
                         if lfs.attributes(path, "mode") ~= "directory" then
-                            path = G_reader_settings:readSetting("home_dir") or filemanagerutil.getDefaultDir()
+                            path = filemanagerutil.getHomeFolder()
                         end
                     end
                     local PathChooser = require("ui/widget/pathchooser")
@@ -413,6 +418,18 @@ function filemanagerutil.showChooseDialog(title_header, caller_callback, current
             },
         })
     end
+    if reset_button then
+        table.insert(buttons, {
+            {
+                text = _("Reset"),
+                enabled = current_path and true or false,
+                callback = function()
+                    UIManager:close(dialog)
+                    caller_callback()
+                end,
+            },
+        })
+    end
     local title_value = path and (is_file and BD.filepath(path) or BD.dirpath(path))
                               or _("not set")
     local ButtonDialog = require("ui/widget/buttondialog")
@@ -423,7 +440,63 @@ function filemanagerutil.showChooseDialog(title_header, caller_callback, current
     UIManager:show(dialog)
 end
 
-function filemanagerutil.openFile(ui, file, caller_pre_callback, no_dialog)
+function filemanagerutil.showSearchResultsOpenFileDialog(caller_ui, text, file, search_str, found_pos, caller_pre_callback)
+    local ButtonDialog = require("ui/widget/buttondialog")
+    local open_file_dialog
+    local function doOpen(after_open_callback)
+        UIManager:close(open_file_dialog)
+        filemanagerutil.openFile(caller_ui, file, caller_pre_callback, true, after_open_callback)
+    end
+    open_file_dialog = ButtonDialog:new{
+        title = BD.filename(text),
+        title_align = "center",
+        buttons = {
+            {{
+                text = _("Open"),
+                callback = function()
+                    doOpen()
+                end,
+            }},
+            {{
+                text = _("Open at first search result"),
+                callback = function()
+                    doOpen(function(ui)
+                        ui.link:addCurrentLocationToStack()
+                        ui.search.last_search_text = search_str
+                        if ui.rolling and type(found_pos) == "string" then
+                            ui.rolling:onGotoXPointer(found_pos, found_pos)
+                        elseif ui.paging and type(found_pos) == "number" then
+                            ui.paging:onGotoPage(found_pos)
+                        end
+                    end)
+                end,
+            }},
+            {{
+                text = _("Open and search forward"),
+                callback = function()
+                    doOpen(function(ui)
+                        UIManager:nextTick(function()
+                            ui.search:searchCallback(0, search_str)
+                        end)
+                    end)
+                end,
+            }},
+            {{
+                text = _("Open and search all results"),
+                callback = function()
+                    doOpen(function(ui)
+                        UIManager:nextTick(function()
+                            ui.search:searchCallback(nil, search_str)
+                        end)
+                    end)
+                end,
+            }},
+        },
+    }
+    UIManager:show(open_file_dialog)
+end
+
+function filemanagerutil.openFile(ui, file, caller_pre_callback, no_dialog, after_open_callback)
     local openFile = function()
         if caller_pre_callback then
             caller_pre_callback()
@@ -431,7 +504,7 @@ function filemanagerutil.openFile(ui, file, caller_pre_callback, no_dialog)
         if ui.document then -- Reader
             if ui.document.file ~= file then
                 local DocumentRegistry = require("document/documentregistry")
-                local provider = DocumentRegistry:getProvider(file, true) -- include auxiliary
+                local provider, is_provider_forced = DocumentRegistry:getProvider(file, true) -- include auxiliary
                 if provider and provider.order then -- auxiliary
                     -- keep the currently opened document, open the file over Reader
                     if provider.callback then -- module
@@ -440,11 +513,11 @@ function filemanagerutil.openFile(ui, file, caller_pre_callback, no_dialog)
                         ui[provider.provider]:openFile(file)
                     end
                 else -- document
-                    ui:switchDocument(file)
+                    ui:switchDocument(file, nil, after_open_callback, provider, is_provider_forced)
                 end
             end
         else -- FM
-            ui:openFile(file)
+            ui:openFile(file, nil, nil, nil, after_open_callback)
         end
     end
 

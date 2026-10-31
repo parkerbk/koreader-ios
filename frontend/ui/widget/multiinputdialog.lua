@@ -101,9 +101,9 @@ local MultiInputDialog = InputDialog:extend{
     enter_callback = nil, -- applied to all fields
 }
 
-function MultiInputDialog:init()
+function MultiInputDialog:init(reinit)
     -- init title and buttons in base class
-    InputDialog.init(self)
+    InputDialog.init(self, reinit)
     -- Kick InputDialog's own field out of the layout, we're not using it
     table.remove(self.layout, 1)
     -- Also murder said input field *and* its VK, or we get two of them and shit gets hilariously broken real fast...
@@ -156,7 +156,8 @@ function MultiInputDialog:init()
             para_direction_rtl = field.para_direction_rtl or self.para_direction_rtl,
             auto_para_direction = field.auto_para_direction or self.auto_para_direction,
             alignment_strict = field.alignment_strict or self.alignment_strict,
-            enter_callback = self.enter_callback,
+            enter_callback = not field.allow_newline and self.enter_callback,
+            disable_clipboard_snippet_edit = self.disable_clipboard_snippet_edit,
         }
         table.insert(self.input_fields, input_field_tmp)
         if field.description then
@@ -290,7 +291,7 @@ function MultiInputDialog:onKeyboardHeightChanged()
     for i, field in ipairs(self.fields) do -- restore entered text
         field.text = fields[i].text
     end
-    self:init()
+    self:init(true)
     if self.keyboard_visible then
         self:onShowKeyboard()
     end

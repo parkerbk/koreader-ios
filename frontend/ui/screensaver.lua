@@ -207,8 +207,7 @@ function Screensaver.isExcluded(ui)
     end
 end
 
-function Screensaver:setMessage(exit_sleep_screen)
-    local FileManagerBookInfo = require("apps/filemanager/filemanagerbookinfo")
+function Screensaver:setMessage(ui, exit_sleep_screen)
     local InputDialog = require("ui/widget/inputdialog")
     local title, input, setting
     if exit_sleep_screen then
@@ -235,8 +234,10 @@ function Screensaver:setMessage(exit_sleep_screen)
                     end,
                 },
                 {
-                    text = _("Info"),
-                    callback = FileManagerBookInfo.expandString,
+                    text = _("Patterns"),
+                    callback = function()
+                        ui.bookinfo.chooseExpandStringPattern(input_dialog, ui)
+                    end,
                 },
                 {
                     text = _("Set message"),
@@ -649,6 +650,14 @@ function Screensaver:show()
     -- NOTE: Make sure InputContainer gestures are not disabled, to prevent stupid interactions with UIManager on close.
     UIManager:setIgnoreTouchInput(false)
 
+    -- Setup the gesture lock through an additional invisible widget, so that it works regardless of the configuration.
+    if with_gesture_lock then
+        self.screensaver_lock_widget = ScreenSaverLockWidget:new{
+            ui = self.ui,
+            orig_dimen = orig_dimen,
+        }
+    end
+
     if widget then
         self.screensaver_widget = ScreenSaverWidget:new{
             widget = widget,
@@ -659,15 +668,49 @@ function Screensaver:show()
         self.screensaver_widget.dithered = true
 
         UIManager:show(self.screensaver_widget, "full")
+        local extra_flash_count = G_reader_settings:readSetting("screensaver_extra_flash_count", 0)
+        if extra_flash_count > 0 then
+            local delay_ms = G_reader_settings:readSetting("screensaver_extra_flash_delay", 1000)
+            Device.screensaver_suspend_wait_timeout = Device:getScreensaverSuspendWaitTimeout(extra_flash_count, delay_ms)
+            -- Save the framebuffer once before any flashes. Each flash restores this copy
+            -- so that transparent areas always composite over the original content.
+            self.bb_copy = Screen.bb:copy()
+            for i = 1, extra_flash_count do
+                local t = 0.5 + (i - 1) * (delay_ms / 1000)
+                local is_last = (i == extra_flash_count)
+                UIManager:scheduleIn(t, self.flashBlack, self, is_last)
+            end
+        else
+            -- It's flagged as modal, so it'll stay on top
+            UIManager:show(self.screensaver_lock_widget)
+        end
+    else
+        -- No screensaver widget, show lock widget immediately if needed
+        if self.screensaver_lock_widget then
+            UIManager:show(self.screensaver_lock_widget)
+        end
     end
+end
 
-    -- Setup the gesture lock through an additional invisible widget, so that it works regardless of the configuration.
-    if with_gesture_lock then
-        self.screensaver_lock_widget = ScreenSaverLockWidget:new{
-            ui = self.ui,
-            orig_dimen = orig_dimen,
-        }
+function Screensaver:flashBlack(is_last)
+    local screen_w, screen_h = Screen:getWidth(), Screen:getHeight()
+    Screen.bb:fill(Blitbuffer.COLOR_BLACK)
+    Screen:refreshFull(0, 0, screen_w, screen_h)
 
+    UIManager:scheduleIn(0.5, self.restoreCover, self, is_last)
+end
+
+function Screensaver:restoreCover(is_last)
+    if self.bb_copy then
+        Screen.bb:blitFrom(self.bb_copy)
+        if is_last then
+            self.bb_copy:free()
+            self.bb_copy = nil
+        end
+    end
+    UIManager:setDirty(self.screensaver_widget, "full")
+    UIManager:forceRePaint()
+    if is_last then
         -- It's flagged as modal, so it'll stay on top
         UIManager:show(self.screensaver_lock_widget)
     end
@@ -705,6 +748,19 @@ function Screensaver:close()
 end
 
 function Screensaver:cleanup()
+    -- Cancel any pending anti-ghosting redraws.
+    UIManager:unschedule(Screensaver.flashBlack)
+    UIManager:unschedule(Screensaver.restoreCover)
+
+    if self.bb_copy then
+        self.bb_copy:free()
+        self.bb_copy = nil
+    end
+
+    -- Only meaningful while the suspend entry is being delayed for the flashing;
+    -- reset it so a later suspend (with no extra flashes) uses the normal timeout.
+    Device.screensaver_suspend_wait_timeout = nil
+
     self.show_message = nil
     self.screensaver_type = nil
     self.prefix = nil

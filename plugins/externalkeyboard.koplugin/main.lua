@@ -1,5 +1,10 @@
-local Event = require("ui/event")
 local Device =  require("device")
+
+if not Device:supportsExternalKeyboard() then
+    return { disabled = true }
+end
+
+local Event = require("ui/event")
 local InfoMessage = require("ui/widget/infomessage")
 local InputText = require("ui/widget/inputtext")
 local lfs = require("libs/libkoreader-lfs")
@@ -14,85 +19,21 @@ local C = ffi.C
 require("ffi/posix_h")
 require("ffi/fbink_input_h")
 
--- The include/linux/usb/role.h calls the USB roles "host" and "device".
 local USB_ROLE_DEVICE = "device"
 local USB_ROLE_HOST   = "host"
--- The Chipidea driver calls them "host" and "gadget".
--- This plugin sticks to Linux naming except when interacting with drivers.
-local CHIPIDEA_TO_USB = {
-    host   = USB_ROLE_HOST,
-    gadget = USB_ROLE_DEVICE,
-}
-local USB_TO_CHIPIDEA = {
-    [USB_ROLE_HOST]   = "host",
-    [USB_ROLE_DEVICE] = "gadget",
-}
--- sunxi just adds a "usb_" prefix
-local SUNXI_TO_USB = {
-    usb_host   = USB_ROLE_HOST,
-    usb_device = USB_ROLE_DEVICE,
-}
-local USB_TO_SUNXI = {
-    [USB_ROLE_HOST]   = "usb_host",
-    [USB_ROLE_DEVICE] = "usb_device",
-}
 
--- This path exists on Kobo Clara and newer. Other devices w/ Chipidea drivers should have it too.
--- Also, the kernel must be compiled with CONFIG_DEBUG_FS and the debugfs must be mounted (we'll ensure the latter).
-local OTG_CHIPIDEA_ROLE_PATH = "/sys/kernel/debug/ci_hdrc.0/role"
--- This one is for devices on a sunxi SoC (tested on a B300, as found on the Kobo Elipsa & Sage).
--- It does not require debugfs, but the point is moot as debugfs is mounted by default on those,
--- as Nickel relies on it for PM interaction with the display driver.
-local OTG_SUNXI_ROLE_PATH = "/sys/devices/platform/soc/usbc0/otg_role"
+local KEYBOARD_LAYOUTS_DIR = "plugins/externalkeyboard.koplugin/keyboard_layouts"
 -- NOTE: See https://www.mobileread.com/forums/showthread.php?p=4135724 if your keyboard reports itself as an Apple keyboard.
 --       (We currently don't do this here, but that may change in the future).
 
-local function setupDebugFS()
-    local mounts = io.open("/proc/mounts", "re")
-    if not mounts then
-        return false
-    end
-
-    local found = false
-    for line in mounts:lines() do
-        if line:find("^none /sys/kernel/debug debugfs") or
-           line:find("^debugfs /sys/kernel/debug debugfs") then
-            found = true
-            break
-        end
-    end
-    mounts:close()
-
-    if not found then
-        -- If we're not root, we won't be able to mount it
-        if C.getuid() ~= 0 then
-            logger.dbg("ExternalKeyboard: Cannot mount debugfs (unprivileged user)")
-            return false
-        end
-
-        if os.execute("mount -t debugfs none /sys/kernel/debug") ~= 0 then
-            logger.dbg("ExternalKeyboard: Failed to mount debugfs")
-            return false
-        end
-    end
-
-    return true
-end
-
--- The mount point probably doesn't exist on kernels built w/o CONFIG_DEBUG_FS
-if lfs.attributes("/sys/kernel/debug", "mode") == "directory" then
-    -- This should be in init() but the check must come first. So this part of initialization is here.
-    -- It is quick and harmless enough to be in a check.
-    if not setupDebugFS() then
-        return { disabled = true }
-    end
-    if lfs.attributes(OTG_CHIPIDEA_ROLE_PATH, "mode") ~= "file" and
-       lfs.attributes(OTG_SUNXI_ROLE_PATH,    "mode") ~= "file" then
-        return { disabled = true }
-    end
-else
-    return { disabled = true }
-end
+-- Blacklist for virtual input nodes that *falsely* advertise KEYBOARD capabilities.
+-- For example, `kindle-input-pt` is a software-defined pass-through device created by
+-- Amazon's input_manager to route events from Bluetooth remotes (like the Kindle Click).
+-- Because it broadcasts a catch-all list of capabilities (including KEYBOARD and DPAD),
+-- we must explicitly ignore it so this plugin does not erroneously hijack input handling.
+local BLACKLISTED_DEVICES = {
+    ["kindle-input-pt"] = true,
+}
 
 local function yes() return true end
 local function no() return false end  -- luacheck: ignore
@@ -103,123 +44,135 @@ local ExternalKeyboard = WidgetContainer:extend{
     original_device_values = nil,
     keyboard_fds = {},
     connected_keyboards = 0,
+    keyboards_scanned = false,
 }
 
 function ExternalKeyboard:init()
+    if ExternalKeyboard.keyboards_scanned then return end
     self.ui.menu:registerToMainMenu(self)
+    self.has_otg_role = Device:hasOTGManagement()
 
-    -- Check if we should go with the sunxi otg manager, or the chipidea driver...
-    if lfs.attributes(OTG_SUNXI_ROLE_PATH, "mode") == "file" then
-        self.getOTGRole = self.sunxiGetOTGRole
-        self.setOTGRole = self.sunxiSetOTGRole
+    if self.has_otg_role then
+        -- Kobo: set up OTG role management
+        local role = Device:getOTGRole()
+        logger.dbg("ExternalKeyboard: role", role)
+
+        if role == USB_ROLE_DEVICE and G_reader_settings:isTrue("external_keyboard_otg_mode_on_start") then
+            Device:setOTGRole(USB_ROLE_HOST)
+            role = USB_ROLE_HOST
+        end
+        if role == USB_ROLE_HOST then
+            self:findAndSetupKeyboards()
+        end
     else
-        self.getOTGRole = self.chipideaGetOTGRole
-        self.setOTGRole = self.chipideaSetOTGRole
-    end
-
-    local role = self:getOTGRole()
-    logger.dbg("ExternalKeyboard: role", role)
-
-    if role == USB_ROLE_DEVICE and G_reader_settings:isTrue("external_keyboard_otg_mode_on_start") then
-        self:setOTGRole(USB_ROLE_HOST)
-        role = USB_ROLE_HOST
-    end
-    if role == USB_ROLE_HOST then
-        -- Sweep the full class/input sysfs tree to look for keyboards
+        -- Kindle: no OTG role management, but scan for any keyboards that
+        -- may already be present (e.g., UHID device created before KOReader
+        -- started). New keyboards are handled via EvdevInputInsert events.
         self:findAndSetupKeyboards()
     end
+    ExternalKeyboard.keyboards_scanned = true
 end
 
 function ExternalKeyboard:addToMainMenu(menu_items)
+    local sub_items = {}
+
+    -- OTG role management is only available on platforms with OTG sysfs knobs (Kobo)
+    if self.has_otg_role then
+        table.insert(sub_items, {
+            text = _("Enable OTG mode to connect peripherals"),
+            checked_func = function()
+                return Device:getOTGRole() == USB_ROLE_HOST
+            end,
+            callback = function(touchmenu_instance)
+                local role = Device:getOTGRole()
+                local new_role = (role == USB_ROLE_DEVICE) and USB_ROLE_HOST or USB_ROLE_DEVICE
+                Device:setOTGRole(new_role)
+            end,
+        })
+        table.insert(sub_items, {
+            text = _("Always enable OTG mode"),
+            checked_func = function()
+                 return G_reader_settings:isTrue("external_keyboard_otg_mode_on_start")
+            end,
+            callback = function(touchmenu_instance)
+                G_reader_settings:flipNilOrFalse("external_keyboard_otg_mode_on_start")
+            end,
+        })
+    end
+
+    table.insert(sub_items, {
+        text = _("Keyboard layout"),
+        sub_item_table_func = function()
+            return self:getKeyboardLayoutMenu()
+        end,
+    })
+
+    table.insert(sub_items, {
+        text = _("Help"),
+        keep_menu_open = true,
+        callback = function()
+            self:showHelp()
+        end,
+    })
+
     menu_items.external_keyboard = {
         text = _("External Keyboard"),
-        sub_item_table = {
-            {
-                text = _("Enable OTG mode to connect peripherals"),
-                checked_func = function()
-                    return self:getOTGRole() == USB_ROLE_HOST
-                end,
-                callback = function(touchmenu_instance)
-                    local role = self:getOTGRole()
-                    local new_role = (role == USB_ROLE_DEVICE) and USB_ROLE_HOST or USB_ROLE_DEVICE
-                    self:setOTGRole(new_role)
-                end,
-            },
-            {
-                text = _("Always enable OTG mode"),
-                checked_func = function()
-                     return G_reader_settings:isTrue("external_keyboard_otg_mode_on_start")
-                end,
-                callback = function(touchmenu_instance)
-                    G_reader_settings:flipNilOrFalse("external_keyboard_otg_mode_on_start")
-                end,
-            },
-            {
-                text = _("Help"),
-                keep_menu_open = true,
-                callback = function()
-                    self:showHelp()
-                end,
-            },
-        }
+        sub_item_table = sub_items,
     }
 end
 
-function ExternalKeyboard:chipideaGetOTGRole()
-    local role = USB_ROLE_DEVICE
-    local file = io.open(OTG_CHIPIDEA_ROLE_PATH, "re")
-
-    -- Do not throw exception if the file for role does not exist.
-    -- If it does not exist, the USB must be in the default device mode.
-    if file then
-        local chipidea_role = file:read("l")
-        file:close()
-        return CHIPIDEA_TO_USB[chipidea_role] or role
+function ExternalKeyboard:getKeyboardLayoutMenu()
+    local layouts_by_language = {}
+    for filename in lfs.dir(KEYBOARD_LAYOUTS_DIR) do
+        local layout = filename:match("^([%w_-]+)%.lua$")
+        if layout then
+            local language = layout:match("^([%w_]+)%-") or layout
+            layouts_by_language[language] = layouts_by_language[language] or {}
+            table.insert(layouts_by_language[language], layout)
+        end
     end
-    return role
-end
 
-function ExternalKeyboard:sunxiGetOTGRole()
-    local file = io.open(OTG_SUNXI_ROLE_PATH, "re")
-
-    -- File should always be present
-    if file then
-        local sunxi_role = file:read("l")
-        file:close()
-        return SUNXI_TO_USB[sunxi_role]
+    local languages = {}
+    for language in pairs(layouts_by_language) do table.insert(languages, language) end
+    table.sort(languages)
+    local items = {}
+    for __, language in ipairs(languages) do
+        local layouts = layouts_by_language[language]
+        table.sort(layouts)
+        local layout_items = {}
+        local language_name = language
+        for dummy, layout in ipairs(layouts) do
+            local loader = loadfile(KEYBOARD_LAYOUTS_DIR .. "/" .. layout .. ".lua")
+            local layout_data = loader and loader()
+            if layout == language and layout_data and layout_data.name then
+                language_name = layout_data.name
+            end
+            table.insert(layout_items, {
+                text = layout_data and layout_data.name or (layout == language and _("Default") or layout:sub(#language + 2)),
+                checked_func = function()
+                    return G_reader_settings:readSetting("external_keyboard_layout", "us") == layout
+                end,
+                callback = function()
+                    G_reader_settings:saveSetting("external_keyboard_layout", layout)
+                    logger.dbg("ExternalKeyboard: selected layout", layout)
+                end,
+            })
+        end
+        table.insert(items, {
+            text = language_name,
+            sub_item_table = layout_items,
+        })
     end
+    return items
 end
-
-function ExternalKeyboard:getOTGRole() end
-
-function ExternalKeyboard:chipideaSetOTGRole(role)
-    -- Writing role to file will fail if the role is the same as the current role.
-    -- Check current role before calling.
-    logger.dbg("ExternalKeyboard:chipideaSetOTGRole setting to", role)
-    local file = io.open(OTG_CHIPIDEA_ROLE_PATH, "we")
-    if file then
-        file:write(USB_TO_CHIPIDEA[role])
-        file:close()
-    end
-end
-
-function ExternalKeyboard:sunxiSetOTGRole(role)
-    -- Sunxi being what it is, there's no sanity check at all, it'll happily reset USB to set the same role again.
-    logger.dbg("ExternalKeyboard:sunxiSetOTGRole setting to", role)
-    local file = io.open(OTG_SUNXI_ROLE_PATH, "we")
-    if file then
-        file:write(USB_TO_SUNXI[role])
-        file:close()
-    end
-end
-
-function ExternalKeyboard:setOTGRole(role) end
 
 function ExternalKeyboard:onExit()
     logger.dbg("ExternalKeyboard:onExit")
-    local role = self:getOTGRole()
-    if role == USB_ROLE_HOST then
-        self:setOTGRole(USB_ROLE_DEVICE)
+    if self.has_otg_role then
+        local role = Device:getOTGRole()
+        if role == USB_ROLE_HOST then
+            Device:setOTGRole(USB_ROLE_DEVICE)
+        end
     end
 end
 
@@ -246,6 +199,9 @@ function ExternalKeyboard:_onEvdevInputRemove(event_path)
         return
     end
 
+    -- Clear the screen-rotation exemption before its fd can be reused.
+    Device.input.rotation_ignored_fds[ExternalKeyboard.keyboard_fds[event_path]] = nil
+
     -- Close our Input handle on it
     Device.input:close(event_path)
 
@@ -255,11 +211,13 @@ function ExternalKeyboard:_onEvdevInputRemove(event_path)
     -- If that was the last keyboard we knew about, restore native input-related device caps.
     if ExternalKeyboard.connected_keyboards == 0 and ExternalKeyboard.original_device_values then
         Device.input.event_map = ExternalKeyboard.original_device_values.event_map
+        Device.input.hw_text_layout = ExternalKeyboard.original_device_values.hw_text_layout
         Device.keyboard_layout = ExternalKeyboard.original_device_values.keyboard_layout
         Device.hasKeyboard = ExternalKeyboard.original_device_values.hasKeyboard
         Device.hasKeys = ExternalKeyboard.original_device_values.hasKeys
         Device.hasFewKeys = ExternalKeyboard.original_device_values.hasFewKeys
         Device.hasDPad = ExternalKeyboard.original_device_values.hasDPad
+        Device.useDPadAsActionKeys = ExternalKeyboard.original_device_values.useDPadAsActionKeys
         ExternalKeyboard.original_device_values = nil
     end
 
@@ -298,9 +256,17 @@ local function findKeyboards()
         for i = 0, tonumber(dev_count[0]) - 1 do
             local dev = devices[i]
             if dev.matched then
-                -- Check if it provides a DPad, too.
-                local has_dpad = bit.band(dev.type, C.INPUT_DPAD) ~= 0
-                table.insert(keyboards, { event_fd = tonumber(dev.fd), event_path = ffi.string(dev.path), name = ffi.string(dev.name), has_dpad = has_dpad })
+                local dev_name = ffi.string(dev.name)
+                --- @fixme Might want to revise this later, with a more robust solution.
+                if Device:isKindle() and Device:isMTK() and BLACKLISTED_DEVICES[dev_name] then
+                    -- This is a kindle only problem. Technically only MTK devices get the newer
+                    -- problematic firmware even though not all of them do (e.g., PW5).
+                    logger.dbg("ExternalKeyboard: Ignoring blacklisted node in findKeyboards:", dev_name)
+                else
+                    -- Check if it provides a DPad, too.
+                    local has_dpad = bit.band(dev.type, C.INPUT_DPAD) ~= 0
+                    table.insert(keyboards, { event_fd = tonumber(dev.fd), event_path = ffi.string(dev.path), name = dev_name, has_dpad = has_dpad })
+                end
             end
         end
         C.free(devices)
@@ -316,12 +282,20 @@ local function checkKeyboard(path)
     local dev = FBInkInput.fbink_input_check(path, C.INPUT_KEYBOARD, 0, 0)
     if dev ~= nil then
         if dev.matched then
-            keyboard = {
-                event_fd = tonumber(dev.fd),
-                event_path = ffi.string(dev.path),
-                name = ffi.string(dev.name),
-                has_dpad = bit.band(dev.type, C.INPUT_DPAD) ~= 0
-            }
+            local dev_name = ffi.string(dev.name)
+            --- @fixme Might want to revise this later, with a more robust solution.
+            if Device:isKindle() and Device:isMTK() and BLACKLISTED_DEVICES[dev_name] then
+                -- This is a kindle only problem. Technically only MTK devices get the newer
+                -- problematic firmware even though not all of them do (e.g., PW5).
+                logger.dbg("ExternalKeyboard: Ignoring blacklisted node in checkKeyboard:", dev_name)
+            else
+                keyboard = {
+                    event_fd = tonumber(dev.fd),
+                    event_path = ffi.string(dev.path),
+                    name = dev_name,
+                    has_dpad = bit.band(dev.type, C.INPUT_DPAD) ~= 0
+                }
+            end
         end
         C.free(dev)
     end
@@ -364,7 +338,11 @@ function ExternalKeyboard:setupKeyboard(data)
     -- Check if we already know about this event file.
     if ExternalKeyboard.keyboard_fds[keyboard_info.event_path] == nil then
         local ok, fd = pcall(Device.input.fdopen, Device.input, keyboard_info.event_fd, keyboard_info.event_path, keyboard_info.name)
-        if not ok then
+        -- fdopen returns nil (not an error) when the device is already open.
+        if ok and not fd then
+            fd = require("device/input").opened_devices[keyboard_info.event_path]
+        end
+        if not ok or not fd then
             UIManager:show(InfoMessage:new{
                 text = "Error opening keyboard:\n" .. tostring(fd),
             })
@@ -373,6 +351,8 @@ function ExternalKeyboard:setupKeyboard(data)
         end
 
         ExternalKeyboard.keyboard_fds[keyboard_info.event_path] = fd
+        -- External keyboard arrows are keyboard-relative, not device-relative.
+        Device.input.rotation_ignored_fds[fd] = true
         ExternalKeyboard.connected_keyboards = ExternalKeyboard.connected_keyboards + 1
         logger.dbg("ExternalKeyboard: USB keyboard", keyboard_info.name, "@", keyboard_info.event_path, "was connected; total:", ExternalKeyboard.connected_keyboards)
 
@@ -386,11 +366,13 @@ function ExternalKeyboard:setupKeyboard(data)
     if not ExternalKeyboard.original_device_values then
         ExternalKeyboard.original_device_values = {
             event_map = Device.input.event_map,
+            hw_text_layout = Device.input.hw_text_layout,
             keyboard_layout = Device.keyboard_layout,
             hasKeyboard = Device.hasKeyboard,
             hasKeys = Device.hasKeys,
             hasFewKeys = Device.hasFewKeys,
             hasDPad = Device.hasDPad,
+            useDPadAsActionKeys = Device.useDPadAsActionKeys,
         }
     end
 
@@ -399,10 +381,18 @@ function ExternalKeyboard:setupKeyboard(data)
     util.tableMerge(event_map, Device.input.event_map)
     util.tableMerge(event_map, dofile("plugins/externalkeyboard.koplugin/event_map_keyboard.lua"))
     Device.input.event_map = event_map
+    local KeyboardLayout = dofile("plugins/externalkeyboard.koplugin/keyboard_layout.lua")
+    Device.input.hw_text_layout = function(key_name, modifiers)
+        local layout_name = G_reader_settings:readSetting("external_keyboard_layout", "us")
+        local text = KeyboardLayout.resolve(layout_name, key_name, modifiers)
+        logger.dbg("ExternalKeyboard: layout", layout_name, "key", key_name, "AltGr", modifiers.AltGr, "Shift", modifiers.Shift, "=>", text)
+        return text
+    end
     Device.hasKeyboard = yes
     Device.hasKeys = yes
     Device.hasFewKeys = no
     Device.hasDPad = has_dpad_func
+    Device:setUseDPadAsActionKeys(G_reader_settings:isTrue("input_use_dpad_as_action_keys"))
 
     -- Only show this once
     if ExternalKeyboard.connected_keyboards == 1 then
