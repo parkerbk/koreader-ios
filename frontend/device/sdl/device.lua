@@ -294,6 +294,12 @@ if isIOS then
 end
 
 function Device:init()
+    -- The top menu is a sheet of its own here, and the bottom menu behind it
+    -- would only be in the way.
+    if isIOS and G_reader_settings:hasNot("show_bottom_menu") then
+        G_reader_settings:makeFalse("show_bottom_menu")
+    end
+
     -- allows to set a viewport via environment variable
     -- syntax is Lua table syntax, e.g. EMULATE_READER_VIEWPORT="{x=10,w=550,y=5,h=790}"
     local viewport = os.getenv("EMULATE_READER_VIEWPORT")
