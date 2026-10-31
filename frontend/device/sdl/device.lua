@@ -200,10 +200,23 @@ if isIOS then
         int ko_ios_location_poll(double *latitude, double *longitude, double *altitude, int *has_altitude);
     ]]
 
-    function Device:getIOSWindowPixels()
+    function Device:readIOSWindowPixels()
         local w, h = ffi.new("int[1]"), ffi.new("int[1]")
         ffi.C.ko_ios_get_window_pixels(w, h)
         return tonumber(w[0]), tonumber(h[0])
+    end
+
+    --- The window's size, or its last usable one while it's too small to lay
+    -- anything out in: entering Split View can pass through an empty window,
+    -- and widgets raise an error at that size, which ends the app.
+    function Device:getIOSWindowPixels()
+        local w, h = self:readIOSWindowPixels()
+        local min_size = 200 * ffi.C.ko_ios_get_screen_scale()
+        if self.ios_window_w and (w < min_size or h < min_size) then
+            return self.ios_window_w, self.ios_window_h
+        end
+        self.ios_window_w, self.ios_window_h = w, h
+        return w, h
     end
 
     ffi.cdef[[
