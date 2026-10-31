@@ -139,9 +139,11 @@ new device class, to keep the diff against upstream small.
   presents `ConfirmBox`, `MultiConfirmBox`, `ButtonDialog`, untimed `InfoMessage`
   and single-line `InputDialog`/`MultiInputDialog` through `ios_dialog.m`. The
   widget stays in the stack unpainted, so callers work unchanged. That gives
-  text fields real iOS selection, copy and paste. Anything richer keeps its
-  KOReader look: dictionary popups, spin widgets, the bottom config bar, the file
-  browser, multi-line and full-screen editors.
+  text fields real iOS selection, copy and paste. `SpinWidget`,
+  `DoubleSpinWidget`, `DateTimeWidget` and multi-line `InputDialog` use a form
+  sheet: its values go into the widget's own pickers, then the widget's own
+  buttons run. Anything richer keeps its KOReader look: the bottom config bar,
+  the file browser, radio lists and full-screen editors, which have Find.
 - **Long press**: `Device:getPanThreshold` allows 20 points of movement, since
   KOReader's default is under 12 on a 3x screen and a thumb often exceeds it.
 - **Duo columns**: `Device:getAutoVisiblePages` shows reflowable books in two
