@@ -339,10 +339,16 @@ dated branch and rebuilds; test it on the Simulator, then merge to `master`.
 `base/` carries a few iOS commits of its own. The menu hooks in
 `readermenu.lua` and `filemanagermenu.lua` are the likeliest app conflicts.
 
-## 9. Text-to-speech (planned)
+## 9. Text-to-speech
 
 Read the open book aloud with the system voices, and keep going with the
-screen locked. Nothing is built yet, and no bundled plugin provides this.
+screen locked. Built as `plugins/readaloud.koplugin` and
+`platform/ios/ios_tts.m`, and reached from the first tab of the top menu.
+
+Status: steps 1 to 6 below are in, except Lock Screen cover art. It has only
+run on the simulator, where background speech, page catch-up, and resuming
+after a kill all work. Still to try on a device: the locked screen, Lock Screen
+controls, calls and headphone removal. PDFs aren't started.
 
 Scope:
 
@@ -377,8 +383,9 @@ Risks:
 
 - `willSpeakRange` timing varies by voice, so sentence-level highlight is the
   baseline and word-level is a stretch goal.
-- How much of the SDL/Lua loop keeps running in the background is unknown, and
-  has to be measured on device before step 4 is designed further.
+- On the simulator the Lua loop keeps running in the background with the audio
+  mode on, but that's unconfirmed on a device. The native queue holds 600
+  sentences so speech doesn't depend on it.
 
 ## 10. Open questions
 

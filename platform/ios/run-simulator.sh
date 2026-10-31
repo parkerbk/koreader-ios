@@ -48,7 +48,7 @@ xcrun --sdk iphonesimulator clang -target arm64-apple-ios15.0-simulator -isysroo
     -fobjc-arc -O1 -g \
     -I "${BUILD_DIR}/staging/include" -I "${BUILD_DIR}/staging/include/luajit-2.1" \
     -L "${WORK}/libs" -lluajit -lSDL3 \
-    -framework Foundation -framework UIKit -framework CoreFoundation \
+    -framework AVFoundation -framework Foundation -framework MediaPlayer -framework UIKit -framework CoreFoundation \
     -framework CoreGraphics -framework CoreLocation -framework CoreText -framework UniformTypeIdentifiers \
     -Wl,-headerpad_max_install_names -Wl,-rpath,@executable_path/Frameworks \
     -o "${APP}/KOReader" platform/ios/ios_*.m platform/ios/ios_exit.c platform/ios/ios_statvfs.c

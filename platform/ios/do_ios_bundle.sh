@@ -69,7 +69,9 @@ xcrun --sdk "${IOS_PLATFORM}" clang \
     -L "${BASE_BUILD}/staging/lib" \
     -lluajit \
     -lSDL3 \
+    -framework AVFoundation \
     -framework Foundation \
+    -framework MediaPlayer \
     -framework UIKit \
     -framework CoreFoundation \
     -framework CoreGraphics \
@@ -83,6 +85,7 @@ xcrun --sdk "${IOS_PLATFORM}" clang \
     "${PLATFORM_DIR}/ios_menu.m" \
     "${PLATFORM_DIR}/ios_location.m" \
     "${PLATFORM_DIR}/ios_dialog.m" \
+    "${PLATFORM_DIR}/ios_tts.m" \
     "${PLATFORM_DIR}/ios_exit.c" \
     "${PLATFORM_DIR}/ios_statvfs.c"
 

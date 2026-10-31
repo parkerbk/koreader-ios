@@ -59,6 +59,8 @@ targets:
         type: file
       - path: platform/ios/ios_dialog.m
         type: file
+      - path: platform/ios/ios_tts.m
+        type: file
       - path: platform/ios/AppIcon.icon
         type: file
         buildPhase: resources
@@ -91,12 +93,14 @@ targets:
         # Quiet the noisy override of macOS-isms.
         CLANG_ENABLE_OBJC_ARC: YES
     dependencies:
+      - sdk: AVFoundation.framework
       - sdk: Foundation.framework
       - sdk: UIKit.framework
       - sdk: CoreFoundation.framework
       - sdk: CoreGraphics.framework
       - sdk: CoreLocation.framework
       - sdk: CoreText.framework
+      - sdk: MediaPlayer.framework
       - sdk: UniformTypeIdentifiers.framework
     preBuildScripts:
       - name: Build base/ libs and staging tree
