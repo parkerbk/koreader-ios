@@ -1,3 +1,4 @@
+local Device = require("device")
 local _ = require("gettext")
 
 local ui = require("apps/reader/readerui").instance or require("apps/filemanager/filemanager").instance
@@ -36,6 +37,9 @@ return {
         },
         {
             text = _("Auto-show bottom menu"),
+            enabled_func = function()
+                return not Device:hasNativeMenu()
+            end,
             checked_func = function()
                 return G_reader_settings:nilOrTrue("show_bottom_menu")
             end,

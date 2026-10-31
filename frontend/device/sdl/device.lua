@@ -294,9 +294,8 @@ if isIOS then
 end
 
 function Device:init()
-    -- The top menu is a sheet of its own here, and the bottom menu behind it
-    -- would only be in the way.
-    if isIOS and G_reader_settings:hasNot("show_bottom_menu") then
+    -- Both menus use the one native sheet, so they can't open together.
+    if isIOS then
         G_reader_settings:makeFalse("show_bottom_menu")
     end
 

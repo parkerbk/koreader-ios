@@ -361,6 +361,10 @@ function NativeDialogs:onShow(widget)
     widget.native_dialog_id = id
     widget.paintTo = noop
     widget.covers_fullscreen = nil
+    if spec.form then
+        -- Apply ends a form, and the page is still in view behind its sheet.
+        widget.keep_shown_on_apply = nil
+    end
     if spec.fields or spec.form then
         -- The alert's text fields bring the system keyboard themselves.
         widget.onShowKeyboard = noop

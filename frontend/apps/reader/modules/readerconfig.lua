@@ -1,5 +1,5 @@
-local ConfigDialog = require("ui/widget/configdialog")
 local Device = require("device")
+local ConfigDialog = require(Device:hasNativeMenu() and "ui/widget/nativeconfigdialog" or "ui/widget/configdialog")
 local Event = require("ui/event")
 local InputContainer = require("ui/widget/container/inputcontainer")
 local UIManager = require("ui/uimanager")

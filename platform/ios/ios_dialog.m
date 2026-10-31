@@ -340,8 +340,18 @@ bool ko_ios_dictionary_is_open(void) {
     return [[UIBarButtonItem alloc] initWithPrimaryAction:action];
 }
 
+/* Unlike an alert, a form doesn't go away by itself. A button that keeps the
+ * widget open brings it back up with fresh values. */
 - (void)pressed:(int)button {
     ko_dialog_post(_dialog_id, button, self);
+    UIViewController *form = self.navigationController;
+    ko_dialog_enqueue(^(dispatch_block_t done) {
+        if (form.presentingViewController) {
+            [form dismissViewControllerAnimated:YES completion:done];
+        } else {
+            done();
+        }
+    });
 }
 
 - (void)addTextControl:(NSDictionary *)spec toStack:(UIStackView *)stack {

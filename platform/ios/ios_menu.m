@@ -20,7 +20,12 @@ enum {
     KO_MENU_EV_BACK = 3,
     KO_MENU_EV_TAB = 4,
     KO_MENU_EV_DISMISS = 5,
+    KO_MENU_EV_CHOOSE = 6,
+    KO_MENU_EV_MORE = 7,
 };
+
+/* A choice is posted as item * this + position (see nativeconfigdialog.lua). */
+static const int KO_MENU_CHOICE_FACTOR = 1000;
 
 static NSMutableArray<NSArray<NSNumber *> *> *g_events = nil;
 static UINavigationController *g_nav = nil;
@@ -40,6 +45,7 @@ static void ko_menu_post(int type, int value, int depth) {
 @property (nonatomic) NSInteger depth;
 @property (nonatomic) NSInteger scrollTo;
 @property (nonatomic, strong) NSArray<NSArray<NSDictionary *> *> *sections;
+@property (nonatomic, strong) NSMutableDictionary<NSNumber *, UILabel *> *valueLabels;
 - (void)setItems:(NSArray<NSDictionary *> *)items;
 @end
 
@@ -98,6 +104,7 @@ static void ko_menu_post(int type, int value, int depth) {
         [sections addObject:section];
     }
     self.sections = sections;
+    self.valueLabels = [NSMutableDictionary dictionary];
     [self.tableView reloadData];
     [self applyScroll];
 }
@@ -132,6 +139,122 @@ static void ko_menu_post(int type, int value, int depth) {
     ko_menu_post(KO_MENU_EV_SELECT, (int)sender.tag, (int)self.depth);
 }
 
+- (void)segmentChosen:(UISegmentedControl *)sender {
+    int value = (int)sender.tag * KO_MENU_CHOICE_FACTOR + (int)sender.selectedSegmentIndex + 1;
+    ko_menu_post(KO_MENU_EV_CHOOSE, value, (int)self.depth);
+}
+
+- (NSDictionary *)itemWithIndex:(NSInteger)index {
+    for (NSArray<NSDictionary *> *section in self.sections) {
+        for (NSDictionary *item in section) {
+            if ([item[@"i"] integerValue] == index) {
+                return item;
+            }
+        }
+    }
+    return nil;
+}
+
+- (void)showValue:(UISlider *)sender {
+    NSArray<NSString *> *labels = [self itemWithIndex:sender.tag][@"labels"];
+    NSInteger position = lroundf(sender.value);
+    if (position < (NSInteger)labels.count) {
+        self.valueLabels[@(sender.tag)].text = labels[position];
+    }
+}
+
+- (void)sliderReleased:(UISlider *)sender {
+    NSInteger position = lroundf(sender.value);
+    sender.value = position;
+    ko_menu_post(KO_MENU_EV_CHOOSE, (int)sender.tag * KO_MENU_CHOICE_FACTOR + (int)position + 1, (int)self.depth);
+}
+
+- (void)morePressed:(UIButton *)sender {
+    ko_menu_post(KO_MENU_EV_MORE, (int)sender.tag, (int)self.depth);
+}
+
+/* An option of the bottom menu: its name, then a control across the row. */
+- (UITableViewCell *)controlCellForItem:(NSDictionary *)item {
+    static NSString *const reuse_id = @"control";
+    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:reuse_id];
+    if (!cell) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuse_id];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    }
+    [cell.contentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+
+    NSInteger index = [item[@"i"] integerValue];
+    BOOL enabled = [item[@"enabled"] boolValue];
+    NSArray<NSString *> *labels = item[@"labels"];
+    NSInteger selected = [item[@"selected"] integerValue];
+
+    UILabel *name = [[UILabel alloc] init];
+    name.text = item[@"text"];
+    name.textColor = enabled ? UIColor.labelColor : UIColor.secondaryLabelColor;
+    name.numberOfLines = 0;
+    [name setContentHuggingPriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
+    UIStackView *header = [[UIStackView alloc] initWithArrangedSubviews:@[ name ]];
+    header.spacing = 8;
+    header.alignment = UIStackViewAlignmentCenter;
+
+    UIView *control;
+    if ([item[@"control"] isEqualToString:@"slider"]) {
+        UILabel *value = [[UILabel alloc] init];
+        value.textColor = UIColor.secondaryLabelColor;
+        value.font = [UIFont monospacedDigitSystemFontOfSize:UIFont.labelFontSize weight:UIFontWeightRegular];
+        [header addArrangedSubview:value];
+        self.valueLabels[@(index)] = value;
+
+        UISlider *slider = [[UISlider alloc] init];
+        slider.minimumValue = 0;
+        slider.maximumValue = MAX([item[@"count"] integerValue] - 1, 1);
+        slider.value = MAX(selected - 1, 0);
+        slider.tag = index;
+        slider.enabled = enabled;
+        [slider addTarget:self action:@selector(showValue:) forControlEvents:UIControlEventValueChanged];
+        [slider addTarget:self action:@selector(sliderReleased:)
+            forControlEvents:UIControlEventTouchUpInside | UIControlEventTouchUpOutside];
+        [self showValue:slider];
+        control = slider;
+    } else {
+        UISegmentedControl *segments = [[UISegmentedControl alloc] initWithItems:labels];
+        segments.apportionsSegmentWidthsByContent = YES;
+        segments.momentary = item[@"momentary"] != nil;
+        if (!segments.momentary && selected > 0) {
+            segments.selectedSegmentIndex = selected - 1;
+        }
+        segments.tag = index;
+        segments.enabled = enabled;
+        [segments addTarget:self action:@selector(segmentChosen:) forControlEvents:UIControlEventValueChanged];
+        control = segments;
+    }
+
+    if ([item[@"more"] boolValue]) {
+        UIButton *more = [UIButton buttonWithType:UIButtonTypeSystem];
+        [more setImage:[UIImage systemImageNamed:@"ellipsis.circle"] forState:UIControlStateNormal];
+        more.tag = index;
+        more.enabled = enabled;
+        [more addTarget:self action:@selector(morePressed:) forControlEvents:UIControlEventTouchUpInside];
+        [more setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
+        [more setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
+        [header addArrangedSubview:more];
+    }
+
+    UIStackView *stack = [[UIStackView alloc] initWithArrangedSubviews:@[ header, control ]];
+    stack.axis = UILayoutConstraintAxisVertical;
+    stack.spacing = 8;
+    stack.translatesAutoresizingMaskIntoConstraints = NO;
+    [cell.contentView addSubview:stack];
+    UILayoutGuide *margins = cell.contentView.layoutMarginsGuide;
+    [NSLayoutConstraint activateConstraints:@[
+        [stack.leadingAnchor constraintEqualToAnchor:margins.leadingAnchor],
+        [stack.trailingAnchor constraintEqualToAnchor:margins.trailingAnchor],
+        [stack.topAnchor constraintEqualToAnchor:margins.topAnchor],
+        [stack.bottomAnchor constraintEqualToAnchor:margins.bottomAnchor],
+    ]];
+    return cell;
+}
+
 - (void)rowHeld:(UILongPressGestureRecognizer *)recognizer {
     if (recognizer.state != UIGestureRecognizerStateBegan) {
         return;
@@ -152,12 +275,15 @@ static void ko_menu_post(int type, int value, int depth) {
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *const reuse_id = @"item";
+    NSDictionary *item = [self itemAtIndexPath:indexPath];
+    if (item[@"control"]) {
+        return [self controlCellForItem:item];
+    }
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuse_id];
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuse_id];
         cell.textLabel.numberOfLines = 0;
     }
-    NSDictionary *item = [self itemAtIndexPath:indexPath];
     BOOL enabled = [item[@"enabled"] boolValue];
     BOOL checked = [item[@"checked"] boolValue];
     BOOL submenu = [item[@"sub"] boolValue];
@@ -192,7 +318,7 @@ static void ko_menu_post(int type, int value, int depth) {
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     NSDictionary *item = [self itemAtIndexPath:indexPath];
-    if ([item[@"enabled"] boolValue]) {
+    if ([item[@"enabled"] boolValue] && !item[@"control"]) {
         ko_menu_post(KO_MENU_EV_SELECT, [item[@"i"] intValue], (int)self.depth);
     }
 }
