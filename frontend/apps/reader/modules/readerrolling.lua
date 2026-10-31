@@ -342,6 +342,7 @@ function ReaderRolling:onSaveSettings()
 end
 
 function ReaderRolling:onReaderReady()
+    self:applyAutoVisiblePages() -- the book's saved settings have been applied by now
     self:setupTouchZones()
     if self.hide_nonlinear_flows then
         self.ui.document:cacheFlows()
@@ -1091,11 +1092,15 @@ function ReaderRolling:onRedrawCurrentView()
     return true
 end
 
-function ReaderRolling:onSetDimensions(dimen)
+function ReaderRolling:applyAutoVisiblePages()
     local auto_visible_pages = Device:getAutoVisiblePages()
-    if auto_visible_pages and auto_visible_pages ~= self.configurable.visible_pages then
+    if auto_visible_pages and auto_visible_pages ~= self.ui.document:getVisiblePageCount() then
         self:onSetVisiblePages(auto_visible_pages)
     end
+end
+
+function ReaderRolling:onSetDimensions(dimen)
+    self:applyAutoVisiblePages()
     if self.ui.postReaderReadyCallback ~= nil then
         -- ReaderUI:init() not yet done: just set document dimensions
         self.ui.document:setViewDimen(Screen:getSize())

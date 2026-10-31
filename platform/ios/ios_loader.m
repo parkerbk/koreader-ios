@@ -116,6 +116,11 @@ int main(int argc, char *argv[]) {
          * actual screen. */
         setenv("SDL_FULLSCREEN", "1", 1);
 
+        /* Without this SDL can limit rotation to the window's current shape,
+         * leaving the app stuck in landscape after a fold or a turn. SDL and
+         * Info.plist still rule out what a device doesn't allow. */
+        setenv("SDL_ORIENTATIONS", "Portrait PortraitUpsideDown LandscapeLeft LandscapeRight", 1);
+
         /* Disable SDL's synthesis of mouse events from touches. On iOS
          * SDL3 fires both a FINGER_DOWN and a synthetic MOUSE_BUTTON_DOWN
          * for every tap, and the synthesized event isn't reliably tagged

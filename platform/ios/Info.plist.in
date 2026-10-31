@@ -85,8 +85,6 @@
     <true/>
     <key>UIViewControllerBasedStatusBarAppearance</key>
     <false/>
-    <key>UIRequiresFullScreen</key>
-    <true/>
     <key>UIApplicationSupportsIndirectInputEvents</key>
     <true/>
     <key>CFBundleDocumentTypes</key>

@@ -90,7 +90,8 @@ new device class, to keep the diff against upstream small.
 ## 3. Display and input
 
 - **Full screen**: `SDL_FULLSCREEN=1` sizes the SDL window to the current
-  display mode; the status bar is hidden; `UIRequiresFullScreen` is set.
+  display mode; the status bar is hidden. `UIRequiresFullScreen` is off: on the Duo's inner
+  screen it keeps the app from rotating.
 - **Safe area**: `SDL3.applyIOSSafeArea` reads `UIWindow.safeAreaInsets`
   (in pixels via `nativeScale`) and shrinks `S.w/S.h`. The blitbuffer is
   rendered into an inset sub-rect, and the bezel is painted white, or
@@ -110,7 +111,11 @@ new device class, to keep the diff against upstream small.
   orientation in Info.plist and resizes the window on rotation.
   `Device:resizeIOSScreen` sizes the framebuffer from UIKit's window bounds,
   because mid-rotation SDL's event size and renderer size can each be stale,
-  then re-checks after the animation. KOReader's own rotation setting rotates the content inside
+  then re-checks after the animation. SDL drops resize events when it thinks nothing
+  changed, so `Device:refreshIOSRenderer` fits SDL's view to the window, updates the
+  renderer directly, and a
+  2 s watch catches a rotation with no event; otherwise the renderer clips at
+  the old size and leaves a black bar. KOReader's own rotation setting rotates the content inside
   the window and shouldn't be combined with device rotation.
 - **Night mode**: blitbuffer stays non-inverted; `_render` XOR-inverts the
   dirty region into a scratch buffer right before the texture upload.
@@ -249,10 +254,9 @@ with different sizes, aspect ratios, and safe areas while it is running.
 5. **Orientation**: the unfolded inner display is close to square;
    allow all four orientations on it. Rotation must work whether the
    app is started folded or unfolded.
-6. **Multitasking**: `UIRequiresFullScreen = true` opts out of Split
-   View. Keep it for the first release. Supporting Split View later
-   means arbitrary window sizes, which (2) mostly covers, plus
-   handling `UIRequiresFullScreen = false` on iPad as well.
+6. **Multitasking**: `UIRequiresFullScreen` is off, because it stops the app
+   rotating on the inner screen. That also allows Split View on iPad, which
+   the UIKit-sized resize path handles.
 7. **Hinge/crease**: no special layout at first. A possible follow-up
    is a "two-page spread" option for the unfolded display, reusing
    KOReader's existing dual-page mode for paged documents.

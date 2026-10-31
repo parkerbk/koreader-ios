@@ -237,8 +237,31 @@ void ko_ios_get_window_pixels(int *out_w, int *out_h) {
     *out_h = (int)lround(size.height * scale);
 }
 
+/* After a few rotations SDL's view can stay at the old size while its window
+ * has moved on, which leaves a black bar: rendering is cut off at the old size. */
+void ko_ios_fit_root_view(void) {
+    void (^fit)(void) = ^{
+        UIWindow *win = ko_ios_main_window();
+        UIView *view = win.rootViewController.view;
+        if (!view || CGRectEqualToRect(view.frame, win.bounds)) {
+            return;
+        }
+        view.frame = win.bounds;
+        [view layoutIfNeeded];
+    };
+    if ([NSThread isMainThread]) {
+        fit();
+    } else {
+        dispatch_sync(dispatch_get_main_queue(), fit);
+    }
+}
+
 bool ko_ios_is_phone(void) {
     return UIDevice.currentDevice.userInterfaceIdiom == UIUserInterfaceIdiomPhone;
+}
+
+double ko_ios_get_screen_scale(void) {
+    return UIScreen.mainScreen.nativeScale;
 }
 
 void ko_ios_end_editing(void) {

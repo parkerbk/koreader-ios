@@ -185,6 +185,8 @@ if isIOS then
         void ko_ios_get_window_pixels(int *out_w, int *out_h);
         void ko_ios_end_editing(void);
         bool ko_ios_is_phone(void);
+        double ko_ios_get_screen_scale(void);
+        void ko_ios_fit_root_view(void);
         void ko_ios_location_start(void);
         int ko_ios_location_poll(double *latitude, double *longitude, double *altitude, int *has_altitude);
     ]]
@@ -195,15 +197,20 @@ if isIOS then
         return tonumber(w[0]), tonumber(h[0])
     end
 
+    ffi.cdef[[
+        bool SDL_SetRenderLogicalPresentation(SDL_Renderer *renderer, int w, int h, int mode);
+    ]]
+
     --- Two columns on the iPhone Duo's inner screen in landscape, one otherwise.
     -- The Duo is told apart by its screen sizes: the short side of its cover
     -- screen is 466 points and of its inner screen 669, past any other iPhone's.
     function Device:getAutoVisiblePages()
         if not ffi.C.ko_ios_is_phone() then return end
         local w, h = self:getIOSWindowPixels()
-        local scale = SDL.window_pixel_w / SDL.win_w
-        local short_side = math.min(w, h) / scale
-        if short_side < 450 then return end
+        local short_side = math.min(w, h) / ffi.C.ko_ios_get_screen_scale()
+        -- (Once it's known to be a Duo, any size can be the cover screen.)
+        if short_side < 450 and not self.is_duo then return end
+        self.is_duo = true
         return (short_side >= 600 and w > h) and 2 or 1
     end
 
@@ -390,15 +397,25 @@ function Device:init()
     Generic.init(self)
 end
 
+--- Has SDL's renderer pick up the window's size.
+-- It only does so on a resize event, and SDL drops those once its own idea of
+-- the window's size agrees, which leaves the renderer clipping at the old size.
+-- Setting the logical presentation is the one public way to make it update.
+function Device:refreshIOSRenderer()
+    ffi.C.ko_ios_fit_root_view()
+    SDL.SDL.SDL_SetRenderLogicalPresentation(SDL.renderer, 0, 0, 0) -- SDL_LOGICAL_PRESENTATION_DISABLED
+end
+
 --- Resizes the framebuffer to the size UIKit reports for the window.
 -- screen.resize() can't be used here: during a rotation the size it's given and
 -- the renderer's size it prefers are each out of date in one direction.
 function Device:resizeIOSScreen()
     local w, h = self:getIOSWindowPixels()
-    local scale = SDL.window_pixel_w / SDL.win_w
+    local scale = ffi.C.ko_ios_get_screen_scale()
     SDL.win_w = w / scale
     SDL.win_h = h / scale
     SDL.applyIOSSafeArea(w, h)
+    self:refreshIOSRenderer()
     self.screen:_newBB(SDL.w, SDL.h)
     SDL.destroyTexture(SDL.texture)
     SDL.texture = SDL.createTexture(SDL.w, SDL.h)
@@ -414,8 +431,8 @@ function Device:onWindowResized(w, h, device_input)
     else
         device_input.device.screen.resize(device_input.device.screen, w, h)
     end
-    self.window.width = w
-    self.window.height = h
+    self.window.width = w or SDL.win_w
+    self.window.height = h or SDL.win_h
 
     local new_size = device_input.device.screen:getSize()
     device_input.device.screen.screen_size.w = new_size.w
@@ -444,20 +461,36 @@ function Device:onWindowResized(w, h, device_input)
 
     if isIOS then
         -- UIKit only settles on the new size and safe area once the rotation
-        -- is done, after this event: lay out again if they turned out different.
+        -- is done, after this event.
         UIManager:unschedule(self.window_size_check)
-        self.window_size_check = function()
-            -- SDL's hidden text field can take focus back during a rotation.
-            if not self.text_input_started then
-                ffi.C.ko_ios_end_editing()
-            end
-            local pixel_w, pixel_h = self:getIOSWindowPixels()
-            if SDL.applyIOSSafeArea(pixel_w, pixel_h) then
-                self:onWindowResized(w, h, device_input)
-            end
-        end
         UIManager:scheduleIn(0.5, self.window_size_check)
     end
+end
+
+--- Settles the layout once a rotation is done: lays out again if the size or
+-- safe area turned out different, and otherwise has the renderer catch up.
+function Device:checkIOSWindowSize()
+    -- SDL's hidden text field can take focus back during a rotation.
+    if not self.text_input_started then
+        ffi.C.ko_ios_end_editing()
+    end
+    local pixel_w, pixel_h = self:getIOSWindowPixels()
+    if SDL.applyIOSSafeArea(pixel_w, pixel_h) then
+        self:onWindowResized(nil, nil, self.input)
+    else
+        self:refreshIOSRenderer()
+        self.screen:refreshFull(0, 0, self.screen:getWidth(), self.screen:getHeight())
+    end
+end
+
+--- SDL drops a rotation's resize event if it thinks the size hasn't changed,
+-- so nothing else would tell us about it.
+function Device:watchIOSWindowSize()
+    local pixel_w, pixel_h = self:getIOSWindowPixels()
+    if pixel_w ~= SDL.window_pixel_w or pixel_h ~= SDL.window_pixel_h then
+        self:onWindowResized(nil, nil, self.input)
+    end
+    UIManager:scheduleIn(2, self.window_size_watch)
 end
 
 --- How far a touch can move before it's a pan, which also cancels a hold.
@@ -466,7 +499,7 @@ end
 -- exceeds while holding still.
 function Device:getPanThreshold()
     if isIOS then
-        return 20 * SDL.window_pixel_w / SDL.win_w
+        return 20 * ffi.C.ko_ios_get_screen_scale()
     end
 end
 
@@ -501,7 +534,7 @@ if isIOS then
     -- safe-area letterbox.
     function Device:setTextInputArea(dimen)
         if not dimen or SDL.window_pixel_w == 0 then return end
-        local scale = SDL.win_w / SDL.window_pixel_w
+        local scale = 1 / ffi.C.ko_ios_get_screen_scale()
         local rect = ffi.new("SDL_Rect", {
             math.floor((dimen.x + SDL.safe_left) * scale),
             math.floor((dimen.y + SDL.safe_top) * scale),
@@ -525,6 +558,11 @@ end
 
 function Device:UIManagerReady(uimgr)
     UIManager = uimgr
+    if isIOS then
+        self.window_size_check = function() self:checkIOSWindowSize() end
+        self.window_size_watch = function() self:watchIOSWindowSize() end
+        UIManager:scheduleIn(2, self.window_size_watch)
+    end
 end
 
 function Device:setEventHandlers(uimgr)
