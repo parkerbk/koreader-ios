@@ -68,6 +68,7 @@ function NativeTouchMenu:updateItems(target_page, target_item_id)
     local scroll_to = self.scroll_to or 0
     self.scroll_to = nil
     for i, item in ipairs(self.item_table) do
+        item.idx = i
         local enabled = item.enabled
         if item.enabled_func then
             enabled = item.enabled_func()

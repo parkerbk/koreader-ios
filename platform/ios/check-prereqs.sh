@@ -52,6 +52,7 @@ need xcodegen       xcodegen
 # user has put `coreutils/libexec/gnubin` ahead of /usr/bin on PATH. Our
 # build needs `gln` (the `ln -snfr` flavour KOReader's Makefile uses).
 need gln            coreutils
+need wget           wget
 
 # GNU findutils → gfind. Build script uses GNU find features.
 need gfind          findutils

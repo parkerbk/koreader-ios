@@ -331,6 +331,13 @@ Things App Store builds depend on, which Debug builds hide:
 - **Version file**: `write-git-rev.sh`, since `git describe` needs tags.
 - **Icon**: `platform/ios/AppIcon.icon`, layered in Icon Composer format.
 
+### 8.1 Updating KOReader
+
+`platform/ios/update-koreader.sh` merges KOReader into `base/` and the app on a
+dated branch and rebuilds; test it on the Simulator, then merge to `master`.
+`base/` carries a few iOS commits of its own. The menu hooks in
+`readermenu.lua` and `filemanagermenu.lua` are the likeliest app conflicts.
+
 ## 9. Text-to-speech (planned)
 
 Read the open book aloud with the system voices, and keep going with the
@@ -378,5 +385,7 @@ Risks:
   unfold, or does the scene get torn down and recreated? If the scene
   is recreated, the lifecycle path (§3) has to rebuild the
   renderer/texture as well.
+- Page browser is off on iOS: `ReaderThumbnail` needs `fork()`. Thumbnails would
+  have to come from a second document instance, or be rendered off-screen.
 - Should the version in Storefront's catalog be stable-only on iOS, or
   follow the user's beta setting?

@@ -6,6 +6,7 @@ local InputContainer = require("ui/widget/container/inputcontainer")
 local Persist = require("persist")
 local RenderImage = require("ui/renderimage")
 local TileCacheItem = require("document/tilecacheitem")
+local InfoMessage = require("ui/widget/infomessage")
 local UIManager = require("ui/uimanager")
 local Screen = Device.screen
 local ffiutil = require("ffi/util")
@@ -100,6 +101,12 @@ function ReaderThumbnail:onShowBookMap(overview_mode)
 end
 
 function ReaderThumbnail:onShowPageBrowser()
+    if os.getenv("KO_IOS") == "1" then
+        -- Thumbnails come from a forked child that freely changes the document:
+        -- without fork() that would happen to the book being read.
+        UIManager:show(InfoMessage:new{ text = _("Page browser isn't available on iOS yet.") })
+        return true
+    end
     local PageBrowserWidget = require("ui/widget/pagebrowserwidget")
     UIManager:show(PageBrowserWidget:new{
         ui = self.ui,
