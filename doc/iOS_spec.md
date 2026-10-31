@@ -173,7 +173,7 @@ new device class, to keep the diff against upstream small.
 | `KOReader.app/app/` | Read-only Lua tree, resources, built-in fonts, bundled plugins, dylibs (`app/libs`), first-run seeds (`app/seed/`). |
 | `Documents/` (`KO_HOME`) | `settings.reader.lua`, `settings/`, history, cache, books. |
 | `Documents/plugins/` | User plugins: Storefront itself, anything it installs, and anything copied in through the Files app. Scanned by `PluginLoader` after the bundled `plugins/`. |
-| `Documents/fonts/` | User fonts: Storefront installs and `.ttf`/`.otf` dropped in through the Files app. On iOS, `ui/elements/font_settings.lua` returns this as the user font dir, so `fontlist` picks it up. There are no readable system font dirs. |
+| `Documents/fonts/` | User fonts: Storefront installs and `.ttf`/`.otf` dropped in through the Files app. On iOS, `ui/elements/font_settings.lua` returns this as the user font dir, so `fontlist` picks it up. iOS's own fonts are listed too, on by default: `ko_ios_get_font_dirs` asks CoreText where their files are. |
 | `Documents/patches/` | User patches (Storefront's Patches tab), loaded by upstream's patch loader. |
 | Security-scoped bookmarks | Saved by `iosfilepicker.koplugin`, resolved at launch. |
 

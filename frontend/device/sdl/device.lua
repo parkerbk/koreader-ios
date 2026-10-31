@@ -216,6 +216,17 @@ if isIOS then
     end
 
     ffi.cdef[[
+        void ko_ios_get_font_dirs(char *out, size_t cap);
+    ]]
+
+    function Device:getIOSFontDirs()
+        local cap = 64 * 1024
+        local dirs = ffi.new("char[?]", cap)
+        ffi.C.ko_ios_get_font_dirs(dirs, cap)
+        return ffi.string(dirs)
+    end
+
+    ffi.cdef[[
         void ko_ios_dictionary_show(const char *term);
         bool ko_ios_dictionary_is_open(void);
     ]]

@@ -18,6 +18,7 @@
  * timer ticks. This avoids deadlocking the runloop in any thread layout.
  */
 
+#import <CoreText/CoreText.h>
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import <UniformTypeIdentifiers/UniformTypeIdentifiers.h>
@@ -253,6 +254,31 @@ void ko_ios_fit_root_view(void) {
         fit();
     } else {
         dispatch_sync(dispatch_get_main_queue(), fit);
+    }
+}
+
+/* The folders holding the fonts iOS comes with, joined with semicolons. Their
+ * location varies, so ask where each font's file is. */
+void ko_ios_get_font_dirs(char *out, size_t cap) {
+    void (^collect)(void) = ^{
+        NSMutableSet<NSString *> *dirs = [NSMutableSet set];
+        for (NSString *family in UIFont.familyNames) {
+            for (NSString *name in [UIFont fontNamesForFamilyName:family]) {
+                CTFontRef font = CTFontCreateWithName((__bridge CFStringRef)name, 12, NULL);
+                NSURL *url = (__bridge_transfer NSURL *)CTFontCopyAttribute(font, kCTFontURLAttribute);
+                CFRelease(font);
+                if (url && ![url.path containsString:@"/PrivateFrameworks/"]
+                    && [NSFileManager.defaultManager isReadableFileAtPath:url.path]) {
+                    [dirs addObject:url.path.stringByDeletingLastPathComponent];
+                }
+            }
+        }
+        strlcpy(out, [dirs.allObjects componentsJoinedByString:@";"].UTF8String, cap);
+    };
+    if ([NSThread isMainThread]) {
+        collect();
+    } else {
+        dispatch_sync(dispatch_get_main_queue(), collect);
     }
 }
 

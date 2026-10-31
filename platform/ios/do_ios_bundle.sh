@@ -74,6 +74,7 @@ xcrun --sdk "${IOS_PLATFORM}" clang \
     -framework CoreFoundation \
     -framework CoreGraphics \
     -framework CoreLocation \
+    -framework CoreText \
     -framework UniformTypeIdentifiers \
     -Wl,-rpath,@executable_path/app/libs \
     -o "${APP_BUNDLE}/KOReader" \

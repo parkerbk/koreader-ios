@@ -96,6 +96,7 @@ targets:
       - sdk: CoreFoundation.framework
       - sdk: CoreGraphics.framework
       - sdk: CoreLocation.framework
+      - sdk: CoreText.framework
       - sdk: UniformTypeIdentifiers.framework
     preBuildScripts:
       - name: Build base/ libs and staging tree

@@ -117,6 +117,20 @@ function CreDocument:engineInit()
         -- initialize hyph dictionaries
         cre.initHyphDict("./data/hyph/")
 
+        if os.getenv("KO_IOS") == "1" then
+            -- iOS's own fonts include hidden ones for its interface, named with a dot.
+            local getFontFaces = cre.getFontFaces
+            cre.getFontFaces = function()
+                local faces = {}
+                for _, face in ipairs(getFontFaces()) do
+                    if face:sub(1, 1) ~= "." then
+                        table.insert(faces, face)
+                    end
+                end
+                return faces
+            end
+        end
+
         -- we need to initialize the CRE font list
         local fonts = FontList:getFontList()
         for k, v in ipairs(fonts) do
