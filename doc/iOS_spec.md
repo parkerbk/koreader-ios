@@ -324,6 +324,8 @@ Things App Store builds depend on, which Debug builds hide:
 - **Export compliance**: `ITSAppUsesNonExemptEncryption` is false, which skips
   App Store Connect's question on each build. The app bundles LibreSSL for
   HTTPS and sync; revisit this if it starts encrypting anything else.
+- **`statvfs`**: `ios_statvfs.c` translates to the Linux layout `base/ffi`
+  declares; read directly, free space was nonsense.
 - **Version file**: `write-git-rev.sh`, since `git describe` needs tags.
 - **Icon**: `platform/ios/AppIcon.icon`, layered in Icon Composer format.
 

@@ -51,6 +51,8 @@ targets:
         type: file
       - path: platform/ios/ios_exit.c
         type: file
+      - path: platform/ios/ios_statvfs.c
+        type: file
       - path: platform/ios/ios_menu.m
         type: file
       - path: platform/ios/ios_location.m

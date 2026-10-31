@@ -82,7 +82,8 @@ xcrun --sdk "${IOS_PLATFORM}" clang \
     "${PLATFORM_DIR}/ios_menu.m" \
     "${PLATFORM_DIR}/ios_location.m" \
     "${PLATFORM_DIR}/ios_dialog.m" \
-    "${PLATFORM_DIR}/ios_exit.c"
+    "${PLATFORM_DIR}/ios_exit.c" \
+    "${PLATFORM_DIR}/ios_statvfs.c"
 
 # 2) Copy assets.
 echo "[*] Copying koreader/ asset tree"

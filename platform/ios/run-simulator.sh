@@ -51,7 +51,7 @@ xcrun --sdk iphonesimulator clang -target arm64-apple-ios15.0-simulator -isysroo
     -framework Foundation -framework UIKit -framework CoreFoundation \
     -framework CoreGraphics -framework CoreLocation -framework UniformTypeIdentifiers \
     -Wl,-headerpad_max_install_names -Wl,-rpath,@executable_path/Frameworks \
-    -o "${APP}/KOReader" platform/ios/ios_*.m platform/ios/ios_exit.c
+    -o "${APP}/KOReader" platform/ios/ios_*.m platform/ios/ios_exit.c platform/ios/ios_statvfs.c
 install_name_tool \
     -change @rpath/libSDL3.0.dylib @rpath/SDL3.framework/SDL3 \
     -change @rpath/libluajit.dylib @rpath/luajit.framework/luajit "${APP}/KOReader"
