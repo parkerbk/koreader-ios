@@ -197,7 +197,7 @@ ko_pick_state_t ko_ios_pick_folder_poll(char *out_path, size_t path_cap,
     return state;
 }
 
-static UIWindow *ko_ios_main_window(void) {
+UIWindow *ko_ios_main_window(void) {
     __block UIWindow *win = nil;
     void (^lookup)(void) = ^{
         for (UIScene *scene in UIApplication.sharedApplication.connectedScenes) {

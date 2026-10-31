@@ -10,11 +10,20 @@
 #import <MediaPlayer/MediaPlayer.h>
 #import <UIKit/UIKit.h>
 
+UIWindow *ko_ios_main_window(void);
+
 typedef enum {
     KO_TTS_IDLE = 0,
     KO_TTS_SPEAKING = 1,
     KO_TTS_PAUSED = 2,
 } ko_tts_state_t;
+
+@interface KOTTSDelegate : NSObject <AVSpeechSynthesizerDelegate>
+- (void)rewindPressed;
+- (void)playPressed;
+- (void)forwardPressed;
+- (void)stopPressed;
+@end
 
 static NSString *const KOTTSBookKey = @"KOTTSBook";
 static NSString *const KOTTSPositionKey = @"KOTTSPosition";
@@ -47,8 +56,13 @@ static NSString *g_language = nil;
 static NSString *g_book = nil;
 static NSString *g_title = nil;
 static NSString *g_author = nil;
+static UIVisualEffectView *g_bar = nil;
+static UIButton *g_play_button = nil;
 
 static void ko_tts_speak_current(void);
+static void ko_tts_pause(void);
+static void ko_tts_resume(void);
+static void ko_tts_seek(NSInteger delta);
 static void ko_tts_stop(void);
 
 /* iOS's own pick for a language is usually its basic voice, even with a better
@@ -92,7 +106,65 @@ static AVSpeechSynthesisVoice *ko_tts_voice(void) {
     return g_voice;
 }
 
+static UIButton *ko_tts_bar_button(NSString *symbol, NSString *label, SEL action) {
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
+    [button setImage:[UIImage systemImageNamed:symbol] forState:UIControlStateNormal];
+    button.tintColor = UIColor.labelColor;
+    button.accessibilityLabel = label;
+    [button addTarget:g_tts_delegate action:action forControlEvents:UIControlEventTouchUpInside];
+    [button.widthAnchor constraintEqualToConstant:52].active = YES;
+    return button;
+}
+
+/* Floats over the page, in UIKit so it's there whatever Lua is doing. */
+static void ko_tts_create_bar(void) {
+    UIView *root = ko_ios_main_window().rootViewController.view;
+    if (!root) {
+        return;
+    }
+    UIBlurEffect *blur = [UIBlurEffect effectWithStyle:UIBlurEffectStyleSystemMaterial];
+    g_bar = [[UIVisualEffectView alloc] initWithEffect:blur];
+    g_bar.translatesAutoresizingMaskIntoConstraints = NO;
+    g_bar.layer.cornerRadius = 26;
+    g_bar.clipsToBounds = YES;
+
+    g_play_button = ko_tts_bar_button(@"pause.fill", @"Pause", @selector(playPressed));
+    UIStackView *buttons = [[UIStackView alloc] initWithArrangedSubviews:@[
+        ko_tts_bar_button(@"backward.fill", @"Back one sentence", @selector(rewindPressed)),
+        g_play_button,
+        ko_tts_bar_button(@"forward.fill", @"Forward one sentence", @selector(forwardPressed)),
+        ko_tts_bar_button(@"stop.fill", @"Stop", @selector(stopPressed)),
+    ]];
+    buttons.translatesAutoresizingMaskIntoConstraints = NO;
+    [g_bar.contentView addSubview:buttons];
+    [root addSubview:g_bar];
+
+    UILayoutGuide *safe = root.safeAreaLayoutGuide;
+    [NSLayoutConstraint activateConstraints:@[
+        [buttons.leadingAnchor constraintEqualToAnchor:g_bar.contentView.leadingAnchor constant:6],
+        [buttons.trailingAnchor constraintEqualToAnchor:g_bar.contentView.trailingAnchor constant:-6],
+        [buttons.topAnchor constraintEqualToAnchor:g_bar.contentView.topAnchor],
+        [buttons.bottomAnchor constraintEqualToAnchor:g_bar.contentView.bottomAnchor],
+        [g_bar.heightAnchor constraintEqualToConstant:52],
+        [g_bar.centerXAnchor constraintEqualToAnchor:safe.centerXAnchor],
+        [g_bar.bottomAnchor constraintEqualToAnchor:safe.bottomAnchor constant:-36],
+    ]];
+}
+
+static void ko_tts_update_bar(void) {
+    if (!g_bar && g_state != KO_TTS_IDLE) {
+        ko_tts_create_bar();
+    }
+    g_bar.hidden = g_state == KO_TTS_IDLE;
+    [g_bar.superview bringSubviewToFront:g_bar];
+    BOOL speaking = g_state == KO_TTS_SPEAKING;
+    [g_play_button setImage:[UIImage systemImageNamed:speaking ? @"pause.fill" : @"play.fill"]
+                   forState:UIControlStateNormal];
+    g_play_button.accessibilityLabel = speaking ? @"Pause" : @"Resume";
+}
+
 static void ko_tts_update_now_playing(void) {
+    ko_tts_update_bar();
     NSMutableDictionary *info = [NSMutableDictionary dictionary];
     if (g_title.length) {
         info[MPMediaItemPropertyTitle] = g_title;
@@ -183,6 +255,7 @@ static void ko_tts_stop(void) {
     g_waiting_for_text = false;
     g_resume_after_interruption = false;
     g_state = KO_TTS_IDLE;
+    ko_tts_update_bar();
     MPNowPlayingInfoCenter.defaultCenter.nowPlayingInfo = nil;
     NSUserDefaults *defaults = NSUserDefaults.standardUserDefaults;
     [defaults removeObjectForKey:KOTTSBookKey];
@@ -192,8 +265,6 @@ static void ko_tts_stop(void) {
                                        error:nil];
 }
 
-@interface KOTTSDelegate : NSObject <AVSpeechSynthesizerDelegate>
-@end
 
 @implementation KOTTSDelegate
 
@@ -225,6 +296,26 @@ static void ko_tts_stop(void) {
     if (reason == AVAudioSessionRouteChangeReasonOldDeviceUnavailable) {
         ko_tts_pause();
     }
+}
+
+- (void)rewindPressed {
+    ko_tts_seek(-1);
+}
+
+- (void)playPressed {
+    if (g_state == KO_TTS_PAUSED) {
+        ko_tts_resume();
+    } else {
+        ko_tts_pause();
+    }
+}
+
+- (void)forwardPressed {
+    ko_tts_seek(1);
+}
+
+- (void)stopPressed {
+    ko_tts_stop();
 }
 
 - (void)didBecomeActive:(NSNotification *)note {
