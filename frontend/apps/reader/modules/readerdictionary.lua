@@ -1184,7 +1184,8 @@ function ReaderDictionary:stardictLookup(word, dict_names, fuzzy_search, boxes, 
         })
     end
 
-    if Device:canExternalDictLookup() and G_reader_settings:isTrue("external_dict_lookup") then
+    if Device:hasNativeDictionary()
+            or (Device:canExternalDictLookup() and G_reader_settings:isTrue("external_dict_lookup")) then
         Device:doExternalDictLookup(word, G_reader_settings:readSetting("external_dict_lookup_method"), function()
             if self.highlight then
                 local clear_id = self.highlight:getClearId()

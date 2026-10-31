@@ -19,6 +19,34 @@ static BOOL g_op_running = NO;
 
 static void ko_dialog_next_op(void);
 
+static volatile bool g_dictionary_open = false;
+
+/* Waits for whatever is on screen to settle, then presents. */
+static void ko_present_when_ready(UIViewController *controller, dispatch_block_t done) {
+    UIViewController *presenter = ko_ios_top_view_controller();
+    if (!presenter || presenter.isBeingDismissed || presenter.isBeingPresented || ko_ios_menu_transitioning()) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 100 * NSEC_PER_MSEC), dispatch_get_main_queue(), ^{
+            ko_present_when_ready(controller, done);
+        });
+        return;
+    }
+    [presenter presentViewController:controller animated:YES completion:done];
+}
+
+@interface KODictionaryController : UIReferenceLibraryViewController
+@end
+
+@implementation KODictionaryController
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    if (self.isBeingDismissed) {
+        g_dictionary_open = false;
+    }
+}
+
+@end
+
 static void ko_dialog_post(int dialog_id, int button, UIAlertController *alert) {
     NSMutableArray *texts = [NSMutableArray array];
     for (UITextField *field in alert.textFields) {
@@ -123,6 +151,22 @@ static void ko_dialog_show(NSDictionary *spec) {
     ko_dialog_enqueue(^(dispatch_block_t done) {
         ko_dialog_present(alert, dialog_id, done);
     });
+}
+
+/* iOS's own dictionary sheet, which also offers to download dictionaries. */
+void ko_ios_dictionary_show(const char *term) {
+    NSString *word = [NSString stringWithUTF8String:term];
+    g_dictionary_open = true;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        KODictionaryController *controller = [[KODictionaryController alloc] initWithTerm:word];
+        ko_dialog_enqueue(^(dispatch_block_t done) {
+            ko_present_when_ready(controller, done);
+        });
+    });
+}
+
+bool ko_ios_dictionary_is_open(void) {
+    return g_dictionary_open;
 }
 
 void ko_ios_dialog_show(const char *json) {

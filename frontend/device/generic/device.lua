@@ -64,6 +64,7 @@ local Device = {
     hasClipboard = yes, -- generic internal clipboard on all devices
     hasSystemKeyboard = no, -- the OS provides its own on-screen keyboard (iOS), used instead of VirtualKeyboard
     hasNativeMenu = no,
+    hasNativeDictionary = no,
     canRequestLocation = no,
     getAutoVisiblePages = function() end, -- pages to show side by side, nil to leave it to the user
     hasEinkScreen = yes,

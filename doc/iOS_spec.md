@@ -97,6 +97,8 @@ new device class, to keep the diff against upstream small.
   rendered into an inset sub-rect, and the bezel is painted white, or
   black in night mode. Touches in the bezel clamp to the nearest edge.
   The insets are re-queried on every `framebuffer:resize`.
+  On the Duo's cover screen the side inset for the camera becomes a 70 pt band
+  at the camera's end, which costs less of the page.
 - **Touch**: real finger events only (`SDL_TOUCH_MOUSE_EVENTS=0`) to
   avoid double taps. `hasKeyboard` is false on iOS so menus don't draw
   per-item shortcut letters.
@@ -145,6 +147,8 @@ new device class, to keep the diff against upstream small.
 - **Duo columns**: `Device:getAutoVisiblePages` shows reflowable books in two
   columns on the inner screen in landscape and one otherwise, re-applied on
   every size change. The screens are told apart by size (§6).
+- **Dictionary**: lookups open iOS's own dictionary sheet
+  (`UIReferenceLibraryViewController`), since sdcv can't run on iOS.
 - **Page color**: Settings → Page color offers White, Cream, Sepia, Gray,
   Green and Black. `ReaderView:paintTo` multiplies the finished view by the
   `page_tint` setting, so it works for every document type and keeps black

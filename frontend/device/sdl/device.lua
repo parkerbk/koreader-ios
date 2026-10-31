@@ -89,6 +89,7 @@ local Device = Generic:extend{
     -- KOReader's own VirtualKeyboard (see Device:hidesVirtualKeyboard).
     hasSystemKeyboard = isIOS and yes or no,
     hasNativeMenu = isIOS and yes or no,
+    hasNativeDictionary = isIOS and yes or no,
     canRequestLocation = isIOS and yes or no,
     startTextInput = function(self)
         self.text_input_started = true
@@ -212,6 +213,30 @@ if isIOS then
         if short_side < 450 and not self.is_duo then return end
         self.is_duo = true
         return (short_side >= 600 and w > h) and 2 or 1
+    end
+
+    ffi.cdef[[
+        void ko_ios_dictionary_show(const char *term);
+        bool ko_ios_dictionary_is_open(void);
+    ]]
+
+    --- Looks a word up in iOS's own dictionary, which stands in for sdcv: iOS
+    -- can't run that, and its dictionaries are set up in that same sheet.
+    function Device:doExternalDictLookup(text, _method, callback)
+        local UIManager = require("ui/uimanager")
+        if not text or text == "" then
+            if callback then callback() end
+            return
+        end
+        ffi.C.ko_ios_dictionary_show(text)
+        local function poll()
+            if ffi.C.ko_ios_dictionary_is_open() then
+                UIManager:scheduleIn(0.2, poll)
+            elseif callback then
+                callback()
+            end
+        end
+        poll()
     end
 
     --- Asks iOS for the device's location, prompting for permission if needed.
