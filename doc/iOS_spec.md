@@ -124,6 +124,8 @@ new device class, to keep the diff against upstream small.
   CoreLocation request, used by Use current location in auto night mode. It
   asks for when-in-use permission and stays start + poll, like the picker.
 - **Frontlight**: not exposed; iOS brightness belongs to Control Center.
+- **Sleep**: not exposed; KOReader's simulated suspend and sleep screen are off,
+  because the system handles sleep.
 - **E-ink**: the emulator device class claims an e-ink screen everywhere
   else; on iOS that's off, along with its settings menu.
 - **Native dialogs**: `ui/nativedialogs.lua` intercepts `UIManager:show` and

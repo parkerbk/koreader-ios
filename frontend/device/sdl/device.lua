@@ -168,8 +168,9 @@ local Emulator = Device:extend{
     -- Not really, Device:reboot & Device:powerOff are not implemented, so we just exit ;).
     canPowerOff = yes,
     canReboot = yes,
-    -- NOTE: Via simulateSuspend
-    canSuspend = yes,
+    -- NOTE: Via simulateSuspend, which on iOS would only leave a "Sleeping" screen
+    -- that nothing can dismiss: iOS handles sleep itself.
+    canSuspend = isIOS and no or yes,
     canStandby = no,
 }
 
@@ -557,7 +558,7 @@ function Device:initNetworkManager(NetworkMgr)
     end
 end
 
-function Emulator:supportsScreensaver() return true end
+function Emulator:supportsScreensaver() return not isIOS end
 
 function Emulator:simulateSuspend()
     local Screensaver = require("ui/screensaver")
