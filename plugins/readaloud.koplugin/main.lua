@@ -46,11 +46,30 @@ local MAX_WORDS_PER_SENTENCE = 80
 local SPEEDS = { 0.75, 1, 1.25, 1.5, 1.75, 2 }
 local VOICES_BUFFER_SIZE = 256 * 1024
 local POSITION_BUFFER_SIZE = 4096
+-- AVSpeechSynthesisVoiceQuality; the basic quality goes unlabelled.
+local QUALITY_NAMES = { [2] = _("Enhanced"), [3] = _("Premium") }
 
 -- Words whose period doesn't end the sentence.
 local ABBREVIATIONS = {}
 for word in ("mr mrs ms dr prof st sr jr vs etc inc ltd no fig e.g i.e"):gmatch("%S+") do
     ABBREVIATIONS[word] = true
+end
+
+-- Marks that voices can say by name, especially alone at the end of a sentence.
+local SILENT_MARKS = { "“", "”", "„", "‟", "«", "»", "‹", "›", "\"", "‘", "*", "_", "#", "~", "|", "➔", "→" }
+local PAUSE_MARKS = { "—", "–" }
+
+--- Leaves only what should be heard. A right single quote stays as an
+-- apostrophe, which it is far more often than not.
+local function cleanText(text)
+    for _i, mark in ipairs(SILENT_MARKS) do
+        text = text:gsub(mark:gsub("%p", "%%%0"), " ")
+    end
+    for _i, mark in ipairs(PAUSE_MARKS) do
+        text = text:gsub(mark, ", ")
+    end
+    text = text:gsub("’%s", " "):gsub("’$", ""):gsub("’", "'")
+    return (text:gsub("%s+", " "))
 end
 
 --- AVSpeech's rate is 0.5 at normal speed, and past that it speeds up quickly.
@@ -146,7 +165,8 @@ function ReadAloud:fillQueue()
             break
         end
         local text, xp0, xp1 = self:nextSentence()
-        if text and text:find("%S") then
+        text = text and cleanText(text)
+        if text and text:find("[%w\128-\255]") then
             table.insert(self.sentences, { xp0 = xp0, xp1 = xp1 })
             ffi.C.ko_ios_tts_enqueue(#self.sentences, text, xp0)
             ahead = ahead + 1
@@ -313,16 +333,28 @@ function ReadAloud:getVoiceMenu()
     end
     local items = {
         {
-            text = _("Default"),
+            text = _("Best available"),
             checked_func = function()
                 return not G_reader_settings:readSetting("read_aloud_voice")
             end,
             callback = function() setVoice(nil) end,
         },
+        {
+            text = _("Get better voices"),
+            keep_menu_open = true,
+            callback = function()
+                UIManager:show(InfoMessage:new{
+                    text = _("Voices are downloaded in the iOS Settings app, under Accessibility, in the spoken content section, then Voices. Look for Enhanced or Premium versions, then choose one here."),
+                })
+            end,
+            separator = true,
+        },
     }
     for _i, voice in ipairs(self:getVoices()) do
         table.insert(items, {
-            text = string.format("%s (%s)", voice.name, voice.language),
+            text = QUALITY_NAMES[voice.quality]
+                and string.format("%s (%s, %s)", voice.name, voice.language, QUALITY_NAMES[voice.quality])
+                or string.format("%s (%s)", voice.name, voice.language),
             checked_func = function()
                 return G_reader_settings:readSetting("read_aloud_voice") == voice.id
             end,

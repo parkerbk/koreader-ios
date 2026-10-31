@@ -42,6 +42,7 @@ static bool g_waiting_for_text = false;
 static bool g_resume_after_interruption = false;
 static float g_rate = 0.5f;
 static NSString *g_voice_id = nil;
+static AVSpeechSynthesisVoice *g_voice = nil;
 static NSString *g_language = nil;
 static NSString *g_book = nil;
 static NSString *g_title = nil;
@@ -50,24 +51,45 @@ static NSString *g_author = nil;
 static void ko_tts_speak_current(void);
 static void ko_tts_stop(void);
 
-static AVSpeechSynthesisVoice *ko_tts_voice(void) {
-    AVSpeechSynthesisVoice *voice = nil;
-    if (g_voice_id.length) {
-        voice = [AVSpeechSynthesisVoice voiceWithIdentifier:g_voice_id];
-    }
-    if (!voice && g_language.length) {
-        voice = [AVSpeechSynthesisVoice voiceWithLanguage:g_language];
-        if (!voice) {
-            /* A book's language is often just "en", which isn't a voice's. */
-            for (AVSpeechSynthesisVoice *candidate in AVSpeechSynthesisVoice.speechVoices) {
-                if ([candidate.language hasPrefix:g_language]) {
-                    voice = candidate;
-                    break;
-                }
-            }
+/* iOS's own pick for a language is usually its basic voice, even with a better
+ * one installed, so rank them: quality first, then the closest language. */
+static AVSpeechSynthesisVoice *ko_tts_best_voice(void) {
+    NSString *system_language = AVSpeechSynthesisVoice.currentLanguageCode;
+    NSString *language = g_language.length ? g_language : system_language;
+    NSString *prefix = [language substringToIndex:MIN((NSUInteger)2, language.length)].lowercaseString;
+    AVSpeechSynthesisVoice *best = nil;
+    NSInteger best_score = -1;
+    for (AVSpeechSynthesisVoice *voice in AVSpeechSynthesisVoice.speechVoices) {
+        /* The older identifiers are the novelty voices, such as Bubbles. */
+        if ([voice.identifier containsString:@"speech.synthesis.voice"]
+            || ![voice.language.lowercaseString hasPrefix:prefix]) {
+            continue;
+        }
+        NSInteger score = voice.quality * 4;
+        if ([voice.language isEqualToString:language]) {
+            score += 2;
+        }
+        if ([voice.language isEqualToString:system_language]) {
+            score += 1;
+        }
+        if (score > best_score) {
+            best = voice;
+            best_score = score;
         }
     }
-    return voice;
+    return best;
+}
+
+static AVSpeechSynthesisVoice *ko_tts_voice(void) {
+    if (!g_voice) {
+        if (g_voice_id.length) {
+            g_voice = [AVSpeechSynthesisVoice voiceWithIdentifier:g_voice_id];
+        }
+        if (!g_voice) {
+            g_voice = ko_tts_best_voice();
+        }
+    }
+    return g_voice;
 }
 
 static void ko_tts_update_now_playing(void) {
@@ -280,6 +302,7 @@ void ko_ios_tts_set_voice(const char *voice_id, const char *language) {
     dispatch_async(dispatch_get_main_queue(), ^{
         g_voice_id = voice_string;
         g_language = language_string;
+        g_voice = nil;
         if (g_state == KO_TTS_SPEAKING) {
             ko_tts_restart_current();
         }
