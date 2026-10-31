@@ -244,11 +244,25 @@ void ko_ios_fit_root_view(void) {
     void (^fit)(void) = ^{
         UIWindow *win = ko_ios_main_window();
         UIView *view = win.rootViewController.view;
-        if (!view || CGRectEqualToRect(view.frame, win.bounds)) {
+        if (!view) {
             return;
         }
-        view.frame = win.bounds;
-        [view layoutIfNeeded];
+        if (!CGRectEqualToRect(view.frame, win.bounds)) {
+            view.frame = win.bounds;
+            [view layoutIfNeeded];
+        }
+        /* SDL sets the Metal layer's scale when it creates the view, but the
+         * Duo's screens can differ. Left alone, drawing and touches stop lining up
+         * after a fold, with the page at a fraction of the screen. */
+        CGFloat scale = win.screen.nativeScale;
+        for (UIView *subview in view.subviews) {
+            if ([subview.layer isKindOfClass:NSClassFromString(@"CAMetalLayer")]
+                && subview.layer.contentsScale != scale) {
+                subview.layer.contentsScale = scale;
+                [subview setNeedsLayout];
+                [subview layoutIfNeeded];
+            }
+        }
     };
     if ([NSThread isMainThread]) {
         fit();
@@ -287,7 +301,17 @@ bool ko_ios_is_phone(void) {
 }
 
 double ko_ios_get_screen_scale(void) {
-    return UIScreen.mainScreen.nativeScale;
+    __block double scale = 1;
+    void (^read_scale)(void) = ^{
+        UIScreen *screen = ko_ios_main_window().screen ?: UIScreen.mainScreen;
+        scale = screen.nativeScale;
+    };
+    if ([NSThread isMainThread]) {
+        read_scale();
+    } else {
+        dispatch_sync(dispatch_get_main_queue(), read_scale);
+    }
+    return scale;
 }
 
 void ko_ios_end_editing(void) {

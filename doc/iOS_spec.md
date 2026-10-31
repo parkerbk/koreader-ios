@@ -114,7 +114,8 @@ new device class, to keep the diff against upstream small.
   `Device:resizeIOSScreen` sizes the framebuffer from UIKit's window bounds,
   because mid-rotation SDL's event size and renderer size can each be stale,
   then re-checks after the animation. SDL drops resize events when it thinks nothing
-  changed, so `Device:refreshIOSRenderer` fits SDL's view to the window, updates the
+  changed, so `Device:refreshIOSRenderer` fits SDL's view and Metal scale to the window's
+  screen, which can change on a fold, updates the
   renderer directly, and a
   2 s watch catches a rotation with no event; otherwise the renderer clips at
   the old size and leaves a black bar. KOReader's own rotation setting rotates the content inside
