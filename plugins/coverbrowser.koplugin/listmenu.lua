@@ -451,7 +451,7 @@ function ListMenuItem:update()
                 -- append "et al." to the 2nd if there are more.
                 -- If we'll fit 3 lines instead of 2, we can avoid some loops by starting from a lower font size.
                 local lines_nb = (bookinfo.series and series_mode == "series_in_separate_line") and 1 or 2
-                authors, reduce_font_size = self.menu.ui.bookinfo.prettifyAuthors(bookinfo.authors, lines_nb)
+                authors, reduce_font_size = require("apps/filemanager/filemanagerbookinfo").prettifyAuthors(bookinfo.authors, lines_nb)
             end
             title = BD.auto(title)
             -- add Series metadata if requested

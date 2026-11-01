@@ -132,7 +132,7 @@ function FakeCover:init()
     -- If multiple authors (crengine separates them with \n), we
     -- can display them on multiple lines, but limit to 3, and
     -- append "et al." on the 3rd line if there are more
-    authors = self.menu.ui.bookinfo.prettifyAuthors(authors, 3)
+    authors = require("apps/filemanager/filemanagerbookinfo").prettifyAuthors(authors, 3)
     -- Add any _add, which must be already BD wrapped if needed
     if self.filename_add then
         filename = (filename and filename or "") .. self.filename_add
