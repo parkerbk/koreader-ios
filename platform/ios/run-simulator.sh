@@ -27,7 +27,7 @@ rm -rf "${APP}/_CodeSignature" "${APP}/embedded.mobileprovision" "${APP}/KOReade
 rsync -aL \
     --exclude '/koreader' --exclude '/libs' --exclude '/luajit' --exclude '/sdcv' \
     --exclude '*.dSYM' --exclude 'cache' --exclude 'history' --exclude 'screenshots' \
-    --exclude 'spec' --exclude 'tools' \
+    --exclude 'spec' --exclude 'tools' --exclude '*.po' --exclude '*.pot' --exclude '/resources/fonts' \
     "${STAGING}/" "${APP}/app/"
 
 platform/ios/write-git-rev.sh . "${APP}/app"
@@ -47,7 +47,7 @@ ln -sf libSDL3.0.dylib "${WORK}/libs/libSDL3.dylib"
 xcrun --sdk iphonesimulator clang -target arm64-apple-ios15.0-simulator -isysroot "${SDK_PATH}" \
     -fobjc-arc -O1 -g \
     -I "${BUILD_DIR}/staging/include" -I "${BUILD_DIR}/staging/include/luajit-2.1" \
-    -L "${WORK}/libs" -lluajit -lSDL3 \
+    -L "${WORK}/libs" -lluajit -lSDL3 -lbz2 \
     -framework AVFoundation -framework Foundation -framework MediaPlayer -framework UIKit -framework CoreFoundation \
     -framework CoreGraphics -framework CoreLocation -framework CoreText -framework UniformTypeIdentifiers \
     -Wl,-headerpad_max_install_names -Wl,-rpath,@executable_path/Frameworks \

@@ -320,6 +320,11 @@ void ko_ios_end_editing(void) {
     });
 }
 
+/* Lua runs on the main thread, so this is exact, where an SDL event would lag. */
+int ko_ios_in_background(void) {
+    return UIApplication.sharedApplication.applicationState == UIApplicationStateBackground;
+}
+
 /* Read iOS' safeAreaInsets directly off the key window, in physical
  * pixels (UIKit reports points; KOReader's framebuffer is in pixels).
  * Called from framebuffer_SDL3.lua to letterbox the UI inside the

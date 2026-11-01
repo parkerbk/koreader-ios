@@ -69,6 +69,11 @@ xcrun --sdk "${IOS_PLATFORM}" clang \
     -L "${BASE_BUILD}/staging/lib" \
     -lluajit \
     -lSDL3 \
+    -lbz2 \
+    -lc++ \
+    -I"${REPO_ROOT}/build/sherpa/install/include" \
+    "${REPO_ROOT}/build/sherpa/os64/libsherpa-onnx-all.a" \
+    "${REPO_ROOT}/build/sherpa/os64/libonnxruntime.a" \
     -framework AVFoundation \
     -framework Foundation \
     -framework MediaPlayer \
@@ -76,6 +81,7 @@ xcrun --sdk "${IOS_PLATFORM}" clang \
     -framework CoreFoundation \
     -framework CoreGraphics \
     -framework CoreLocation \
+    -framework CoreML \
     -framework CoreText \
     -framework UniformTypeIdentifiers \
     -Wl,-rpath,@executable_path/app/libs \
@@ -86,6 +92,7 @@ xcrun --sdk "${IOS_PLATFORM}" clang \
     "${PLATFORM_DIR}/ios_location.m" \
     "${PLATFORM_DIR}/ios_dialog.m" \
     "${PLATFORM_DIR}/ios_tts.m" \
+    "${PLATFORM_DIR}/ios_kokoro.m" \
     "${PLATFORM_DIR}/ios_exit.c" \
     "${PLATFORM_DIR}/ios_statvfs.c"
 
@@ -100,6 +107,9 @@ rsync -aL \
     --exclude 'screenshots' \
     --exclude 'spec' \
     --exclude 'tools' \
+    --exclude '*.po' \
+    --exclude '*.pot' \
+    --exclude '/resources/fonts' \
     --exclude '*.dSYM' \
     --exclude 'plugins/SSH.koplugin' \
     --exclude 'plugins/autofrontlight.koplugin' \

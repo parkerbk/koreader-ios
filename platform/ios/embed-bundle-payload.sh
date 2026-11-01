@@ -46,6 +46,9 @@ rsync -aL --delete --delete-excluded \
     --exclude 'screenshots' \
     --exclude 'spec' \
     --exclude 'tools' \
+    --exclude '*.po' \
+    --exclude '*.pot' \
+    --exclude '/resources/fonts' \
     --exclude '*.dSYM' \
     --exclude '/koreader' \
     --exclude '/libs/*.dylib' \

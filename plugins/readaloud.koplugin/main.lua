@@ -1,5 +1,6 @@
 --[[--
-Reads reflowable books aloud on iOS, through platform/ios/ios_tts.m.
+Reads reflowable books aloud on iOS, through platform/ios/ios_tts.m, with the
+system voices or the downloadable Kokoro ones.
 
 Lua only prepares the text: it walks the book by sentence and queues well ahead
 of the voice, so that speech carries on if Lua stops running in the background.
@@ -10,6 +11,7 @@ if os.getenv("KO_IOS") ~= "1" then
     return { disabled = true }
 end
 
+local ConfirmBox = require("ui/widget/confirmbox")
 local Dispatcher = require("dispatcher")
 local Event = require("ui/event")
 local InfoMessage = require("ui/widget/infomessage")
@@ -23,7 +25,7 @@ local _ = require("gettext")
 ffi.cdef[[
     void ko_ios_tts_configure(const char *book, const char *title, const char *author);
     void ko_ios_tts_set_voice(const char *voice_id, const char *language);
-    void ko_ios_tts_set_rate(float rate);
+    void ko_ios_tts_set_rate(float rate, float speed);
     void ko_ios_tts_enqueue(int item_id, const char *text, const char *position);
     void ko_ios_tts_queue_complete(void);
     void ko_ios_tts_start(void);
@@ -34,9 +36,13 @@ ffi.cdef[[
     int ko_ios_tts_is_foreground(void);
     void ko_ios_tts_list_voices(char *out, size_t cap);
     void ko_ios_tts_saved_position(const char *book, char *out, size_t cap);
+    void ko_ios_kokoro_download(void);
+    int ko_ios_kokoro_status(float *progress);
+    void ko_ios_kokoro_delete(void);
 ]]
 
 local STATE_IDLE, STATE_SPEAKING, STATE_PAUSED = 0, 1, 2
+local KOKORO_MISSING, KOKORO_DOWNLOADING, KOKORO_UNPACKING, KOKORO_READY, KOKORO_FAILED = 0, 1, 2, 3, 4
 
 local POLL_INTERVAL = 0.25
 -- About half an hour of speech, for when Lua can't top the queue up.
@@ -48,6 +54,13 @@ local VOICES_BUFFER_SIZE = 256 * 1024
 local POSITION_BUFFER_SIZE = 4096
 -- AVSpeechSynthesisVoiceQuality; the basic quality goes unlabelled.
 local QUALITY_NAMES = { [2] = _("Enhanced"), [3] = _("Premium") }
+local KOKORO_POLL_INTERVAL = 1
+local KOKORO_PREFIX = "kokoro:"
+-- In the model's order, which is also how ios_tts.m picks them.
+local KOKORO_VOICES = {
+    _("Blend (US)"), _("Bella (US)"), _("Nicole (US)"), _("Sarah (US)"), _("Sky (US)"), _("Adam (US)"),
+    _("Michael (US)"), _("Emma (UK)"), _("Isabella (UK)"), _("George (UK)"), _("Lewis (UK)"),
+}
 
 -- Words whose period doesn't end the sentence.
 local ABBREVIATIONS = {}
@@ -225,12 +238,27 @@ function ReadAloud:poll()
     UIManager:scheduleIn(POLL_INTERVAL, self.poll_func)
 end
 
+function ReadAloud:isKokoroLanguage()
+    local language = self:getLanguage():sub(1, 2):lower()
+    return language == "" or language == "en"
+end
+
 function ReadAloud:applyVoice()
-    ffi.C.ko_ios_tts_set_voice(G_reader_settings:readSetting("read_aloud_voice") or "", self:getLanguage())
+    local voice = G_reader_settings:readSetting("read_aloud_voice") or ""
+    -- Kokoro only knows English, so other books go to the best system voice.
+    if voice:sub(1, #KOKORO_PREFIX) == KOKORO_PREFIX and not self:isKokoroLanguage() then
+        voice = ""
+    end
+    ffi.C.ko_ios_tts_set_voice(voice, self:getLanguage())
 end
 
 function ReadAloud:getLanguage()
     return self.ui.doc_props and self.ui.doc_props.language or ""
+end
+
+function ReadAloud:applySpeed()
+    local speed = G_reader_settings:readSetting("read_aloud_speed") or 1
+    ffi.C.ko_ios_tts_set_rate(speedToRate(speed), speed)
 end
 
 function ReadAloud:start()
@@ -243,7 +271,7 @@ function ReadAloud:start()
     self.was_backgrounded = false
     ffi.C.ko_ios_tts_configure(self.document.file, props.display_title or "", props.authors or "")
     self:applyVoice()
-    ffi.C.ko_ios_tts_set_rate(speedToRate(G_reader_settings:readSetting("read_aloud_speed") or 1))
+    self:applySpeed()
     self:fillQueue()
     if #self.sentences == 0 then
         UIManager:show(InfoMessage:new{ text = _("There's no text to read from here.") })
@@ -326,20 +354,116 @@ function ReadAloud:getVoices()
     return matching
 end
 
-function ReadAloud:getVoiceMenu()
-    local function setVoice(id)
-        G_reader_settings:saveSetting("read_aloud_voice", id)
-        self:applyVoice()
+function ReadAloud:getKokoroStatus()
+    local progress = ffi.new("float[1]")
+    local status = ffi.C.ko_ios_kokoro_status(progress)
+    return status, progress[0]
+end
+
+function ReadAloud:setVoice(id)
+    G_reader_settings:saveSetting("read_aloud_voice", id)
+    self:applyVoice()
+end
+
+--- Follows the download, so it can finish with the menu closed.
+function ReadAloud:watchKokoroDownload()
+    local status = self:getKokoroStatus()
+    if status == KOKORO_DOWNLOADING or status == KOKORO_UNPACKING then
+        UIManager:scheduleIn(KOKORO_POLL_INTERVAL, function() self:watchKokoroDownload() end)
+    elseif status == KOKORO_READY then
+        self:setVoice(KOKORO_PREFIX .. "1")
+        UIManager:show(InfoMessage:new{
+            text = _("Kokoro voices are ready, and read aloud now uses Bella. Choose another under Voice."),
+        })
+    else
+        UIManager:show(InfoMessage:new{
+            text = _("Kokoro voices couldn't be downloaded. Check your connection and try again."),
+        })
     end
+end
+
+function ReadAloud:downloadKokoro()
+    UIManager:show(ConfirmBox:new{
+        text = _("Download the Kokoro voices? The download is about 100 MB, so Wi-Fi is best, and they take up 135 MB once installed. They read books in English only."),
+        ok_text = _("Download"),
+        ok_callback = function()
+            ffi.C.ko_ios_kokoro_download()
+            UIManager:scheduleIn(KOKORO_POLL_INTERVAL, function() self:watchKokoroDownload() end)
+        end,
+    })
+end
+
+function ReadAloud:removeKokoro()
+    UIManager:show(ConfirmBox:new{
+        text = _("Remove the Kokoro voices from this device? You can download them again later."),
+        ok_text = _("Remove"),
+        ok_callback = function()
+            local voice = G_reader_settings:readSetting("read_aloud_voice") or ""
+            self:stop()
+            if voice:sub(1, #KOKORO_PREFIX) == KOKORO_PREFIX then
+                self:setVoice(nil)
+            end
+            ffi.C.ko_ios_kokoro_delete()
+        end,
+    })
+end
+
+--- The menu items for Kokoro: its voices if it's here, or a way of getting them.
+function ReadAloud:getKokoroItems()
+    local status, progress = self:getKokoroStatus()
+    if status == KOKORO_DOWNLOADING then
+        return {{
+            text = string.format(_("Downloading Kokoro voices: %d%%"), math.floor(progress * 100)),
+            enabled = false,
+            separator = true,
+        }}
+    elseif status == KOKORO_UNPACKING then
+        return {{ text = _("Installing Kokoro voices…"), enabled = false, separator = true }}
+    elseif status == KOKORO_MISSING or status == KOKORO_FAILED then
+        return {{
+            text = _("Download Kokoro voices"),
+            keep_menu_open = true,
+            callback = function() self:downloadKokoro() end,
+            separator = true,
+        }}
+    end
+    local items = {}
+    if self:isKokoroLanguage() then
+        for i, name in ipairs(KOKORO_VOICES) do
+            local id = KOKORO_PREFIX .. (i - 1)
+            table.insert(items, {
+                text = "Kokoro: " .. name,
+                checked_func = function()
+                    return G_reader_settings:readSetting("read_aloud_voice") == id
+                end,
+                callback = function() self:setVoice(id) end,
+            })
+        end
+    end
+    table.insert(items, {
+        text = _("Remove Kokoro voices"),
+        keep_menu_open = true,
+        callback = function() self:removeKokoro() end,
+        separator = true,
+    })
+    return items
+end
+
+function ReadAloud:getVoiceMenu()
     local items = {
         {
             text = _("Best available"),
             checked_func = function()
                 return not G_reader_settings:readSetting("read_aloud_voice")
             end,
-            callback = function() setVoice(nil) end,
+            callback = function() self:setVoice(nil) end,
+            separator = true,
         },
-        {
+    }
+    for _i, item in ipairs(self:getKokoroItems()) do
+        table.insert(items, item)
+    end
+    table.insert(items, {
             text = _("Get better voices"),
             keep_menu_open = true,
             callback = function()
@@ -348,8 +472,7 @@ function ReadAloud:getVoiceMenu()
                 })
             end,
             separator = true,
-        },
-    }
+    })
     for _i, voice in ipairs(self:getVoices()) do
         table.insert(items, {
             text = QUALITY_NAMES[voice.quality]
@@ -358,7 +481,7 @@ function ReadAloud:getVoiceMenu()
             checked_func = function()
                 return G_reader_settings:readSetting("read_aloud_voice") == voice.id
             end,
-            callback = function() setVoice(voice.id) end,
+            callback = function() self:setVoice(voice.id) end,
         })
     end
     return items
@@ -374,7 +497,7 @@ function ReadAloud:getSpeedMenu()
             end,
             callback = function()
                 G_reader_settings:saveSetting("read_aloud_speed", speed)
-                ffi.C.ko_ios_tts_set_rate(speedToRate(speed))
+                self:applySpeed()
             end,
         })
     end

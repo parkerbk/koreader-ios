@@ -10,6 +10,8 @@
 #import <MediaPlayer/MediaPlayer.h>
 #import <UIKit/UIKit.h>
 
+#include "ios_kokoro.h"
+
 UIWindow *ko_ios_main_window(void);
 
 typedef enum {
@@ -27,6 +29,7 @@ typedef enum {
 
 static NSString *const KOTTSBookKey = @"KOTTSBook";
 static NSString *const KOTTSPositionKey = @"KOTTSPosition";
+static NSString *const KOTTSKokoroPrefix = @"kokoro:";
 
 @interface KOSpeechItem : NSObject
 @property(nonatomic) int itemId;
@@ -50,6 +53,9 @@ static bool g_queue_complete = false;
 static bool g_waiting_for_text = false;
 static bool g_resume_after_interruption = false;
 static float g_rate = 0.5f;
+static float g_speed = 1;
+/* Which Kokoro voice is in use, or -1 for a system voice. */
+static int g_kokoro_voice = -1;
 static NSString *g_voice_id = nil;
 static AVSpeechSynthesisVoice *g_voice = nil;
 static NSString *g_language = nil;
@@ -188,19 +194,32 @@ static void ko_tts_save_position(KOSpeechItem *item) {
     [defaults setObject:item.position forKey:KOTTSPositionKey];
 }
 
-static void ko_tts_speak_current(void) {
+/* Moves on to the current sentence, or returns false if there isn't one yet. */
+static bool ko_tts_begin_current(void) {
     if (g_index >= g_queue.count) {
         if (g_queue_complete) {
             ko_tts_stop();
         } else {
             g_waiting_for_text = true;
         }
-        return;
+        return false;
     }
     g_waiting_for_text = false;
     KOSpeechItem *item = g_queue[g_index];
     g_current_id = item.itemId;
     ko_tts_save_position(item);
+    return true;
+}
+
+static void ko_tts_speak_current(void) {
+    if (!ko_tts_begin_current()) {
+        return;
+    }
+    if (g_kokoro_voice >= 0) {
+        ko_kokoro_start(g_kokoro_voice, g_speed);
+        return;
+    }
+    KOSpeechItem *item = g_queue[g_index];
     AVSpeechUtterance *utterance = [AVSpeechUtterance speechUtteranceWithString:item.text];
     utterance.rate = g_rate;
     utterance.voice = ko_tts_voice();
@@ -212,12 +231,16 @@ static void ko_tts_speak_current(void) {
 static void ko_tts_restart_current(void) {
     g_utterance = nil;
     [g_synth stopSpeakingAtBoundary:AVSpeechBoundaryImmediate];
+    if (g_kokoro_voice < 0) {
+        ko_kokoro_stop();
+    }
     ko_tts_speak_current();
 }
 
 static void ko_tts_pause(void) {
     if (g_state == KO_TTS_SPEAKING) {
         [g_synth pauseSpeakingAtBoundary:AVSpeechBoundaryImmediate];
+        ko_kokoro_pause();
         ko_tts_set_state(KO_TTS_PAUSED);
     }
 }
@@ -230,7 +253,7 @@ static void ko_tts_resume(void) {
     ko_tts_set_state(KO_TTS_SPEAKING);
     if (g_synth.paused) {
         [g_synth continueSpeaking];
-    } else {
+    } else if (g_kokoro_voice < 0 || !ko_kokoro_resume()) {
         ko_tts_restart_current();
     }
 }
@@ -248,6 +271,7 @@ static void ko_tts_seek(NSInteger delta) {
 static void ko_tts_stop(void) {
     g_utterance = nil;
     [g_synth stopSpeakingAtBoundary:AVSpeechBoundaryImmediate];
+    ko_kokoro_stop();
     [g_queue removeAllObjects];
     g_index = 0;
     g_current_id = 0;
@@ -265,6 +289,27 @@ static void ko_tts_stop(void) {
                                        error:nil];
 }
 
+NSString *ko_tts_text_at(NSUInteger offset) {
+    return g_index + offset < g_queue.count ? g_queue[g_index + offset].text : nil;
+}
+
+void ko_tts_kokoro_sentence_done(void) {
+    g_index++;
+    ko_tts_begin_current();
+}
+
+void ko_tts_kokoro_restart(void) {
+    if (g_state == KO_TTS_SPEAKING) {
+        ko_tts_restart_current();
+    }
+}
+
+/* Carry on with the system voice rather than stop reading. */
+void ko_tts_kokoro_failed(void) {
+    NSLog(@"Kokoro failed, falling back to the system voice");
+    g_kokoro_voice = -1;
+    ko_tts_restart_current();
+}
 
 @implementation KOTTSDelegate
 
@@ -391,6 +436,8 @@ void ko_ios_tts_set_voice(const char *voice_id, const char *language) {
     NSString *voice_string = ko_tts_string(voice_id);
     NSString *language_string = ko_tts_string(language);
     dispatch_async(dispatch_get_main_queue(), ^{
+        bool kokoro = [voice_string hasPrefix:KOTTSKokoroPrefix] && ko_kokoro_installed();
+        g_kokoro_voice = kokoro ? [voice_string substringFromIndex:KOTTSKokoroPrefix.length].intValue : -1;
         g_voice_id = voice_string;
         g_language = language_string;
         g_voice = nil;
@@ -400,9 +447,11 @@ void ko_ios_tts_set_voice(const char *voice_id, const char *language) {
     });
 }
 
-void ko_ios_tts_set_rate(float rate) {
+/* The system voices take a rate, and Kokoro a multiple of its normal speed. */
+void ko_ios_tts_set_rate(float rate, float speed) {
     dispatch_async(dispatch_get_main_queue(), ^{
         g_rate = rate;
+        g_speed = speed;
         if (g_state == KO_TTS_SPEAKING) {
             ko_tts_restart_current();
         }

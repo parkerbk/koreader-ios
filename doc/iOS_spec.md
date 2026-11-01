@@ -354,8 +354,13 @@ Scope:
 
 - Reflowable books (crengine) first. PDFs follow where they have a text layer.
   Scanned pages are out of scope, since they would need OCR.
-- `AVSpeechSynthesizer` only, so it works offline and needs no account.
+- `AVSpeechSynthesizer` by default, so it works offline and needs no account.
   Cloud voices are out of scope for this phase.
+- Kokoro is an optional English voice set in `platform/ios/ios_kokoro.m`,
+  downloaded in the app to Application Support. Its engine is sherpa-onnx 1.x
+  (`platform/ios/build-sherpa.sh`), and it isn't built for the simulator. The
+  engine includes espeak-ng, which is GPL, so check that before any App Store
+  release.
 
 Plan:
 

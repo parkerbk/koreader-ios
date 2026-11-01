@@ -61,6 +61,8 @@ targets:
         type: file
       - path: platform/ios/ios_tts.m
         type: file
+      - path: platform/ios/ios_kokoro.m
+        type: file
       - path: platform/ios/AppIcon.icon
         type: file
         buildPhase: resources
@@ -76,12 +78,18 @@ targets:
         HEADER_SEARCH_PATHS:
           - $(SRCROOT)/base/build/arm64-apple-ios14.0/staging/include
           - $(SRCROOT)/base/build/arm64-apple-ios14.0/staging/include/luajit-2.1
+          # platform/ios/build-sherpa.sh makes these.
+          - $(SRCROOT)/build/sherpa/install/include
         LIBRARY_SEARCH_PATHS:
           - $(SRCROOT)/base/build/arm64-apple-ios14.0/libs
           - $(SRCROOT)/base/build/arm64-apple-ios14.0/staging/lib
         OTHER_LDFLAGS:
           - -lluajit
           - -lSDL3
+          - $(SRCROOT)/build/sherpa/os64/libsherpa-onnx-all.a
+          - $(SRCROOT)/build/sherpa/os64/libonnxruntime.a
+          - -lbz2
+          - -lc++
           # embed-bundle-payload.sh rewrites the library paths after linking.
           - -Wl,-headerpad_max_install_names
         # rpath so dyld finds the frameworks we embed at post-build.
@@ -99,6 +107,7 @@ targets:
       - sdk: CoreFoundation.framework
       - sdk: CoreGraphics.framework
       - sdk: CoreLocation.framework
+      - sdk: CoreML.framework
       - sdk: CoreText.framework
       - sdk: MediaPlayer.framework
       - sdk: UniformTypeIdentifiers.framework
