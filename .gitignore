@@ -45,3 +45,9 @@ i18n
 # iOS: generated Xcode project (run `make TARGET=ios xcodeproj` to regenerate)
 /KOReader.xcodeproj/
 /platform/ios/Info.plist
+
+# iOS builds and exports
+/build/
+*.ipa
+*.pkg
+*.xcarchive
