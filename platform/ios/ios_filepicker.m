@@ -352,19 +352,22 @@ void ko_ios_get_safe_area_pixels(int *out_top, int *out_right,
 
     UIEdgeInsets insets = win.safeAreaInsets;
 
-    /* iOS reserves a whole side of the Duo's cover screen for its camera, which
-     * only sits in a corner. Keep the page clear of it with a shorter band
-     * across the end it's at instead: top in portrait, and in landscape top
-     * when it's on the left, bottom when it's on the right. */
+    /* iOS reserves a whole side of both the Duo's screens for its camera, which
+     * only sits in a corner, and that pushes the page off center. Keep the page
+     * clear of it with a shorter band across the end it's at instead: top in
+     * portrait, and in landscape top when it's on the left, bottom when it's on
+     * the right. Only the home indicator needs the bottom otherwise. */
     CGSize size = win.bounds.size;
     CGFloat short_side = MIN(size.width, size.height);
     if (UIDevice.currentDevice.userInterfaceIdiom == UIUserInterfaceIdiomPhone
-        && short_side >= 450 && short_side < 600
+        && short_side >= 450
         && (insets.left > 0 || insets.right > 0)) {
         static const CGFloat camera_band = 70;
+        static const CGFloat home_indicator = 34;
         BOOL at_bottom = size.width > size.height && insets.right > 0;
         insets.left = 0;
         insets.right = 0;
+        insets.bottom = MIN(insets.bottom, home_indicator);
         if (at_bottom) {
             insets.bottom = MAX(insets.bottom, camera_band);
         } else {

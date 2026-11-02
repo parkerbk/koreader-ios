@@ -97,8 +97,9 @@ new device class, to keep the diff against upstream small.
   rendered into an inset sub-rect, and the bezel is painted white, or
   black in night mode. Touches in the bezel clamp to the nearest edge.
   The insets are re-queried on every `framebuffer:resize`.
-  On the Duo's cover screen the side inset for the camera becomes a 70 pt band
-  at the camera's end, which costs less of the page.
+  On both the Duo's screens the side inset for the camera becomes a 70 pt band
+  at the camera's end, which keeps the page centered and costs less of it. The
+  bottom inset stops at the home indicator's 34 pt.
 - **Touch**: real finger events only (`SDL_TOUCH_MOUSE_EVENTS=0`) to
   avoid double taps. `hasKeyboard` is false on iOS so menus don't draw
   per-item shortcut letters.
