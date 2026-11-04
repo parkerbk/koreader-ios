@@ -350,12 +350,15 @@ function Device:init()
         local runInSubProcess = ffiUtil.runInSubProcess
         ffiUtil.runInSubProcess = function(func, ...)
             local wrapped = function(...)
+                local IOSLog = require("device/sdl/ioslog")
+                IOSLog.log("subprocess %s", IOSLog.describe(func))
                 local os_exit = os.exit
                 os.exit = function() end -- luacheck: ignore 122
                 ffi.C.ko_ios_set_inline_child(1)
                 local ok, err = pcall(func, ...)
                 ffi.C.ko_ios_set_inline_child(0)
                 os.exit = os_exit -- luacheck: ignore 122
+                IOSLog.log("subprocess done %s", ok and "" or tostring(err))
                 if not ok then error(err, 0) end
             end
             return runInSubProcess(wrapped, ...)
@@ -485,6 +488,7 @@ function Device:init()
             elseif ev.code == SDL.SDL.SDL_EVENT_TEXT_INPUT then
                 UIManager:sendEvent(Event:new("TextInput", tostring(ev.value)))
             elseif ev.code == SDL.SDL.SDL_EVENT_DID_ENTER_FOREGROUND then
+                require("device/sdl/ioslog").log("lifecycle: did enter foreground")
                 -- iOS resume: SDL3's renderer/texture state may have
                 -- been invalidated while we were backgrounded — the
                 -- last frame is still on-screen but stale, and any
@@ -502,10 +506,20 @@ function Device:init()
                 -- logins...) are lost. WILL_ENTER_BACKGROUND is the one that
                 -- matters for a swipe-away: the app is killed while inactive.
                 logger.info("iOS lifecycle event", ev.code, "- flushing settings")
+                local IOSLog = require("device/sdl/ioslog")
+                IOSLog.log("lifecycle: %s, flushing", ev.code == SDL.SDL.SDL_EVENT_WILL_ENTER_BACKGROUND and "will enter background"
+                    or ev.code == SDL.SDL.SDL_EVENT_DID_ENTER_BACKGROUND and "did enter background" or "terminating")
                 UIManager:flushSettings()
                 -- FileManager/ReaderUI flush the global settings on that event,
                 -- but a fullscreen plugin view may have replaced both.
                 G_reader_settings:flush()
+                IOSLog.log("flushed")
+                IOSLog.collect("after flush")
+            elseif isIOS and (ev.code == SDL.SDL.SDL_EVENT_WILL_ENTER_FOREGROUND
+                    or ev.code == SDL.SDL.SDL_EVENT_LOW_MEMORY) then
+                require("device/sdl/ioslog").log("lifecycle: %s, %d KB",
+                    ev.code == SDL.SDL.SDL_EVENT_LOW_MEMORY and "low memory" or "will enter foreground",
+                    collectgarbage("count"))
             end
         end,
     }
@@ -695,6 +709,7 @@ function Device:UIManagerReady(uimgr)
         self.window_size_check = function() self:checkIOSWindowSize() end
         self.window_size_watch = function() self:watchIOSWindowSize() end
         UIManager:scheduleIn(2, self.window_size_watch)
+        require("device/sdl/ioslog").start(UIManager)
     end
 end
 

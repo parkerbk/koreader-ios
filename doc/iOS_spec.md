@@ -403,3 +403,8 @@ Risks:
   have to come from a second document instance, or be rendered off-screen.
 - Should the version in Storefront's catalog be stable-only on iOS, or
   follow the user's beta setting?
+- What damaged Lua's memory in build 12's background crash (EXC_BAD_ACCESS in
+  `gc_onestep`, string sweep)? Build 13 writes `background.log` to Documents
+  (`frontend/device/sdl/ioslog.lua`): lifecycle steps, scheduled tasks, inline
+  subprocesses, and a full collection after each flush and every 2 minutes.
+  Remove it once the cause is found.
