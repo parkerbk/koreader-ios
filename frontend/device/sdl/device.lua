@@ -349,6 +349,16 @@ function Device:init()
         local ffiUtil = require("ffi/util")
         local runInSubProcess = ffiUtil.runInSubProcess
         ffiUtil.runInSubProcess = function(func, ...)
+            -- The child runs on the main thread, and most of them make
+            -- blocking network requests. In the background iOS kills an app
+            -- whose main thread doesn't answer within 30 seconds (watchdog
+            -- 0x8BADF00D), which a Readest sync did while the network was
+            -- slow. Fail like a fork would there; callers try again later.
+            if SDL.isInIOSBackground() then
+                local IOSLog = require("device/sdl/ioslog")
+                IOSLog.log("subprocess refused in the background %s", IOSLog.describe(func))
+                return false, "no subprocess in the iOS background"
+            end
             local wrapped = function(...)
                 local IOSLog = require("device/sdl/ioslog")
                 IOSLog.log("subprocess %s", IOSLog.describe(func))

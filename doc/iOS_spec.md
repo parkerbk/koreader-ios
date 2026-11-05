@@ -72,7 +72,10 @@ new device class, to keep the diff against upstream small.
   runs on the UI thread on iOS and can stall the UI. Plugin workers that
   end with `ffi.C._exit(0)` must not take the app down: `ios_exit.c`
   overrides `_exit` so it returns while `runInSubProcess` (wrapped in
-  `device/sdl/device.lua`) has an inline child running.
+  `device/sdl/device.lua`) has an inline child running. In the background
+  that wrapper refuses to run children at all: most make blocking network
+  requests, and iOS kills an app whose main thread stalls 30 seconds there
+  (build 13, a Readest sync, watchdog 0x8BADF00D).
 - **Changing container path** — iOS moves the data container on every
   reinstall, so absolute paths in saved settings go stale. At launch
   `ios_loader.m` rewrites the old container UUID in the `.lua` files under
