@@ -331,8 +331,10 @@ Things App Store builds depend on, which Debug builds hide:
 - **Export compliance**: `ITSAppUsesNonExemptEncryption` is false, which skips
   App Store Connect's question on each build. The app bundles LibreSSL for
   HTTPS and sync; revisit this if it starts encrypting anything else.
-- **`statvfs`**: `ios_statvfs.c` translates to the Linux layout `base/ffi`
-  declares; read directly, free space was nonsense.
+- **`statvfs`**: `base/ffi/posix_h.lua` declares Darwin's layout for iOS (its
+  `ffi.os` is OSX). Don't put a translating `statvfs` back: build 12-14 had one
+  writing the 88-byte Linux layout into that 64-byte struct, which damaged
+  Lua's heap and crashed the app in the garbage collector.
 - **Version file**: `write-git-rev.sh`, since `git describe` needs tags.
 - **Icon**: `platform/ios/AppIcon.icon`, layered in Icon Composer format.
 
@@ -406,8 +408,8 @@ Risks:
   have to come from a second document instance, or be rendered off-screen.
 - Should the version in Storefront's catalog be stable-only on iOS, or
   follow the user's beta setting?
-- What damaged Lua's memory in build 12's background crash (EXC_BAD_ACCESS in
-  `gc_onestep`, string sweep)? Build 13 writes `background.log` to Documents
-  (`frontend/device/sdl/ioslog.lua`): lifecycle steps, scheduled tasks, inline
-  subprocesses, and a full collection after each flush and every 2 minutes.
-  Remove it once the cause is found.
+- Builds 12-14 crashed in the garbage collector because `ios_statvfs.c`
+  overflowed `struct statvfs` (see §8); build 15 removes it. Build 13 added
+  `background.log` in Documents (`frontend/device/sdl/ioslog.lua`): lifecycle
+  steps, scheduled tasks, inline subprocesses, and a full collection after each
+  flush and every 2 minutes. Remove it once build 15 has run a few days clean.
